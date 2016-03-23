@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.DrawableContainer;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -72,7 +73,7 @@ public class MainActivity extends Activity {
                 System.out.println(i);
                 if (LOGIN[i].equals(login) && MDP[i].equals(password)){
                     System.out.println("Login success");
-                    Intent activity = new Intent(MainActivity.this, ChoiseActivity.class);
+                    Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
                     startActivity(activity);
                 }
                 else{
