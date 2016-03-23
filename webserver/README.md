@@ -1,10 +1,3 @@
-# Création d'un projet en mode étudiant
-Sur Github :
-- faire un fork du projet 
-- ajouter ses camarades dans le projet
-- cloner le projet dans /tmp/$USER/workspace
-- modifier le nom du projet dans le pom.xml
-
 # Installation de Maven
 ## Prérequis
 ### Java 1.7
@@ -22,14 +15,21 @@ Pour installer maven depuis ubuntu ou debian, vous pouvez installer le paquet mv
 
     sudo apt-get install mvn
 
-Créer ensuite un dossier ".m2" dans votre répertoire personnel. Il contiendra le fichier de configuration de maven :
+
+Pour vérifier votre installation, ouvrez un terminal et taper :
+  
+      mvn -version
+
+##### Si vous travaillez en salle TP à l'IUT 
+
+Créer un dossier ".m2" dans votre répertoire personnel. Il contiendra le fichier de configuration de maven :
 
 ```
 mkdir $HOME/.m2
 touch $HOME/.m2/settings.xml
 ```
 
-Modifier ce fichier settings.xml avec votre éditeur préféré (Emacs / vim) et copiez cette configuration :
+Modifier ce fichier settings.xml avec votre éditeur préféré (Emacs / vim / atom) et copiez cette configuration :
 
 ```xml
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
@@ -48,10 +48,6 @@ Modifier ce fichier settings.xml avec votre éditeur préféré (Emacs / vim) et
     </proxies>
 </settings>
 ```
-
-Pour vérifier votre installation, ouvrez un terminal et taper :
-  
-      mvn -version
 
 
 **/!\ Si vous n'êtes pas sur les ordinateurs de l'IUT, ou sur le réseau WIFI de Lille1, passer le paramètre proxy.active à "false" !**
@@ -95,29 +91,10 @@ Des plugins de développement web sont aussi disponibles sur le dépot "http://d
 Une fois les plugins installer, vous pouvez importer le projet maven en faisaint un "Import > Import existing maven project"
 
 # Test du projet en local 
+
 Pour lancer le projet sur la machine du développeur et visiter les pages web sur http://localhost:8080/
 
-modifier le pom pour ajouter jetty-maven-plugin :
-
-    <project>
-      ...
-      <build>
-        ...
-        <plugins>
-          ...
-          <plugin>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-maven-plugin</artifactId>
-            <version>9.3.0.M1</version>
-          </plugin>
-          ...
-        </plugins>
-        ...
-      </build>
-      ...
-    </project>
-
-Pour lancer un serveur local
+Commande pour lancer un serveur local:
 
     mvn jetty:run
 
@@ -208,3 +185,6 @@ Pour déployer votre conteneur sur internet, vous pouvez utiliser la plateforme 
 - Explication de JAX-RS avec Jersey : http://coenraets.org/blog/2011/12/restful-services-with-jquery-and-java-using-jax-rs-and-jersey/
 - Aide sur les IHM en java avec Jersey : http://thierry-leriche-dessirier.developpez.com/tutoriels/java/client-swing-menus-filtres-rest-service/
 - Framework HTML/CSS/JS Bootstrap : http://getbootstrap.com/
+
+## Auteurs
+Projet original de [Thomas Clavier](https://github.com/tclavier/), modifié par [Nicolas Seys](https://github.com/seysn) et [Nicolas Mauger](https://github.com/maugern/)
