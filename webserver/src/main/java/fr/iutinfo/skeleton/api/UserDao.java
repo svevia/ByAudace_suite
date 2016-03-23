@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserDao {
 
-	@SqlUpdate("insert into users (name,alias,email, passwdHash, salt) values (:name, :alias, :email, :passwdHash, :salt)")
+	@SqlUpdate("insert into utilisateur (mail, nom, prenom, digit, mot_de_passe, role) values (:mail, :nom, :prenom, :digit, :mot_de_passe, :role)")
 	@GetGeneratedKeys
 	int insert(@BindBean() User user);
 

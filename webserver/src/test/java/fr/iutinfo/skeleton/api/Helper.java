@@ -19,32 +19,17 @@ public class Helper {
     }
 
     void initDb() {
-        dao.dropUserTable();
-        dao.createUserTable();
+        //dao.dropUserTable();
+        //dao.createUserTable();
     }
 
-    User createUserWithName(String name) {
-        User user = new User(0, name);
+    User createUser(String nom, String prenom, String email, String password) {
+        User user = new User(nom, prenom, email, password);
         return doPost(user);
     }
 
-    User createUserWithAlias(String name, String alias) {
-        User user = new User(0, name, alias);
-        return doPost(user);
-    }
-
-
-    User createUserWithEmail(String name, String email) {
-        User user = new User(0, name);
-        user.setEmail(email);
-        return doPost(user);
-    }
-
-    User createUserWithPassword(String name, String passwd, String salt) {
-        User user = new User(0, name);
-        user.setSalt(salt);
-        user.setPassword(passwd);
-        logger.debug("createUserWithPassword Hash : " + user.getPasswdHash());
+    User createUserWithPhrase(String nom, String prenom, String email, String password, String phraseMetier) {
+        User user = new User(nom, prenom, email, password, phraseMetier);
         return doPost(user);
     }
 
