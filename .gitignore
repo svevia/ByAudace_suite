@@ -34,7 +34,9 @@
 -
 -# Intellij
 -*.iml
--
+-.idea/
+-#Graddle
+-.graddle/
 -# Keystore files
 -*.jks
 -
