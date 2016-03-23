@@ -7,5 +7,7 @@
     <string name="EditLogin">Username</string>
     <string name="Password">Password :</string>
     <string name="LoginButton">Connexion</string>
-    <string name="title_activity_choise">choiseActivity</string>
+    <string name="title_activity_choice">choiceActivity</string>
+    <string name="title_activity_help">helpActivity</string>
+    <string name="title_activity_jpeuxaider">jpeuxAiderActivity</string>
 </resources>
