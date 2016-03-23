@@ -15,9 +15,11 @@
             <div class="col-md-6 col-md-offset-3">
                 <h1>Liste des "User"</h1>
                 <ul class="list-group">
-                <c:forEach var="user" items="${it}">
-                    <li class="list-group-item">${user.id} : <a href="user/${user.id}">${user.name}</a>
-                </c:forEach>
+
+                    <c:forEach items="${userdb/all()}" var="item">
+                        <li class="list-group-item"><a href="userdb/${item.name}">${item.name}</a></li>
+                    </c:forEach>
+
                 </ul>
             </div>
         </div>

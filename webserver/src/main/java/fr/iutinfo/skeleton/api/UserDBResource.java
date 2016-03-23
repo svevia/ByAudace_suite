@@ -14,28 +14,17 @@ public class UserDBResource {
 	private static UserDao dao = BDDFactory.getDbi().open(UserDao.class);
     final static Logger logger = LoggerFactory.getLogger(UserDBResource.class);
 
-
-    public UserDBResource() {
-		try {
-			dao.createUserTable();
-			dao.insert(new User(0,"Margaret Thatcher", "la Dame de fer"));
-		} catch (Exception e) {
-			System.out.println("Table déjà là !");
-		}
-	}
-	
 	@POST
 	public User createUser(User user) {
         user.resetPasswordHash();
-        int id = dao.insert(user);
-        user.setId(id);
+        dao.insert(user);
 		return user;
 	}
 
 	@GET
-	@Path("/{name}")
-	public User getUser(@PathParam("name") String name) {
-		User user = dao.findByName(name);
+	@Path("/{mail}")
+	public User getUser(@PathParam("mail") String mail) {
+		User user = dao.findByMail(mail);
 		if (user == null) {
 			throw new WebApplicationException(404);
 		}

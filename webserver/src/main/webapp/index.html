@@ -19,7 +19,7 @@
 <nav class="navbar navbar-default">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Javascript</a></li>
+            <li class="active"><a href="/">Utilisateurs</a></li>
             <li><a href="/html/user">MVC Template (jsp)</a></li>
         </ul>
     </div>
@@ -27,18 +27,7 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="user">Utilisateur en mémoire : </label>
-                <input type="text" name="user" id="user" placeholder="Nom ?" class="form-control"/>
-                <input type="text" name="user" id="alias" placeholder="Surnom ?" class="form-control"/>
-            </div>
-            <div class="btn-group" role="group">
-                <button id="get-ram" class="btn btn-default">Lire</button>
-                <button id="post-ram" class="btn btn-primary">Sauver</button>
-                <button id="list-ram" class="btn btn-warning">Lister</button>
-            </div>
-        </div>
+
         <div class="col-md-6">
             <div class="form-group">
                 <label for="userdb">Utilisateur en base de données : </label>
@@ -61,8 +50,6 @@
             <br/>
             <button id="read-forall" class="btn btn-default">Lire depuis /v1/secure/forall</button>
             <br/>
-            <button id="read-forlogged" class="btn btn-default">Lire depuis /v1/secure/onlylogged</button>
-            <br/>
             <button id="read-byannotation" class="btn btn-default">Lire depuis /v1/secure/byannotation</button>
         </div>
     </div>
@@ -75,14 +62,10 @@
     </div>
     <script type="text/javascript">
 			$(document).ready(function() {
-				$("#get-ram").click(function () {getUser($('#user').val(), $('#alias').val())});
-				$("#post-ram").click(function () {postUser($('#user').val(), $('#alias').val())});
-				$("#list-ram").click(function () {listUsers()});
 				$("#get-bdd").click(function () {getUserBdd($('#userdb').val(), $('#aliasdb').val())});
 				$("#post-bdd").click(function () {postUserBdd($('#userdb').val(), $('#aliasdb').val(), $('#passwddb').val())});
 				$("#list-bdd").click(function () {listUsersBdd()});
 				$("#read-forall").click(function () {getForAll()});
-				$("#read-forlogged").click(function () {getForLogged()});
 				$("#read-byannotation").click(function () {getByAnnotation()});
 			});
 

@@ -24,9 +24,9 @@ public class UserViews {
 
     @GET
     @Template(name = "detail")
-    @Path("/{id}")
-    public User getDetail(@PathParam("id") String id) {
-        User user = dao.findById(Integer.parseInt(id));
+    @Path("/{mail}")
+    public User getDetail(@PathParam("mail") String mail) {
+        User user = dao.findByMail(mail);
         if (user == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
@@ -34,4 +34,3 @@ public class UserViews {
     }
 
 }
-
