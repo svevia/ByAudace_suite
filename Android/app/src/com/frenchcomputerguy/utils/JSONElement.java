@@ -1,4 +1,4 @@
-package com.frenchcomputerguy.utils;
+package frenchcomputerguy.utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;

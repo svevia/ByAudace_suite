@@ -1,13 +1,12 @@
 apply plugin: 'com.android.application'
-
 android {
-    compileSdkVersion 23
+    compileSdkVersion 18
     buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "fr.univ_lille1.iut_info.debaerdm.byaudace"
-        minSdkVersion 22
-        targetSdkVersion 23
+        minSdkVersion 18
+        targetSdkVersion 18
         versionCode 1
         versionName "1.0"
     }
@@ -17,8 +16,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main.java.srcDirs += 'src/com'
+    }
 }
 
+/*apply plugin: 'java'
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+  runtime group: 'org.apache.httpcomponents',  name: 'httpcomponents', version: '4.5.2'
 }
+
+repositories { mavenCentral() }
+
+task getDeps(type: Copy) {
+  from sourceSets.main.runtimeClasspath
+  into 'libs/'
+}*/
+
