@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
-public class ChoiseActivity extends Activity {
+public class ChoiceActivity extends Activity {
 
     private Button offerHelp;
     private Button help;
@@ -14,7 +14,7 @@ public class ChoiseActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choise);
+        setContentView(R.layout.activity_choice);
     }
 
     @Override

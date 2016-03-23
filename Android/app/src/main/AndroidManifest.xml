@@ -17,13 +17,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".choiseActivity"
-            android:label="@string/title_activity_choise" >
-        </activity>
-        <activity
-            android:name=".ChoiseActivity"
+            android:name=".ChoiceActivity"
             android:label="@string/title_activity_choise" >
         </activity>
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
