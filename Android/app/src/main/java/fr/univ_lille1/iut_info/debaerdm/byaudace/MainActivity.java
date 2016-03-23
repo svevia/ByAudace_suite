@@ -1,16 +1,43 @@
 package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AbsoluteLayout;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
+
+    private static final String LOGIN[] = {"Toto", "Tutu", "Tata"};
+    private static final String MDP[] = {"toto", "tutu", "tata"};
+    private Button loginButton;
+    private EditText loginText;
+    private EditText passwordText;
+    private PopupWindow errorMessage;
+    private LinearLayout layout;
+    private TextView tv;
+    /*private LayoutParams params;
+    private LinearLayout mainLayout;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        loginButton = (Button) findViewById(R.id.LogButton);
+        loginText = (EditText) findViewById(R.id.LoginText);
+        passwordText = (EditText) findViewById(R.id.PasswordText);
+        errorMessage = new PopupWindow(this);
+        layout = new LinearLayout(this);
+        tv = new TextView(this);
     }
 
     @Override
@@ -33,5 +60,30 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onChangeActivity(View view){
+        String login = ""+loginText.getText();
+        String password = ""+passwordText.getText();
+                if(LOGIN.length == MDP.length) {
+                    System.out.println("Test"+login+ " "+password);
+                    for (int i = 0; i < LOGIN.length; ++i){
+                        System.out.println(i);
+                        if (LOGIN[i].equals(login) && MDP[i].equals(password)){
+                            System.out.println("Login success");
+                            Intent activity = new Intent(MainActivity.this, ChoiseActivity.class);
+                            startActivity(activity);
+                        }
+                    }
+                }
+                /*else{
+                    errorMessage.showAsDropDown(layout, Gravity.CENTER, 10, 10);
+                    errorMessage.update(50, 50, 300, 80);
+                    try {
+                        Thread.sleep(100);
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }*/
     }
 }
