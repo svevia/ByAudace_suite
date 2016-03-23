@@ -7,7 +7,7 @@
 -
 -# Java class files
 -*.class
--*.bin
+-
 -# Generated files
 -bin/
 -gen/
@@ -35,8 +35,13 @@
 -# Intellij
 -*.iml
 -.idea/
+-
 -#Graddle
--.graddle/
+-.gradle/
+-
+-#Android
+-build/intermediates/gradle_project_sync_data.bin
+-*.bin
 -# Keystore files
 -*.jks
 -
