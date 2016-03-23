@@ -1,11 +1,15 @@
-package com.frenchcomputerguy.rest;
+package frenchcomputerguy.rest;
 
 import android.os.AsyncTask;
-import com.frenchcomputerguy.utils.JSONElement;
+
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.methods.HttpDelete;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
@@ -14,6 +18,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
+import frenchcomputerguy.utils.JSONElement;
 
 /**
  * This class represents an HTTP request.
@@ -40,7 +46,7 @@ public abstract class Request {
     private Map<String, String> parameters;
 
     public Request(String url) {
-     this(url, new HashMap<>());
+     this(url, new HashMap<String, String>());
          }
 
     public Request(String url, Map<String, String> parameters) {
@@ -53,7 +59,7 @@ public abstract class Request {
      * @param method Request method to send.
      * @return Response body parsed to json, or null if there was a problem.
      */
-    protected JSONElement fetch(int method) {
+    protected JSONElement fetch(final int method) {
         try {
             String response = new AsyncTask<String, Void, String>() {
                 @Override
@@ -106,7 +112,7 @@ public abstract class Request {
 
     public abstract JSONElement getResponse();
 
-    public JSONElement GET(String url, Map<String, String> parameters) {
+    public JSONElement GET(String url, final Map<String,String> parameters) {
         try {
 
             String response = new AsyncTask<String, Void, String>() {
@@ -144,7 +150,7 @@ public abstract class Request {
         return null;
     }
 
-    public JSONElement POST(String url, Map<String, String> parameters) {
+    public JSONElement POST(String url, final Map<String, String> parameters) {
         try {
 
             String response = new AsyncTask<String, Void, String>() {
