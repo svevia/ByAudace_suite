@@ -16,7 +16,7 @@
 	                <h1>Liste des "User"</h1>
 	                <ul class="list-group">
 	                <c:forEach var="phrase" items="${it}">
-	                    <li class="list-group-item">${user.id} : <a href="phrase/${phrase.id}">${phrase.name}</a>
+	                    <li class="list-group-item">${phrase.phrase} : <button type="button" class="btn btn-default">supprimer</button>
 	                </c:forEach>
 	                </ul>
 	            </div>
