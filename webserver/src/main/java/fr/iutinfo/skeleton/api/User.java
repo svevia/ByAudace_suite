@@ -12,28 +12,33 @@ import java.security.SecureRandom;
 public class User implements Principal {
     final static Logger logger = LoggerFactory.getLogger(User.class);
 
-    private String name;
-    private String alias;
-    private int id = 0;
+    /* Obligatoire */
+    private String nom;
+    private String prenom;
     private String email;
     private String password;
     private String passwdHash;
     private String salt;
+    
+    /* Non obligatoire */
+    private String phraseMetier;
+    private String role;
 
-    private static User anonymous = new User(-1, "Anonymous", "anonym");
-
-    public User(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public User(String nom, String prenom, String email, String password) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        setPassword(password);
+        this.role = "user";
     }
-
-    public User(int id, String name, String alias) {
-        this.id = id;
-        this.name = name;
-        this.alias = alias;
-    }
-
-    public User() {
+    
+    public User(String nom, String prenom, String email, String password, String phraseMetier) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        setPassword(password);
+        this.phraseMetier = phraseMetier;
+        this.role = "user";
     }
 
     public String getEmail() {
@@ -44,20 +49,12 @@ public class User implements Principal {
         this.email = email;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
-        return name;
+        return nom;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String nom) {
+        this.nom = nom;
     }
 
 
@@ -94,20 +91,12 @@ public class User implements Principal {
         if (getClass() != arg.getClass())
             return false;
         User user = (User) arg;
-        return name.equals(user.name) && alias.equals(user.alias) && email.equals(user.email) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
+        return nom.equals(user.nom) && prenom.equals(user.prenom) && email.equals(user.email) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
     }
 
     @Override
     public String toString() {
-        return id + ": " + alias + ", " + name + " <" + email + ">";
-    }
-
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
+        return nom + ", " + prenom + " <" + email + ">";
     }
 
     public String getSalt() {
@@ -119,6 +108,10 @@ public class User implements Principal {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+    
+    public boolean isInUserGroup(){
+        return this.role == "user";
     }
 
     private String generateSalt() {
@@ -132,17 +125,5 @@ public class User implements Principal {
         if (password != null && ! password.isEmpty()) {
             setPassword(getPassword());
         }
-    }
-
-    public boolean isInUserGroup(){
-        return ! (id == anonymous.getId());
-    }
-
-    public static User getAnonymousUser() {
-        return anonymous ;
-    }
-
-    public static boolean isAnonymous(User currentUser) {
-        return currentUser.getId() == getAnonymousUser().getId();
     }
 }
