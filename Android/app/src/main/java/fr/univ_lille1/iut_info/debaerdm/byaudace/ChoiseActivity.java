@@ -39,5 +39,5 @@ public class ChoiseActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    
+
 }
