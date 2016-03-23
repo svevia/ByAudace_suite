@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 public class ChoiseActivity extends Activity {
 
+    private Button offerHelp;
+    private Button help;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,4 +38,6 @@ public class ChoiseActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    
 }
