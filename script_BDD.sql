@@ -4,8 +4,6 @@ CREATE TABLE utilisateur(
 	prenom CHAR(200),
 	digit CHAR(20),
 	mot_de_passe CHAR(50),
-	demande INT NOT NULL DEFAULT 0,
-	consultation INT NOT NULL DEFAULT 0,
 	role CHAR(50)
 );
 
@@ -19,11 +17,10 @@ CREATE TABLE phrase_metier(
 );
 
 CREATE TABLE aide(
-	mail_deposant CHAR(200),
 	mail_repondant CHAR(200),
 	phrase CHAR(300),
-	FOREIGN KEY(mail_deposant) REFERENCES phrase_metier(mail_deposant) ON UPDATE CASCADE ON DELETE CASCADE,	
+	date DATETIME,
 	FOREIGN KEY(mail_repondant) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY(phrase) REFERENCES phrase_metier(phrase) ON UPDATE CASCADE ON DELETE CASCADE,
-	PRIMARY KEY(mail_deposant,mail_repondant,phrase)
+	PRIMARY KEY(mail_repondant,phrase)
 );
