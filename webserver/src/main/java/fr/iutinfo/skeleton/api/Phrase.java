@@ -13,12 +13,14 @@ public class Phrase implements Principal {
     /* Obligatoire */
     private String phrase;
     private String besoin;
+    private String mail;
     private boolean terminee;
     private int consultee;
 
-    public Phrase(String phrase, String besoin) {
+    public Phrase(String phrase, String besoin, String mail) {
         this.phrase = phrase;
         this.besoin = besoin;
+        this.mail = mail;
         this.terminee = false;
         this.consultee = 0;
     }
@@ -29,6 +31,14 @@ public class Phrase implements Principal {
 
     public void setPhrase(String phrase) {
         this.phrase = phrase;
+    }
+
+    public String getMail() {
+        return this.mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public void setBesoin(String besoin) {

@@ -7,34 +7,33 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/userdb")
+@Path("/phrase")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class UserDBResource {
-	private static UserDao dao = BDDFactory.getDbi().open(UserDao.class);
-    final static Logger logger = LoggerFactory.getLogger(UserDBResource.class);
+
+public class PhraseResource {
+	private static PhraseDao dao = BDDFactory.getDbi().open(PhraseDao.class);
+    final static Logger logger = LoggerFactory.getLogger(PhraseResource.class);
 
 
-    public UserDBResource() {
+    public PhraseResource() {
 		try {
-			dao.createUserTable();
-			dao.insert(new User(0,"Margaret Thatcher", "la Dame de fer"));
+			dao.createPhraseTable();
 		} catch (Exception e) {
 			System.out.println("Table déjà là !");
 		}
 	}
 	
-	@POST
-	public User createUser(User user) {
-        user.resetPasswordHash();
-        int id = dao.insert(user);
-        user.setId(id);
-		return user;
+/*	@POST
+	public Phrase createPhrase(Phrase phrase) {
+        int id = dao.insert(phrase);
+        phrase.setPhrase(phrase);
+		return phrase;
 	}
-
+*/
 	@GET
 	@Path("/{name}")
-	public User getPhrase(@PathParam("name") String name) {
+	public Phrase getPhrase(@PathParam("name") String name) {
 		Phrase ph = dao.findByName(name);
 		if (ph == null) {
 			throw new WebApplicationException(404);
