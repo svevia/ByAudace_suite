@@ -2,6 +2,8 @@ package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.DrawableContainer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -63,27 +65,29 @@ public class MainActivity extends Activity {
     }
 
     public void onChangeActivity(View view){
+        boolean ok = true;
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
-                if(LOGIN.length == MDP.length) {
-                    System.out.println("Test"+login+ " "+password);
-                    for (int i = 0; i < LOGIN.length; ++i){
-                        System.out.println(i);
-                        if (LOGIN[i].equals(login) && MDP[i].equals(password)){
-                            System.out.println("Login success");
-                            Intent activity = new Intent(MainActivity.this, ChoiseActivity.class);
-                            startActivity(activity);
-                        }
-                    }
+        if(LOGIN.length == MDP.length) {
+            System.out.println("Test"+login+ " "+password);
+            for (int i = 0; i < LOGIN.length; ++i){
+                System.out.println(i);
+                if (LOGIN[i].equals(login) && MDP[i].equals(password)){
+                    System.out.println("Login success");
+                    Intent activity = new Intent(MainActivity.this, ChoiseActivity.class);
+                    startActivity(activity);
                 }
-                /*else{
-                    errorMessage.showAsDropDown(layout, Gravity.CENTER, 10, 10);
-                    errorMessage.update(50, 50, 300, 80);
-                    try {
-                        Thread.sleep(100);
-                    }catch (InterruptedException e){
-                        e.printStackTrace();
-                    }
-                }*/
+                else{
+                    ok = false;
+                }
+            }
+            System.out.println("OK : "+ok);
+            if(!ok){
+                errorMessage.showAsDropDown(layout, Gravity.BOTTOM, 10, 10);
+                errorMessage.update(50, 50, 300, 80);
+                errorMessage.setBackgroundDrawable(new DrawableContainer());
+                errorMessage.setOutsideTouchable(true);
+            }
+        }
     }
 }
