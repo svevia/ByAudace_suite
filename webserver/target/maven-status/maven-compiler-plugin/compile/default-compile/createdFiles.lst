@@ -1,0 +1,15 @@
+fr/iutinfo/skeleton/api/SecureResource.class
+fr/iutinfo/skeleton/utils/RestClient$1.class
+fr/iutinfo/skeleton/auth/AuthFilter.class
+fr/iutinfo/skeleton/api/Api.class
+fr/iutinfo/skeleton/web/Hello.class
+fr/iutinfo/skeleton/web/WebApplication.class
+fr/iutinfo/skeleton/api/UserDBResource.class
+fr/iutinfo/skeleton/api/BDDFactory.class
+fr/iutinfo/skeleton/api/User.class
+fr/iutinfo/skeleton/api/UserDao.class
+fr/iutinfo/skeleton/utils/RestClient.class
+fr/iutinfo/skeleton/auth/BasicAuth.class
+fr/iutinfo/skeleton/auth/AppSecurityContext.class
+fr/iutinfo/skeleton/api/UserResource.class
+fr/iutinfo/skeleton/web/UserViews.class

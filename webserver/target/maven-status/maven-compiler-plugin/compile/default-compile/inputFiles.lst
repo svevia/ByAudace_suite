@@ -1,0 +1,14 @@
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/web/UserViews.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/api/UserResource.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/api/Api.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/auth/BasicAuth.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/api/SecureResource.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/web/WebApplication.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/api/User.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/api/UserDao.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/api/BDDFactory.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/utils/RestClient.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/web/Hello.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/auth/AuthFilter.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/auth/AppSecurityContext.java
+/tmp/seysn/ByAudace/Webserver/src/main/java/fr/iutinfo/skeleton/api/UserDBResource.java

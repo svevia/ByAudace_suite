@@ -1,0 +1,11 @@
+fr/iutinfo/skeleton/api/UserResourceTest.class
+fr/iutinfo/skeleton/api/Helper.class
+fr/iutinfo/skeleton/api/userDBResourceTest.class
+fr/iutinfo/skeleton/api/userDBResourceTest$1.class
+fr/iutinfo/skeleton/api/SecureResourceForAllTest.class
+utils/RestClientTest.class
+fr/iutinfo/skeleton/api/SecureResourceOnlyLoggedTest.class
+fr/iutinfo/skeleton/api/UserTest.class
+fr/iutinfo/skeleton/api/SecureResourceByAnnotationTest.class
+fr/iutinfo/skeleton/api/UserResourceTest$1.class
+fr/iutinfo/skeleton/api/userDBResourceTest$2.class

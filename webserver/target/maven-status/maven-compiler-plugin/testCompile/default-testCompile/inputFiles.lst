@@ -1,0 +1,8 @@
+/tmp/seysn/ByAudace/Webserver/src/test/java/fr/iutinfo/skeleton/api/Helper.java
+/tmp/seysn/ByAudace/Webserver/src/test/java/fr/iutinfo/skeleton/api/UserResourceTest.java
+/tmp/seysn/ByAudace/Webserver/src/test/java/utils/RestClientTest.java
+/tmp/seysn/ByAudace/Webserver/src/test/java/fr/iutinfo/skeleton/api/SecureResourceByAnnotationTest.java
+/tmp/seysn/ByAudace/Webserver/src/test/java/fr/iutinfo/skeleton/api/SecureResourceOnlyLoggedTest.java
+/tmp/seysn/ByAudace/Webserver/src/test/java/fr/iutinfo/skeleton/api/userDBResourceTest.java
+/tmp/seysn/ByAudace/Webserver/src/test/java/fr/iutinfo/skeleton/api/UserTest.java
+/tmp/seysn/ByAudace/Webserver/src/test/java/fr/iutinfo/skeleton/api/SecureResourceForAllTest.java
