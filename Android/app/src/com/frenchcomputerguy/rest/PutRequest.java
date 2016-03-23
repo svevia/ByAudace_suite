@@ -1,8 +1,8 @@
-package com.frenchcomputerguy.rest;
-
-import com.frenchcomputerguy.utils.JSONElement;
+package frenchcomputerguy.rest;
 
 import java.util.Map;
+
+import frenchcomputerguy.utils.JSONElement;
 
 /**
  * This class represents an HTTP PUT request

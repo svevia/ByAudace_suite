@@ -2,10 +2,8 @@ package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.DrawableContainer;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +12,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import frenchcomputerguy.rest.PostRequest;
 
 public class MainActivity extends Activity {
 
@@ -25,6 +28,7 @@ public class MainActivity extends Activity {
     private PopupWindow errorMessage;
     private LinearLayout layout;
     private TextView tv;
+    private PostRequest postRequest;
     /*private LayoutParams params;
     private LinearLayout mainLayout;*/
 
@@ -39,8 +43,6 @@ public class MainActivity extends Activity {
         errorMessage = new PopupWindow(this);
         layout = new LinearLayout(this);
         tv = new TextView(this);
-
-
     }
 
     @Override
@@ -66,6 +68,14 @@ public class MainActivity extends Activity {
     }
 
     public void onChangeActivity(View view){
+        Map<String, String> tmp = new HashMap<String, String>();
+        tmp.put("Test", "This is a test");
+        postRequest = new PostRequest("http://httpbin.org/post", tmp);
+        try{
+            System.out.println("Requete REST : "+postRequest.getResponse().getJSONObject().getJSONObject("headers").getString("Test"));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         boolean ok = true;
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
@@ -86,7 +96,7 @@ public class MainActivity extends Activity {
             }
             System.out.println("OK : "+ok);
             if(!ok){
-                errorMessage.showAsDropDown(layout, Gravity.BOTTOM, 10, 10);
+                errorMessage.showAsDropDown(layout,10,10);
                 errorMessage.update(50, 50, 300, 80);
                 errorMessage.setBackgroundDrawable(new DrawableContainer());
                 errorMessage.setOutsideTouchable(true);
