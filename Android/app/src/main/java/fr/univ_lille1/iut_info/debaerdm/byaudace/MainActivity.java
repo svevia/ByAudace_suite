@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
                 System.out.println(i);
                 if (LOGIN[i].equals(login) && MDP[i].equals(password)){
                     System.out.println("Login success");
-                    Intent activity = new Intent(MainActivity.this, ChoiseActivity.class);
+                    Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
                     startActivity(activity);
                 }
                 else{
