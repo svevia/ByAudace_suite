@@ -39,6 +39,8 @@ public class MainActivity extends Activity {
         errorMessage = new PopupWindow(this);
         layout = new LinearLayout(this);
         tv = new TextView(this);
+
+
     }
 
     @Override
@@ -75,6 +77,8 @@ public class MainActivity extends Activity {
                     System.out.println("Login success");
                     Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
                     startActivity(activity);
+                    ok = true;
+                    break;
                 }
                 else{
                     ok = false;
