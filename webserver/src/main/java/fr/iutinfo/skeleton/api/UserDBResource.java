@@ -9,8 +9,8 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 @Path("/userdb")
-//@Produces(MediaType.APPLICATION_JSON)
-//@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class UserDBResource {
 
     private static UserDao dao = BDDFactory.getDbi().open(UserDao.class);
@@ -24,7 +24,7 @@ public class UserDBResource {
         user.resetPasswordHash();
         //dao.insert(user);
         dao.insert(mail, nom, prenom, digit, mot_de_passe, role);
-        return Response.status(200).entity("Created user : " + user.getEmail()).build();
+        return Response.status(200).entity("Created user : " + user.getMail()).build();
     }
 
     @GET
@@ -37,15 +37,15 @@ public class UserDBResource {
         return user;
     }
 
-    /*@GET
+    @GET
     public List<User> getAllUsers() {
         return dao.all();
-    }*/
-    
-    @GET
-    public void getAll() {
-        List<User> l = dao.all();
-        for (User u : l)
-            System.out.println("mail:"+u.getEmail());
     }
+    
+    /*@GET
+    public void getAll() {
+        List<User> lu = dao.all();
+        for (User u : lu)
+            System.out.println("mail:" + u.getEmail() + " nom:" + u.getPrenom());
+    }*/
 }

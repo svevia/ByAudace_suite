@@ -1,7 +1,3 @@
-function getUser(name) {
-	getUserGeneric(name, "v1/user/");
-}
-
 function getUserBdd(name) {
 	getUserGeneric(name, "v1/userdb/");
 }
@@ -10,14 +6,6 @@ function getUserGeneric(name, url) {
 	$.getJSON(url + name, function(data) {
 		afficheUser(data);
 	});
-}
-
-function getForAll() {
-	getSecure("v1/secure/forall");
-}
-
-function getForLogged() {
-	getSecure("v1/secure/onlylogged");
 }
 
 function getByAnnotation() {
@@ -94,6 +82,7 @@ function listUsersGeneric(url) {
 function afficheUser(data) {
 	console.log(data);
 	$("#reponse").html(data.id + " : <b>" + data.alias + "</b> (" + data.name + ")");
+	window.location.replace("/html/user");
 }
 
 function afficheListUsers(data) {

@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.api;
+/*package fr.iutinfo.skeleton.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,3 +33,4 @@ public class Helper {
     }
 
 }
+*/

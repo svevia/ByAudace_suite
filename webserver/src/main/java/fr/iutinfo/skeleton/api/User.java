@@ -8,11 +8,12 @@ import org.slf4j.LoggerFactory;
 
 import java.security.Principal;
 import java.security.SecureRandom;
+import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
 public class User implements Principal {
     final static Logger logger = LoggerFactory.getLogger(User.class);
 
-    private String nom;
+    private String name;
     private String prenom;
     private String mail;
     private String mot_de_passe;
@@ -22,43 +23,73 @@ public class User implements Principal {
     private String role;
 
     public User(String mail, String nom, String prenom, String digit, String mot_de_passe, String role) {
-        this.nom = nom;
+        this.name = nom;
         this.prenom = prenom;
         this.mail = mail;
-        setPassword(mot_de_passe);
+        setMot_de_passe(mot_de_passe);
         this.digit = digit;
         this.role = role;
     }
 
-    public String getEmail() {
+    public User(){}
+
+    /* Getters Setters */
+
+    public String getMail() {
         return mail;
     }
 
-    public void setEmail(String mail) {
+    public void setMail(String mail) {
         this.mail = mail;
     }
 
-    public String getName() {
-        return nom;
+    public String getNom() {
+        return name;
     }
-    
+
+    public void setNom(String nom) {
+        this.name = nom;
+    }
+
     public String getPrenom() {
         return prenom;
     }
 
-    public void setName(String nom) {
-        this.nom = nom;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
-
-    public void setPassword(String mot_de_passe) {
+    public void setMot_de_passe(String mot_de_passe) {
         passwdHash = buildHash(mot_de_passe, getSalt());
         this.mot_de_passe = mot_de_passe;
     }
 
-    public String getPassword () {
+    public String getMot_de_passe() {
         return this.mot_de_passe;
     }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setDigit(String digit) {
+        this.digit = digit;
+    }
+
+    public String getDigit() {
+        return digit;
+    }
+
+    @Override
+    public String getName() {
+        return getNom();
+    }
+
+    /* Other methods */
 
     private String buildHash(String mot_de_passe, String s) {
         Hasher hasher = Hashing.md5().newHasher();
@@ -67,8 +98,9 @@ public class User implements Principal {
     }
 
     public boolean isGoodPassword(String mot_de_passe) {
-        String hash = buildHash(mot_de_passe, getSalt());
-        return hash.equals(getPasswdHash());
+        return true;
+        //String hash = buildHash(mot_de_passe, getSalt());
+        //return hash.equals(getPasswdHash());
     }
 
     public String getPasswdHash() {
@@ -84,12 +116,12 @@ public class User implements Principal {
         if (getClass() != arg.getClass())
             return false;
         User user = (User) arg;
-        return nom.equals(user.nom) && prenom.equals(user.prenom) && mail.equals(user.mail) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
+        return name.equals(user.name) && prenom.equals(user.prenom) && mail.equals(user.mail) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
     }
 
     @Override
     public String toString() {
-        return nom + ", " + prenom + " <" + mail + ">";
+        return name + ", " + prenom + " <" + mail + ">";
     }
 
     public String getSalt() {
@@ -102,10 +134,15 @@ public class User implements Principal {
     public void setSalt(String salt) {
         this.salt = salt;
     }
-    
-    public boolean isInUserGroup(){
-        return this.role == "user";
+
+    public boolean isInAdminGroup(){
+        return this.role.equals("admin");
     }
+
+    public boolean isInUserGroup(){
+        return this.role.equals("user");
+    }
+
 
     private String generateSalt() {
         SecureRandom random = new SecureRandom();
@@ -116,7 +153,9 @@ public class User implements Principal {
 
     public void resetPasswordHash() {
         if (mot_de_passe != null && ! mot_de_passe.isEmpty()) {
-            setPassword(getPassword());
+            setMot_de_passe(getMot_de_passe());
         }
     }
+
+
 }

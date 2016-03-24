@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.api;
+/*package fr.iutinfo.skeleton.api;
 
 import static org.junit.Assert.*;
 
@@ -16,19 +16,20 @@ public class UserTest extends JerseyTest{
         h = new Helper(target("/userdb"));
         h.initDb();
     }
-    
+
     @Override
     protected Application configure() {
         return new Api();
     }
-    
+
     @Test
     public void test_create_user () {
     	h.createUser("Clavier", "Thomas", "digit", "tc@toto.com");
         User utilisateur = target("/userdb").request().get(User.class);
         assertEquals("Clavier", utilisateur.getName());
     }
-    
-    
+
+
 
 }
+*/
