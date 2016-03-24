@@ -1,17 +1,23 @@
 package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 /**
  * Created by kancurzv on 23/03/16.
  */
 public class JpeuxAiderActivity extends Activity  {
+
 
     ListView mListView;
     String[] listPhrases = new String[50];
@@ -28,10 +34,17 @@ public class JpeuxAiderActivity extends Activity  {
 
         setContentView(R.layout.activity_jpeuxaider);
 
-        /*listPhrases =
+        /*String pmEnvoye = (String) getIntent().getSerializableExtra("double");
+
+        for(int i=0; i < listPhrases.length; i++) {
+            if(listPhrases[i].isEmpty()) {
+                listPhrases[i] = pmEnvoye;
+                break;
+            }
+        }
         mListView = (ListView) findViewById(R.id.listView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_list_item_1, prenoms);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(JpeuxAiderActivity.this,
+                android.R.layout.simple_list_item_1, listPhrases);
         mListView.setAdapter(adapter);*/
 
     }

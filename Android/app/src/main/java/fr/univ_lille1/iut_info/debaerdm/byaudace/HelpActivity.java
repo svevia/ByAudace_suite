@@ -1,6 +1,7 @@
 package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -8,15 +9,23 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
  * Created by kancurzv on 23/03/16.
  */
-public class HelpActivity extends Activity implements TextWatcher {
+public class
+        HelpActivity extends Activity implements TextWatcher {
+    EditText pm;
+    Button envoy;
+    private String valStr;
 
     private EditText status;
     private TextView nbCharTxt;
@@ -40,6 +49,11 @@ public class HelpActivity extends Activity implements TextWatcher {
 
         int maxLength = 300;
         status.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
+
+
+
+
+
 
     }
 
@@ -90,5 +104,16 @@ public class HelpActivity extends Activity implements TextWatcher {
 
 
     }
+
+
+    public void onClick(View v) {
+        // TODO Auto-generated method stub
+        //valStr = pm.getText().toString();
+                /*Intent intent = new Intent(HelpActivity.this, JpeuxAiderActivity.class);
+                intent.putExtra("string", valStr);
+                startActivity(intent);*/
+
+    }
+
 
 }

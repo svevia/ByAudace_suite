@@ -12,6 +12,15 @@
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Envoyer"
+        android:id="@+id/button"
+        android:layout_gravity="right"
+        android:onClick="onClick3" />
+
     <EditText
         android:layout_width="341dp"
         android:layout_height="wrap_content"
@@ -33,4 +42,6 @@
         android:text="300 caractères restants"
         android:id="@+id/textView6"
         android:layout_gravity="center_horizontal" />
+
+
 </LinearLayout>
