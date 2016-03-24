@@ -18,7 +18,7 @@
 
 
                     <c:forEach items="${it}" var="item">
-                        <li class="list-group-item"><a href="userdb/${item.name}">${item.name}</a></li>
+                        <li class="list-group-item"><a href="userdb/${item.mail}">${item.mail}</a></li>
                     </c:forEach>
 
                 </ul>

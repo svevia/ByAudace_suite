@@ -7,6 +7,7 @@
     tools:context="fr.univ_lille1.iut_info.debaerdm.byaudace.ChoiceActivity">
 
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,10 +20,35 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Demander de mise en relation"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="J'peux aider !"
+        android:id="@+id/button2"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="43dp"
+        android:onClick="onClick" />
+
+
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Offer Help"
+        android:text="Help !"
         android:id="@+id/button1"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/button2"
@@ -30,15 +56,5 @@
         android:layout_marginTop="61dp"
         android:onClick="onClick2" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Help"
-        android:id="@+id/button2"
-        android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp"
-        android:onClick="onClick" />
+
 </RelativeLayout>
