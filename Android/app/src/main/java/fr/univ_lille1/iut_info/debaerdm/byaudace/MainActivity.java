@@ -16,8 +16,6 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.Map;
 
-import frenchcomputerguy.rest.PostRequest;
-
 public class MainActivity extends Activity {
 
     private static final String LOGIN[] = {"Toto", "Tutu", "Tata"};
@@ -28,7 +26,6 @@ public class MainActivity extends Activity {
     private PopupWindow errorMessage;
     private LinearLayout layout;
     private TextView tv;
-    private PostRequest postRequest;
     /*private LayoutParams params;
     private LinearLayout mainLayout;*/
 
@@ -70,12 +67,6 @@ public class MainActivity extends Activity {
     public void onChangeActivity(View view){
         Map<String, String> tmp = new HashMap<String, String>();
         tmp.put("Test", "This is a test");
-        postRequest = new PostRequest("http://httpbin.org/post", tmp);
-        try{
-            System.out.println("Requete REST : "+postRequest.getResponse().getJSONObject().getJSONObject("headers").getString("Test"));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
         boolean ok = true;
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
