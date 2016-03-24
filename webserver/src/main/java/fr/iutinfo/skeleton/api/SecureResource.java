@@ -20,14 +20,8 @@ public class SecureResource {
     final static Logger logger = LoggerFactory.getLogger(SecureResource.class);
 
     @GET
-    @Path("/forall")
-    public User secureForAll(@Context SecurityContext context) {
-        return (User) context.getUserPrincipal();
-    }
-
-    @GET
     @Path("/byannotation")
-    @RolesAllowed({"user"})
+    @RolesAllowed({"admin"})
     public User secureByAnnotation(@Context SecurityContext context) {
         return (User) context.getUserPrincipal();
     }
