@@ -26,10 +26,10 @@ public class AppSecurityContext implements SecurityContext {
     @Override
     public boolean isUserInRole(String s) {
         logger.debug("isUserInRole called for : " + s);
-        if ("user".equals(s)) {
-            return user.isInUserGroup();
+        if ("admin".equals(s)) {
+            return user.isInAdminGroup();
         }
-        return true;
+        return false;
     }
 
     @Override

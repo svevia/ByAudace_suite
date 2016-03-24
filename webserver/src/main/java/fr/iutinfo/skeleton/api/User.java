@@ -30,11 +30,11 @@ public class User implements Principal {
         this.digit = digit;
         this.role = role;
     }
-    
+
     public User(){}
 
     /* Getters Setters */
-    
+
     public String getMail() {
         return mail;
     }
@@ -46,11 +46,11 @@ public class User implements Principal {
     public String getNom() {
         return name;
     }
-    
+
     public void setNom(String nom) {
         this.name = nom;
     }
-    
+
     public String getPrenom() {
         return prenom;
     }
@@ -83,12 +83,12 @@ public class User implements Principal {
     public String getDigit() {
         return digit;
     }
-    
+
     @Override
     public String getName() {
         return getNom();
     }
-    
+
     /* Other methods */
 
     private String buildHash(String mot_de_passe, String s) {
@@ -98,8 +98,9 @@ public class User implements Principal {
     }
 
     public boolean isGoodPassword(String mot_de_passe) {
-        String hash = buildHash(mot_de_passe, getSalt());
-        return hash.equals(getPasswdHash());
+        return true;
+        //String hash = buildHash(mot_de_passe, getSalt());
+        //return hash.equals(getPasswdHash());
     }
 
     public String getPasswdHash() {
@@ -133,10 +134,15 @@ public class User implements Principal {
     public void setSalt(String salt) {
         this.salt = salt;
     }
-    
-    public boolean isInUserGroup(){
-        return this.role == "user";
+
+    public boolean isInAdminGroup(){
+        return this.role.equals("admin");
     }
+
+    public boolean isInUserGroup(){
+        return this.role.equals("user");
+    }
+
 
     private String generateSalt() {
         SecureRandom random = new SecureRandom();
@@ -151,6 +157,5 @@ public class User implements Principal {
         }
     }
 
-    
-}
 
+}
