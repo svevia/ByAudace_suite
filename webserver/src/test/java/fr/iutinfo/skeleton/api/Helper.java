@@ -1,4 +1,4 @@
-/*package fr.iutinfo.skeleton.api;
+package fr.iutinfo.skeleton.api;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
@@ -34,4 +34,3 @@ public class Helper {
     }
 
 }
-*/
