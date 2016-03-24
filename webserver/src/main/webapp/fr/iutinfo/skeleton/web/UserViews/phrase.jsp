@@ -1,5 +1,8 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
+<%@ page import="fr.iutinfo.skeleton.api.*" %>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.List"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="fr">
@@ -15,9 +18,12 @@
 	            <div class="col-md-6 col-md-offset-3">
 	                <h1>Phrases metier</h1>
 	                <ul class="list-group">
-	                <c:forEach items="${it}" var="item">
-                        <li class="list-group-item"><a href="phrase/${item.name}">${item.name}</a></li>
-	                </c:forEach>
+	                <% List<Phrase> items = new ArrayList<Phrase>(); %>
+	                <% PhraseResource resource = new PhraseResource(); %>
+	               	<%  items = resource.getAllPhrase(); %>
+	                <% for( Phrase p : items){ %>
+                        <li class="list-group-item"><% p.toString(); %></li>
+	                <% } %>
 	                </ul>
 	            </div>
 	        </div>
