@@ -19,10 +19,10 @@ public class Phrase  {
     private int consultee;
 
     public Phrase(){
-        
+
     }
 
-    public Phrase(String phrase, String besoin, String mail, Stirng numero) {
+    public Phrase(String phrase, String besoin, String mail, String numero) {
         this.phrase = phrase;
         this.besoin = besoin;
         this.mail = mail;
@@ -71,7 +71,7 @@ public class Phrase  {
         this.terminee = terminee;
     }
 
-    public boolean getConsultee() {
+    public int getConsultee() {
         return this.consultee;
     }
 
