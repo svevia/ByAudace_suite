@@ -19,12 +19,12 @@
 					  <table class="table">
 					  	<c:forEach items="${it}" var="item">
 					    <tr>
-					    <td  style="background-color:lightsteelblue;">${item.phrase}</td>
-					    <td  style="background-color:lightsteelblue;"></td>
+					    <td style="background-color:lightsteelblue;">${item.phrase}</td>
+					    <td style="background-color:lightsteelblue;">${item.mail}</td>
 						</tr>
 						<tr>
-					    <td>${item.besoin}
-					    <td><button type="button" class="btn btn-default">supprimer</button></td>
+					    <td>${item.besoin}</td>
+					    <td><button type="button" class="btn btn-danger">supprimer</button></td>
 					    </tr>
 					    </c:forEach>
 					  </table>
