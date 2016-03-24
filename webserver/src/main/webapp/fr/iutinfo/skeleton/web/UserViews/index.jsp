@@ -9,6 +9,7 @@
     <title>Liste des "User"</title>
   </head>
   <body>
+        <jsp:include page="/layout/logo.jsp"/>
     <jsp:include page="/layout/navbar.jsp"/>
     <div class="container">
         <div class="row">
