@@ -8,13 +8,10 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-<<<<<<< HEAD
 import android.view.Window;
 import android.view.WindowManager;
-=======
 import android.widget.EditText;
 import android.widget.TextView;
->>>>>>> 3ecbcb8e1a41440f2fae203b0c7370a9a1cf35ec
 
 /**
  * Created by kancurzv on 23/03/16.
