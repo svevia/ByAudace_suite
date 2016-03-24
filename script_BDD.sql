@@ -11,8 +11,8 @@ CREATE TABLE phrase_metier(
 	phrase CHAR(300) PRIMARY KEY NOT NULL,
 	besoin CHAR(300),
 	mail_deposant CHAR(200),
-	terminee BOOLEAN NOT NULL DEFAULT False,
-	consultee INT NOT NULL DEFAULT 0,
+	terminee BOOLEAN DEFAULT False,
+	consultee INT DEFAULT 0,
 	FOREIGN KEY(mail_deposant) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
