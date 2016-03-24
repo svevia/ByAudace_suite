@@ -15,12 +15,18 @@ public class Phrase  {
     private String besoin;
     private String mail;
     private boolean terminee;
+    private String numero;
     private int consultee;
 
-    public Phrase(String phrase, String besoin, String mail) {
+    public Phrase(){
+        
+    }
+
+    public Phrase(String phrase, String besoin, String mail, Stirng numero) {
         this.phrase = phrase;
         this.besoin = besoin;
         this.mail = mail;
+        this.numero = numero;
         this.terminee = false;
         this.consultee = 0;
     }
@@ -49,6 +55,14 @@ public class Phrase  {
         return this.besoin;
     }
 
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public String getNumero() {
+        return this.numero;
+    }
+
     public boolean getTerminee() {
         return this.terminee;
     }
@@ -57,11 +71,12 @@ public class Phrase  {
         this.terminee = terminee;
     }
 
-    public boolean equals(Object arg) {
-        if (getClass() != arg.getClass())
-            return false;
-        Phrase ph = (Phrase) arg;
-        return phrase.equals(ph.phrase) && besoin.equals(ph.besoin);
+    public boolean getConsultee() {
+        return this.consultee;
+    }
+
+    public void setConsultee(int consultee) {
+        this.consultee = consultee;
     }
 
     public String toString() {
