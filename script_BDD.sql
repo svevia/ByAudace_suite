@@ -3,6 +3,7 @@ CREATE TABLE utilisateur(
 	nom CHAR(200),
 	prenom CHAR(200),
 	digit CHAR(20),
+	numero INT,
 	mot_de_passe CHAR(50) NOT NULL,
 	role CHAR(50)
 );
