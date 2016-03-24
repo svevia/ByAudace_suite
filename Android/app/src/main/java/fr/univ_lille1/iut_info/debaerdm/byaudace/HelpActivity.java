@@ -25,7 +25,7 @@ public class
         HelpActivity extends Activity implements TextWatcher {
     EditText pm;
     Button envoy;
-    private String valStr;
+    public final static  String EXTRA_MESSAGE="0";
 
     private EditText status;
     private TextView nbCharTxt;
@@ -50,7 +50,29 @@ public class
         int maxLength = 300;
         status.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
 
+        //--------recuperation pm
 
+        pm = (EditText) findViewById(R.id.phrase);
+        envoy = (Button) findViewById(R.id.button);
+
+        envoy.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                /*String valStr = pm.getText().toString();
+                Intent intent = new Intent(HelpActivity.this, JpeuxAiderActivity.class);
+                intent.putExtra("sending", valStr);
+                startActivity(intent);*/
+
+
+                Intent i1 = new Intent( HelpActivity.this, JpeuxAiderActivity.class );
+                i1.putExtra(EXTRA_MESSAGE, pm.getText().toString());
+                startActivityForResult(i1, 0);
+
+            }
+
+        });
 
 
 

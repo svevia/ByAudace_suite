@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * Created by kancurzv on 23/03/16.
@@ -21,6 +22,7 @@ public class JpeuxAiderActivity extends Activity  {
 
     ListView mListView;
     String[] listPhrases = new String[50];
+    String pmEnvoye;
 
 
     @Override
@@ -34,7 +36,17 @@ public class JpeuxAiderActivity extends Activity  {
 
         setContentView(R.layout.activity_jpeuxaider);
 
-        /*String pmEnvoye = (String) getIntent().getSerializableExtra("double");
+        final Intent intent = getIntent();
+        String message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
+        final TextView tv1 = (TextView)findViewById( R.id.textView3 );
+        tv1.setText(message);
+
+
+
+
+         /*pmEnvoye = (String) getIntent().getSerializableExtra("sending");
+
+        mListView = (ListView) findViewById(R.id.listView);
 
         for(int i=0; i < listPhrases.length; i++) {
             if(listPhrases[i].isEmpty()) {
@@ -42,9 +54,9 @@ public class JpeuxAiderActivity extends Activity  {
                 break;
             }
         }
-        mListView = (ListView) findViewById(R.id.listView);
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(JpeuxAiderActivity.this,
-                android.R.layout.simple_list_item_1, listPhrases);
+                android.R.layout.simple_list_item_1, Integer.parseInt(pmEnvoye));
         mListView.setAdapter(adapter);*/
 
     }
