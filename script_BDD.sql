@@ -29,4 +29,4 @@ INSERT INTO utilisateur VALUES("toto@gmail.com","toto","tototo","FRNL","toto","u
 INSERT INTO utilisateur VALUES("titi@gmail.com","titi","tititi","FRDM","titi","admin");
 INSERT INTO utilisateur VALUES("tata@gmail.com","tata","tatata","FRPO","tata","user");
 
-INSERT INTO phrase_metier VALUES("mon entreprise demarre","besoin d'un secretaire","toto@gmail.com");
+INSERT INTO phrase_metier VALUES("mon entreprise demarre","besoin d'un secretaire","toto@gmail.com",NULL,NULL);
