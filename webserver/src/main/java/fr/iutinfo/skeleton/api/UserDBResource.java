@@ -9,8 +9,8 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 @Path("/userdb")
-//@Produces(MediaType.APPLICATION_JSON)
-//@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+@Consumes(MediaType.APPLICATION_JSON)
 public class UserDBResource {
 
     private static UserDao dao = BDDFactory.getDbi().open(UserDao.class);
@@ -37,15 +37,15 @@ public class UserDBResource {
         return user;
     }
 
-    /*@GET
+    @GET
     public List<User> getAllUsers() {
         return dao.all();
-    }*/
+    }
     
-    @GET
+    /*@GET
     public void getAll() {
         List<User> lu = dao.all();
         for (User u : lu)
             System.out.println("mail:" + u.getEmail() + " nom:" + u.getPrenom());
-    }
+    }*/
 }
