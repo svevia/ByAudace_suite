@@ -32,11 +32,16 @@ proguard/
 # Android Studio captures folder
 captures/
 
+# eclipse
+.classpath
+.project
+.settings/
+
 # Intellij
 *.iml
 .idea
 
--#Android
+#Android
 *.bin
 
 # Keystore files
@@ -44,6 +49,7 @@ captures/
 
 # Maven
 target/
+webserver/target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
