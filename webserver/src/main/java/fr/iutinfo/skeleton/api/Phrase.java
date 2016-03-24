@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.security.Principal;
 import java.security.SecureRandom;
 
-public class Phrase implements Principal {
+public class Phrase  {
    // final static Logger logger = LoggerFactory.getLogger(User.class);
 
     /* Obligatoire */
@@ -57,7 +57,6 @@ public class Phrase implements Principal {
         this.terminee = terminee;
     }
 
-    @Override
     public boolean equals(Object arg) {
         if (getClass() != arg.getClass())
             return false;
@@ -65,7 +64,6 @@ public class Phrase implements Principal {
         return phrase.equals(ph.phrase) && besoin.equals(ph.besoin);
     }
 
-    @Override
     public String toString() {
         return phrase+ " (" + besoin + ")";
     }
