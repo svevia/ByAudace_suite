@@ -19,6 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.frenchcomputerguy.rest.Request;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +34,7 @@ public class MainActivity extends Activity {
     private PopupWindow errorMessage;
     private LinearLayout layout;
     private TextView tv;
+    private Request request;
     /*private LayoutParams params;
     private LinearLayout mainLayout;*/
 
@@ -39,6 +42,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        request = new Request("http://172.18.49.88:8080");
         // fullscreen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -87,6 +91,7 @@ public class MainActivity extends Activity {
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
 
+        request.GET("GET");
         if(LOGIN.length == MDP.length) {
 
             for (int i = 0; i < LOGIN.length; ++i){
