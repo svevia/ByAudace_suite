@@ -8,6 +8,7 @@ import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
 
 public class AppSecurityContext implements SecurityContext {
+
     final static Logger logger = LoggerFactory.getLogger(AppSecurityContext.class);
     private User user;
     private String scheme;
@@ -24,12 +25,11 @@ public class AppSecurityContext implements SecurityContext {
 
     @Override
     public boolean isUserInRole(String s) {
-        logger.debug("isUserInRole called for : "+ s);
-        if ("user".equals(s)){
+        logger.debug("isUserInRole called for : " + s);
+        if ("user".equals(s)) {
             return user.isInUserGroup();
         }
-            return true;
-
+        return true;
     }
 
     @Override

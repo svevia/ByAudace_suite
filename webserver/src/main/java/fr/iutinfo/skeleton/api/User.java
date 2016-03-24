@@ -12,41 +12,30 @@ import java.security.SecureRandom;
 public class User implements Principal {
     final static Logger logger = LoggerFactory.getLogger(User.class);
 
-    /* Obligatoire */
     private String nom;
     private String prenom;
-    private String email;
-    private String password;
+    private String mail;
+    private String mot_de_passe;
     private String passwdHash;
     private String salt;
-    
-    /* Non obligatoire */
-    private String phraseMetier;
+    private String digit;
     private String role;
 
-    public User(String nom, String prenom, String email, String password) {
+    public User(String mail, String nom, String prenom, String digit, String mot_de_passe, String role) {
         this.nom = nom;
         this.prenom = prenom;
-        this.email = email;
-        setPassword(password);
-        this.role = "user";
-    }
-    
-    public User(String nom, String prenom, String email, String password, String phraseMetier) {
-        this.nom = nom;
-        this.prenom = prenom;
-        this.email = email;
-        setPassword(password);
-        this.phraseMetier = phraseMetier;
-        this.role = "user";
+        this.mail = mail;
+        setPassword(mot_de_passe);
+        this.digit = digit;
+        this.role = role;
     }
 
     public String getEmail() {
-        return email;
+        return mail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String mail) {
+        this.mail = mail;
     }
 
     public String getName() {
@@ -58,23 +47,23 @@ public class User implements Principal {
     }
 
 
-    public void setPassword(String password) {
-        passwdHash = buildHash(password, getSalt());
-        this.password = password;
+    public void setPassword(String mot_de_passe) {
+        passwdHash = buildHash(mot_de_passe, getSalt());
+        this.mot_de_passe = mot_de_passe;
     }
 
     public String getPassword () {
-        return this.password;
+        return this.mot_de_passe;
     }
 
-    private String buildHash(String password, String s) {
+    private String buildHash(String mot_de_passe, String s) {
         Hasher hasher = Hashing.md5().newHasher();
-        hasher.putString(password + s, Charsets.UTF_8);
+        hasher.putString(mot_de_passe + s, Charsets.UTF_8);
         return hasher.hash().toString();
     }
 
-    public boolean isGoodPassword(String password) {
-        String hash = buildHash(password, getSalt());
+    public boolean isGoodPassword(String mot_de_passe) {
+        String hash = buildHash(mot_de_passe, getSalt());
         return hash.equals(getPasswdHash());
     }
 
@@ -91,12 +80,12 @@ public class User implements Principal {
         if (getClass() != arg.getClass())
             return false;
         User user = (User) arg;
-        return nom.equals(user.nom) && prenom.equals(user.prenom) && email.equals(user.email) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
+        return nom.equals(user.nom) && prenom.equals(user.prenom) && mail.equals(user.mail) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
     }
 
     @Override
     public String toString() {
-        return nom + ", " + prenom + " <" + email + ">";
+        return nom + ", " + prenom + " <" + mail + ">";
     }
 
     public String getSalt() {
@@ -122,7 +111,7 @@ public class User implements Principal {
     }
 
     public void resetPasswordHash() {
-        if (password != null && ! password.isEmpty()) {
+        if (mot_de_passe != null && ! mot_de_passe.isEmpty()) {
             setPassword(getPassword());
         }
     }
