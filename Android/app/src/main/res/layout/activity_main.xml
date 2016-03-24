@@ -44,10 +44,11 @@
         android:layout_alignParentEnd="true" />
 
     <TextView
+        android:autoLink="web"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="campus-audace.com/"
+        android:text="campus-audace.com"
         android:id="@+id/textView"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
