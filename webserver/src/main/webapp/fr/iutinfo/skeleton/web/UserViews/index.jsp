@@ -16,7 +16,8 @@
                 <h1>Liste des "User"</h1>
                 <ul class="list-group">
 
-                    <c:forEach items="${userdb/all()}" var="item">
+
+                    <c:forEach items="${it}" var="item">
                         <li class="list-group-item"><a href="userdb/${item.name}">${item.name}</a></li>
                     </c:forEach>
 
