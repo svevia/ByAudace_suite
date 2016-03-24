@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 android {
-    compileSdkVersion 18
+    compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "fr.univ_lille1.iut_info.debaerdm.byaudace"
-        minSdkVersion 18
-        targetSdkVersion 18
+        minSdkVersion 23
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -32,5 +32,8 @@ repositories { mavenCentral() }
 task getDeps(type: Copy) {
   from sourceSets.main.runtimeClasspath
   into 'libs/'
-}*/
+}*/ dependencies {
+    compile 'com.google.android.gms:play-services:4.2.42'
+    compile 'com.android.support:appcompat-v7:23.+'
+}
 
