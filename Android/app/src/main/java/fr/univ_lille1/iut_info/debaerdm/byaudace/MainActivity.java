@@ -76,13 +76,16 @@ public class MainActivity extends Activity {
         Map<String, String> tmp = new HashMap<String, String>();
         tmp.put("Test", "This is a test");
         boolean ok = true;
+
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
+
         if(LOGIN.length == MDP.length) {
-            System.out.println("Test"+login+ " "+password);
+
             for (int i = 0; i < LOGIN.length; ++i){
-                System.out.println(i);
+
                 if (LOGIN[i].equals(login) && MDP[i].equals(password)){
+
                     System.out.println("Login success");
                     Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
                     startActivity(activity);
@@ -93,12 +96,14 @@ public class MainActivity extends Activity {
                     ok = false;
                 }
             }
-            System.out.println("OK : "+ok);
+
             if(!ok){
+
                 errorMessage.showAsDropDown(layout,10,10);
                 errorMessage.update(50, 50, 300, 80);
                 errorMessage.setBackgroundDrawable(new DrawableContainer());
                 errorMessage.setOutsideTouchable(true);
+
             }
         }
     }
