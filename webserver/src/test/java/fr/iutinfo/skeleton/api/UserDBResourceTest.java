@@ -28,7 +28,7 @@ public class UserDBResourceTest extends JerseyTest{
     @Test
     public void should_return_user_as_object() {
     	h.createUser("Clavier", "Thomas", "tc@gmail.com", "1234pouet", "AZERTY", "user");
-    	User utilisateur = target("/userdb").request().get(User.class);
+    	User utilisateur = target("/userdb/").request().get(User.class);
     	assertEquals("tc@gmail.com", utilisateur.getMail());
     }
     
@@ -47,5 +47,73 @@ public class UserDBResourceTest extends JerseyTest{
         List<User> users = target("/userdb").request().get(new GenericType<List<User>>() {});
         assertEquals("tc@gmail.com", users.get(0).getMail());
     }
+    
+    /* TODO finir demain
+    @Test
+    public void testReadUserWithNameFooAsJsonString() {
+    	h.createUser("Clavier", "Thomas", "tc@gmail.com", "1234pouet", "AZERTY", "user");
+        String json = target("/user/foo").request().get(String.class);
+        assertTrue(json.contains("\"name\":\"foo\""));
+    }
+
+    @Test
+    public void testReadUserWithNameFooAsObject() {
+        User utilisateur = target("/user/foo").request().get(User.class);
+        assertEquals("foo", utilisateur.getName());
+    }
+
+    @Test
+    public void testCreateUserMustReturnUserWithMail() {
+        User savedUser = h.createUser("Clavier", "Thomas", "tc@gmail.com", "1234pouet", "AZERTY", "user");
+        assertFalse(savedUser.getMail().equals(""));
+    }
+
+    @Test
+    public void testUpdateUserName() {
+        User u = h.createUser("Clavier", "Thomas", "tc@gmail.com", "1234pouet", "AZERTY", "user");
+        u.setPrenom("yann");
+        Response rep = target("/user").path("" + u.getId()).request()
+                .put(Entity.entity(u, MediaType.APPLICATION_JSON));
+        User updatedUser = rep.readEntity(User.class);
+        assertEquals("yann", updatedUser.getName());
+    }
+
+    @Test
+    public void testGetingSameUserTwice() {
+        User user1 = target("/user/foo").request().get(User.class);
+        User user2 = target("/user/foo").request().get(User.class);
+        assertEquals(user1.toString(), user2.toString());
+    }
+
+    @Test
+    public void testReadUnavailableUser() {
+        int status = target("/user/bar").request().get().getStatus();
+        assertEquals(404, status);
+    }
+
+    @Test
+    public void tesListAllUsers() {
+        h.createUserWithName("toto");
+        h.createUserWithName("titi");
+        List<User> users = target("/user/").request().get(new GenericType<List<User>>() {
+        });
+        assertTrue(users.size() >= 2);
+    }
+
+    @Test
+    public void after_delete_read_user_sould_return_202() {
+        User u = h.createUserWithName("toto");
+        int status = target("/user/" + u.getId()).request().delete().getStatus();
+        assertEquals(202, status);
+
+    }
+
+    @Test
+    public void read_user_richard_should_return_good_alias() {
+        h.createUserWithAlias("richard stallman", "rms");
+        User user = target("/user/richard stallman").request().get(User.class);
+        assertEquals("rms", user.getAlias());
+    }
+    */
 
 }
