@@ -1,10 +1,10 @@
 package fr.iutinfo.skeleton.api;
 
+import java.util.List;
 import org.skife.jdbi.v2.sqlobject.*;
+import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import org.skife.jdbi.v2.tweak.BeanMapperFactory;
-
-import java.util.List;
 
 public interface UserDao {
 
@@ -22,7 +22,7 @@ public interface UserDao {
 	User findByMail(@Bind("mail") String mail);
 
 	@SqlQuery("select * from utilisateur")
-	@RegisterMapperFactory(BeanMapperFactory.class)
+	@RegisterMapper(UserMapper.class)
 	List<User> all();
 
 	void close();

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import java.security.Principal;
 import java.security.SecureRandom;
+import org.skife.jdbi.v2.tweak.ResultSetMapper;
 
 public class User implements Principal {
     final static Logger logger = LoggerFactory.getLogger(User.class);
@@ -119,4 +120,8 @@ public class User implements Principal {
             setPassword(getPassword());
         }
     }
+}
+
+public class UserMapper implements ResultSetMapper<User> {
+    
 }

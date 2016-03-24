@@ -44,8 +44,8 @@ public class UserDBResource {
     
     @GET
     public void getAll() {
-        List<User> l = dao.all();
-        for (User u : l)
-            System.out.println("mail:"+u.getEmail());
+        List<User> lu = dao.all();
+        for (User u : lu)
+            System.out.println("mail:" + u.getEmail() + " nom:" + u.getPrenom());
     }
 }
