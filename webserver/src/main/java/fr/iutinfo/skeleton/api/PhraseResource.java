@@ -12,25 +12,26 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 
 public class PhraseResource {
+
 	private static PhraseDao dao = BDDFactory.getDbi().open(PhraseDao.class);
     final static Logger logger = LoggerFactory.getLogger(PhraseResource.class);
 
 
-    public PhraseResource() {
+  /*  public PhraseResource() {
 		try {
 			dao.createPhraseTable();
 		} catch (Exception e) {
 			System.out.println("Table déjà là !");
 		}
-	}
+	}*/
 	
-/*	@POST
-	public Phrase createPhrase(Phrase phrase) {
-        int id = dao.insert(phrase);
-        phrase.setPhrase(phrase);
-		return phrase;
+	@POST
+	public Phrase createPhrase(String name) {
+        Phrase ph = dao.insert(name);
+        ph.setPhrase(name);
+		return ph;
 	}
-*/
+
 	@GET
 	@Path("/{name}")
 	public Phrase getPhrase(@PathParam("name") String name) {
