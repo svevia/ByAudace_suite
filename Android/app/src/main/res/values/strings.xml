@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">ByAudace</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="Login">Mail :</string>
     <string name="EditLogin">Username</string>
@@ -10,4 +9,6 @@
     <string name="title_activity_choice">choiceActivity</string>
     <string name="title_activity_help">helpActivity</string>
     <string name="title_activity_jpeuxaider">jpeuxAiderActivity</string>
+    <string name="help"><b>HELP !</b></string>
+    <string name="aide"><b>J\&#039;PEUX AIDER ?</b></string>
 </resources>
