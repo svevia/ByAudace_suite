@@ -24,7 +24,7 @@ public class UserDBResource {
         user.resetPasswordHash();
         //dao.insert(user);
         dao.insert(mail, nom, prenom, digit, mot_de_passe, role);
-        return Response.status(200).entity("Created user : " + user.getEmail()).build();
+        return Response.status(200).entity("Created user : " + user.getMail()).build();
     }
 
     @GET
