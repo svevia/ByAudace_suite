@@ -9,7 +9,6 @@ import javax.ws.rs.core.MediaType;
 
 public class Helper {
     final static Logger logger = LoggerFactory.getLogger(Helper.class);
-    private static UserDao dao;
     public WebTarget target;
 
 
@@ -23,13 +22,8 @@ public class Helper {
         //dao.createUserTable();
     }
 
-    User createUser(String nom, String prenom, String email, String password) {
-        User user = new User(nom, prenom, email, password);
-        return doPost(user);
-    }
-
-    User createUserWithPhrase(String nom, String prenom, String email, String password, String phraseMetier) {
-        User user = new User(nom, prenom, email, password, phraseMetier);
+    User createUser(String nom, String prenom, String email, String password, String digit, String role) {
+        User user = new User(nom, prenom, email, password, digit, role);
         return doPost(user);
     }
 

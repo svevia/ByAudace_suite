@@ -1,6 +1,6 @@
 package fr.iutinfo.skeleton.api;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,20 +8,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.naming.spi.DirStateFactory.Result;
-
+import org.glassfish.jersey.test.JerseyTest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.skife.jdbi.v2.DBI;
-import org.sqlite.SQLiteDataSource;
 
 /**
  * @author maugern
  * @date 23 mars 2016
  */
 
-public class DBRequestTest {
+public class DBRequestTest extends JerseyTest{
 	private static final Object[] NULL = null;
 	private Connection c = null;
 	private Statement stmt = null;
