@@ -22,7 +22,7 @@
 	                <% PhraseResource resource = new PhraseResource(); %>
 	               	<%  items = resource.getAllPhrase(); %>
 	                <% for( Phrase p : items){ %>
-                        <li class="list-group-item"><% p.toString(); %></li>
+                        <li class="list-group-item"><% p.toString(); %><button type="button" class="btn btn-default">supprimer</button></li>
 	                <% } %>
 	                </ul>
 	            </div>
