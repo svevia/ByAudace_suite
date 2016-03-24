@@ -13,12 +13,18 @@
         android:layout_gravity="center_horizontal" />
 
     <EditText
-        android:layout_width="215dp"
+        android:layout_width="341dp"
         android:layout_height="wrap_content"
         android:id="@+id/phrase"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.10" />
 
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"

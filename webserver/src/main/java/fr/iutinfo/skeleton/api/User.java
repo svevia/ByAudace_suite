@@ -41,6 +41,10 @@ public class User implements Principal {
     public String getName() {
         return nom;
     }
+    
+    public String getPrenom() {
+        return prenom;
+    }
 
     public void setName(String nom) {
         this.nom = nom;

@@ -65,6 +65,6 @@ public class Phrase  {
     }
 
     public String toString() {
-        return phrase+ " (" + besoin + ")";
+        return this.phrase+ " (" + this.besoin + ")";
     }
 }
