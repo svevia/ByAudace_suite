@@ -122,6 +122,3 @@ public class User implements Principal {
     }
 }
 
-public class UserMapper implements ResultSetMapper<User> {
-    
-}

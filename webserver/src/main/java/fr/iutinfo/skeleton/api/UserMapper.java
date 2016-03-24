@@ -1,3 +1,4 @@
+package fr.iutinfo.skeleton.api;
 
 import fr.iutinfo.skeleton.api.User;
 import java.sql.ResultSet;
