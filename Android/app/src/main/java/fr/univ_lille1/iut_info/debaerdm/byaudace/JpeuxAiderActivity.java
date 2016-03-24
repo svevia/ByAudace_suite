@@ -1,24 +1,21 @@
 package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 
 /**
  * Created by kancurzv on 23/03/16.
  */
-public class JpeuxAiderActivity extends Activity implements TextWatcher {
-    private EditText status;
-    private TextView nbCharTxt;
+public class JpeuxAiderActivity extends Activity  {
+
+    ListView mListView;
+    String[] listPhrases = new String[50];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +28,11 @@ public class JpeuxAiderActivity extends Activity implements TextWatcher {
 
         setContentView(R.layout.activity_jpeuxaider);
 
-        status = (EditText) findViewById(R.id.phrase);
-        status.addTextChangedListener(this);
-        nbCharTxt = (TextView) findViewById(R.id.textView6);
-        nbCharTxt.setTextColor(Color.GREEN);
-
-        int maxLength = 300;
-        status.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
-
-
+        /*listPhrases =
+        mListView = (ListView) findViewById(R.id.listView);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
+                android.R.layout.simple_list_item_1, prenoms);
+        mListView.setAdapter(adapter);*/
 
     }
 
@@ -68,28 +61,5 @@ public class JpeuxAiderActivity extends Activity implements TextWatcher {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable) {
-        int nbChar = status.getText().toString().length();
-        int leftChar = 300 - nbChar;
-        nbCharTxt.setText(Integer.toString(leftChar) + " caracteres restant");
-        nbCharTxt.setTextColor(Color.GREEN);
-        if (leftChar < 50 && leftChar >= 11)
-            nbCharTxt.setTextColor(Color.YELLOW);
-        else if (leftChar <= 10 && leftChar >= 0) {
-            nbCharTxt.setTextColor(Color.RED);
-        }
-
-
-    }
 }
