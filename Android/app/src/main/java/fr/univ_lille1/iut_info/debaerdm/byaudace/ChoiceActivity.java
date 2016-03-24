@@ -52,7 +52,7 @@ public class ChoiceActivity extends Activity {
     }
 
 
-    public void onClick(View v) {
+    public void onClick2(View v) {
         Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
 
@@ -60,7 +60,7 @@ public class ChoiceActivity extends Activity {
 
     }
 
-    public void onClick2(View v) {
+    public void onClick(View v) {
         Intent intent = new Intent(this, JpeuxAiderActivity.class);
         startActivity(intent);
 
