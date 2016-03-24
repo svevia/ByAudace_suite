@@ -59,7 +59,7 @@ public class DBRequestTest extends JerseyTest{
 		}
 		assertEquals(role, NULL);
 	}
-	
+
 	@After
 	public void close_all() throws SQLException {
 		rs.close();
@@ -67,5 +67,3 @@ public class DBRequestTest extends JerseyTest{
 		c.close();
 	}
 }
-
-
