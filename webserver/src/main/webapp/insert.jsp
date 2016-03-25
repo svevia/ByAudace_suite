@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
     <head>
       <jsp:include page="/layout/head.jsp"/>
       <meta charset="utf-8">
       <title>Ajout User</title>
     </head>
     <body>
-          <jsp:include page="/layout/logo.jsp"/>
+        <jsp:include page="/layout/logo.jsp"/>
       <jsp:include page="/layout/navbar.jsp"/>
 
 <div class="container">
@@ -43,18 +42,11 @@
           <label for="roleLabel">Role</label>
           <br/>
 <label class="radio-inline">
-  <input type = "radio"
-       name = "role"
-       id = "user"
-       value = "user"
-       checked = "checked" />
+  <input type = "radio" name = "role" id = "user" value = "user" checked = "checked" />
 User</label>
 
 <label class="radio-inline">
-<input type = "radio"
-       name = "role"
-       id = "admin"
-       value = "amin" />
+<input type = "radio" name = "role" id = "admin" value = "amin" />
 Admin</label>
   </div>
   <button type="submit" class="btn btn-default">Submit</button>

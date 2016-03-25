@@ -9,7 +9,9 @@
     <jsp:include page="/layout/head.jsp"/>
   </head>
   <body>
+        <jsp:include page="/layout/logo.jsp"/>
     <jsp:include page="/layout/navbar.jsp"/>
+
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
