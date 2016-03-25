@@ -4,6 +4,10 @@ import android.util.Log;
 
 import com.frenchcomputerguy.utils.JSONElement;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -15,7 +19,7 @@ import java.util.Map;
  * @author Quentin Brault
  * @since 2016/03/16
  */
-public abstract class Request {
+public class Request {
 
     protected static final int GET = 0;
 
@@ -27,19 +31,19 @@ public abstract class Request {
 
     //private HttpClient httpclient = new DefaultHttpClient();
     private HttpURLConnection connection = null;
-    private URL urlServer = null;
+    private String url;
     //private HttpUriRequest request;
 
-   // private String url;
+    // private String url;
 
     private Map<String, String> parameters;
 
     public Request(String url) {
-        this(url, new HashMap<String, String>());
+        this.url = url;
     }
 
     public Request(String url, Map<String, String> parameters) {
-        //this.url = url;
+        this.url = url;
         this.parameters = parameters;
     }
 
@@ -119,8 +123,6 @@ public abstract class Request {
         return null;
     }
 
-    public abstract JSONElement getResponse();
-
     public JSONElement GET(final String url, Map<String, String> parameters) {
        /* try {
 
@@ -170,19 +172,34 @@ public abstract class Request {
         return null;
     }
 
-    public JSONElement POST(String url, Map<String, String> parameters) {
-        HttpURLConnection client = null;
-        String result = null;
+    public void GET(String type) {
+        HttpURLConnection con = null;
         try {
-            client = getHttpConnection(url, "POST");
-        } catch (Exception e){
-            Log.wtf("Error URL","connection i/o failed");
+            con = getHttpConnection(url, type);
+            if (con.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : "
+                        + con.getResponseCode());
+            }
+            BufferedReader br = new BufferedReader(new InputStreamReader(
+			(con.getInputStream())));
+
+		    String output;
+		    System.out.println("Output from Server .... \n");
+		    while ((output = br.readLine()) != null) {
+			    System.out.println(output);
+		    }
+
+		    con.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.wtf("Error URL", "connection i/o failed");
+        } finally {
+            con.disconnect();
         }
-        return null;
     }
 
-    public  HttpURLConnection getHttpConnection(String url, String type){
-        URL uri = null;
+    public HttpURLConnection getHttpConnection(String url, String type){
+        URL uri;
         HttpURLConnection con = null;
         try{
             uri = new URL(url);
@@ -192,12 +209,14 @@ public abstract class Request {
             con.setDoInput(true);
             con.setConnectTimeout(60000); //60 secs
             con.setReadTimeout(60000); //60 secs
+            con.setRequestProperty("Accept", "application/json");
             con.setRequestProperty("Accept-Encoding", "utf-8");
-            con.setRequestProperty("Content-Type", "application/json");
         }catch(Exception e){
             Log.wtf("Error URL","connection i/o failed");
+        } finally {
+            con.disconnect();
         }
         return con;
-}
+    }
 
 }
