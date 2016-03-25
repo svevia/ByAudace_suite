@@ -10,5 +10,6 @@
     <string name="title_activity_help">helpActivity</string>
     <string name="title_activity_jpeuxaider">jpeuxAiderActivity</string>
     <string name="help"><b>HELP !</b></string>
-    <string name="aide"><b>J\&#039;PEUX AIDER ?</b></string>
+    <string name="aide"><b>J\'PEUX AIDER ?</b></string>
+    <string name="peur">Même pas peur !</string>
 </resources>
