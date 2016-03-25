@@ -16,6 +16,7 @@ public class User implements Principal {
     private String name;
     private String prenom;
     private String mail;
+    private String numero; // Telephone
     private String mot_de_passe;
     private String passwdHash;
     private String salt;
@@ -29,6 +30,17 @@ public class User implements Principal {
         setMot_de_passe(mot_de_passe);
         this.digit = digit;
         this.role = role;
+        this.numero = "";
+    }
+    
+    public User(String mail, String nom, String prenom, String digit, String mot_de_passe, String role, String numero) {
+        this.name = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        setMot_de_passe(mot_de_passe);
+        this.digit = digit;
+        this.role = role;
+        this.numero = numero;
     }
 
     public User(){}
@@ -89,6 +101,14 @@ public class User implements Principal {
         return getNom();
     }
 
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+    
     /* Other methods */
 
     private String buildHash(String mot_de_passe, String s) {
