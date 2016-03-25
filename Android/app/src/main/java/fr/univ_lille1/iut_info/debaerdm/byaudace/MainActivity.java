@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,7 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.frenchcomputerguy.rest.Request;
+
 public class MainActivity extends Activity {
 
     private final String URL = Configuration.SERVER + "/v1/userdb";
@@ -56,6 +55,9 @@ public class MainActivity extends Activity {
     }
 
     private void load(String login, String mdp){
+        if (login.replace(" ", "").replace("?", "").equals("")){
+            return;
+        }
         queue = Volley.newRequestQueue(this);
 
         final StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, URL + "/" +login.toLowerCase(),
@@ -110,8 +112,6 @@ public class MainActivity extends Activity {
 
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
-
-
         load(login,password);
 
     }
