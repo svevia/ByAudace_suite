@@ -34,6 +34,8 @@ public class MainActivity extends Activity {
     private LinearLayout layout;
     private TextView tv;
     private RequestQueue queue;
+    private AlertDialog.Builder alertDialogBuilder;
+    private boolean ok = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +56,9 @@ public class MainActivity extends Activity {
         tv = new TextView(this);
     }
 
-    private boolean load(String login, String mdp){
+    private void load(String login, String mdp, final View view){
         if (login.replace(" ", "").replace("?", "").equals("")){
-            return false;
+            return;
         }
         queue = Volley.newRequestQueue(this);
 
@@ -72,12 +74,11 @@ public class MainActivity extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //System.err.println(error.getMessage());
-                //testDialog();
+                testDialog(view);
             }
         });
 
         queue.add(stringRequest);
-        return true;
     }
 
     @Override
@@ -115,13 +116,12 @@ public class MainActivity extends Activity {
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
 
-        if(!load(login,password))
-            testDialog(view);
-
+        load(login, password, view);
     }
 
     public void testDialog(View view){
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+    if (!ok) {
+        alertDialogBuilder = new AlertDialog.Builder(
                 this);
 
         // set title
@@ -131,15 +131,15 @@ public class MainActivity extends Activity {
         alertDialogBuilder
                 .setMessage("Mauvais identifiant ou mot de passe.")
                 .setCancelable(false)
-                .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, close
                         // current activity
                         // MainActivity.this.finish();
                     }
                 })
-                .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, just close
                         // the dialog box and do nothing
                         dialog.cancel();
@@ -151,5 +151,9 @@ public class MainActivity extends Activity {
 
         // show it
         alertDialog.show();
+        ok = !ok;
+    }else{
+        ok = !ok;
+    }
     }
 }
