@@ -57,31 +57,28 @@ public class
 
         pm = (EditText) findViewById(R.id.phrase);
         envoy = (Button) findViewById(R.id.button);
-
+/*
         envoy.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                /*String valStr = pm.getText().toString();
-                Intent intent = new Intent(HelpActivity.this, JpeuxAiderActivity.class);
-                intent.putExtra("sending", valStr);
-                startActivity(intent);*/
 
                 Intent i1 = new Intent( HelpActivity.this, JpeuxAiderActivity.class );
                 i1.putExtra(EXTRA_MESSAGE, pm.getText().toString());
-                System.out.println(pm.getText().toString());
                 startActivityForResult(i1, 0);
-                finish();
-
-
             }
 
         });
         i++;
+*/
+    }
 
-
-
+    public void postPhrase(View view){
+        Intent i = new Intent( HelpActivity.this, JpeuxAiderActivity.class );
+        i.putExtra(EXTRA_MESSAGE, pm.getText().toString());
+        startActivity(i);
+        this.finish();
     }
 
     @Override
