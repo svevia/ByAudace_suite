@@ -19,7 +19,7 @@
         android:text="Envoyer"
         android:id="@+id/button"
         android:layout_gravity="right"
-        android:onClick="onClick3" />
+        android:onClick="postPhrase" />
 
     <EditText
         android:layout_width="341dp"
