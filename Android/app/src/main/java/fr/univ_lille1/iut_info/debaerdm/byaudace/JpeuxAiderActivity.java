@@ -5,15 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-
 /**
  * Created by kancurzv on 23/03/16.
  */
@@ -21,9 +17,9 @@ public class JpeuxAiderActivity extends Activity  {
 
 
     ListView mListView;
-    String[] listPhrases = new String[50];
-    String pmEnvoye;
 
+    String pmEnvoye;
+    HelpActivity help = new HelpActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +32,24 @@ public class JpeuxAiderActivity extends Activity  {
 
         setContentView(R.layout.activity_jpeuxaider);
 
+
+
+
+
+
         final Intent intent = getIntent();
-        String message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
-        final TextView tv1 = (TextView)findViewById( R.id.textView3 );
-        tv1.setText(message);
+        String[]   myStringArray={intent.getStringExtra(HelpActivity.EXTRA_MESSAGE),"B","C"};
+
+
+                ArrayAdapter<String> myAdapter = new
+                        ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myStringArray);
+
+                ListView myList = (ListView) findViewById(R.id.listView);
+                myList.setAdapter(myAdapter);
+
+
+            final TextView tv1 = (TextView)findViewById( R.id.textView3 );
+        //tv1.setText(message);
 
 
 
@@ -85,6 +95,7 @@ public class JpeuxAiderActivity extends Activity  {
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }
