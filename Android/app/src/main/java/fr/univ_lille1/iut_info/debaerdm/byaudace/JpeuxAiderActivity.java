@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ public class JpeuxAiderActivity extends Activity  {
     private ListView mListView;
     private String[] listPhrases = new String[50];
     private String pmEnvoye;
-
+    private EditText nbDem;
     private ArrayList<String> items = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
