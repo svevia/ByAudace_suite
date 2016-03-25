@@ -44,7 +44,6 @@ public class JpeuxAiderActivity extends Activity  {
         for(int i=0; i<1; i++)
             items.add("Vive le Nutella !");
 
-<<<<<<< HEAD
         final Intent intent = getIntent();
         String[]   myStringArray= new String[5];
         myStringArray[1]= "a";
@@ -53,10 +52,9 @@ public class JpeuxAiderActivity extends Activity  {
                 myStringArray[i]= myStringArray + 
             }
         }*/
-=======
 
-        Intent intent = getIntent();
->>>>>>> e042ee6039ff47815e4102e7b23e12aacc8200cf
+
+
 
 /*
         String[]   myStringArray={intent.getStringExtra(HelpActivity.EXTRA_MESSAGE),"B","C"};
