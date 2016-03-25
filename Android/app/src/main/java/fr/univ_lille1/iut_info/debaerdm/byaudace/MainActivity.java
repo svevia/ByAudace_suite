@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -22,7 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.frenchcomputerguy.rest.Request;
+
 public class MainActivity extends Activity {
 
     private final String URL = Configuration.SERVER + "/v1/userdb";
@@ -34,7 +33,7 @@ public class MainActivity extends Activity {
     private PopupWindow errorMessage;
     private LinearLayout layout;
     private TextView tv;
-    private Request request;
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +54,11 @@ public class MainActivity extends Activity {
         tv = new TextView(this);
     }
 
-    private void load(String login, String mdp){
-        RequestQueue queue = Volley.newRequestQueue(this);
+    private boolean load(String login, String mdp){
+        if (login.replace(" ", "").replace("?", "").equals("")){
+            return false;
+        }
+        queue = Volley.newRequestQueue(this);
 
         final StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, URL + "/" +login.toLowerCase(),
                 new Response.Listener<String>() {
@@ -69,11 +71,13 @@ public class MainActivity extends Activity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.getMessage());
+                //System.err.println(error.getMessage());
+                //testDialog();
             }
         });
 
         queue.add(stringRequest);
+        return true;
     }
 
     @Override
@@ -98,29 +102,36 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStop () {
+        super.onStop();
+        if (queue != null) {
+            queue.cancelAll(this);
+        }
+    }
+
     public void onChangeActivity(View view){
 
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
 
-
-        load(login,password);
+        if(!load(login,password))
+            testDialog(view);
 
     }
 
     public void testDialog(View view){
-        System.out.println("coucou");
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
 
         // set title
-        alertDialogBuilder.setTitle("Your Title");
+        alertDialogBuilder.setTitle("Erreur !");
 
         // set dialog message
         alertDialogBuilder
-                .setMessage("Click yes to exit!")
+                .setMessage("Mauvais identifiant ou mot de passe.")
                 .setCancelable(false)
-                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,int id) {
                         // if this button is clicked, close
                         // current activity
