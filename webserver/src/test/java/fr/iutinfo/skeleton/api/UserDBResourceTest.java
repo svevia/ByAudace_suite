@@ -32,7 +32,7 @@ public class UserDBResourceTest extends JerseyTest{
     public void should_return_user_as_object() {
     	h.createUser("tc@gmail.com", "Clavier", "Thomas", "AZERTY", "1234pouet", "user");
     	User user = target("/userdb/Clavier").request().get(User.class);
-    	assertEquals("Clavier", user.getNom());
+    	assertEquals("tc@gmail.com", user.getMail());
     }
 
     @Test
@@ -81,8 +81,9 @@ public class UserDBResourceTest extends JerseyTest{
 
     @Test
     public void testGetingSameUserTwice() {
-        User user1 = h.createUser("tc@gmail.com", "Clavier", "Thomas", "AZERTY", "1234pouet", "user");
-        User user2 = h.createUser("tc@gmail.com", "Clavier", "Thomas", "AZERTY", "1234pouet", "user");
+    	User u = h.createUser("tc@gmail.com", "Clavier", "Thomas", "AZERTY", "1234pouet", "user");
+    	User user1 = target("/userdb/").path("" + u.getMail()).request().get(User.class);
+        User user2 = target("/userdb/").path("" + u.getMail()).request().get(User.class);
         assertEquals(user1.toString(), user2.toString());
     }
 
@@ -101,10 +102,18 @@ public class UserDBResourceTest extends JerseyTest{
     }
 
     @Test
-    public void after_delete_read_user_sould_return_202() {
+    public void after_delete_user_sould_return_202() {
         User u = h.createUser("tc@gmail.com", "Clavier", "Thomas", "AZERTY", "1234pouet", "user");
         int status = target("/userdb/" + u.getMail()).request().delete().getStatus();
         assertEquals(202, status);
+    }
+    
+    @Test
+    public void after_update_user_sould_return_202() {
+    	User u1 = h.createUser("tc@gmail.com", "Clavier", "Thomas", "AZERTY", "1234pouet", "user");
+    	User u2 = h.createUser("tc@gmail.com", "Clavier", "Thomas", "AZERTY", "azerty974", "user");
+    	int status = target("/userdb").path(u1.getMail()).request().put(Entity.entity(u2, MediaType.APPLICATION_JSON)).getStatus();
+    	assertEquals(202, status);
     }
     
     @Test

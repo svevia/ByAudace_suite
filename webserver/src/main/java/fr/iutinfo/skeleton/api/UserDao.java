@@ -7,26 +7,29 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
 public interface UserDao {
 
-	@SqlUpdate("insert into utilisateur (mail, numero, nom, prenom, digit, mot_de_passe, role) values (:mail, :numero, :nom, :prenom, :digit, :mot_de_passe, :role)")
+	@SqlUpdate("INSERT INTO utilisateur (mail, numero, nom, prenom, digit, mot_de_passe, role) values (:mail, :numero, :nom, :prenom, :digit, :mot_de_passe, :role)")
 	@GetGeneratedKeys
 	int insert(@BindBean() User user);
-    
-	@SqlQuery("select * from utilisateur where mail = :mail")
-        @RegisterMapperFactory(BeanMapperFactory.class)
+
+	@SqlQuery("SELECT * FROM utilisateur where mail = :mail")
+	@RegisterMapperFactory(BeanMapperFactory.class)
 	User findByMail(@Bind("mail") String mail);
 
-	@SqlQuery("select * from utilisateur")
+	@SqlQuery("SELECT * FROM utilisateur")
 	@RegisterMapperFactory(BeanMapperFactory.class)
 	List<User> all();
-	
-        @SqlUpdate("delete from utilisateur where mail = :mail")
-        void delete(@Bind("mail") String mail);
-        
-	@SqlUpdate("drop table if exists utilisateur")
+
+	@SqlUpdate("DELETE utilisateur WHERE mail = :mail")
+	void delete(@Bind("mail") String mail);
+
+	@SqlUpdate("DROP TABLE IF EXISTS utilisateur")
 	void dropUserTable(); 
+	
+	@SqlUpdate("UPDATE utilisateur SET (numero = :numero, digit = :digit, mot_de_passe = :mot_de_passe) WHERE mail = :mail")
+	void update(@Bind("mail") String mail, @BindBean() User user);
 
 	@SqlUpdate("CREATE TABLE utilisateur (mail CHAR(200) PRIMARY KEY NOT NULL, nom CHAR(200), prenom CHAR(200), digit CHAR(20), numero CHAR(20), mot_de_passe CHAR(50) NOT NULL, role CHAR(50))")
 	void createUserTable();
-	
+
 	void close();
 }

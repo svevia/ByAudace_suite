@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,7 +24,7 @@ public class JpeuxAiderActivity extends Activity  {
     private ListView mListView;
     private String[] listPhrases = new String[50];
     private String pmEnvoye;
-
+    private EditText nbDem;
     private ArrayList<String> items = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
@@ -44,12 +45,22 @@ public class JpeuxAiderActivity extends Activity  {
         for(int i=0; i<1; i++)
             items.add("Vive le Nutella !");
 
+        final Intent intent = getIntent();
+        String[]   myStringArray= new String[5];
+        myStringArray[1]= "a";
+       /* for(int i = 0 ; i < myStringArray.length; i++){
+            if(myStringArray[i].isEmpty()){
+                myStringArray[i]= myStringArray + 
+            }
+        }*/
 
-        Intent intent = getIntent();
+
+
 
 /*
         String[]   myStringArray={intent.getStringExtra(HelpActivity.EXTRA_MESSAGE),"B","C"};
 
+>>>>>>> 9563b7ab6a7b65fcc43c050882ebcc0acfeb9899
 
                 ArrayAdapter<String> myAdapter = new
                         ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myStringArray);

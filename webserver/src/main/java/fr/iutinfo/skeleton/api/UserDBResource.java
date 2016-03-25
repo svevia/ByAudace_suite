@@ -1,13 +1,20 @@
 package fr.iutinfo.skeleton.api;
 
+import java.util.List;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.glassfish.jersey.server.mvc.Template;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.List;
-import javax.ws.rs.core.Response;
 
 @Path("/userdb")
 @Produces(MediaType.APPLICATION_JSON)
@@ -45,6 +52,23 @@ public class UserDBResource {
         }
         dao.delete(mail);
         return Response.accepted().status(202).entity(user).build();
+    }
+    
+    @PUT
+    @Path("/{mail}")
+    public Response updateUser(@PathParam("mail") String mail, User newparam) {
+    	User user = dao.findByMail(mail);
+    	newparam.setMail(user.getMail());
+    	System.out.println("Updating user : " + user);
+    	if (user.equals(newparam)) {
+    		System.err.println("L'update n'a provoque aucune modification. La/les modifications sont surement identique a l'original");
+    		return Response.accepted().status(418).build();
+    	}
+    	if (user == null) {
+    		return Response.accepted().status(404).build();
+    	}
+    	dao.update(mail, newparam);
+    	return Response.accepted().status(202).entity(user).build();
     }
 
     @GET

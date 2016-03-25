@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -24,7 +26,7 @@ import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends Activity {
 
-    private final String URL = Configuration.SERVER + "/v1/userdb";
+    private final String URL = Configuration.SERVER + "/v1/auth";
     private static final String LOGIN[] = {"","Toto", "Tutu", "Tata"};
     private static final String MDP[] = {"","toto", "tutu", "tata"};
     private Button loginButton;
@@ -56,14 +58,15 @@ public class MainActivity extends Activity {
         tv = new TextView(this);
     }
 
-    private void load(String login, String mdp, final View view){
+    private void load(String login, final String mdp, final View view){
         if (login.replace(" ", "").replace("?", "").equals("")){
             alertNotification(view,"Champs vides !","Entrez votre mail et votre mot de passe.");
             return;
         }
         queue = Volley.newRequestQueue(this);
 
-        final StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, URL + "/" +login.toLowerCase(),
+
+        final StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"?"+mdp,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String json) {
@@ -78,7 +81,18 @@ public class MainActivity extends Activity {
                 //System.err.println(error.getMessage());
                 alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
             }
-        });
+        }){
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                return mdp.getBytes();
+            }
+
+            @Override
+            public String getBodyContentType() {
+                return "application/json";
+            }
+        };
 
         queue.add(stringRequest);
     }
