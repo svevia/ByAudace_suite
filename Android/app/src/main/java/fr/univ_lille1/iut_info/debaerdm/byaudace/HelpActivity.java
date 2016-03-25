@@ -26,6 +26,8 @@ public class
     EditText pm;
     Button envoy;
     public static String EXTRA_MESSAGE="0";
+    String[] bdd = new String[50];
+    private int i=0;
 
     private EditText status;
     private TextView nbCharTxt;
@@ -71,10 +73,11 @@ public class
                 System.out.println(pm.getText().toString());
                 startActivityForResult(i1, 0);
 
+
             }
 
         });
-
+        i++;
 
 
 
@@ -138,5 +141,8 @@ public class
 
     }
 
+    public int getI(){
+        return this.i;
+    }
 
 }

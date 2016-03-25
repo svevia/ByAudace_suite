@@ -5,12 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,6 +27,8 @@ public class JpeuxAiderActivity extends Activity  {
     private ArrayList<String> items = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
+    HelpActivity help = new HelpActivity();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +41,22 @@ public class JpeuxAiderActivity extends Activity  {
 
 
         Intent intent = getIntent();
+
+
+/*
+        String[]   myStringArray={intent.getStringExtra(HelpActivity.EXTRA_MESSAGE),"B","C"};
+
+
+                ArrayAdapter<String> myAdapter = new
+                        ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myStringArray);
+
+                ListView myList = (ListView) findViewById(R.id.listView);
+                myList.setAdapter(myAdapter);
+
+
+            final TextView tv1 = (TextView)findViewById( R.id.textView3 );
+        //tv1.setText(message);
+        */
 
 
         if(intent != null) {
@@ -116,6 +131,7 @@ public class JpeuxAiderActivity extends Activity  {
                 this.items);
         mListView.setAdapter(adapter);
     }
+
 
 
 }
