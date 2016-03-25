@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
 public interface UserDao {
 
-	@SqlUpdate("insert into utilisateur (mail, nom, prenom, digit, mot_de_passe, role) values (:mail, :nom, :prenom, :digit, :mot_de_passe, :role)")
+	@SqlUpdate("insert into utilisateur (mail, numero, nom, prenom, digit, mot_de_passe, role) values (:mail, :numero, :nom, :prenom, :digit, :mot_de_passe, :role)")
 	@GetGeneratedKeys
 	int insert(@BindBean() User user);
     
@@ -19,6 +19,9 @@ public interface UserDao {
 	@RegisterMapperFactory(BeanMapperFactory.class)
 	List<User> all();
 	
+        @SqlUpdate("delete from utilisateur where mail = :mail")
+        void delete(@Bind("mail") String mail);
+        
 	@SqlUpdate("drop table if exists utilisateur")
 	void dropUserTable(); 
 
