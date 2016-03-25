@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -38,11 +42,15 @@ public class MainActivity extends Activity {
     private RequestQueue queue;
     private AlertDialog.Builder alertDialogBuilder;
     private boolean ok = false;
+    private SharedPreferences pref;
+    private CheckBox checkbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setTitle(R.string.app_name);
+
         // fullscreen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -56,29 +64,80 @@ public class MainActivity extends Activity {
         errorMessage = new PopupWindow(this);
         layout = new LinearLayout(this);
         tv = new TextView(this);
+        checkbox = (CheckBox) findViewById(R.id.checkBox);
+
+        // si l'utilisateur a mis en mémoire ses identifiants
+        pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        if(pref != null) {
+
+            loginText.setText(pref.getString("login", null));
+            passwordText.setText(pref.getString("mdp", null));
+
+            // si des identifiants sont en mémoire, on coche la checkbox
+            if(pref.contains("login") && pref.contains("mdp")) {
+                checkbox.setChecked(true);
+
+            }
+
+        }
     }
 
-    private void load(String login, final String mdp, final View view){
+
+    public void login(View view){
+
+        String login = ""+loginText.getText();
+        String password = ""+passwordText.getText();
+
+        load(login, password, view);
+
+        // stockage des identifiants
+        checkButtonClicked(this.getCurrentFocus());
+    }
+
+    public void checkButtonClicked(View view){
+
+        String login = ""+loginText.getText();
+        String password = ""+passwordText.getText();
+
+        if(checkbox.isChecked()) {
+
+            pref.edit().putString("login", login)
+                    .putString("mdp", password)
+                    .commit();
+
+        }else{
+            pref.edit().putString("login", null)
+                    .putString("mdp", null)
+                    .commit();
+        }
+    }
+
+    private void load(final String login, final String mdp, final View view){
+
         if (login.replace(" ", "").replace("?", "").equals("")){
             alertNotification(view,"Champs vides !","Entrez votre mail et votre mot de passe.");
             return;
         }
+
         queue = Volley.newRequestQueue(this);
 
 
         final StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"?"+mdp,
                 new Response.Listener<String>() {
+
                     @Override
                     public void onResponse(String json) {
-                        System.out.println("Login success");
+
                         Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
                         startActivity(activity);
                         finish();
                     }
+
                 }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
-                //System.err.println(error.getMessage());
                 alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
             }
         }){
@@ -123,6 +182,7 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed(){
         this.finish();
+
     }
 
 
@@ -134,13 +194,6 @@ public class MainActivity extends Activity {
         }
     }
 
-    public void onChangeActivity(View view){
-
-        String login = ""+loginText.getText();
-        String password = ""+passwordText.getText();
-
-        load(login, password, view);
-    }
 
     public void alertNotification(View view, String title, String text){
         if (!ok) {
