@@ -17,7 +17,7 @@
                 <h1>Liste des "User"</h1>
                 <ul class="list-group">
                     <c:forEach items="${it}" var="item">
-                        <li class="list-group-item"><a href="userdb/${item.mail}">${item.mail}</a></li>
+                        <li class="list-group-item"><a href="/html/userdb/${item.mail}">${item.mail}</a></li>
                     </c:forEach>
 
                 </ul>

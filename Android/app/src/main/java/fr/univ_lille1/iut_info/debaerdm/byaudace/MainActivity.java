@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
 
     private void load(String login, String mdp, final View view){
         if (login.replace(" ", "").replace("?", "").equals("")){
+            alertNotification(view,"Champs vides !","Entrez votre mail et votre mot de passe.");
             return;
         }
         queue = Volley.newRequestQueue(this);
@@ -74,7 +75,7 @@ public class MainActivity extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //System.err.println(error.getMessage());
-                testDialog(view);
+                alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
             }
         });
 
@@ -119,17 +120,17 @@ public class MainActivity extends Activity {
         load(login, password, view);
     }
 
-    public void testDialog(View view){
+    public void alertNotification(View view, String title, String text){
     if (!ok) {
         alertDialogBuilder = new AlertDialog.Builder(
                 this);
 
         // set title
-        alertDialogBuilder.setTitle("Erreur !");
+        alertDialogBuilder.setTitle(title);
 
         // set dialog message
         alertDialogBuilder
-                .setMessage("Mauvais identifiant ou mot de passe.")
+                .setMessage(text)
                 .setCancelable(false)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -155,5 +156,7 @@ public class MainActivity extends Activity {
     }else{
         ok = !ok;
     }
+
+
     }
 }
