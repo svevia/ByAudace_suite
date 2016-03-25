@@ -19,9 +19,8 @@
               </div>
               <div class="panel-body">
                 Nom : ${it.nom}<br/>
-				Prenom : ${it.prenom} <br/>                
+				Prenom : ${it.prenom} <br/>
                 mail : ${it.mail} <br/>
-                mot de passe : ${it.passwdHash} <br/>
                 role : ${it.role} <br/>
               </div>
             </div>

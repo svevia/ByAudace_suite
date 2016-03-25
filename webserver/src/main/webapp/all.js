@@ -36,10 +36,6 @@ function getByAnnotation() {
      }
  }
 
-function postUser(name, alias) {
-    postUserGeneric(name, alias, "", "v1/user/");
-}
-
 function postUserBdd(name, alias, pwd) {
     postUserGeneric(name, alias, pwd, "v1/userdb/");
 }
@@ -63,10 +59,6 @@ function postUserGeneric(name, alias, pwd, url) {
 			alert('postUser error: ' + textStatus);
 		}
 	});
-}
-
-function listUsersBdd() {
-    listUsersGeneric("v1/userdb/");
 }
 
 function listUsersGeneric(url) {
