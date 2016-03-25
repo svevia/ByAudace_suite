@@ -32,7 +32,7 @@ public class MainActivity extends Activity {
     private PopupWindow errorMessage;
     private LinearLayout layout;
     private TextView tv;
-    private Request request;
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class MainActivity extends Activity {
     }
 
     private void load(String login, String mdp){
-        RequestQueue queue = Volley.newRequestQueue(this);
+        queue = Volley.newRequestQueue(this);
 
         final StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, URL + "/" +login.toLowerCase(),
                 new Response.Listener<String>() {
@@ -94,6 +94,14 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onStop () {
+        super.onStop();
+        if (queue != null) {
+            queue.cancelAll(this);
+        }
     }
 
     public void onChangeActivity(View view){
