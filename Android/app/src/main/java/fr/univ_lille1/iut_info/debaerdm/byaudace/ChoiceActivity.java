@@ -25,8 +25,13 @@ public class ChoiceActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_choice);
+    }
 
-
+    // retour = redirection sur la page de login
+    @Override
+    public void onBackPressed(){
+        Intent i = new Intent( ChoiceActivity.this, MainActivity.class );
+        startActivity(i);
     }
 
     @Override
