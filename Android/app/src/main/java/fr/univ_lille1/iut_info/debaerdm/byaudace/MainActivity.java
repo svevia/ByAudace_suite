@@ -1,6 +1,8 @@
 package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,7 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.frenchcomputerguy.rest.Request;
+
 public class MainActivity extends Activity {
 
     private final String URL = Configuration.SERVER + "/v1/userdb";
@@ -32,7 +33,9 @@ public class MainActivity extends Activity {
     private PopupWindow errorMessage;
     private LinearLayout layout;
     private TextView tv;
-    private Request request;
+    private RequestQueue queue;
+    private AlertDialog.Builder alertDialogBuilder;
+    private boolean ok = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +56,12 @@ public class MainActivity extends Activity {
         tv = new TextView(this);
     }
 
-    private void load(String login, String mdp){
-        RequestQueue queue = Volley.newRequestQueue(this);
+    private void load(String login, String mdp, final View view){
+        if (login.replace(" ", "").replace("?", "").equals("")){
+            alertNotification(view,"Champs vides !","Entrez votre mail et votre mot de passe.");
+            return;
+        }
+        queue = Volley.newRequestQueue(this);
 
         final StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, URL + "/" +login.toLowerCase(),
                 new Response.Listener<String>() {
@@ -63,11 +70,13 @@ public class MainActivity extends Activity {
                         System.out.println("Login success");
                         Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
                         startActivity(activity);
+                        finish();
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.getMessage());
+                //System.err.println(error.getMessage());
+                alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
             }
         });
 
@@ -96,44 +105,53 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    // retour = fermeture de l'application
+    @Override
+    public void onBackPressed(){
+        this.finish();
+    }
+
+
+    @Override
+    protected void onStop () {
+        super.onStop();
+        if (queue != null) {
+            queue.cancelAll(this);
+        }
+    }
+
     public void onChangeActivity(View view){
 
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
 
+        load(login, password, view);
+    }
 
-        load(login,password);
-/*
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-                builder1.setMessage("Write your message here.");
-                builder1.setCancelable(true);
+    public void alertNotification(View view, String title, String text){
+        if (!ok) {
+            ok = true;
+            alertDialogBuilder = new AlertDialog.Builder(
+                    this);
 
-                builder1.setPositiveButton(
-                        "Yes",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();&
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // if this button is clicked, just close
-                                // the dialog box and do nothing
-                                dialog.cancel();
-                            }
-                        });
+            // set title
+            alertDialogBuilder.setTitle(title);
 
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage(text)
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            ok = false;
+                        }
+                    });
 
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
 
-                // show it
-                alertDialog.show();
-                */
-
-
-
-            }
+            // show it
+            alertDialog.show();
         }
     }
 }

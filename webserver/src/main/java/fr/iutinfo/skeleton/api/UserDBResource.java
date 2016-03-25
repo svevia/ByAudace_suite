@@ -3,6 +3,7 @@ package fr.iutinfo.skeleton.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glassfish.jersey.server.mvc.Template;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -18,8 +19,7 @@ public class UserDBResource {
 
     @POST
     public User createUser(User user) {
-        System.out.println(user);
-        System.out.println(user.getMail());
+        System.out.println("Create user : " + user);
         user.resetPasswordHash();
         dao.insert(user);
         return user;
@@ -27,24 +27,24 @@ public class UserDBResource {
 
     @GET
     @Path("/{mail}")
-    public User getUser(@PathParam("mail") String mail) {
+    public Response getUser(@PathParam("mail") String mail) {
         User user = dao.findByMail(mail);
         if (user == null) {
-            throw new WebApplicationException(404);
+            return Response.accepted().status(404).build();
         }
-        return user;
+        return Response.accepted().status(202).entity(user).build();
     }
-    
+
     @DELETE
     @Path("/{mail}")
-    public User deleteUser(@PathParam("mail") String mail) {
+    public Response deleteUser(@PathParam("mail") String mail) {
         User user = dao.findByMail(mail);
         System.out.println("Deleting user : " + user);
         if (user == null) {
-            throw new WebApplicationException(404);
+            return Response.accepted().status(404).build();
         }
         dao.delete(mail);
-        return user;
+        return Response.accepted().status(202).entity(user).build();
     }
 
     @GET

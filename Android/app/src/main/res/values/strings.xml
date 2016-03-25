@@ -12,4 +12,5 @@
     <string name="help"><b>HELP !</b></string>
     <string name="aide"><b>J\'PEUX AIDER ?</b></string>
     <string name="peur">Même pas peur !</string>
+    <string name="connected">Rester connecté</string>
 </resources>
