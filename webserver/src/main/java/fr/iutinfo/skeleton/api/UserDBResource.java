@@ -3,6 +3,7 @@ package fr.iutinfo.skeleton.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import org.glassfish.jersey.server.mvc.Template;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -33,7 +34,7 @@ public class UserDBResource {
         }
         return Response.accepted().status(202).entity(user).build();
     }
-    
+
     @DELETE
     @Path("/{mail}")
     public Response deleteUser(@PathParam("mail") String mail) {
