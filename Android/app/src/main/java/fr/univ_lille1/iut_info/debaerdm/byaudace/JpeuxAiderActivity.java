@@ -125,29 +125,9 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
     // retour = redirection sur la page de choix
+
     @Override
     public void onBackPressed(){
-        System.out.println("coucou");
-        Intent i = new Intent( JpeuxAiderActivity.this, ChoiceActivity.class );
-        startActivity(i);
         finish();
     }
-
-
-    // Bundle pour la sauvegarde
-    public void onSaveInstanceState(Bundle savedInstanceState){
-        super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putStringArrayList("items",items);
-
-    }
-
-    public void onRestoreInstanceState(Bundle savedInstanceState){
-        items = savedInstanceState.getStringArrayList("items");
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-                this.items);
-        mListView.setAdapter(adapter);
-    }
-
-
-
 }

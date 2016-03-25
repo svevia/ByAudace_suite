@@ -12,7 +12,8 @@
         android:id="@+id/LoginText"
         android:hint="Adresse mail"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:singleLine="true" />
 
     <Button
         android:layout_width="wrap_content"

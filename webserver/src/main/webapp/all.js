@@ -65,10 +65,6 @@ function postUserGeneric(name, alias, pwd, url) {
 	});
 }
 
-function listUsers() {
-    listUsersGeneric("v1/user/");
-}
-
 function listUsersBdd() {
     listUsersGeneric("v1/userdb/");
 }
@@ -82,7 +78,7 @@ function listUsersGeneric(url) {
 function afficheUser(data) {
 	console.log(data);
 	$("#reponse").html(data.id + " : <b>" + data.alias + "</b> (" + data.name + ")");
-	window.location.replace("/html/user");
+	window.location.replace("/html/userdb");
 }
 
 function afficheListUsers(data) {
@@ -94,3 +90,22 @@ function afficheListUsers(data) {
 	html = html + "</ul>";
 	$("#reponse").html(html);
 }
+
+ 	function deletePhrase(url,id) {
+ 	if (id != "") {
+     	$.ajax
+     	({
+	       type: "DELETE",
+	       url: url+id,
+	       dataType: 'json',
+	       beforeSend : function(req) {
+	       req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+	       },
+	       success: function (data){
+	       console.log("delete" + id);
+	       },
+	       error : function(jqXHR, textStatus, errorThrown) {
+	       alert('error: ' + textStatus);
+	       }
+   	    });
+ 	}}
