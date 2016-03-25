@@ -35,6 +35,7 @@ public class ChoiceActivity extends Activity {
     public void onBackPressed(){
         Intent i = new Intent( ChoiceActivity.this, MainActivity.class );
         startActivity(i);
+        this.finish();
     }
 
     @Override

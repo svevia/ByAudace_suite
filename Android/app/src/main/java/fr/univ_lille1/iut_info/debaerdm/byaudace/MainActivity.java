@@ -70,6 +70,7 @@ public class MainActivity extends Activity {
                         System.out.println("Login success");
                         Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
                         startActivity(activity);
+                        finish();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -103,6 +104,13 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    // retour = fermeture de l'application
+    @Override
+    public void onBackPressed(){
+        this.finish();
+    }
+
 
     @Override
     protected void onStop () {

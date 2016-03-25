@@ -72,6 +72,7 @@ public class
                 i1.putExtra(EXTRA_MESSAGE, pm.getText().toString());
                 System.out.println(pm.getText().toString());
                 startActivityForResult(i1, 0);
+                finish();
 
 
             }
