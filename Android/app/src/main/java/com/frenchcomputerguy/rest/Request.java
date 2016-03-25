@@ -9,6 +9,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -172,14 +174,21 @@ public class Request {
         return null;
     }
 
-    public void GET(String type) {
+    public String GET(String type) {
         HttpURLConnection con = null;
+        String success = "Failed";
         try {
             con = getHttpConnection(url, type);
+            System.out.println(con.getURL());
+            con.connect();
+            System.out.println(con.getContentLength());
             if (con.getResponseCode() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : "
                         + con.getResponseCode());
+            }else{
+                success = "Success";
             }
+            /*
             BufferedReader br = new BufferedReader(new InputStreamReader(
 			(con.getInputStream())));
 
@@ -188,14 +197,13 @@ public class Request {
 		    while ((output = br.readLine()) != null) {
 			    System.out.println(output);
 		    }
-
-		    con.disconnect();
-        } catch (IOException e) {
+*/
+		    //con.disconnect();
+        } catch (Exception e) {
             e.printStackTrace();
             Log.wtf("Error URL", "connection i/o failed");
-        } finally {
-            con.disconnect();
         }
+        return success+" URL:"+con.getURL();
     }
 
     public HttpURLConnection getHttpConnection(String url, String type){
@@ -203,7 +211,9 @@ public class Request {
         HttpURLConnection con = null;
         try{
             uri = new URL(url);
-            con = (HttpURLConnection) uri.openConnection();
+            Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("cache.univ-lille1.fr", 3128));
+            con = (HttpURLConnection) uri.openConnection(proxy);
+            System.out.println(con.getURL());
             con.setRequestMethod(type); //type: POST, PUT, DELETE, GET
             con.setDoOutput(true);
             con.setDoInput(true);
@@ -211,10 +221,9 @@ public class Request {
             con.setReadTimeout(60000); //60 secs
             con.setRequestProperty("Accept", "application/json");
             con.setRequestProperty("Accept-Encoding", "utf-8");
+            System.out.println(con.toString());
         }catch(Exception e){
             Log.wtf("Error URL","connection i/o failed");
-        } finally {
-            con.disconnect();
         }
         return con;
     }

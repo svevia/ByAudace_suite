@@ -25,12 +25,13 @@ public class
         HelpActivity extends Activity implements TextWatcher {
     EditText pm;
     Button envoy;
-    public final static  String EXTRA_MESSAGE="0";
+    public static String EXTRA_MESSAGE="0";
     String[] bdd = new String[50];
     private int i=0;
 
     private EditText status;
     private TextView nbCharTxt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +68,9 @@ public class
                 intent.putExtra("sending", valStr);
                 startActivity(intent);*/
 
-
                 Intent i1 = new Intent( HelpActivity.this, JpeuxAiderActivity.class );
                 i1.putExtra(EXTRA_MESSAGE, pm.getText().toString());
+                System.out.println(pm.getText().toString());
                 startActivityForResult(i1, 0);
 
 
