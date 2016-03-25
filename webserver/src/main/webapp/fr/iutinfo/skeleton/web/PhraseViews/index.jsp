@@ -15,16 +15,34 @@
 	        <div class="row">
 	            <div class="col-md-6 col-md-offset-3">
 	                <h1>Phrases métier</h1>
+	                <br/>
+
+
+	                <div class="container">
+				    <div class="row">
+				    <div class="col-md-6 col-md-offset--1">
+				        <form action="" class="search-form">
+				        <div class="form-group has-feedback">
+				            <input type="text" class="form-control" name="search" id="search" placeholder="rechercher une phrase metier">
+				            <span class="glyphicon glyphicon-search form-control-feedback"></span>
+				        </div>
+				        </form>
+				    </div>
+				    </div>
+					</div>
+
+
+					<br/>
 	                <div class="panel panel-default">
 					  <table class="table">
 					  	<c:forEach items="${it}" var="item">
 					    <tr>
 					    <td style="background-color:lightsteelblue;">${item.phrase}</td>
-					    <td style="background-color:lightsteelblue;">${item.mail}</td>
+					    <td style="background-color:lightsteelblue;"><a href="/html/phrase/detail/${item.phrase}">Details</a></td>
 						</tr>
 						<tr>
 					    <td>${item.besoin}</td>
-					    <td><button type="button" class="btn btn-danger">supprimer</button></td>
+					    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
 					    </tr>
 					    </c:forEach>
 					  </table>
@@ -32,5 +50,30 @@
 	            </div>
 	        </div>
 	    </div>
+
+		<div  id="myModal" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      </div>
+		      <div class="modal-body">
+		        <p>Voulez-vous supprimer cette phrase métier?</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+		        <button id="oui" type="button" class="btn btn-primary">Oui</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+	    <script type="text/javascript">
+			$(document).ready(function() {
+				$("#oui").click(function () {
+					
+				});
+			});
+   		 </script>
 	</body>
 </html>

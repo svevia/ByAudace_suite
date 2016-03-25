@@ -21,10 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.frenchcomputerguy.rest.Request;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends Activity {
 
     private final String URL = Configuration.SERVER + "/v1/userdb";
@@ -104,29 +100,10 @@ public class MainActivity extends Activity {
     }
 
     public void onChangeActivity(View view){
-        boolean logged = true;
 
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
         load(login,password);
-        /*if(LOGIN.length == MDP.length) {
-
-            for (int i = 0; i < LOGIN.length; ++i){
-
-                if (LOGIN[i].equals(login) && MDP[i].equals(password)){
-
-                    System.out.println("Login success");
-                    Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
-                    startActivity(activity);
-                    logged = true;
-                    break;
-                }
-                else{
-                    logged = false;
-                }
-            }
-
-            if(!logged){
 /*
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
                 builder1.setMessage("Write your message here.");

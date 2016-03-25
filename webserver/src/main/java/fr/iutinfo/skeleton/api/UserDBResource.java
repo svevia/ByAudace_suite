@@ -17,14 +17,12 @@ public class UserDBResource {
     final static Logger logger = LoggerFactory.getLogger(UserDBResource.class);
 
     @POST
-    public Response createUser(@FormParam("mail") String mail, @FormParam("nom") String nom, @FormParam("prenom") String prenom, 
-            @FormParam("digit") String digit, @FormParam("mot_de_passe") String mot_de_passe, @FormParam("role") String role) {
-        System.out.println("Create user : mail=" + mail + ", nom=" + nom);
-        User user = new User(mail, nom, prenom, digit, mot_de_passe, role);
+    public User createUser(User user) {
+        System.out.println(user);
+        System.out.println(user.getMail());
         user.resetPasswordHash();
-        //dao.insert(user);
-        dao.insert(mail, nom, prenom, digit, mot_de_passe, role);
-        return Response.status(200).entity("Created user : " + user.getMail()).build();
+        dao.insert(user);
+        return user;
     }
 
     @GET
@@ -36,16 +34,21 @@ public class UserDBResource {
         }
         return user;
     }
+    
+    @DELETE
+    @Path("/{mail}")
+    public User deleteUser(@PathParam("mail") String mail) {
+        User user = dao.findByMail(mail);
+        System.out.println("Deleting user : " + user);
+        if (user == null) {
+            throw new WebApplicationException(404);
+        }
+        dao.delete(mail);
+        return user;
+    }
 
     @GET
     public List<User> getAllUsers() {
         return dao.all();
     }
-    
-    /*@GET
-    public void getAll() {
-        List<User> lu = dao.all();
-        for (User u : lu)
-            System.out.println("mail:" + u.getEmail() + " nom:" + u.getPrenom());
-    }*/
 }
