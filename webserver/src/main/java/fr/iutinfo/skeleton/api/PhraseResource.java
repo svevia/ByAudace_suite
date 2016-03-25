@@ -18,9 +18,6 @@ public class PhraseResource {
     
     @POST
     public Phrase createPhrase(Phrase phrase) {
-        //System.out.println("Create phrase : phrase=" + phrase.getPhrase()
-        //    + ", besoin=" + phrase.getBesoin() + ", mail_deposant=" + phrase.getMail_deposant()
-        //    + ", terminee=" + phrase.getTerminee() + ", consultee=" + phrase.getConsultee());
         dao.insert(phrase);
         return phrase;
     }
@@ -47,9 +44,8 @@ public class PhraseResource {
         return ph;
     }
 
-    @GET
-    public List<Phrase> getAllPhrase() {
-        return dao.all();
-    }
-
+	@GET
+	public List<Phrase> getAllPhrase() {
+		return dao.all();
+	}
 }
