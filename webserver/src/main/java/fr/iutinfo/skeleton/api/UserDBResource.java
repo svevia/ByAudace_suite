@@ -34,6 +34,18 @@ public class UserDBResource {
         }
         return user;
     }
+    
+    @DELETE
+    @Path("/{mail}")
+    public User deleteUser(@PathParam("mail") String mail) {
+        User user = dao.findByMail(mail);
+        System.out.println("Deleting user : " + user);
+        if (user == null) {
+            throw new WebApplicationException(404);
+        }
+        dao.delete(mail);
+        return user;
+    }
 
     @GET
     public List<User> getAllUsers() {
