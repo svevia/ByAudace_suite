@@ -91,7 +91,7 @@ public class MainActivity extends Activity {
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
 
-        request.GET("GET");
+        //request.GET("GET");
         if(LOGIN.length == MDP.length) {
 
             for (int i = 0; i < LOGIN.length; ++i){

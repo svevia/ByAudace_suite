@@ -23,8 +23,8 @@
 				        ${it.besoin} <br/>                
                 ${it.mail} <br/>
                 <c:set var="finie" scope="session" value="${it.terminee}"/>
-                <c:if test="${finie === false}">résolue : non</br></c:if>
-                <c:if test="${finie === true}">résolue : oui<br/></c:if>
+                <c:if test="${finie == false}">résolue : non</br></c:if>
+                <c:if test="${finie == true}">résolue : oui<br/></c:if>
                 nombre de consultations : ${it.consultee}<br/>
               </div>
             </div>
