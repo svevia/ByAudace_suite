@@ -5,6 +5,7 @@
             <li><a href="/">Deconnexion</a></li>
             <li><a href="/html/userdb">Utilisateurs</a></li>
             <li><a href="/html/phrase">Phrases metier</a></li>
+            <li><a href="/insert.jsp">Ajouts</a></li>
         </ul>
     </div>
 </nav>
