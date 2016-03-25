@@ -16,8 +16,6 @@
             <div class="col-md-6 col-md-offset-3">
                 <h1>Liste des "User"</h1>
                 <ul class="list-group">
-
-
                     <c:forEach items="${it}" var="item">
                         <li class="list-group-item"><a href="userdb/${item.mail}">${item.mail}</a></li>
                     </c:forEach>
