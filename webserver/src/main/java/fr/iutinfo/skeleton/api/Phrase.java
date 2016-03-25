@@ -8,7 +8,7 @@ import java.security.Principal;
 import java.security.SecureRandom;
 
 public class Phrase  {
-   // final static Logger logger = LoggerFactory.getLogger(User.class);
+    final static Logger logger = LoggerFactory.getLogger(Phrase.class);
 
     /* Obligatoire */
     private String phrase;
