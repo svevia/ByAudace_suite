@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
 
     private void load(String login, String mdp, final View view){
         if (login.replace(" ", "").replace("?", "").equals("")){
+            testDialog(view);
             return;
         }
         queue = Volley.newRequestQueue(this);
