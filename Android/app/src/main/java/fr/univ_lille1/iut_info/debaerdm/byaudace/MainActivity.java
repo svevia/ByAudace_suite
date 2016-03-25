@@ -43,9 +43,6 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // logo main activity
-
-
         setContentView(R.layout.activity_main);
 
         loginButton = (Button) findViewById(R.id.LogButton);
@@ -103,6 +100,8 @@ public class MainActivity extends Activity {
 
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
+
+
         load(login,password);
 /*
                 AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
@@ -113,29 +112,28 @@ public class MainActivity extends Activity {
                         "Yes",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
+                                dialog.cancel();&
                             }
-                        });
-
-                builder1.setNegativeButton(
-                        "No",
-                        new DialogInterface.OnClickListener() {
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
                                 dialog.cancel();
                             }
                         });
 
-                AlertDialog alert11 = builder1.create();
-                alert11.show();
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
 
 
-                errorMessage.showAsDropDown(layout,10,10);
-                errorMessage.update(50, 50, 300, 80);
-                errorMessage.setBackgroundDrawable(new DrawableContainer());
-                errorMessage.setOutsideTouchable(true);
+                // show it
+                alertDialog.show();
+                */
+
 
 
             }
-        }*/
+        }
     }
 }

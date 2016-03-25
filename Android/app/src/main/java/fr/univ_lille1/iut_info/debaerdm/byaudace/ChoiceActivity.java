@@ -19,6 +19,9 @@ public class ChoiceActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // animation
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+
         // fullscreen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
