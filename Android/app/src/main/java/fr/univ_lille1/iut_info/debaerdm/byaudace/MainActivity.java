@@ -1,6 +1,8 @@
 package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -103,37 +105,40 @@ public class MainActivity extends Activity {
 
 
         load(login,password);
-/*
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-                builder1.setMessage("Write your message here.");
-                builder1.setCancelable(true);
 
-                builder1.setPositiveButton(
-                        "Yes",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();&
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // if this button is clicked, just close
-                                // the dialog box and do nothing
-                                dialog.cancel();
-                            }
-                        });
+    }
 
-                // create alert dialog
-                AlertDialog alertDialog = alertDialogBuilder.create();
+    public void testDialog(View view){
+        System.out.println("coucou");
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
 
+        // set title
+        alertDialogBuilder.setTitle("Your Title");
 
-                // show it
-                alertDialog.show();
-                */
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Click yes to exit!")
+                .setCancelable(false)
+                .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        // MainActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
 
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
 
-
-
-
+        // show it
+        alertDialog.show();
     }
 }
