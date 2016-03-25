@@ -1,31 +1,29 @@
 package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.DrawableContainer;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.frenchcomputerguy.rest.Request;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class MainActivity extends Activity {
 
+    private final String URL = Configuration.SERVER + "/v1/userdb";
     private static final String LOGIN[] = {"","Toto", "Tutu", "Tata"};
     private static final String MDP[] = {"","toto", "tutu", "tata"};
     private Button loginButton;
@@ -35,14 +33,11 @@ public class MainActivity extends Activity {
     private LinearLayout layout;
     private TextView tv;
     private Request request;
-    /*private LayoutParams params;
-    private LinearLayout mainLayout;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        request = new Request("http://172.18.49.88:8080");
+        setTitle(R.string.app_name);
         // fullscreen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -56,6 +51,27 @@ public class MainActivity extends Activity {
         errorMessage = new PopupWindow(this);
         layout = new LinearLayout(this);
         tv = new TextView(this);
+    }
+
+    private void load(String login, String mdp){
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        final StringRequest stringRequest = new StringRequest(com.android.volley.Request.Method.GET, URL + "/" +login.toLowerCase(),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String json) {
+                        System.out.println("Login success");
+                        Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
+                        startActivity(activity);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.err.println(error.getMessage());
+            }
+        });
+
+        queue.add(stringRequest);
     }
 
     @Override
@@ -81,49 +97,22 @@ public class MainActivity extends Activity {
     }
 
     public void onChangeActivity(View view){
-        Map<String, String> tmp = new HashMap<String, String>();
-        tmp.put("Test", "This is a test");
-        boolean logged = true;
 
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
 
-        //request.GET("GET");
-        if(LOGIN.length == MDP.length) {
 
-            for (int i = 0; i < LOGIN.length; ++i){
+        load(login,password);
+/*
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                builder1.setMessage("Write your message here.");
+                builder1.setCancelable(true);
 
-                if (LOGIN[i].equals(login) && MDP[i].equals(password)){
-
-                    System.out.println("Login success");
-                    Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
-                    startActivity(activity);
-                    logged = true;
-                    break;
-                }
-                else{
-                    logged = false;
-                }
-            }
-
-            if(!logged){
-                /*
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        this.getApplicationContext());
-
-                // set title
-                alertDialogBuilder.setTitle("Your Title");
-
-                // set dialog message
-                alertDialogBuilder
-                        .setMessage("Click yes to exit!")
-                        .setCancelable(false)
-                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // if this button is clicked, close
-                                // current activity
-                                MainActivity.this.finish();
+                builder1.setPositiveButton(
+                        "Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();&
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -137,9 +126,11 @@ public class MainActivity extends Activity {
                 // create alert dialog
                 AlertDialog alertDialog = alertDialogBuilder.create();
 
+
                 // show it
                 alertDialog.show();
                 */
+
 
 
             }
