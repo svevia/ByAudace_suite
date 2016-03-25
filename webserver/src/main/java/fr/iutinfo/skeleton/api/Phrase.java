@@ -21,7 +21,6 @@ public class Phrase  {
         this.phrase = phrase;
         this.besoin = besoin;
         this.mail_deposant = mail_deposant;
-        this.numero = numero;
         this.terminee = false;
         this.consultee = 0;
     }
@@ -48,14 +47,6 @@ public class Phrase  {
 
     public String getBesoin() {
         return this.besoin;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getNumero() {
-        return this.numero;
     }
 
     public boolean getTerminee() {

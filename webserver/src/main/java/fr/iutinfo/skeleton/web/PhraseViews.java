@@ -24,7 +24,7 @@ public class PhraseViews {
     @Template(name = "detail")
     @Path("/{name}")
     public Phrase getPhrase(@PathParam("name") String name) {
-        Phrase ph = dao.findByName(name);
+        Phrase ph = dao.findByPhrase(name);
         if (ph == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }

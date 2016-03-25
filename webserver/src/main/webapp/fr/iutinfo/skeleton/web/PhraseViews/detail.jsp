@@ -18,14 +18,14 @@
               <div class="panel-heading">
                 <h3 class="panel-title">Détails</h3>
               </div>
-              <div class="panel-body">
+              <div class="panel-body" style="font-size:17px;">
                 ${it.phrase}<br/>
-				        ${it.besoin} <br/>                
-                ${it.mail} <br/>
-                <c:set var="finie" scope="session" value="${it.terminee}"/>
-                <c:if test="${finie == false}">résolue : non</br></c:if>
-                <c:if test="${finie == true}">résolue : oui<br/></c:if>
+				        ${it.besoin}<br/>                
+                ${it.mail_deposant}<br/>
                 nombre de consultations : ${it.consultee}<br/>
+                <c:set var="finie" scope="session" value="${it.terminee}"/>
+                <c:if test="${finie == false}"><span style="font-size:25px;" class="glyphicon glyphicon-remove-circle"></span></br></c:if>
+                <c:if test="${finie == true}"><span style="font-size:25px;" class="glyphicon glyphicon-ok-circle"></span><br/></c:if>
               </div>
             </div>
         </div>

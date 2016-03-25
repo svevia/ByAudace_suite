@@ -15,10 +15,10 @@ CREATE TABLE utilisateur(
 CREATE TABLE phrase_metier(
 	phrase CHAR(300) PRIMARY KEY NOT NULL,
 	besoin CHAR(300),
-	mail_deposant CHAR(200) NOT NULL,
+	mail CHAR(200) NOT NULL,
 	terminee BOOLEAN DEFAULT "false", 
 	consultee INT DEFAULT 0,
-	FOREIGN KEY(mail_deposant) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE
+	FOREIGN KEY(mail) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE aide(

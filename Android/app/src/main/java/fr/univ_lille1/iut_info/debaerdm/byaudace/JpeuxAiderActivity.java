@@ -32,16 +32,20 @@ public class JpeuxAiderActivity extends Activity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // fullscreen
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_jpeuxaider);
 
-        // Modification liste Rémy
         mListView = (ListView) findViewById(R.id.listView);
         for(int i=0; i<1; i++)
             items.add("Vive le Nutella !");
 
 
         Intent intent = getIntent();
-
 
 /*
         String[]   myStringArray={intent.getStringExtra(HelpActivity.EXTRA_MESSAGE),"B","C"};
