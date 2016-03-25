@@ -15,30 +15,12 @@
 	        <div class="row">
 	            <div class="col-md-6 col-md-offset-3">
 	                <h1>Phrases métier</h1>
-	                <br/>
-
-
-	                <div class="container">
-				    <div class="row">
-				    <div class="col-md-6 col-md-offset--1">
-				        <form action="" class="search-form">
-				        <div class="form-group has-feedback">
-				            <input type="text" class="form-control" name="search" id="search" placeholder="rechercher une phrase metier">
-				            <span class="glyphicon glyphicon-search form-control-feedback"></span>
-				        </div>
-				        </form>
-				    </div>
-				    </div>
-					</div>
-
-
-					<br/>
 	                <div class="panel panel-default">
 					  <table class="table">
 					  	<c:forEach items="${it}" var="item">
 					    <tr>
 					    <td style="background-color:lightsteelblue;">${item.phrase}</td>
-					    <td style="background-color:lightsteelblue;"><a href="/html/phrase/detail/${item.phrase}">Details</a></td>
+					    <td style="background-color:lightsteelblue;"><a href="/html/phrase/${item.phrase}">détails</a></td>
 						</tr>
 						<tr>
 					    <td>${item.besoin}</td>
@@ -71,9 +53,9 @@
 	    <script type="text/javascript">
 			$(document).ready(function() {
 				$("#oui").click(function () {
-					
+					console.log("suppr");
 				});
 			});
-   		 </script>
+   		</script>
 	</body>
 </html>

@@ -1,11 +1,6 @@
 package fr.iutinfo.skeleton.api;
-import com.google.common.base.Charsets;
-import com.google.common.hash.Hasher;
-import com.google.common.hash.Hashing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import java.security.Principal;
-import java.security.SecureRandom;
 
 public class Phrase  {
     final static Logger logger = LoggerFactory.getLogger(Phrase.class);
@@ -13,7 +8,7 @@ public class Phrase  {
     /* Obligatoire */
     private String phrase;
     private String besoin;
-    private String mail;
+    private String mail_deposant;
     private boolean terminee;
     private String numero;
     private int consultee;
@@ -22,11 +17,10 @@ public class Phrase  {
 
     }
 
-    public Phrase(String phrase, String besoin, String mail, String numero) {
+    public Phrase(String phrase, String besoin, String mail_deposant, String numero) {
         this.phrase = phrase;
         this.besoin = besoin;
-        this.mail = mail;
-        this.numero = numero;
+        this.mail_deposant = mail_deposant;
         this.terminee = false;
         this.consultee = 0;
     }
@@ -39,12 +33,12 @@ public class Phrase  {
         this.phrase = phrase;
     }
 
-    public String getMail() {
-        return this.mail;
+    public String getMail_deposant() {
+        return this.mail_deposant;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setMail_deposant(String mail_deposant) {
+        this.mail_deposant = mail_deposant;
     }
 
     public void setBesoin(String besoin) {
@@ -53,14 +47,6 @@ public class Phrase  {
 
     public String getBesoin() {
         return this.besoin;
-    }
-
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public String getNumero() {
-        return this.numero;
     }
 
     public boolean getTerminee() {

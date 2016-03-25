@@ -13,38 +13,39 @@ import java.util.List;
 
 public class PhraseResource {
 
-	private static PhraseDao dao = BDDFactory.getDbi().open(PhraseDao.class);
+    private static PhraseDao dao = BDDFactory.getDbi().open(PhraseDao.class);
     final static Logger logger = LoggerFactory.getLogger(PhraseResource.class);
+    
+    @POST
+    public Phrase createPhrase(Phrase phrase) {
+        dao.insert(phrase);
+        return phrase;
+    }
 
-
-  /*  public PhraseResource() {
-		try {
-			dao.createPhraseTable();
-		} catch (Exception e) {
-			System.out.println("Table déjà là !");
-		}
-	}*/
-	
-	@POST
-	public Phrase createPhrase(String name) {
-        Phrase ph = dao.insert(name);
-        ph.setPhrase(name);
-		return ph;
-	}
-
-	@GET
-	@Path("/{name}")
-	public Phrase getPhrase(@PathParam("name") String name) {
-		Phrase ph = dao.findByName(name);
-		if (ph == null) {
-			throw new WebApplicationException(404);
-		}
-		return ph;
-	}
+    @GET
+    @Path("/{phrase}")
+    public Phrase getPhrase(@PathParam("phrase") String phrase) {
+        Phrase ph = dao.findByPhrase(phrase);
+        if (ph == null) {
+            throw new WebApplicationException(404);
+        }
+        return ph;
+    }
+    
+    @DELETE
+    @Path("/{phrase}")
+    public Phrase deleteUser(@PathParam("phrase") String phrase) {
+        Phrase ph = dao.findByPhrase(phrase);
+        System.out.println("Deleting phrase : " + phrase);
+        if (ph == null) {
+            throw new WebApplicationException(404);
+        }
+        dao.delete(phrase);
+        return ph;
+    }
 
 	@GET
 	public List<Phrase> getAllPhrase() {
 		return dao.all();
 	}
-
 }
