@@ -48,9 +48,6 @@ public class MainActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        // logo main activity
-
-
         setContentView(R.layout.activity_main);
 
         loginButton = (Button) findViewById(R.id.LogButton);
@@ -110,36 +107,40 @@ public class MainActivity extends Activity {
             }
 
             if(!logged){
-/*
-                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
-                builder1.setMessage("Write your message here.");
-                builder1.setCancelable(true);
+                /*
 
-                builder1.setPositiveButton(
-                        "Yes",
-                        new DialogInterface.OnClickListener() {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        this.getApplicationContext());
+
+                // set title
+                alertDialogBuilder.setTitle("Your Title");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("Click yes to exit!")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // if this button is clicked, close
+                                // current activity
+                                MainActivity.this.finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
                                 dialog.cancel();
                             }
                         });
 
-                builder1.setNegativeButton(
-                        "No",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
 
-                AlertDialog alert11 = builder1.create();
-                alert11.show();
-
-
-                errorMessage.showAsDropDown(layout,10,10);
-                errorMessage.update(50, 50, 300, 80);
-                errorMessage.setBackgroundDrawable(new DrawableContainer());
-                errorMessage.setOutsideTouchable(true);
+                // show it
+                alertDialog.show();
                 */
+
 
             }
         }
