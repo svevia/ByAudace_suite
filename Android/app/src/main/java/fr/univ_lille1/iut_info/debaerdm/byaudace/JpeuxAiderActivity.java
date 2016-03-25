@@ -39,21 +39,15 @@ public class JpeuxAiderActivity extends Activity  {
         for(int i=0; i<1; i++)
             items.add("Vive le Nutella !");
 
-
-        Intent intent = getIntent();
-
-
-<<<<<<< HEAD
-
         final Intent intent = getIntent();
         String[]   myStringArray= new String[5];
         myStringArray[1]= "a";
-        for(int i = 0 ; i < myStringArray.length; i++){
+       /* for(int i = 0 ; i < myStringArray.length; i++){
             if(myStringArray[i].isEmpty()){
                 myStringArray[i]= myStringArray + 
             }
-        }
-=======
+        }*/
+
 /*
         String[]   myStringArray={intent.getStringExtra(HelpActivity.EXTRA_MESSAGE),"B","C"};
 
