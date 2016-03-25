@@ -22,9 +22,20 @@ public class Helper {
         dao.dropUserTable();
         dao.createUserTable();
     }
+    
+    User createUser(String mail, String nom, String prenom, String digit, String mot_de_passe, String role) {
+    	User user = new User(mail, nom, prenom, digit, mot_de_passe, role);
+    	return doPost(user);
+    }
+    
 
-    User createUser(String nom, String prenom, String email, String password, String digit, String role) {
-        User user = new User(nom, prenom, email, password, digit, role);
+    User createUser(String mail, String nom, String prenom, String digit, String mot_de_passe, String role, String numero) {
+        User user = new User(mail, nom, prenom, digit, mot_de_passe, role, numero);
+        return doPost(user);
+    }
+    
+    User createUserWithEmail(String email) {
+        User user = new User(email, "", "", "", "", "");
         return doPost(user);
     }
 
