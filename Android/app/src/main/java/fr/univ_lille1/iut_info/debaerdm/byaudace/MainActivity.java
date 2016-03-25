@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 
     private void load(String login, String mdp, final View view){
         if (login.replace(" ", "").replace("?", "").equals("")){
-            testDialog(view);
+            alertNotification(view,"Champs vides !","Entrez votre mail et votre mot de passe.");
             return;
         }
         queue = Volley.newRequestQueue(this);
@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 //System.err.println(error.getMessage());
-                testDialog(view);
+                alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
             }
         });
 
@@ -120,41 +120,30 @@ public class MainActivity extends Activity {
         load(login, password, view);
     }
 
-    public void testDialog(View view){
-    if (!ok) {
-        alertDialogBuilder = new AlertDialog.Builder(
-                this);
+    public void alertNotification(View view, String title, String text){
+        if (!ok) {
+            ok = true;
+            alertDialogBuilder = new AlertDialog.Builder(
+                    this);
 
-        // set title
-        alertDialogBuilder.setTitle("Erreur !");
+            // set title
+            alertDialogBuilder.setTitle(title);
 
-        // set dialog message
-        alertDialogBuilder
-                .setMessage("Mauvais identifiant ou mot de passe.")
-                .setCancelable(false)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, close
-                        // current activity
-                        // MainActivity.this.finish();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
-                        dialog.cancel();
-                    }
-                });
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage(text)
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            ok = false;
+                        }
+                    });
 
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
 
-        // show it
-        alertDialog.show();
-        ok = !ok;
-    }else{
-        ok = !ok;
-    }
+            // show it
+            alertDialog.show();
+        }
     }
 }
