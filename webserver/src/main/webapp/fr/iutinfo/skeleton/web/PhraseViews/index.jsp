@@ -24,7 +24,9 @@
 						</tr>
 						<tr>
 					    <td>${item.besoin}</td>
-					    <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
+					  	<td><form:form method="delete" action="/html/phrase/${item.phrase}">
+					  		<button type="submit"></form:form></td>
+
 					    </tr>
 					    </c:forEach>
 					  </table>
@@ -51,11 +53,8 @@
 		</div>
 
 	    <script type="text/javascript">
-			$(document).ready(function() {
-				$("#oui").click(function () {
-					console.log("suppr");
-				});
-			});
+
+		
    		</script>
 	</body>
 </html>
