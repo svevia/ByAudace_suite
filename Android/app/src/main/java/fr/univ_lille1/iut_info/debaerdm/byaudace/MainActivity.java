@@ -70,6 +70,7 @@ public class MainActivity extends Activity {
                         System.out.println("Login success");
                         Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
                         startActivity(activity);
+                        finish();
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -104,6 +105,13 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    // retour = fermeture de l'application
+    @Override
+    public void onBackPressed(){
+        this.finish();
+    }
+
+
     @Override
     protected void onStop () {
         super.onStop();
@@ -121,42 +129,29 @@ public class MainActivity extends Activity {
     }
 
     public void alertNotification(View view, String title, String text){
-    if (!ok) {
-        alertDialogBuilder = new AlertDialog.Builder(
-                this);
+        if (!ok) {
+            ok = true;
+            alertDialogBuilder = new AlertDialog.Builder(
+                    this);
 
-        // set title
-        alertDialogBuilder.setTitle(title);
+            // set title
+            alertDialogBuilder.setTitle(title);
 
-        // set dialog message
-        alertDialogBuilder
-                .setMessage(text)
-                .setCancelable(false)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, close
-                        // current activity
-                        // MainActivity.this.finish();
-                    }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, just close
-                        // the dialog box and do nothing
-                        dialog.cancel();
-                    }
-                });
+            // set dialog message
+            alertDialogBuilder
+                    .setMessage(text)
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            ok = false;
+                        }
+                    });
 
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
+            // create alert dialog
+            AlertDialog alertDialog = alertDialogBuilder.create();
 
-        // show it
-        alertDialog.show();
-        ok = !ok;
-    }else{
-        ok = !ok;
-    }
-
-
+            // show it
+            alertDialog.show();
+        }
     }
 }

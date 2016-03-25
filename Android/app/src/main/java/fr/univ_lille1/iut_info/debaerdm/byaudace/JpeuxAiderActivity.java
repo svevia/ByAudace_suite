@@ -129,6 +129,7 @@ public class JpeuxAiderActivity extends Activity  {
         System.out.println("coucou");
         Intent i = new Intent( JpeuxAiderActivity.this, ChoiceActivity.class );
         startActivity(i);
+        finish();
     }
 
 
