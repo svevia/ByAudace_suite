@@ -87,21 +87,50 @@ function afficheListUsers(data) {
 	$("#reponse").html(html);
 }
 
- 	function deletePhrase(url,id) {
- 	if (id != "") {
-     	$.ajax
-     	({
-	       type: "DELETE",
-	       url: url+id,
-	       dataType: 'json',
-	       beforeSend : function(req) {
-	       req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
-	       },
-	       success: function (data){
-	       console.log("delete" + id);
-	       },
-	       error : function(jqXHR, textStatus, errorThrown) {
-	       alert('error: ' + textStatus);
-	       }
-   	    });
- 	}}
+function getTaux(url) {
+     $.ajax({
+       type: "GET",
+       url: url,
+       dataType: 'json',
+       beforeSend : function(req) {
+        req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+       },
+       success: function (data){
+        afficheTaux(data)
+       },
+       error : function(jqXHR, textStatus, errorThrown) {
+       			console.log('error: ' + textStatus);
+       	}
+     });
+}
+
+
+function afficheTaux(data) {
+	console.log(data);
+	$("#bar").html(data);
+	window.location.replace("/html/stat");
+}
+
+function getPhrase(url) {
+     $.ajax({
+       type: "GET",
+       url: url,
+       dataType: 'json',
+       beforeSend : function(req) {
+        req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+       },
+       success: function (data){
+        affichePhrase(data)
+       },
+       error : function(jqXHR, textStatus, errorThrown) {
+       			console.log('error: ' + textStatus);
+       	}
+     });
+}
+
+
+function affichePhrase(data) {
+	console.log(data);
+	$("#bar").html(data.id + data.alias  + data.name );
+	window.location.replace("/html/phrase");
+}
