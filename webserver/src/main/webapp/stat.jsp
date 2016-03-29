@@ -20,9 +20,16 @@
 				    60%
 					</div>
 				</div>
+				<br>
+                <form action="" class="search-form">
+                    <div class="form-group has-feedback">
+                    <input type="text" class="form-control" name="search" id="search" placeholder="rechercher une phrase metier">
+                    <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                    </div>
+                </form>
 
 				<div class="btn-group" role="group" aria-label="...">
-					<h3> Trier par</h3>
+					<h4>Trier par<h4>
 					<button id="consultee" type="button" class="btn btn-default">nombre de consultations</button>
 					<button id="phrase" type="button" class="btn btn-default">phrase</button>
 					<button id="besoin" type="button" class="btn btn-default">besoin</button>
@@ -41,7 +48,7 @@
 					<td style="background-color:lightsteelblue;">${item.mail}</td>
 					</tr>
 					<tr>
-					<td>${item.consultee}</td>
+					<td>consultée ${item.consultee} fois</td>
 					</tr>
 					</c:forEach>
 			  	</table>
