@@ -12,10 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 /**
@@ -27,7 +25,7 @@ public class HelpActivity extends Activity implements TextWatcher {
     Button envoy;
 
     public static String EXTRA_MESSAGE="0";
-
+    private final String URL = Configuration.SERVER + "/v1/phrase";
     private int i=0;
 
     private EditText status;
@@ -62,8 +60,10 @@ public class HelpActivity extends Activity implements TextWatcher {
     }
 
     public void postPhrase(View view){
+        
+
         Intent i = new Intent( HelpActivity.this, JpeuxAiderActivity.class );
-        i.putExtra(EXTRA_MESSAGE, pm.getText().toString());
+        //i.putExtra(EXTRA_MESSAGE, pm.getText().toString());
         startActivity(i);
         this.finish();
     }

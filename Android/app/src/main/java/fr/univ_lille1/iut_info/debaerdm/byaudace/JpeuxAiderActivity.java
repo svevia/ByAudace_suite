@@ -18,6 +18,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +42,12 @@ public class JpeuxAiderActivity extends Activity  {
     private String[] listPhrases = new String[50];
     private String pmEnvoye;
     private EditText nbDem;
-    private ArrayList<String> items = new ArrayList<>();
-    private ArrayAdapter<String> adapter;
+    //private ArrayList<String> items = new ArrayList<>();
+    private ArrayAdapter<User> adapter;
     private AlertDialog.Builder alertDialogBuilder;
-
+    private final String URL = Configuration.SERVER + "/v1/phrase";
+    private List<User> users;
+    private RequestQueue queue;
     HelpActivity help = new HelpActivity();
 
     @Override
@@ -49,40 +62,61 @@ public class JpeuxAiderActivity extends Activity  {
         setContentView(R.layout.activity_jpeuxaider);
 
         mListView = (ListView) findViewById(R.id.listView);
-        items.add("Vive le Nutella !");
-        items.add("Vive les chamallows !");
-        items.add("Vive les sucettes !");
-        items.add("Vive les croissants !");
-        items.add("Vive les petits pains !");
-        items.add("Vive les frites !");
 
+        users = new ArrayList<>();
 
-        final Intent intent = getIntent();
-        String[] myStringArray= new String[5];
-        myStringArray[1]= "a";
+        queue = Volley.newRequestQueue(this);
 
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String json) {
+                        buildUsersFromJson(json);
+                        initComponent();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.err.println(error.getMessage());
+            }
+        });
 
-        if(intent != null) {
-            String  message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
-            if(message != null)
-                items.add(message.toString());
-        }
+        queue.add(stringRequest);
+    }
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-                this.items);
+    private void initComponent(){
+        System.out.println("User create : "+users.toString());
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
 
         mListView.setAdapter(adapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                alertNotification(view,android.R.drawable.ic_dialog_info, adapter.getItem(position), adapter.getItem(position));
 
+                alertNotification(view,android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(), adapter.getItem(position).getPhrase());
             }
         });
-
-
     }
+
+    /*private void showList() {
+        if (users.isEmpty()) {
+            textError.setText(getString(R.string.empty_list));
+            textError.setVisibility(View.VISIBLE);
+            listOfUsersView.setVisibility(View.GONE);
+        } else {
+            textError.setVisibility(View.GONE);
+            listOfUsersView.setVisibility(View.VISIBLE);
+        }
+    }*/
+
+    /*private void buildValues() {
+        values.clear();
+        for (User user : users) {
+            values.add(user.toString());
+        }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -156,11 +190,11 @@ public class JpeuxAiderActivity extends Activity  {
         finish();
     }
 
-    public ArrayList getItems(){
+   /* public ArrayList getItems(){
         return this.items;
-    }
+    }*/
 
-    public ArrayAdapter<String> getAdaptater(){
+    public ArrayAdapter<User> getAdaptater(){
         return this.adapter;
     }
 
@@ -188,5 +222,12 @@ public class JpeuxAiderActivity extends Activity  {
         // show it
         alertDialog.show();
 
+    }
+
+    private void buildUsersFromJson(String json) {
+        final Gson gson = new GsonBuilder().create();
+        Type listType = new TypeToken<List<User>>() {
+        }.getType();
+        users = gson.fromJson(json, listType);
     }
 }
