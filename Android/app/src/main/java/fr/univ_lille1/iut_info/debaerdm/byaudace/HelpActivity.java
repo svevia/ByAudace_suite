@@ -61,7 +61,6 @@ public class HelpActivity extends Activity implements TextWatcher {
         status.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
 
         //--------recuperation pm
-
         pm = (EditText) findViewById(R.id.phrase);
         envoy = (Button) findViewById(R.id.button);
 
