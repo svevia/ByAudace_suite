@@ -15,6 +15,9 @@ public interface UserDao {
 	@RegisterMapperFactory(BeanMapperFactory.class)
 	User findByMail(@Bind("mail") String mail);
 
+        @SqlQuery("select salt from utilisateur where mail = :mail")
+        String getSalt(@Bind("mail") String mail);
+        
 	@SqlQuery("SELECT * FROM utilisateur")
 	@RegisterMapperFactory(BeanMapperFactory.class)
 	List<User> all();
