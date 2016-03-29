@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
 public interface UserDao {
 
-	@SqlUpdate("INSERT INTO utilisateur (mail, numero, nom, prenom, digit, mot_de_passe, role) values (:mail, :numero, :nom, :prenom, :digit, :mot_de_passe, :role)")
+	@SqlUpdate("INSERT INTO utilisateur (mail, numero, nom, prenom, digit, mot_de_passe, role, salt) values (:mail, :numero, :nom, :prenom, :digit, :mot_de_passe, :role, :salt)")
 	@GetGeneratedKeys
 	int insert(@BindBean() User user);
 
