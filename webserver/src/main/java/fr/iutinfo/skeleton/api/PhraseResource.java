@@ -1,13 +1,23 @@
 package fr.iutinfo.skeleton.api;
 
+import java.util.List;
+
+import javax.annotation.security.RolesAllowed;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.List;
-
 @Path("/phrase")
+@RolesAllowed({"admin"})
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 
@@ -43,7 +53,7 @@ public class PhraseResource {
         dao.delete(phrase);
         return ph;
     }
-    
+
     @GET
     @Path("/pourcentage")
     public String getPourcentage() {
@@ -51,7 +61,7 @@ public class PhraseResource {
         int b = dao.getAllCount();
         return "{ \"percent\":" + ((double) a/b) * 100 + " }";
     }
-    
+
     /*@GET
     @Path("/order")
     public List<Phrase> getAllOrderBy(@QueryParam("champ") String champ) {
@@ -67,31 +77,31 @@ public class PhraseResource {
     public List<Phrase> getOrderBesoin() {
         return dao.orderBesoin();
     }
-    
+
     @GET
     @Path("/orderconsultee")
     public List<Phrase> getOrderConsultee() {
         return dao.orderConsultee();
     }
-    
+
     @GET
     @Path("/orderphrase")
     public List<Phrase> getOrderPhrase() {
         return dao.orderPhrase();
     }
-    
+
     @GET
     @Path("/ordermail")
     public List<Phrase> getOrderMail() {
         return dao.orderMail();
     }
-    
+
     @GET
     @Path("/orderterminee")
     public List<Phrase> getOrderTerminee() {
         return dao.orderTerminee();
     }
-    
+
     @GET
     public List<Phrase> getAllPhrase() {
         return dao.all();

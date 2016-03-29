@@ -14,15 +14,61 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <h1>Utilisateurs</h1>
-                <ul class="list-group">
-                    <c:forEach items="${it}" var="item">
-                        <li class="list-group-item"><a href="/html/userdb/${item.mail}">${item.mail}</a></li>
-                    </c:forEach>
+             <h1>Utilisateurs</h1>
+            <div class="panel panel-default">
 
-                </ul>
+                    <table class="table">
+                    <c:forEach items="${it}" var="item">
+                        <tr>
+                        <td><a href="/html/userdb/${item.mail}">${item.mail}</a></td>
+                        <td><button type="button" id="${item.mail}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
+                        </tr>
+                    </c:forEach>
+                </table>
             </div>
         </div>
     </div>
-  </body>
+</div>
+
+		<div  id="myModal" class="modal fade" tabindex="-1" role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		      </div>
+		      <div class="modal-body">
+		        <p>Voulez-vous supprimer cet utilisateur?</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Non</button>
+		        <button id="oui" type="button" class="btn btn-primary">Oui</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+	</body>
+
+	<script>
+
+	$(document).ready(function() {
+		$("button").click(function () {
+		var mail= this.id;
+        console.log(mail);
+		$("#oui").click(function () {
+		 	$.ajax({
+	          type: "DELETE",
+	          url: "/v1/userdb/" + mail,
+	          success: function(msg){
+	            location.reload();
+	          },
+	          error: function(xhr, status, errorThrown){
+	            console.log("Error: " + errorThrown);
+	            console.log("Status: " + status);
+	          },
+	          });
+			});
+		});
+
+	});
+	</script>
 </html>

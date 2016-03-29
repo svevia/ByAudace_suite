@@ -10,6 +10,7 @@ public class WebApplication extends ResourceConfig {
 
     public WebApplication() {
         packages("fr.iutinfo.skeleton.web");
+        register(Login.class);
         register(JspMvcFeature.class);
         // Tracing support.
         //property(ServerProperties.TRACING, TracingConfig.ON_DEMAND.name());
