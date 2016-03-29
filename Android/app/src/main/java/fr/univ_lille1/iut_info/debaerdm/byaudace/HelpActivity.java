@@ -26,18 +26,8 @@ import android.widget.TextView;
  */
 public class HelpActivity extends Activity implements TextWatcher {
 
-<<<<<<< HEAD
-
-
-    private EditText pm;
-
-
-
-    Button envoy;
-=======
     private EditText pm;
     private Button envoy;
->>>>>>> 2d69fbcf4ff55db6721f9f54118d64380ec06e3e
 
     private final String URL = Configuration.SERVER + "/v1/phrase";
     private int i=0;
@@ -71,7 +61,6 @@ public class HelpActivity extends Activity implements TextWatcher {
         status.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
 
         //--------recuperation pm
-
         pm = (EditText) findViewById(R.id.phrase);
         envoy = (Button) findViewById(R.id.button);
 

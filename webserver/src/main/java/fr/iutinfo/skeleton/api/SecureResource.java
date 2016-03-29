@@ -21,7 +21,6 @@ public class SecureResource {
 
     @GET
     @Path("/byannotation")
-    @RolesAllowed({"admin"})
     public User secureByAnnotation(@Context SecurityContext context) {
         return (User) context.getUserPrincipal();
     }

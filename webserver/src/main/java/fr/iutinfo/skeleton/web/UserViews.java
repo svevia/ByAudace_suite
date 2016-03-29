@@ -3,8 +3,11 @@ package fr.iutinfo.skeleton.web;
 
 import fr.iutinfo.skeleton.api.BDDFactory;
 import fr.iutinfo.skeleton.api.*;
+
+import org.eclipse.persistence.annotations.RangePartition;
 import org.glassfish.jersey.server.mvc.Template;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,6 +21,7 @@ public class UserViews {
 
     @GET
     @Template
+    @RolesAllowed("admin")
     public List<User> getAll() {
         return dao.all();
     }
@@ -25,6 +29,7 @@ public class UserViews {
     @GET
     @Template(name = "detail")
     @Path("/{mail}")
+    @RolesAllowed("admin")
     public User getDetail(@PathParam("mail") String mail) {
         User user = dao.findByMail(mail);
         if (user == null) {

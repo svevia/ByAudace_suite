@@ -26,9 +26,7 @@ public class AuthFilter implements ContainerRequestFilter {
 
         String auth = containerRequest.getHeaderString(HttpHeaders.AUTHORIZATION);
         String scheme = containerRequest.getUriInfo().getRequestUri().getScheme();
-        String uriAuth = containerRequest.getUriInfo().getRequestUri().getUserInfo();
-        logger.debug("uriAuth : " + uriAuth);
-        logger.debug("auth : " + auth);
+        logger.info("auth : " + auth);
 
         if (auth != null) {
             String[] loginPassword = BasicAuth.decode(auth);

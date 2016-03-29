@@ -56,6 +56,7 @@ public class UserDBResource {
      * @return user - Utilisateur trouvé
      */
     @GET
+    @RolesAllowed({"admin,user"})
     @Path("/{mail}")
     public Response getUser(@PathParam("mail") String mail) {
         User user = dao.findByMail(mail);
@@ -116,6 +117,7 @@ public class UserDBResource {
      */
     @GET
     @Path("/salt")
+    @RolesAllowed({"admin,user"})
     public String getSalt(@QueryParam("mail") String mail) {
         return dao.getSalt(mail);
     }
