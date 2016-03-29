@@ -93,30 +93,54 @@ public class JpeuxAiderActivity extends Activity  {
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                alertNotification(view,android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(), adapter.getItem(position).getPhrase());
+                //alertNotification(view,android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(), adapter.getItem(position).getPhrase());
+                alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+
+                // set title
+                alertDialogBuilder.setTitle("Contact");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("Êtes-vous sûr de vouloir contacter cette personne ?")
+                        .setCancelable(false)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                // redirection vers l'envoi du mail
+
+                                Intent i = new Intent(Intent.ACTION_SEND);
+                                i.setType("message/rfc822");
+                                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{adapter.getItem(position).getMail()});
+                                i.putExtra(Intent.EXTRA_SUBJECT, "ByAudace : Demande de contact");
+                                i.putExtra(Intent.EXTRA_TEXT   , "Bonjour [prénomExemple],\n\n" +
+                                        "J'ai pris connaissance de votre besoin : " + adapter.getItem(position).getBesoin() + " - " +
+                                        adapter.getItem(position).getPhrase() +"\net vous propose mon aide afin de le résoudre.\n" +
+                                        "Merci de me contacter en retour de ce mail.\n\n" +
+                                        "Bonne journée !");
+                                try {
+                                    startActivity(Intent.createChooser(i, "Envoi du mail..."));
+                                } catch (android.content.ActivityNotFoundException ex) {
+                                    Toast.makeText(JpeuxAiderActivity.this, "Aucune application mail n'est installée.", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
             }
         });
     }
-
-    /*private void showList() {
-        if (users.isEmpty()) {
-            textError.setText(getString(R.string.empty_list));
-            textError.setVisibility(View.VISIBLE);
-            listOfUsersView.setVisibility(View.GONE);
-        } else {
-            textError.setVisibility(View.GONE);
-            listOfUsersView.setVisibility(View.VISIBLE);
-        }
-    }*/
-
-    /*private void buildValues() {
-        values.clear();
-        for (User user : users) {
-            values.add(user.toString());
-        }
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -140,7 +164,7 @@ public class JpeuxAiderActivity extends Activity  {
         return super.onOptionsItemSelected(item);
     }
 
-    public void contact(View view, String mail, String pm){
+    public void contact(View view){
         alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set title
