@@ -37,7 +37,7 @@ public class Phrase  {
         return this.mail;
     }
 
-    public void setMail(String mail_deposant) {
+    public void setMail(String mail) {
         this.mail = mail;
     }
 
