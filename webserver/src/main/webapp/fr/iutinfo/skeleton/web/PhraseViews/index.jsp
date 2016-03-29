@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
+
+		<script src="/all.js"></script>
 	    <jsp:include page="/layout/head.jsp"/>
 	    <meta charset="UTF-8">
 	    <title>Phrases Metier</title>
@@ -11,21 +13,20 @@
 	<body>
 		<jsp:include page="/layout/logo.jsp"/>
 	    <jsp:include page="/layout/navbar.jsp"/>
+
+	    <input id="userlogin" type="hidden"  value="admin">
+	    <input id="passwdlogin" type="hidden"  value="admin">
+	    
 	    <div class="container">
 	        <div class="row">
 	            <div class="col-md-6 col-md-offset-3">
 	             <h1>Phrases métier</h1>
 	            <div class="panel panel-default">
 
-	       			<div class="dropdown">
-				  	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-					trier par
-				    <span class="caret"></span>
-				 	</button>
-					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-					<li><a href="#">phrase</a></li>
-					<li><a href="#">besoin</a></li>
-					</ul>
+	            	<div class="btn-group" role="group" aria-label="...">
+					  <button id="phrase" type="button" class="btn btn-default">phrase</button>
+					  <button id="besoin" type="button" class="btn btn-default">besoin</button>
+					  <button id="mail" type="button" class="btn btn-default">mail</button>
 					</div>
 
 					<table class="table">
@@ -67,7 +68,7 @@
 	<script>
 
 	$(document).ready(function() {
-	$("button").click(function () {
+		$("button").click(function () {
 		var id= this.id;
 		$("#oui").click(function () {
 		 	$.ajax({
@@ -83,6 +84,16 @@
 	          },
 	          });
 			});
+		});
+
+		$("#phrase").click(function () {
+			getPhrase("/v1/phrase/orderphrase");
+		});
+		$("#besoin").click(function () {
+			getPhrase("/v1/phrase/orderbesoin");
+		});
+		$("#mail").click(function () {
+			getPhrase("/v1/phrase/ordermail");
 		});
 	});
 	</script>
