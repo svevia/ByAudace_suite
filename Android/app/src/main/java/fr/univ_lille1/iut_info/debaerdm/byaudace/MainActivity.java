@@ -123,11 +123,6 @@ public class MainActivity extends Activity {
 
         queue = Volley.newRequestQueue(this);
 
-        // tmp : en attendant la réparation du serv
-        Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
-        startActivity(activity);
-        finish();
-
         URL += login.toLowerCase();
 
         final StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"?mot_de_passe="+mdp,
