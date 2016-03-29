@@ -21,12 +21,13 @@ import android.widget.TextView;
 /**
  * Created by kancurzv on 23/03/16.
  */
-public class
-        HelpActivity extends Activity implements TextWatcher {
+public class HelpActivity extends Activity implements TextWatcher {
+
     EditText pm;
     Button envoy;
+
     public static String EXTRA_MESSAGE="0";
-    String[] bdd = new String[50];
+
     private int i=0;
 
     private EditText status;

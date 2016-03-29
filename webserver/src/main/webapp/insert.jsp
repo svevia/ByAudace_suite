@@ -43,11 +43,11 @@
           <br/>
 <label class="radio-inline">
   <input type = "radio" name = "role" id = "user" value = "user" checked = "checked" />
-User</label>
+user</label>
 
 <label class="radio-inline">
-<input type = "radio" name = "role" id = "admin" value = "amin" />
-Admin</label>
+<input type = "radio" name = "role" id = "admin" value = "admin" />
+admin</label>
   </div>
   <button id="submit" class="btn btn-default">Creer</button>
 </form>
@@ -61,8 +61,10 @@ Admin</label>
                 nom = $('#nom').val();
                 prenom = $('#prenom').val();
                 tel = $('#tel').val();
-                digit = $('#prenom').val();
-                postUserBdd(mail,pass,nom,prenom,tel,digit)});
+                digit = $('#digit').val();
+                role = $("input:radio[name ='role']:checked").val()
+                console.log(role);
+                postUserBdd(mail,nom,prenom,digit,pass,role,tel)});
         });
   </script>
 

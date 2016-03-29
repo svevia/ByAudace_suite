@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,12 +20,19 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
@@ -119,12 +127,11 @@ public class MainActivity extends Activity {
         String URL = Configuration.SERVER + "/v1/auth/";
 
         if (login.replace(" ", "").replace("?", "").equals("")){
-            alertNotification(view,"Champs vides !","Entrez votre mail et votre mot de passe.");
+            alertNotification(view,android.R.drawable.ic_lock_silent_mode,"Champs vides !","Entrez votre mail et votre mot de passe.");
             return;
         }
 
         queue = Volley.newRequestQueue(this);
-
 
         URL += login.toLowerCase();
 
@@ -142,8 +149,27 @@ public class MainActivity extends Activity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
+
+                // gestion approfondie des erreurs
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    alertNotification(view, android.R.drawable.ic_delete, "Erreur !","Pas de connection Internet.");
+
+                } else if (error instanceof AuthFailureError) {
+                    alertNotification(view, android.R.drawable.ic_delete,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
+
+                } else if (error instanceof ServerError) {
+                    alertNotification(view, android.R.drawable.ic_delete,"Maintenance en cours","Le serveur est indisponible actuellement, veuillez réessayer plus tard.");
+
+                } else if (error instanceof NetworkError) {
+                    alertNotification(view, android.R.drawable.ic_delete,"Maintenance en cours","Le serveur est indisponible actuellement, veuillez réessayer plus tard.");
+
+                } else if (error instanceof ParseError) {
+                    alertNotification(view, android.R.drawable.ic_delete,"Maintenance en cours","Le serveur est indisponible actuellement, veuillez réessayer plus tard.");
+
+                }
             }
+
         }) /*{
 
             protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
@@ -154,6 +180,7 @@ public class MainActivity extends Activity {
         }*/;
 
         queue.add(stringRequest);
+
     }
 
     @Override
@@ -179,9 +206,37 @@ public class MainActivity extends Activity {
     }
 
     // retour = fermeture de l'application
-    @Override
+   /* @Override
     public void onBackPressed(){
         this.finish();
+
+    }*/
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //Handle the back button
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            //Ask the user if they want to quit
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Quitter !")
+                    .setMessage("Voulez vous vraiment quitter l'apply ?")
+                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            //Stop the activity
+                            MainActivity.this.finish();
+                        }
+
+                    })
+                    .setNegativeButton("Non", null)
+                    .show();
+
+            return true;
+        }
+        else {
+            return super.onKeyDown(keyCode, event);
+        }
 
     }
 
@@ -195,7 +250,7 @@ public class MainActivity extends Activity {
     }
 
 
-    public void alertNotification(View view, String title, String text){
+    public void alertNotification(View view, int icon, String title, String text){
         if (!ok) {
             ok = true;
             alertDialogBuilder = new AlertDialog.Builder(
@@ -207,6 +262,7 @@ public class MainActivity extends Activity {
             // set dialog message
             alertDialogBuilder
                     .setMessage(text)
+                    .setIcon(icon)
                     .setCancelable(false)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
