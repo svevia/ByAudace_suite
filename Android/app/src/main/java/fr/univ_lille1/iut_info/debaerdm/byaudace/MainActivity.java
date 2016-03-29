@@ -160,10 +160,10 @@ public class MainActivity extends Activity {
                     alertNotification(view, android.R.drawable.ic_delete,"Maintenance en cours","Le serveur est indisponible actuellement, veuillez réessayer plus tard.");
 
                 } else if (error instanceof NetworkError) {
-                    alertNotification(view, android.R.drawable.ic_delete,"Maintenance en cours","Le serveur est indisponible actuellement, veuillez réessayer plus tard.");
+                    alertNotification(view, android.R.drawable.ic_popup_sync,"Erreur réseau","Vérifiez votre connexion Internet.");
 
                 } else if (error instanceof ParseError) {
-                    alertNotification(view, android.R.drawable.ic_delete,"Maintenance en cours","Le serveur est indisponible actuellement, veuillez réessayer plus tard.");
+                    alertNotification(view, android.R.drawable.ic_delete,"ParseError","");
 
                 }
             }
