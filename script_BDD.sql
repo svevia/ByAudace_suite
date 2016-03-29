@@ -9,14 +9,15 @@ CREATE TABLE utilisateur(
 	prenom CHAR(200),
 	digit CHAR(20),
 	mot_de_passe CHAR(50) NOT NULL,
-	role CHAR(50)
+	role CHAR(50),
+	salt TEXT
 );
 
 CREATE TABLE phrase_metier(
 	phrase CHAR(300) PRIMARY KEY NOT NULL,
 	besoin CHAR(300),
 	mail CHAR(200) NOT NULL,
-	terminee BOOLEAN DEFAULT "false", 
+	terminee BOOLEAN DEFAULT "false",
 	consultee INT DEFAULT 0,
 	FOREIGN KEY(mail) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE
 );
