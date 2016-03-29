@@ -22,7 +22,7 @@ public interface UserDao {
 	@RegisterMapperFactory(BeanMapperFactory.class)
 	List<User> all();
 
-	@SqlUpdate("DELETE utilisateur WHERE mail = :mail")
+	@SqlUpdate("DELETE from utilisateur WHERE mail = :mail")
 	void delete(@Bind("mail") String mail);
 
 	@SqlUpdate("DROP TABLE IF EXISTS utilisateur")

@@ -56,6 +56,9 @@ function postUserGeneric(mail,nom,prenom,digit,pass,role,tel,url) {
 			"role" : role,
 			"numero" : tel
 		}),
+    beforeSend : function(req) {
+      req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+    },
 		success : function(data, textStatus, jqXHR) {
 			afficheUser(data);
 		},

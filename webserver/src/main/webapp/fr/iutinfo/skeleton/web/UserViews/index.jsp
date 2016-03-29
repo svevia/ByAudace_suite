@@ -59,12 +59,14 @@
 	$(document).ready(function() {
 		$("button").click(function () {
 		var mail= this.id;
+		console.log("mail :" + mail);
 		$("#oui").click(function () {
 		 	$.ajax({
 	          type: "DELETE",
 	          url: "/v1/userdb/" + mail,
 	          beforeSend : function(req) {
        			req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+
        		  },
 	          success: function(msg){
 	            location.reload();
