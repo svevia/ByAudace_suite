@@ -48,30 +48,6 @@ public class JpeuxAiderActivity extends Activity  {
         final Intent intent = getIntent();
         String[]   myStringArray= new String[5];
         myStringArray[1]= "a";
-       /* for(int i = 0 ; i < myStringArray.length; i++){
-            if(myStringArray[i].isEmpty()){
-                myStringArray[i]= myStringArray + 
-            }
-        }*/
-
-
-
-
-/*
-        String[]   myStringArray={intent.getStringExtra(HelpActivity.EXTRA_MESSAGE),"B","C"};
-
->>>>>>> 9563b7ab6a7b65fcc43c050882ebcc0acfeb9899
-
-                ArrayAdapter<String> myAdapter = new
-                        ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myStringArray);
-
-                ListView myList = (ListView) findViewById(R.id.listView);
-                myList.setAdapter(myAdapter);
-
-
-            final TextView tv1 = (TextView)findViewById( R.id.textView3 );
-        //tv1.setText(message);
-        */
 
 
         if(intent != null) {
