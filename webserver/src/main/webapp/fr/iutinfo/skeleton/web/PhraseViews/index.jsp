@@ -34,11 +34,11 @@
 					<c:forEach items="${it}" var="item">
 					    <tr>
 					    <td id="itphrase_<%=cpt%>" style="background-color:lightsteelblue;">${item.phrase}</td>
-					    <td style="background-color:lightsteelblue;"><a href="/html/phrase/${item.phrase}">détails</a></td>
+					    <td style="background-color:lightsteelblue;"><a id="link_<%=cpt%>" href="/html/phrase/${item.phrase}">détails</a></td>
 						</tr>
 						<tr>
 					    <td id="itbesoin_<%=cpt%>">${item.besoin}</td>
-					  	<td><button type="button" id="${item.phrase}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
+					  	<td><button type="button" id="button_<%=cpt%>" name="${item.phrase}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
 					    </tr>
 					    <%cpt++; %>
 					    </c:forEach>
@@ -71,13 +71,15 @@
 
 	$(document).ready(function() {
 		$("button").click(function () {
-		var id= this.id;
+		var id = $(this).attr("name");
 		$("#oui").click(function () {
 		 	$.ajax({
 	          type: "DELETE",
 	          url: "/v1/phrase/" + id,
+	          beforeSend : function(req) {
+       			req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+       		  },
 	          success: function(msg){
-	            console.log("suppr"+this.id);
 	            location.reload();
 	          },
 	          error: function(xhr, status, errorThrown){
