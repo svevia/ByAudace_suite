@@ -7,9 +7,9 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
 public interface PhraseDao {
 
-    @SqlUpdate("insert into phrase_metier (phrase, besoin, mail_deposant, terminee, consultee) values (:phrase, :besoin, :mail_deposant, :terminee, :consultee)")
+    @SqlUpdate("insert into phrase_metier (phrase, besoin, mail, terminee, consultee) values (:phrase, :besoin, :mail, :terminee, :consultee)")
     @GetGeneratedKeys
-    Phrase insert(@BindBean() Phrase phrase);
+    int insert(@BindBean() Phrase phrase);
 
     @SqlQuery("select * from phrase_metier where phrase = :phrase")
     @RegisterMapperFactory(BeanMapperFactory.class)
@@ -44,7 +44,7 @@ public interface PhraseDao {
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderPhrase();
     
-    @SqlQuery("select * from phrase_metier order by consultee")
+    @SqlQuery("select< * from phrase_metier order by consultee")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderConsultee();
     
