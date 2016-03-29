@@ -72,7 +72,7 @@ public class JpeuxAiderActivity extends Activity  {
             if (message != null)
                 items.add(message.toString());
 
-
+            
 
         }
 
