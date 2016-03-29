@@ -33,7 +33,6 @@ public class JpeuxAiderActivity extends Activity  {
     private ArrayAdapter<String> adapter;
     private AlertDialog.Builder alertDialogBuilder;
 
-
     HelpActivity help = new HelpActivity();
 
     @Override
@@ -48,8 +47,13 @@ public class JpeuxAiderActivity extends Activity  {
         setContentView(R.layout.activity_jpeuxaider);
 
         mListView = (ListView) findViewById(R.id.listView);
-        for(int i=0; i<1; i++)
-            items.add("Vive le Nutella !");
+        items.add("Vive le Nutella !");
+        items.add("Vive les chamallows !");
+        items.add("Vive les sucettes !");
+        items.add("Vive les croissants !");
+        items.add("Vive les petits pains !");
+        items.add("Vive les frites !");
+
 
         final Intent intent = getIntent();
         String[]   myStringArray= new String[5];
@@ -62,29 +66,10 @@ public class JpeuxAiderActivity extends Activity  {
                 items.add(message.toString());
         }
 
-
-
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 this.items);
+
         mListView.setAdapter(adapter);
-
-
-
-
-         /*pmEnvoye = (String) getIntent().getSerializableExtra("sending");
-
-        mListView = (ListView) findViewById(R.id.listView);
-
-        for(int i=0; i < listPhrases.length; i++) {
-            if(listPhrases[i].isEmpty()) {
-                listPhrases[i] = pmEnvoye;
-                break;
-            }
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(JpeuxAiderActivity.this,
-                android.R.layout.simple_list_item_1, Integer.parseInt(pmEnvoye));
-        mListView.setAdapter(adapter);*/
 
     }
 
