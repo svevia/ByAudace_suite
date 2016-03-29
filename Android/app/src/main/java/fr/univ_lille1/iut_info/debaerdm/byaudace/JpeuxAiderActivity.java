@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,9 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -37,18 +34,12 @@ import java.util.List;
  */
 public class JpeuxAiderActivity extends Activity  {
 
-
     private ListView mListView;
-    private String[] listPhrases = new String[50];
-    private String pmEnvoye;
-    private EditText nbDem;
-    //private ArrayList<String> items = new ArrayList<>();
-    private ArrayAdapter<User> adapter;
+    private ArrayAdapter<Phrase> adapter;
     private AlertDialog.Builder alertDialogBuilder;
     private final String URL = Configuration.SERVER + "/v1/phrase";
-    private List<User> users;
+    private List<Phrase> users;
     private RequestQueue queue;
-    HelpActivity help = new HelpActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +76,7 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
     private void initComponent(){
-        System.out.println("User create : "+users.toString());
+        System.out.println("Phrase create : "+users.toString());
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
 
@@ -95,28 +86,10 @@ public class JpeuxAiderActivity extends Activity  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                alertNotification(view,android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(), adapter.getItem(position).getPhrase());
+                alertNotification(view, android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(), adapter.getItem(position).getPhrase());
             }
         });
     }
-
-    /*private void showList() {
-        if (users.isEmpty()) {
-            textError.setText(getString(R.string.empty_list));
-            textError.setVisibility(View.VISIBLE);
-            listOfUsersView.setVisibility(View.GONE);
-        } else {
-            textError.setVisibility(View.GONE);
-            listOfUsersView.setVisibility(View.VISIBLE);
-        }
-    }*/
-
-    /*private void buildValues() {
-        values.clear();
-        for (User user : users) {
-            values.add(user.toString());
-        }
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -190,20 +163,11 @@ public class JpeuxAiderActivity extends Activity  {
         finish();
     }
 
-   /* public ArrayList getItems(){
-        return this.items;
-    }*/
-
-    public ArrayAdapter<User> getAdaptater(){
-        return this.adapter;
-    }
-
     public void alertNotification(View view, int icon, String title, String text){
 
         alertDialogBuilder = new AlertDialog.Builder(
                 this);
 
-        // set title
         alertDialogBuilder.setTitle(title);
 
         // set dialog message
@@ -226,7 +190,7 @@ public class JpeuxAiderActivity extends Activity  {
 
     private void buildUsersFromJson(String json) {
         final Gson gson = new GsonBuilder().create();
-        Type listType = new TypeToken<List<User>>() {
+        Type listType = new TypeToken<List<Phrase>>() {
         }.getType();
         users = gson.fromJson(json, listType);
     }
