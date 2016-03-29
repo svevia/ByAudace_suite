@@ -29,16 +29,18 @@
 					  <button id="mail" type="button" class="btn btn-default">mail</button>
 					</div>
 
-					<table class="table">
-						<c:forEach items="${it}" var="item">
+					<table id="table" class="table">
+					<% int cpt =0; %>
+					<c:forEach items="${it}" var="item">
 					    <tr>
-					    <td style="background-color:lightsteelblue;">${item.phrase}</td>
+					    <td id="itphrase_<%=cpt%>" style="background-color:lightsteelblue;">${item.phrase}</td>
 					    <td style="background-color:lightsteelblue;"><a href="/html/phrase/${item.phrase}">détails</a></td>
 						</tr>
 						<tr>
-					    <td>${item.besoin}</td>
+					    <td id="itbesoin_<%=cpt%>">${item.besoin}</td>
 					  	<td><button type="button" id="${item.phrase}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
 					    </tr>
+					    <%cpt++; %>
 					    </c:forEach>
 					</table>
 

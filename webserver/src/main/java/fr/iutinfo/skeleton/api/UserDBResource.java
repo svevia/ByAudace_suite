@@ -2,6 +2,7 @@ package fr.iutinfo.skeleton.api;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -24,6 +25,7 @@ import org.slf4j.LoggerFactory;
  * @date 29/03/16
  */
 @Path("/userdb")
+@RolesAllowed({"admin"})
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserDBResource {
@@ -104,7 +106,7 @@ public class UserDBResource {
         dao.update(user);
         return Response.accepted().status(202).entity(user).build();
     }
-    
+
     /**
      * Recupere le salt lié à l'addresse mail
      * Exemple : curl "localhost:8080/v1/userdb/salt" -X GET
