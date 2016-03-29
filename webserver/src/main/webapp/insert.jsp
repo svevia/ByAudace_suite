@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
+        <script src="all.js"></script>
       <jsp:include page="/layout/head.jsp"/>
       <meta charset="utf-8">
       <title>Ajout User</title>
@@ -12,7 +13,6 @@
 <div class="container">
 
 <h1>Ajout utilisateur</h1>
-<form action="/usrdb" method="post">
   <div class="form-group">
     <label for="mail">Adresse mail</label>
     <input type="email" class="form-control" id="mail" placeholder="mail">
@@ -49,9 +49,22 @@ User</label>
 <input type = "radio" name = "role" id = "admin" value = "amin" />
 Admin</label>
   </div>
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button id="submit" class="btn btn-default">Creer</button>
 </form>
   </div>
+
+  <script type="text/javascript">
+        $(document).ready(function() {
+            $("#submit").click(function () {
+                mail = $('#mail').val();
+                pass = $('#password').val();
+                nom = $('#nom').val();
+                prenom = $('#prenom').val();
+                tel = $('#tel').val();
+                digit = $('#prenom').val();
+                postUserBdd(mail,pass,nom,prenom,tel,digit)});
+        });
+  </script>
 
 </body>
 </html>
