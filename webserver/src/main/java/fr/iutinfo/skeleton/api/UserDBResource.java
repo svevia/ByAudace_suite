@@ -2,6 +2,7 @@ package fr.iutinfo.skeleton.api;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -24,6 +25,7 @@ import org.slf4j.LoggerFactory;
  * @date 29/03/16
  */
 @Path("/userdb")
+@RolesAllowed({"admin"})
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserDBResource {
@@ -63,7 +65,7 @@ public class UserDBResource {
 
     /**
      * Supprime un utilisateur en passant son mail
-     * 
+     *
      * @param mail - Mail de l'utilisateur
      * @return user - Utilisateur supprimé
      */
@@ -81,7 +83,7 @@ public class UserDBResource {
 
     /**
      * Met à jour un utilisateur
-     * 
+     *
      * @param user - Utilisateur à modifier
      * @return user - Utilisateur modifié
      */
@@ -100,11 +102,11 @@ public class UserDBResource {
         dao.update(user);
         return Response.accepted().status(202).entity(user).build();
     }
-    
+
     /**
-     * Recupere le salt 
+     * Recupere le salt
      * @param mail
-     * @return 
+     * @return
      */
     @GET
     @Path("/salt")
@@ -114,7 +116,7 @@ public class UserDBResource {
 
     /**
      * Retourne la liste de tout les utilisateurs dans la base de données
-     * 
+     *
      * @return users - Liste de tout les utilisateurs dans la base
      */
     @GET
