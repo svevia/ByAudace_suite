@@ -38,8 +38,11 @@ public class AuthFilter implements ContainerRequestFilter {
                 throw new WebApplicationException(Status.NOT_ACCEPTABLE);
             }
 
+
+
             UserDao dao = BDDFactory.getDbi().open(UserDao.class);
             User user = dao.findByMail(loginPassword[0]);
+
             if(user != null && !user.isGoodPassword(loginPassword[1]) || user == null) {
                 throw new WebApplicationException(Status.UNAUTHORIZED);
             }
