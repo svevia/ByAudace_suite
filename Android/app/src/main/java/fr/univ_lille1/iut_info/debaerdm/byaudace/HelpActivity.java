@@ -52,7 +52,7 @@ public class HelpActivity extends Activity implements TextWatcher {
         ArrayAdapter adapter = ArrayAdapter. createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_item) ;
         spin.setAdapter(adapter);
 
-        status = (EditText) findViewById(R.id.phrase);
+        status = (EditText) findViewById(R.id.pm);
         status.addTextChangedListener(this);
         nbCharTxt = (TextView) findViewById(R.id.nbChar);
         nbCharTxt.setTextColor(Color.GREEN);
@@ -60,14 +60,11 @@ public class HelpActivity extends Activity implements TextWatcher {
         int maxLength = 300;
         status.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxLength)});
 
-        //--------recuperation pm
-        pm = (EditText) findViewById(R.id.phrase);
         envoy = (Button) findViewById(R.id.button);
 
     }
 
     public void postPhrase(View view){
-        
 
         Intent i = new Intent( HelpActivity.this, JpeuxAiderActivity.class );
         //i.putExtra(EXTRA_MESSAGE, pm.getText().toString());
@@ -114,11 +111,20 @@ public class HelpActivity extends Activity implements TextWatcher {
     public void afterTextChanged(Editable editable) {
         int nbChar = status.getText().toString().length();
         int leftChar = 300 - nbChar;
-        nbCharTxt.setText(Integer.toString(leftChar) + " caracteres restant");
+        String restant = "";
+
+        if(leftChar == 0 || leftChar == 1){
+            restant = " caractère restant.";
+        }else{
+            restant = " caractères restants.";
+        }
+
+        nbCharTxt.setText(Integer.toString(leftChar) + restant);
         nbCharTxt.setTextColor(Color.GREEN);
-        if (leftChar < 50 && leftChar >= 11)
-            nbCharTxt.setTextColor(Color.YELLOW);
-        else if (leftChar <= 10 && leftChar >= 0) {
+
+        if (leftChar < 50 && leftChar >= 11) {
+            nbCharTxt.setTextColor(Color.rgb(255,165,0));
+        }else if (leftChar <= 10 && leftChar >= 0) {
             nbCharTxt.setTextColor(Color.RED);
         }
 

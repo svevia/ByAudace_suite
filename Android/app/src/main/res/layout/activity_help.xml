@@ -52,25 +52,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/phrase"
-        android:layout_marginTop="56dp"
         android:hint="Besoin"
-        android:layout_below="@+id/page_buttons"
+        android:layout_below="@+id/pm"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginTop="33dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:singleLine="true"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
+        android:id="@+id/pm"
         android:hint="Phrase métier"
-        android:layout_below="@+id/spinner"
+        android:layout_below="@+id/nbChar"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:singleLine="true"/>
 
     <Spinner
         android:layout_width="wrap_content"
@@ -78,8 +79,7 @@
         android:id="@+id/spinner"
         android:spinnerMode="dropdown"
         android:layout_below="@+id/phrase"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -95,11 +95,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="300 caractères restants"
+        android:text="300 caractères restants."
         android:id="@+id/nbChar"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="23dp"
         android:layout_below="@+id/page_buttons"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp" />
 
 </RelativeLayout>

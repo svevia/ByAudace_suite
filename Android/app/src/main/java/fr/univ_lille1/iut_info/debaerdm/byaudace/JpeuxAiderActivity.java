@@ -60,7 +60,6 @@ public class JpeuxAiderActivity extends Activity  {
         setContentView(R.layout.activity_jpeuxaider);
         mListView = (ListView) findViewById(R.id.listView);
 
-
         items.add(" Mais au lieu de la simplicité,");
         items.add("Vive les chamallows !");
         items.add("Vive les sucettes !");

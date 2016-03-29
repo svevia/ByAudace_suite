@@ -88,6 +88,10 @@ public class MainActivity extends Activity {
 
     public void login(final View view){
 
+        Intent activity = new Intent(MainActivity.this, HelpActivity.class);
+        startActivity(activity);
+        finish();
+
         final String login = ""+loginText.getText();
         final String password = "" + passwordText.getText();
 
@@ -145,6 +149,7 @@ public class MainActivity extends Activity {
     }
 
     private void load(final String login, final String mdp, final View view){
+
         String URL = Configuration.SERVER + "/v1/auth/";
 
         if (login.replace(" ", "").replace("?", "").equals("")){
