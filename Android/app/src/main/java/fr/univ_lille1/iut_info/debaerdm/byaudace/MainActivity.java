@@ -203,7 +203,7 @@ public class MainActivity extends Activity {
 
                 }
             }
-
+            
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -214,8 +214,6 @@ public class MainActivity extends Activity {
                 return params;
             }
         };
-
-        queue.add(stringRequest);
 
     }
 

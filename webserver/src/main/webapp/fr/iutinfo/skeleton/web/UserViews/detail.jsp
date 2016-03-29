@@ -18,11 +18,11 @@
             <a href="/html/userdb"><span style="font-size:30px;" class="glyphicon glyphicon-arrow-left"></span></a>
             <div class="panel panel-default">
               <div class="panel-heading">
-                <h3 class="panel-title">Détail du "User"</h3>
+                <h3 class="panel-title">Détails</h3>
               </div>
               <div class="panel-body">
                 Nom : ${it.nom}<br/>
-				Prenom : ${it.prenom} <br/>
+				        Prenom : ${it.prenom} <br/>
                 Mot de passe : ${it.mot_de_passe} <br/>
                 Mail : ${it.mail} <br/>
                 Role : ${it.role} <br/>

@@ -7,8 +7,11 @@
       <title>Ajout User</title>
     </head>
     <body>
-        <jsp:include page="/layout/logo.jsp"/>
+      <jsp:include page="/layout/logo.jsp"/>
       <jsp:include page="/layout/navbar.jsp"/>
+
+  <input id="userlogin" type="hidden"  value="admin">
+  <input id="passwdlogin" type="hidden"  value="admin">
 
 <div class="container">
 

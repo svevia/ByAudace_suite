@@ -4,6 +4,8 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
+
+  	<script src="/all.js"></script>
     <jsp:include page="/layout/head.jsp"/>
     <meta charset="utf-8">
     <title>Utilisateurs</title>
@@ -11,6 +13,10 @@
   <body>
         <jsp:include page="/layout/logo.jsp"/>
     <jsp:include page="/layout/navbar.jsp"/>
+
+	<input id="userlogin" type="hidden"  value="admin">
+	<input id="passwdlogin" type="hidden"  value="admin">
+
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
@@ -21,7 +27,7 @@
                     <c:forEach items="${it}" var="item">
                         <tr>
                         <td><a href="/html/userdb/${item.mail}">${item.mail}</a></td>
-                        <td><button type="button" id="${item.mail}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
+                        <td><button id="${item.mail}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -53,11 +59,14 @@
 	$(document).ready(function() {
 		$("button").click(function () {
 		var mail= this.id;
-        console.log(mail);
 		$("#oui").click(function () {
 		 	$.ajax({
 	          type: "DELETE",
 	          url: "/v1/userdb/" + mail,
+	          beforeSend : function(req) {
+       			req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+
+       		  },
 	          success: function(msg){
 	            location.reload();
 	          },

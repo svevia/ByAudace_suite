@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,6 +36,12 @@ import java.util.List;
 public class JpeuxAiderActivity extends Activity  {
 
     private ListView mListView;
+
+    private String[] listPhrases = new String[50];
+    private String pmEnvoye;
+    private EditText nbDem;
+
+    private ArrayList<String> items = new ArrayList<>();
     private ArrayAdapter<Phrase> adapter;
     private AlertDialog.Builder alertDialogBuilder;
     private final String URL = Configuration.SERVER + "/v1/phrase";
@@ -51,9 +58,17 @@ public class JpeuxAiderActivity extends Activity  {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_jpeuxaider);
-
         mListView = (ListView) findViewById(R.id.listView);
 
+
+        items.add(" Mais au lieu de la simplicité,");
+        items.add("Vive les chamallows !");
+        items.add("Vive les sucettes !");
+        items.add("Vive les croissants !");
+        items.add("Vive les petits pains !");
+        items.add("Vive les frites !");
+
+        mListView = (ListView) findViewById(R.id.listView);
         users = new ArrayList<>();
 
         queue = Volley.newRequestQueue(this);

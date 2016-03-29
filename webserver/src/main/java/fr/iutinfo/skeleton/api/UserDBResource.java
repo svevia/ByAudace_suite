@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * @date 29/03/16
  */
 @Path("/userdb")
-@RolesAllowed({"admin"})
+
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserDBResource {
@@ -41,6 +41,7 @@ public class UserDBResource {
      * @return user - Utilisateur créé
      */
     @POST
+    @RolesAllowed({"admin"})
     public User createUser(User user) {
         System.out.println("Create user : " + user);
         user.resetPasswordHash();
@@ -56,6 +57,7 @@ public class UserDBResource {
      * @return user - Utilisateur trouvé
      */
     @GET
+    @RolesAllowed({"admin,user"})
     @Path("/{mail}")
     public Response getUser(@PathParam("mail") String mail) {
         User user = dao.findByMail(mail);
@@ -74,6 +76,7 @@ public class UserDBResource {
      */
     @DELETE
     @Path("/{mail}")
+    @RolesAllowed({"admin"})
     public Response deleteUser(@PathParam("mail") String mail) {
         User user = dao.findByMail(mail);
         System.out.println("Deleting user : " + user);
@@ -93,6 +96,7 @@ public class UserDBResource {
      */
     @PUT
     @Path("/{mail}")
+    @RolesAllowed({"admin"})
     public Response updateUser(User user) {
         User oldUser = dao.findByMail(user.getMail());
         System.out.println("Updating user : " + user);
@@ -127,6 +131,7 @@ public class UserDBResource {
      * @return users - Liste de tout les utilisateurs dans la base
      */
     @GET
+    @RolesAllowed({"admin"})
     public List<User> getAllUsers() {
         return dao.all();
     }
