@@ -93,15 +93,16 @@ public class MainActivity extends Activity {
 
         queue = Volley.newRequestQueue(this);
 
-        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/salt?mail="+login.toLowerCase(),
+        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/user?mail="+login.toLowerCase(),
                 new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String json) {
-                        //buildUsersFromJson(json);
-                        //System.out.println("Json : "+json);
-                        salt = json;
-                        load(login, password, view);
+                        buildUsersFromJson(json);
+                        System.out.println("Json : " + json);
+                        System.out.println("User : " + user.toString());
+                        //salt = json;
+                        //load(login, password, view);
                     }
 
                 }, new Response.ErrorListener() {
@@ -120,7 +121,7 @@ public class MainActivity extends Activity {
 
     private void buildUsersFromJson(String json) {
         final Gson gson = new GsonBuilder().create();
-        Type listType = new TypeToken<List<Phrase>>() {
+        Type listType = new TypeToken<List<User>>() {
         }.getType();
         user = gson.fromJson(json, listType);
     }
@@ -162,9 +163,13 @@ public class MainActivity extends Activity {
                     @Override
                     public void onResponse(String json) {
                         Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
+                        activity.putExtra("user_nom", user.getNom());
+                        activity.putExtra("user_prenom", user.getPrenom());
+                        activity.putExtra("user_mail", login);
                         startActivity(activity);
                         finish();
                     }
+
 
                 }, new Response.ErrorListener() {
 
