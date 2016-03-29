@@ -12,15 +12,18 @@ import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.PreMatching;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.ext.Provider;
+import javax.servlet.http.*;
 
 @Provider
 @PreMatching
 public class AuthFilter implements ContainerRequestFilter {
     final static Logger logger = LoggerFactory.getLogger(AuthFilter.class);
-
+    @Context private HttpServletRequest request;
     @Override
     public void filter(ContainerRequestContext containerRequest) throws WebApplicationException {
+
         String auth = containerRequest.getHeaderString(HttpHeaders.AUTHORIZATION);
         String scheme = containerRequest.getUriInfo().getRequestUri().getScheme();
         String uriAuth = containerRequest.getUriInfo().getRequestUri().getUserInfo();
@@ -40,7 +43,7 @@ public class AuthFilter implements ContainerRequestFilter {
             if(user != null && !user.isGoodPassword(loginPassword[1]) || user == null) {
                 throw new WebApplicationException(Status.UNAUTHORIZED);
             }
-
+            request.getSession(true).setAttribute("login",loginPassword[0]);
             containerRequest.setSecurityContext(new AppSecurityContext(user, scheme));
         }
     }

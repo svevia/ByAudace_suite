@@ -36,21 +36,24 @@ function getByAnnotation() {
      }
  }
 
-function postUserBdd(name, alias, pwd) {
-    postUserGeneric(name, alias, pwd, "v1/userdb/");
+function postUserBdd(mail,pass,nom,prenom,tel,digit) {
+    postUserGeneric(mail,pass,nom,prenom,tel,digit, "v1/userdb/");
 }
 
-function postUserGeneric(name, alias, pwd, url) {
+function postUserGeneric(mail,pass,nom,prenom,tel,digit,url) {
+	console.log(url);
 	$.ajax({
 		type : 'POST',
 		contentType : 'application/json',
 		url : url,
 		dataType : "json",
 		data : JSON.stringify({
-			"name" : name,
-			"alias" : alias,
-			"password" : pwd,
-			"id" : 0
+			"mail" : mail,
+			"nom" : nom,
+			"prenom" : prenom,
+			"digit" : digit,
+			"mot_de_passe" : pass,
+			"role" : "user"
 		}),
 		success : function(data, textStatus, jqXHR) {
 			afficheUser(data);
