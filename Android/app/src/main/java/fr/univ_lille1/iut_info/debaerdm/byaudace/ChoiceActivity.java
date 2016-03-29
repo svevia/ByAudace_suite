@@ -12,8 +12,7 @@ import android.widget.Button;
 
 public class ChoiceActivity extends Activity {
 
-    private Button offerHelp;
-    private Button help;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +27,7 @@ public class ChoiceActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_choice);
+
     }
 
     // retour = redirection sur la page de login
@@ -71,8 +71,11 @@ public class ChoiceActivity extends Activity {
 
     public void onClick(View v) {
         Intent intent = new Intent(this, JpeuxAiderActivity.class);
+        intent.putExtra("user_nom", intent.getStringExtra("user_nom"));
+        intent.putExtra("user_prenom", intent.getStringExtra("user_prenom"));
+        intent.putExtra("user_mail", intent.getStringExtra("user_mail"));
+        intent.putExtra("user_mot_de_passe", intent.getStringExtra("user_mot_de_passe"));
         startActivity(intent);
-
 
 
     }

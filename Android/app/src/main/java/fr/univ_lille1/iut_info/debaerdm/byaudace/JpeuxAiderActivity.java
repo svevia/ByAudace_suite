@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,7 +30,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by kancurzv on 23/03/16.
@@ -70,6 +74,7 @@ public class JpeuxAiderActivity extends Activity  {
 
         mListView = (ListView) findViewById(R.id.listView);
         users = new ArrayList<>();
+        final Intent intent = this.getIntent();
 
         queue = Volley.newRequestQueue(this);
 
@@ -85,7 +90,15 @@ public class JpeuxAiderActivity extends Activity  {
             public void onErrorResponse(VolleyError error) {
                 System.err.println(error.getMessage());
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "basic " + Base64.encodeToString((intent.getStringExtra("user_mail") + ":" + intent.getStringExtra("user_mot_de_passe")).getBytes(), Base64.NO_WRAP));
+                System.out.println(params.toString());
+                return params;
+            }
+        };
 
         queue.add(stringRequest);
     }

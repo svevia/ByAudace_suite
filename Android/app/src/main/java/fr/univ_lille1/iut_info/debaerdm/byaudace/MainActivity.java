@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,15 +37,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.xml.bind.DatatypeConverter;
 
 public class MainActivity extends Activity {
 
@@ -105,10 +101,11 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void onResponse(String json) {
-                        /*buildUsersFromJson(json);
+                        buildUsersFromJson(json);
                         System.out.println("Json : " + json);
-                        System.out.println("User : " + user.toString());*/
+                        System.out.println("User : " + user.toString());
                         salt = json;
+                        System.out.println(salt);
                         load(login, password, view);
                     }
 
@@ -160,12 +157,10 @@ public class MainActivity extends Activity {
         }
 
         queue = Volley.newRequestQueue(this);
-        String hashSalt = buildHash(mdp, salt);
+        final String hashSalt = buildHash(mdp, salt);
         URL += login.toLowerCase();
 
-
-        final byte[] mail64 = DatatypeConverter.parseBase64Binary(login);
-        final byte[] hashSalt64 = DatatypeConverter.parseBase64Binary(hashSalt);
+        System.out.println(hashSalt);
 
         final StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"?mot_de_passe="+hashSalt,
                 new Response.Listener<String>() {
@@ -173,9 +168,10 @@ public class MainActivity extends Activity {
                     @Override
                     public void onResponse(String json) {
                         Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
-                        /*activity.putExtra("user_nom", user.getNom());
+                        activity.putExtra("user_nom", user.getNom());
                         activity.putExtra("user_prenom", user.getPrenom());
-                        activity.putExtra("user_mail", login);*/
+                        activity.putExtra("user_mail", login);
+                        activity.putExtra("user_mot_de_passe", hashSalt);
                         startActivity(activity);
                         finish();
                     }
@@ -203,17 +199,19 @@ public class MainActivity extends Activity {
 
                 }
             }
-            
+
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("mail", new String(mail64));
-                params.put("mot_de_passe", new String(hashSalt64));
-
+                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
+                System.out.println(params.toString());
                 return params;
             }
         };
+
+
+        queue.add(stringRequest);
 
     }
 
