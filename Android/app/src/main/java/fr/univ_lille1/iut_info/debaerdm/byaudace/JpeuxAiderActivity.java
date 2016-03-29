@@ -16,7 +16,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,8 +37,8 @@ import java.util.List;
  */
 public class JpeuxAiderActivity extends Activity  {
 
-
     private ListView mListView;
+
     private String[] listPhrases = new String[50];
     private String pmEnvoye;
     private EditText nbDem;
@@ -50,13 +49,19 @@ public class JpeuxAiderActivity extends Activity  {
 
 
     //private ArrayList<String> items = new ArrayList<>();
-    private ArrayAdapter<User> adapter;
+
+    private ArrayAdapter<Phrase> adapter;
+
     private AlertDialog.Builder alertDialogBuilder;
     private final String URL = Configuration.SERVER + "/v1/phrase";
-    private List<User> users;
+    private List<Phrase> users;
     private RequestQueue queue;
+
     HelpActivity help = new HelpActivity();
     String pmComplete="";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,7 +139,7 @@ public class JpeuxAiderActivity extends Activity  {
                 this.items);
 
     private void initComponent(){
-        System.out.println("User create : "+users.toString());
+        System.out.println("Phrase create : "+users.toString());
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
 
@@ -162,16 +167,64 @@ public class JpeuxAiderActivity extends Activity  {
 
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                //alertNotification(view,android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(), adapter.getItem(position).getPhrase());
+                alertDialogBuilder = new AlertDialog.Builder(getApplicationContext());
+
+                // set title
+                alertDialogBuilder.setTitle("Contact");
+
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage("Êtes-vous sûr de vouloir contacter cette personne ?")
+                        .setCancelable(false)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                // redirection vers l'envoi du mail
+
+                                Intent i = new Intent(Intent.ACTION_SEND);
+                                i.setType("message/rfc822");
+                                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{adapter.getItem(position).getMail()});
+                                i.putExtra(Intent.EXTRA_SUBJECT, "ByAudace : Demande de contact");
+                                i.putExtra(Intent.EXTRA_TEXT   , "Bonjour [prénomExemple],\n\n" +
+                                        "J'ai pris connaissance de votre besoin : " + adapter.getItem(position).getBesoin() + " - " +
+                                        adapter.getItem(position).getPhrase() +"\net vous propose mon aide afin de le résoudre.\n" +
+                                        "Merci de me contacter en retour de ce mail.\n\n" +
+                                        "Bonne journée !");
+                                try {
+                                    startActivity(Intent.createChooser(i, "Envoi du mail..."));
+                                } catch (android.content.ActivityNotFoundException ex) {
+                                    Toast.makeText(JpeuxAiderActivity.this, "Aucune application mail n'est installée.", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // do nothing
+                            }
+                        });
+
+                // create alert dialog
+                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                // show it
+                alertDialog.show();
+
 
                 alertNotification(view,android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(), pmComplete);
+
 
 
 
             }
         });
     }
+
 
     /*private void showList() {
         if (users.isEmpty()) {
@@ -183,7 +236,6 @@ public class JpeuxAiderActivity extends Activity  {
             listOfUsersView.setVisibility(View.VISIBLE);
         }
     }*/
-
 
 
 
@@ -210,7 +262,7 @@ public class JpeuxAiderActivity extends Activity  {
         return super.onOptionsItemSelected(item);
     }
 
-    public void contact(View view, String mail, String pm){
+    public void contact(View view){
         alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set title
@@ -257,20 +309,11 @@ public class JpeuxAiderActivity extends Activity  {
     // retour = redirection sur la page de choix
 
 
-   /* public ArrayList getItems(){
-        return this.items;
-    }*/
-
-    public ArrayAdapter<User> getAdaptater(){
-        return this.adapter;
-    }
-
     public void alertNotification(View view, int icon, String title, String text){
 
         alertDialogBuilder = new AlertDialog.Builder(
                 this);
 
-        // set title
         alertDialogBuilder.setTitle(title);
 
         // set dialog message
@@ -304,7 +347,7 @@ public class JpeuxAiderActivity extends Activity  {
 
     private void buildUsersFromJson(String json) {
         final Gson gson = new GsonBuilder().create();
-        Type listType = new TypeToken<List<User>>() {
+        Type listType = new TypeToken<List<Phrase>>() {
         }.getType();
         users = gson.fromJson(json, listType);
     }

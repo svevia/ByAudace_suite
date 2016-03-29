@@ -32,6 +32,12 @@ import com.android.volley.toolbox.Volley;
 import com.google.common.base.Charsets;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class MainActivity extends Activity {
 
@@ -43,6 +49,7 @@ public class MainActivity extends Activity {
     private boolean ok = false;
     private SharedPreferences pref;
     private CheckBox checkbox;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +91,6 @@ public class MainActivity extends Activity {
         final String login = ""+loginText.getText();
         final String password = "" + passwordText.getText();
 
-        //String cacahuete = null;
         queue = Volley.newRequestQueue(this);
 
         final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/salt?mail="+login.toLowerCase(),
@@ -92,6 +98,8 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void onResponse(String json) {
+                        //buildUsersFromJson(json);
+                        //System.out.println("Json : "+json);
                         salt = json;
                         load(login, password, view);
                     }
@@ -108,6 +116,13 @@ public class MainActivity extends Activity {
 
         // stockage des identifiants
         checkButtonClicked(this.getCurrentFocus());
+    }
+
+    private void buildUsersFromJson(String json) {
+        final Gson gson = new GsonBuilder().create();
+        Type listType = new TypeToken<List<Phrase>>() {
+        }.getType();
+        user = gson.fromJson(json, listType);
     }
 
     public void checkButtonClicked(View view){

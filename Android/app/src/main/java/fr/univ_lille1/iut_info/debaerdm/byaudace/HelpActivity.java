@@ -26,6 +26,7 @@ import android.widget.TextView;
  */
 public class HelpActivity extends Activity implements TextWatcher {
 
+<<<<<<< HEAD
 
 
     private EditText pm;
@@ -33,8 +34,11 @@ public class HelpActivity extends Activity implements TextWatcher {
 
 
     Button envoy;
+=======
+    private EditText pm;
+    private Button envoy;
+>>>>>>> 2d69fbcf4ff55db6721f9f54118d64380ec06e3e
 
-    public static String EXTRA_MESSAGE="0";
     private final String URL = Configuration.SERVER + "/v1/phrase";
     private int i=0;
 
