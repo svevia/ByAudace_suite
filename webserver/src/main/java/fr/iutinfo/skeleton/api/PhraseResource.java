@@ -59,7 +59,7 @@ public class PhraseResource {
     public String getPourcentage() {
         int a = dao.getTermCount(false);
         int b = dao.getAllCount();
-        return "" + ((double) a/b) * 100 + "%";
+        return "{ \"percent\":" + ((double) a/b) * 100 + " }";
     }
 
     /*@GET

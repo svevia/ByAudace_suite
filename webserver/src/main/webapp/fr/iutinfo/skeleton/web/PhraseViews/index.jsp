@@ -76,6 +76,9 @@
 		 	$.ajax({
 	          type: "DELETE",
 	          url: "/v1/phrase/" + id,
+	          beforeSend : function(req) {
+       			req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+       		  },
 	          success: function(msg){
 	            console.log("suppr"+this.id);
 	            location.reload();
