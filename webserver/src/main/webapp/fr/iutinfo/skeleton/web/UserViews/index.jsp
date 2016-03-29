@@ -22,7 +22,6 @@
             <div class="col-md-6 col-md-offset-3">
              <h1>Utilisateurs</h1>
             <div class="panel panel-default">
-
                     <table class="table">
                     <c:forEach items="${it}" var="item">
                         <tr>
