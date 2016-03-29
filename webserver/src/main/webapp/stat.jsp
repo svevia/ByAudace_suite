@@ -16,10 +16,18 @@
 	        <div class="col-md-6 col-md-offset-3">
 	            <h1>Phrases métier non résolues</h1>
 				<div class="progress">
-					<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:60%;">
-				    60%
+					<div id="bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:30%;">
+				    30%
 					</div>
 				</div>
+ 				<c:set var="taux" scope="session" value="30"/>
+                <c:if test="${taux <= 30}">
+				<div class="alert alert-danger alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<strong>Attention!</strong> Vérifiez les phrases métier.
+				</div>
+				</c:if>
+
 				<br>
                 <form action="" class="search-form">
                     <div class="form-group has-feedback">
@@ -27,14 +35,6 @@
                     <span class="glyphicon glyphicon-search form-control-feedback"></span>
                     </div>
                 </form>
-
-				<div class="btn-group" role="group" aria-label="...">
-					<h4>Trier par<h4>
-					<button id="consultee" type="button" class="btn btn-default">nombre de consultations</button>
-					<button id="phrase" type="button" class="btn btn-default">phrase</button>
-					<button id="besoin" type="button" class="btn btn-default">besoin</button>
-					<button id="mail" type="button" class="btn btn-default">mail</button>
-				</div>
 
 				<table class="table">
 					<c:forEach items="${it}" var="item">

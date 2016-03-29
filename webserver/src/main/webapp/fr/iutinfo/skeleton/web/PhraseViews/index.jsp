@@ -14,10 +14,22 @@
 	    <div class="container">
 	        <div class="row">
 	            <div class="col-md-6 col-md-offset-3">
-	                <h1>Phrases métier</h1>
-	                <div class="panel panel-default">
-					  <table class="table">
-					  	<c:forEach items="${it}" var="item">
+	             <h1>Phrases métier</h1>
+	            <div class="panel panel-default">
+
+	       			<div class="dropdown">
+				  	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+					trier par
+				    <span class="caret"></span>
+				 	</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					<li><a href="#">phrase</a></li>
+					<li><a href="#">besoin</a></li>
+					</ul>
+					</div>
+
+					<table class="table">
+						<c:forEach items="${it}" var="item">
 					    <tr>
 					    <td style="background-color:lightsteelblue;">${item.phrase}</td>
 					    <td style="background-color:lightsteelblue;"><a href="/html/phrase/${item.phrase}">détails</a></td>
@@ -27,8 +39,9 @@
 					  	<td><button type="button" id="${item.phrase}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
 					    </tr>
 					    </c:forEach>
-					  </table>
-					</div>
+					</table>
+
+				</div>
 	            </div>
 	        </div>
 	    </div>

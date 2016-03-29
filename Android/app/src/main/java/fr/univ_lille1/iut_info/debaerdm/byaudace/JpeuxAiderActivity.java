@@ -60,7 +60,6 @@ public class JpeuxAiderActivity extends Activity  {
             String  message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
             if(message != null)
                 items.add(message.toString());
-                this.getAdaptater().notifyDataSetChanged();
         }
 
 
