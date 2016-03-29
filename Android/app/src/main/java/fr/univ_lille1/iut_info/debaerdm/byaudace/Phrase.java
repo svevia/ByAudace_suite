@@ -28,20 +28,8 @@ public class Phrase {
         return this.phrase;
     }
 
-    public void setPhrase(String phrase) {
-        this.phrase = phrase;
-    }
-
     public String getMail() {
         return this.mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public void setBesoin(String besoin) {
-        this.besoin = besoin;
     }
 
     public String getBesoin() {
@@ -52,16 +40,9 @@ public class Phrase {
         return this.terminee;
     }
 
-    public void setTerminee(boolean terminee) {
-        this.terminee = terminee;
-    }
 
     public int getConsultee() {
         return this.consultee;
-    }
-
-    public void setConsultee(int consultee) {
-        this.consultee = consultee;
     }
 
     public String toString() {
