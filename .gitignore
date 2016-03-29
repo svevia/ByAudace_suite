@@ -7,7 +7,7 @@ lt application files
 
 # Java class files
 *.class
-configuration.java
+Configuration.java
 # Generated files
 bin/
 gen/

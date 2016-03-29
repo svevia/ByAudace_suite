@@ -13,12 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -38,7 +34,8 @@ import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 
 public class MainActivity extends Activity {
-    private String salt;
+
+    private String salt = null;
     private EditText loginText;
     private EditText passwordText;
     private RequestQueue queue;
@@ -82,11 +79,32 @@ public class MainActivity extends Activity {
     }
 
 
-    public void login(View view){
+    public void login(final View view){
 
-        String login = ""+loginText.getText();
-        String password = "" + passwordText.getText();
-        load(login, password, view);
+        final String login = ""+loginText.getText();
+        final String password = "" + passwordText.getText();
+
+        //String cacahuete = null;
+        queue = Volley.newRequestQueue(this);
+
+        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/salt?mail="+login.toLowerCase(),
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String json) {
+                        salt = json;
+                        load(login, password, view);
+                    }
+
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                alertNotification(view, android.R.drawable.ic_delete,"ParseError",error.getMessage());
+            }
+
+        });
+        queue.add(request);
 
         // stockage des identifiants
         checkButtonClicked(this.getCurrentFocus());
@@ -118,31 +136,7 @@ public class MainActivity extends Activity {
             return;
         }
 
-        Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
-        startActivity(activity);
-        finish();
-
         queue = Volley.newRequestQueue(this);
-        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/salt?mail="+login.toLowerCase(),
-                new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String json) {
-                        System.out.println(json);
-                        salt = json;
-                    }
-
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                alertNotification(view, android.R.drawable.ic_delete,"ParseError",error.getMessage());
-            }
-
-        });
-
-        queue.add(request);
-        System.out.println(salt);
         String hashSalt = buildHash(mdp, salt);
         URL += login.toLowerCase();
 
@@ -278,10 +272,6 @@ public class MainActivity extends Activity {
         Hasher hasher = Hashing.md5().newHasher();
         hasher.putString(mot_de_passe + s, Charsets.UTF_8);
         return hasher.hash().toString();
-    }
-
-    public String getSalt() {
-        return salt;
     }
 
 }
