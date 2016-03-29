@@ -114,9 +114,13 @@ public class MainActivity extends Activity {
         String URL = Configuration.SERVER + "/v1/auth/";
 
         if (login.replace(" ", "").replace("?", "").equals("")){
-            alertNotification(view,android.R.drawable.ic_delete,"Champs vides !","Entrez votre mail et votre mot de passe.");
+            alertNotification(view,android.R.drawable.ic_delete,"Champs vides","Entrez votre adresse mail et votre mot de passe.");
             return;
         }
+
+        Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
+        startActivity(activity);
+        finish();
 
         queue = Volley.newRequestQueue(this);
         final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/salt?mail="+login.toLowerCase(),
@@ -159,32 +163,22 @@ public class MainActivity extends Activity {
 
                 // gestion approfondie des erreurs
 
-                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-                    alertNotification(view, android.R.drawable.ic_popup_sync, "Erreur !","Pas de connection Internet.");
+                if (error instanceof TimeoutError || error instanceof NoConnectionError || error instanceof NetworkError) {
+                    alertNotification(view, android.R.drawable.ic_delete, "Erreur réseau","Vérifiez votre connection Internet.");
 
                 } else if (error instanceof AuthFailureError) {
-                    alertNotification(view, android.R.drawable.ic_delete,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
+                    alertNotification(view, android.R.drawable.ic_delete,"Erreur","Identifiant mail ou mot de passe incorrect.");
 
                 } else if (error instanceof ServerError) {
-                    alertNotification(view, android.R.drawable.ic_popup_sync,"Maintenance en cours","Le serveur est indisponible actuellement, veuillez réessayer plus tard.");
+                    alertNotification(view, android.R.drawable.ic_popup_sync,"Maintenance en cours","Le serveur est actuellement indisponible, veuillez réessayer plus tard.");
 
-                } else if (error instanceof NetworkError) {
-                    alertNotification(view, android.R.drawable.ic_popup_sync,"Erreur réseau","Vérifiez votre connexion Internet.");
-
-                } else if (error instanceof ParseError) {
+                }else if (error instanceof ParseError) {
                     alertNotification(view, android.R.drawable.ic_delete,"ParseError",error.getMessage());
 
                 }
             }
 
-        }) /*{
-
-            protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("mdp", mdp);
-                return params;
-            }
-        }*/;
+        });
 
         queue.add(stringRequest);
 
@@ -213,11 +207,6 @@ public class MainActivity extends Activity {
     }
 
     // retour = fermeture de l'application
-   /* @Override
-    public void onBackPressed(){
-        this.finish();
-
-    }*/
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //Handle the back button
         if(keyCode == KeyEvent.KEYCODE_BACK) {
@@ -225,14 +214,14 @@ public class MainActivity extends Activity {
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("Quitter !")
-                    .setMessage("Voulez vous vraiment quitter l'apply ?")
+                    .setMessage("Voulez-vous vraiment quitter ?")
                     .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
 
                             //Stop the activity
-                            MainActivity.this.finish();
+                            finish();
                         }
 
                     })
