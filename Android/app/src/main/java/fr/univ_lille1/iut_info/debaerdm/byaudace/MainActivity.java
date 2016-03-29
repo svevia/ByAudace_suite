@@ -125,7 +125,7 @@ public class MainActivity extends Activity {
         String URL = Configuration.SERVER + "/v1/auth/";
 
         if (login.replace(" ", "").replace("?", "").equals("")){
-            alertNotification(view,"Champs vides !","Entrez votre mail et votre mot de passe.");
+            alertNotification(view,android.R.drawable.ic_lock_silent_mode,"Champs vides !","Entrez votre mail et votre mot de passe.");
             return;
         }
 
@@ -148,20 +148,22 @@ public class MainActivity extends Activity {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                //gestion approfondie des erreurs
+                // gestion approfondie des erreurs
+
                 if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    alertNotification(view, android.R.drawable.ic_delete, "Erreur !","Pas de connection Internet.");
 
                 } else if (error instanceof AuthFailureError) {
-                    alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
+                    alertNotification(view, android.R.drawable.ic_delete,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
 
                 } else if (error instanceof ServerError) {
-                    //TODO
+                    alertNotification(view, android.R.drawable.ic_delete,"Maintenance en cours","Le serveur est indisponible actuellement, veuillez réessayer plus tard.");
 
                 } else if (error instanceof NetworkError) {
-                    //TODO
+                    alertNotification(view, android.R.drawable.ic_delete,"Maintenance en cours","Le serveur est indisponible actuellement, veuillez réessayer plus tard.");
 
                 } else if (error instanceof ParseError) {
-                    //TODO
+                    alertNotification(view, android.R.drawable.ic_delete,"Maintenance en cours","Le serveur est indisponible actuellement, veuillez réessayer plus tard.");
 
                 }
             }
@@ -246,7 +248,7 @@ public class MainActivity extends Activity {
     }
 
 
-    public void alertNotification(View view, String title, String text){
+    public void alertNotification(View view, int icon, String title, String text){
         if (!ok) {
             ok = true;
             alertDialogBuilder = new AlertDialog.Builder(
@@ -258,6 +260,7 @@ public class MainActivity extends Activity {
             // set dialog message
             alertDialogBuilder
                     .setMessage(text)
+                    .setIcon(icon)
                     .setCancelable(false)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {

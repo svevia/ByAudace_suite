@@ -23,10 +23,8 @@ import android.widget.TextView;
  */
 public class HelpActivity extends Activity implements TextWatcher {
 
-    JpeuxAiderActivity jpAider = new JpeuxAiderActivity();
     EditText pm;
     Button envoy;
-
 
     public static String EXTRA_MESSAGE="0";
 
