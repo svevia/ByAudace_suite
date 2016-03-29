@@ -16,6 +16,12 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Requêtes REST liés à la table utilisateurs de la base de données
+ *
+ * @author seysn
+ * @date 29/03/16
+ */
 @Path("/userdb")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -24,6 +30,12 @@ public class UserDBResource {
     private static UserDao dao = BDDFactory.getDbi().open(UserDao.class);
     final static Logger logger = LoggerFactory.getLogger(UserDBResource.class);
 
+    /**
+     * Créé un utilsateur et l'ajoute dans la base de données
+     *
+     * @param user - Les parametres de l'utilisateur
+     * @return user - Utilisateur créé
+     */
     @POST
     public User createUser(User user) {
         System.out.println("Create user : " + user);
@@ -32,6 +44,12 @@ public class UserDBResource {
         return user;
     }
 
+    /**
+     * Recherche un utilisateur par son mail
+     *
+     * @param mail - Mail de l'utilisateur
+     * @return user - Utilisateur trouvé
+     */
     @GET
     @Path("/{mail}")
     public Response getUser(@PathParam("mail") String mail) {
@@ -42,6 +60,12 @@ public class UserDBResource {
         return Response.accepted().status(202).entity(user).build();
     }
 
+    /**
+     * Supprime un utilisateur en passant son mail
+     * 
+     * @param mail - Mail de l'utilisateur
+     * @return user - Utilisateur supprimé
+     */
     @DELETE
     @Path("/{mail}")
     public Response deleteUser(@PathParam("mail") String mail) {
@@ -53,23 +77,34 @@ public class UserDBResource {
         dao.delete(mail);
         return Response.accepted().status(202).entity(user).build();
     }
-    
+
+    /**
+     * Met à jour un utilisateur
+     * 
+     * @param user - Utilisateur à modifier
+     * @return user - Utilisateur modifié
+     */
     @PUT
     @Path("/{mail}")
     public Response updateUser(User user) {
-    	User oldUser = dao.findByMail(user.getMail());
-    	System.out.println("Updating user : " + user);
-    	if (user.equals(oldUser)) {
-    		System.err.println("L'update n'a provoque aucune modification. La/les modifications sont surement identique a l'original");
-    		return Response.accepted().status(418).build();
-    	}
-    	if (oldUser == null) {
-    		return Response.accepted().status(404).build();
-    	}
-    	dao.update(user);
-    	return Response.accepted().status(202).entity(user).build();
+        User oldUser = dao.findByMail(user.getMail());
+        System.out.println("Updating user : " + user);
+        if (user.equals(oldUser)) {
+            System.err.println("L'update n'a provoque aucune modification. La/les modifications sont surement identique a l'original");
+            return Response.accepted().status(418).build();
+        }
+        if (oldUser == null) {
+            return Response.accepted().status(404).build();
+        }
+        dao.update(user);
+        return Response.accepted().status(202).entity(user).build();
     }
 
+    /**
+     * Retourne la liste de tout les utilisateurs dans la base de données
+     * 
+     * @return users - Liste de tout les utilisateurs dans la base
+     */
     @GET
     public List<User> getAllUsers() {
         return dao.all();

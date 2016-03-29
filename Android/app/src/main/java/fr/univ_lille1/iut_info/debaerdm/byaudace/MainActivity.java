@@ -20,20 +20,30 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hasher;
+import com.google.common.hash.Hashing;
+
+import java.security.SecureRandom;
 
 public class MainActivity extends Activity {
 
     private static final String LOGIN[] = {"","Toto", "Tutu", "Tata"};
     private static final String MDP[] = {"","toto", "tutu", "tata"};
+    private String salt;
     private Button loginButton;
     private EditText loginText;
     private EditText passwordText;
@@ -88,8 +98,7 @@ public class MainActivity extends Activity {
     public void login(View view){
 
         String login = ""+loginText.getText();
-        String password = ""+passwordText.getText();
-
+        String password = buildHash("" + passwordText.getText(), getSalt());
         load(login, password, view);
 
         // stockage des identifiants
@@ -118,7 +127,7 @@ public class MainActivity extends Activity {
         String URL = Configuration.SERVER + "/v1/auth/";
 
         if (login.replace(" ", "").replace("?", "").equals("")){
-            alertNotification(view,"Champs vides !","Entrez votre mail et votre mot de passe.");
+            alertNotification(view,android.R.drawable.ic_delete,"Champs vides !","Entrez votre mail et votre mot de passe.");
             return;
         }
 
@@ -140,7 +149,25 @@ public class MainActivity extends Activity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
+
+                // gestion approfondie des erreurs
+
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    alertNotification(view, android.R.drawable.ic_popup_sync, "Erreur !","Pas de connection Internet.");
+
+                } else if (error instanceof AuthFailureError) {
+                    alertNotification(view, android.R.drawable.ic_delete,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
+
+                } else if (error instanceof ServerError) {
+                    alertNotification(view, android.R.drawable.ic_popup_sync,"Maintenance en cours","Le serveur est indisponible actuellement, veuillez réessayer plus tard.");
+
+                } else if (error instanceof NetworkError) {
+                    alertNotification(view, android.R.drawable.ic_popup_sync,"Erreur réseau","Vérifiez votre connexion Internet.");
+
+                } else if (error instanceof ParseError) {
+                    alertNotification(view, android.R.drawable.ic_delete,"ParseError",error.getMessage());
+
+                }
             }
 
         }) /*{
@@ -223,7 +250,7 @@ public class MainActivity extends Activity {
     }
 
 
-    public void alertNotification(View view, String title, String text){
+    public void alertNotification(View view, int icon, String title, String text){
         if (!ok) {
             ok = true;
             alertDialogBuilder = new AlertDialog.Builder(
@@ -235,6 +262,7 @@ public class MainActivity extends Activity {
             // set dialog message
             alertDialogBuilder
                     .setMessage(text)
+                    .setIcon(icon)
                     .setCancelable(false)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -249,4 +277,25 @@ public class MainActivity extends Activity {
             alertDialog.show();
         }
     }
+
+    public String buildHash(String mot_de_passe, String s) {
+        Hasher hasher = Hashing.md5().newHasher();
+        hasher.putString(mot_de_passe + s, Charsets.UTF_8);
+        return hasher.hash().toString();
+    }
+
+    public String getSalt() {
+        if (salt == null) {
+            salt = generateSalt();
+        }
+        return salt;
+    }
+
+    private String generateSalt() {
+        SecureRandom random = new SecureRandom();
+        Hasher hasher = Hashing.md5().newHasher();
+        hasher.putLong(random.nextLong());
+        return hasher.hash().toString();
+    }
+
 }
