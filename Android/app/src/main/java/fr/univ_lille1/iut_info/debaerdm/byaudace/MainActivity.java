@@ -37,19 +37,10 @@ import com.google.common.base.Charsets;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 
-import java.security.SecureRandom;
-
 public class MainActivity extends Activity {
-
-    private static final String LOGIN[] = {"","Toto", "Tutu", "Tata"};
-    private static final String MDP[] = {"","toto", "tutu", "tata"};
     private String salt;
-    private Button loginButton;
     private EditText loginText;
     private EditText passwordText;
-    private PopupWindow errorMessage;
-    private LinearLayout layout;
-    private TextView tv;
     private RequestQueue queue;
     private AlertDialog.Builder alertDialogBuilder;
     private boolean ok = false;
@@ -69,12 +60,8 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        loginButton = (Button) findViewById(R.id.LogButton);
         loginText = (EditText) findViewById(R.id.LoginText);
         passwordText = (EditText) findViewById(R.id.PasswordText);
-        errorMessage = new PopupWindow(this);
-        layout = new LinearLayout(this);
-        tv = new TextView(this);
         checkbox = (CheckBox) findViewById(R.id.checkBox);
 
         // si l'utilisateur a mis en mémoire ses identifiants
@@ -98,7 +85,7 @@ public class MainActivity extends Activity {
     public void login(View view){
 
         String login = ""+loginText.getText();
-        String password = buildHash("" + passwordText.getText(), getSalt());
+        String password = "" + passwordText.getText();
         load(login, password, view);
 
         // stockage des identifiants
@@ -132,10 +119,30 @@ public class MainActivity extends Activity {
         }
 
         queue = Volley.newRequestQueue(this);
+        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/salt?mail="+login.toLowerCase(),
+                new Response.Listener<String>() {
 
+                    @Override
+                    public void onResponse(String json) {
+                        System.out.println(json);
+                        salt = json;
+                    }
+
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                alertNotification(view, android.R.drawable.ic_delete,"ParseError",error.getMessage());
+            }
+
+        });
+
+        queue.add(request);
+        System.out.println(salt);
+        String hashSalt = buildHash(mdp, salt);
         URL += login.toLowerCase();
 
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"?mot_de_passe="+mdp,
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"?mot_de_passe="+hashSalt,
                 new Response.Listener<String>() {
 
                     @Override
@@ -285,17 +292,7 @@ public class MainActivity extends Activity {
     }
 
     public String getSalt() {
-        if (salt == null) {
-            salt = generateSalt();
-        }
         return salt;
-    }
-
-    private String generateSalt() {
-        SecureRandom random = new SecureRandom();
-        Hasher hasher = Hashing.md5().newHasher();
-        hasher.putLong(random.nextLong());
-        return hasher.hash().toString();
     }
 
 }
