@@ -5,6 +5,6 @@ run apt-get update && \
 add webserver/pom.xml /srv/ByAudace/webserver
 workdir /srv/ByAudace/webserver
 run mvn install
-add src /srv/ByAudace/webserver/src/
+add webserver/src /srv/ByAudace/webserver/src/
 expose 8080
 cmd mvn jetty:run
