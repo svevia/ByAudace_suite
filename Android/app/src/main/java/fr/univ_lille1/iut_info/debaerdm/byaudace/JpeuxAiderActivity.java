@@ -140,7 +140,7 @@ public class JpeuxAiderActivity extends Activity  {
         return super.onOptionsItemSelected(item);
     }
 
-    public void contact(View view){
+    public void contact(View view, String mail, String pm){
         alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set title

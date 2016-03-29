@@ -12,8 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
@@ -30,6 +32,7 @@ public class HelpActivity extends Activity implements TextWatcher {
 
     private EditText status;
     private TextView nbCharTxt;
+    private Spinner spin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +46,13 @@ public class HelpActivity extends Activity implements TextWatcher {
         setContentView(R.layout.activity_help);
 
 
+        spin = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter adapter = ArrayAdapter. createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_item) ;
+        spin.setAdapter(adapter);
 
         status = (EditText) findViewById(R.id.phrase);
         status.addTextChangedListener(this);
-        nbCharTxt = (TextView) findViewById(R.id.textView6);
+        nbCharTxt = (TextView) findViewById(R.id.nbChar);
         nbCharTxt.setTextColor(Color.GREEN);
 
         int maxLength = 300;

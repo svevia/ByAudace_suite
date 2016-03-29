@@ -15,5 +15,16 @@
     <string name="logo">logo</string>
     <string name="audacelink">campus-audace.com</string>
 
+<<<<<<< HEAD
+=======
+    <string-array name="spinner">
+        <item>Marché</item>
+        <item>Technique</item>
+        <item>Juridique</item>
+        <item>Ressources humaines</item>
+        <item>Partenariat</item>
+        <item>Autre</item>
+    </string-array>
+>>>>>>> 3cd1821fe7397a86becc96a4481453fee0defaac
 
 </resources>
