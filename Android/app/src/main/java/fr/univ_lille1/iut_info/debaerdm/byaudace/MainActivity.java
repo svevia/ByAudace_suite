@@ -18,10 +18,17 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -139,7 +146,23 @@ public class MainActivity extends Activity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
+
+                //gestion approfondie des erreurs
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+
+                } else if (error instanceof AuthFailureError) {
+                    alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
+
+                } else if (error instanceof ServerError) {
+                    //TODO
+
+                } else if (error instanceof NetworkError) {
+                    //TODO
+
+                } else if (error instanceof ParseError) {
+                    //TODO
+
+                }
             }
 
         }) /*{
