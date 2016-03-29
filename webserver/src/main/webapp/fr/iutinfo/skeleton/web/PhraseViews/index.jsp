@@ -30,7 +30,7 @@
 					</div>
 
 					<table id="table" class="table">
-					<%! int cpt =0; %>
+					<% int cpt =0; %>
 					<c:forEach items="${it}" var="item">
 					    <tr>
 					    <td id="itphrase_<%=cpt%>" style="background-color:lightsteelblue;">${item.phrase}</td>
