@@ -163,9 +163,13 @@ public class MainActivity extends Activity {
                     @Override
                     public void onResponse(String json) {
                         Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
+                        activity.putExtra("user_nom", user.getNom());
+                        activity.putExtra("user_prenom", user.getPrenom());
+                        activity.putExtra("user_mail", login);
                         startActivity(activity);
                         finish();
                     }
+
 
                 }, new Response.ErrorListener() {
 
@@ -190,7 +194,7 @@ public class MainActivity extends Activity {
                 }
             }
 
-        });
+        }, );
 
         queue.add(stringRequest);
 

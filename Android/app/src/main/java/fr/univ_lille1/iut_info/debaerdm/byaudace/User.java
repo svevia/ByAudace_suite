@@ -20,17 +20,8 @@ public class User {
         return name;
     }
 
-    public void setNom(String nom) {
-        this.name = nom;
-    }
-
     public String getPrenom() {
         return prenom;
-    }
-
-
-    public String getName() {
-        return getNom();
     }
 
     @Override
