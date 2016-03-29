@@ -28,9 +28,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MainActivity extends Activity {
 
-    private final String URL = Configuration.SERVER + "/v1/auth";
     private static final String LOGIN[] = {"","Toto", "Tutu", "Tata"};
     private static final String MDP[] = {"","toto", "tutu", "tata"};
     private Button loginButton;
@@ -114,6 +116,7 @@ public class MainActivity extends Activity {
     }
 
     private void load(final String login, final String mdp, final View view){
+        String URL = Configuration.SERVER + "/v1/auth/";
 
         if (login.replace(" ", "").replace("?", "").equals("")){
             alertNotification(view,"Champs vides !","Entrez votre mail et votre mot de passe.");
@@ -123,12 +126,13 @@ public class MainActivity extends Activity {
         queue = Volley.newRequestQueue(this);
 
 
-        final StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"?"+mdp,
+        URL += login.toLowerCase();
+
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"?mot_de_passe="+mdp,
                 new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String json) {
-
                         Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
                         startActivity(activity);
                         finish();
@@ -140,18 +144,14 @@ public class MainActivity extends Activity {
             public void onErrorResponse(VolleyError error) {
                 alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
             }
-        }){
+        }) /*{
 
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                return mdp.getBytes();
+            protected Map<String, String> getParams() throws com.android.volley.AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("mdp", mdp);
+                return params;
             }
-
-            @Override
-            public String getBodyContentType() {
-                return "application/json";
-            }
-        };
+        }*/;
 
         queue.add(stringRequest);
     }
