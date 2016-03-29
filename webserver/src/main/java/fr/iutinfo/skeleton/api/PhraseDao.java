@@ -21,6 +21,12 @@ public interface PhraseDao {
     @SqlQuery("select * from phrase_metier")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> all();
+    
+    @SqlQuery("select count(*) from phrase_metier")
+    int getAllCount();
+    
+    @SqlQuery("select count(*) from phrase_metier where terminee = :bool")
+    int getTermCount(@Bind("bool") boolean bool);
 
     /*
     @SqlQuery("select * from phrase_metier order by :champ")
