@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -56,7 +58,7 @@ public class JpeuxAiderActivity extends Activity  {
 
 
         final Intent intent = getIntent();
-        String[]   myStringArray= new String[5];
+        String[] myStringArray= new String[5];
         myStringArray[1]= "a";
 
 
@@ -70,6 +72,15 @@ public class JpeuxAiderActivity extends Activity  {
                 this.items);
 
         mListView.setAdapter(adapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                alertNotification(view,android.R.drawable.ic_dialog_info, adapter.getItem(position), adapter.getItem(position));
+
+            }
+        });
+
 
     }
 
@@ -96,8 +107,7 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
     public void contact(View view){
-        alertDialogBuilder = new AlertDialog.Builder(
-                this);
+        alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set title
         alertDialogBuilder.setTitle("Contact");
@@ -152,5 +162,31 @@ public class JpeuxAiderActivity extends Activity  {
 
     public ArrayAdapter<String> getAdaptater(){
         return this.adapter;
+    }
+
+    public void alertNotification(View view, int icon, String title, String text){
+
+        alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set title
+        alertDialogBuilder.setTitle(title);
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(text)
+                .setIcon(icon)
+                .setCancelable(false)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
     }
 }

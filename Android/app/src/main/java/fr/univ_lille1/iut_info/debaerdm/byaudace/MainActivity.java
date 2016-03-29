@@ -138,7 +138,7 @@ public class MainActivity extends Activity {
         queue = Volley.newRequestQueue(this);
 
         URL += login.toLowerCase();
-
+/*
         final StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"?mot_de_passe="+mdp,
                 new Response.Listener<String>() {
 
@@ -174,7 +174,7 @@ public class MainActivity extends Activity {
         });
 
         queue.add(stringRequest);
-
+*/
     }
 
     @Override
