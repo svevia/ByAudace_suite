@@ -44,6 +44,14 @@ public class PhraseResource {
         return ph;
     }
     
+    @GET
+    @Path("/pourcentage")
+    public String getPourcentage() {
+        int a = dao.getTermCount(false);
+        int b = dao.getAllCount();
+        return "" + ((double) a/b) * 100 + "%";
+    }
+    
     /*@GET
     @Path("/order")
     public List<Phrase> getAllOrderBy(@QueryParam("champ") String champ) {
