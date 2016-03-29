@@ -23,6 +23,7 @@
               <div class="panel-body">
                 Nom : ${it.nom}<br/>
 				Prenom : ${it.prenom} <br/>
+                Mot de passe : ${it.mot_de_passe} <br/>
                 Mail : ${it.mail} <br/>
                 Role : ${it.role} <br/>
                 Telephone : ${it.numero} <br/>

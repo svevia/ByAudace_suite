@@ -74,7 +74,7 @@ public class User implements Principal {
 
     public void setMot_de_passe(String mot_de_passe) {
         passwdHash = buildHash(mot_de_passe, getSalt());
-        this.mot_de_passe = mot_de_passe;
+        this.mot_de_passe = passwdHash;
     }
 
     public String getMot_de_passe() {
@@ -118,10 +118,14 @@ public class User implements Principal {
         return hasher.hash().toString();
     }
 
-    public boolean isGoodPassword(String mot_de_passe) {
-        return true;
-        //String hash = buildHash(mot_de_passe, getSalt());
-        //return hash.equals(getPasswdHash());
+    public boolean isGoodPassword(String pass) {
+        //return true;
+        System.out.println("pass:" + pass);
+        String hash = buildHash(pass, getSalt());
+        System.out.println("salt:" + getSalt());
+        System.out.println("hash:" + hash);
+        System.out.println("passwdhash:" + getPasswdHash());
+        return hash.equals(getPasswdHash());
     }
 
     public String getPasswdHash() {
