@@ -28,6 +28,7 @@ public class JpeuxAiderActivity extends Activity  {
     private ArrayList<String> items = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
+
     HelpActivity help = new HelpActivity();
 
     @Override
@@ -75,14 +76,19 @@ public class JpeuxAiderActivity extends Activity  {
 
 
         if(intent != null) {
-            String message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
+            String  message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
             if(message != null)
                 items.add(message.toString());
+                this.getAdaptater().notifyDataSetChanged();
         }
+
+
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 this.items);
         mListView.setAdapter(adapter);
+
+
 
 
          /*pmEnvoye = (String) getIntent().getSerializableExtra("sending");
@@ -129,5 +135,13 @@ public class JpeuxAiderActivity extends Activity  {
     @Override
     public void onBackPressed(){
         finish();
+    }
+
+    public ArrayList getItems(){
+        return this.items;
+    }
+
+    public ArrayAdapter<String> getAdaptater(){
+        return this.adapter;
     }
 }
