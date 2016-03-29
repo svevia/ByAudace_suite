@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -179,9 +180,37 @@ public class MainActivity extends Activity {
     }
 
     // retour = fermeture de l'application
-    @Override
+   /* @Override
     public void onBackPressed(){
         this.finish();
+
+    }*/
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        //Handle the back button
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            //Ask the user if they want to quit
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Quitter !")
+                    .setMessage("Voulez vous vraiment quitter l'apply ?")
+                    .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            //Stop the activity
+                            MainActivity.this.finish();
+                        }
+
+                    })
+                    .setNegativeButton("Non", null)
+                    .show();
+
+            return true;
+        }
+        else {
+            return super.onKeyDown(keyCode, event);
+        }
 
     }
 
