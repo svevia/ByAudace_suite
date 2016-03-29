@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -34,13 +33,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hasher;
+import com.google.common.hash.Hashing;
+
+import java.security.SecureRandom;
 
 public class MainActivity extends Activity {
 
     private static final String LOGIN[] = {"","Toto", "Tutu", "Tata"};
     private static final String MDP[] = {"","toto", "tutu", "tata"};
+    private String salt;
     private Button loginButton;
     private EditText loginText;
     private EditText passwordText;
@@ -95,8 +98,7 @@ public class MainActivity extends Activity {
     public void login(View view){
 
         String login = ""+loginText.getText();
-        String password = ""+passwordText.getText();
-
+        String password = buildHash("" + passwordText.getText(), getSalt());
         load(login, password, view);
 
         // stockage des identifiants
@@ -275,4 +277,25 @@ public class MainActivity extends Activity {
             alertDialog.show();
         }
     }
+
+    public String buildHash(String mot_de_passe, String s) {
+        Hasher hasher = Hashing.md5().newHasher();
+        hasher.putString(mot_de_passe + s, Charsets.UTF_8);
+        return hasher.hash().toString();
+    }
+
+    public String getSalt() {
+        if (salt == null) {
+            salt = generateSalt();
+        }
+        return salt;
+    }
+
+    private String generateSalt() {
+        SecureRandom random = new SecureRandom();
+        Hasher hasher = Hashing.md5().newHasher();
+        hasher.putLong(random.nextLong());
+        return hasher.hash().toString();
+    }
+
 }
