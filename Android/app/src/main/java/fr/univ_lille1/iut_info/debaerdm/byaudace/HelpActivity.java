@@ -2,10 +2,13 @@ package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,8 +26,8 @@ import android.widget.TextView;
  */
 public class HelpActivity extends Activity implements TextWatcher {
 
-    JpeuxAiderActivity jpAider = new JpeuxAiderActivity();
-    EditText pm;
+
+    private EditText pm;
     Button envoy;
 
 
@@ -68,7 +71,14 @@ public class HelpActivity extends Activity implements TextWatcher {
         i.putExtra(EXTRA_MESSAGE, pm.getText().toString());
         startActivity(i);
         this.finish();
+
     }
+
+
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -126,6 +136,10 @@ public class HelpActivity extends Activity implements TextWatcher {
 
     public int getI(){
         return this.i;
+    }
+
+    public EditText getPm(){
+        return this.pm;
     }
 
 }

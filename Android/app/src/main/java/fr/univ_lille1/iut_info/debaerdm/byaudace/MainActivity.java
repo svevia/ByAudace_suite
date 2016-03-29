@@ -179,11 +179,7 @@ public class MainActivity extends Activity {
     }
 
     // retour = fermeture de l'application
-   /* @Override
-    public void onBackPressed(){
-        this.finish();
 
-    }*/
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //Handle the back button
         if(keyCode == KeyEvent.KEYCODE_BACK) {

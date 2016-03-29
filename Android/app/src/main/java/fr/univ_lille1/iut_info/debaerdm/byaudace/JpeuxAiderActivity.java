@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +50,10 @@ public class JpeuxAiderActivity extends Activity  {
 
         setContentView(R.layout.activity_jpeuxaider);
 
+
+
+
+
         mListView = (ListView) findViewById(R.id.listView);
         for(int i=0; i<1; i++)
             items.add("Vive le Nutella !");
@@ -60,7 +67,8 @@ public class JpeuxAiderActivity extends Activity  {
             String  message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
             if(message != null)
                 items.add(message.toString());
-                this.getAdaptater().notifyDataSetChanged();
+            adapter.notifyDataSetChanged();
+            saveStringToPreferences(message.toString());
         }
 
 
@@ -68,9 +76,6 @@ public class JpeuxAiderActivity extends Activity  {
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 this.items);
         mListView.setAdapter(adapter);
-
-
-
 
          /*pmEnvoye = (String) getIntent().getSerializableExtra("sending");
 
@@ -87,6 +92,26 @@ public class JpeuxAiderActivity extends Activity  {
                 android.R.layout.simple_list_item_1, Integer.parseInt(pmEnvoye));
         mListView.setAdapter(adapter);*/
 
+    }
+
+
+
+    private void saveStringToPreferences(String str){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("label", str);
+        editor.apply();
+    }
+
+
+    public void onResume(){
+        super.onResume();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String previousText = preferences.getString("label", "");
+        if(! TextUtils.isEmpty(previousText)){
+            items.add(help.getPm().getText().toString());
+            adapter.notifyDataSetChanged();
+        }
     }
 
     @Override
