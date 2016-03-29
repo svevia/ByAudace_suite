@@ -33,11 +33,11 @@ public class Phrase  {
         this.phrase = phrase;
     }
 
-    public String getMail_deposant() {
+    public String getMail() {
         return this.mail;
     }
 
-    public void setMail_deposant(String mail) {
+    public void setMail(String mail) {
         this.mail = mail;
     }
 
