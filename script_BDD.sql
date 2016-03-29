@@ -31,9 +31,5 @@ CREATE TABLE aide(
 	PRIMARY KEY(mail_repondant,phrase)
 );
 
-INSERT INTO utilisateur VALUES("toto@gmail.com","0612364562","toto","tototo","FRNL","toto","user");
-INSERT INTO utilisateur VALUES("titi@gmail.com","0612364562","titi","tititi","FRDM","titi","admin");
-INSERT INTO utilisateur VALUES("tata@gmail.com","0612364562","tata","tatata","FRPO","tata","user");
-
 INSERT INTO phrase_metier VALUES("mon entreprise demarre","besoin d'un secretaire","toto@gmail.com", NULL,NULL);
 INSERT INTO phrase_metier VALUES("audace application","créer une application d'entreprise","toto@gmail.com",NULL,NULL);
