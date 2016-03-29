@@ -24,7 +24,7 @@
 						</tr>
 						<tr>
 					    <td>${item.besoin}</td>
-					  	<td><button type="button" id="${item.phrase}" class="btn btn-danger">supprimer</button></td>
+					  	<td><button type="button" id="${item.phrase}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
 					    </tr>
 					    </c:forEach>
 					  </table>
@@ -56,18 +56,20 @@
 	$(document).ready(function() {
 	$("button").click(function () {
 		var id= this.id;
-	 	$.ajax({
-          type: "DELETE",
-          url: "/v1/phrase/" + id,
-          success: function(msg){
-            console.log("suppr"+this.id);
-            location.reload();
-          },
-          error: function(xhr, status, errorThrown){
-            console.log("Error: " + errorThrown);
-            console.log("Status: " + status);
-          },
-          });
+		$("#oui").click(function () {
+		 	$.ajax({
+	          type: "DELETE",
+	          url: "/v1/phrase/" + id,
+	          success: function(msg){
+	            console.log("suppr"+this.id);
+	            location.reload();
+	          },
+	          error: function(xhr, status, errorThrown){
+	            console.log("Error: " + errorThrown);
+	            console.log("Status: " + status);
+	          },
+	          });
+			});
 		});
 	});
 	</script>
