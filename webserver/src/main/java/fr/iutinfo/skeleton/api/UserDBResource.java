@@ -2,6 +2,7 @@ package fr.iutinfo.skeleton.api;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -24,6 +25,7 @@ import org.slf4j.LoggerFactory;
  * @date 29/03/16
  */
 @Path("/userdb")
+@RolesAllowed({"admin"})
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserDBResource {
@@ -33,7 +35,8 @@ public class UserDBResource {
 
     /**
      * Créé un utilsateur et l'ajoute dans la base de données
-     *
+     * Exemple : curl "localhost:8080/v1/userdb" -X POST -d '{"mail":"toto@gmail.com", ...}'
+     * 
      * @param user - Les parametres de l'utilisateur
      * @return user - Utilisateur créé
      */
@@ -47,7 +50,8 @@ public class UserDBResource {
 
     /**
      * Recherche un utilisateur par son mail
-     *
+     * Exemple : curl "localhost:8080/v1/userdb/toto@gmail.com" -X GET 
+     * 
      * @param mail - Mail de l'utilisateur
      * @return user - Utilisateur trouvé
      */
@@ -63,6 +67,7 @@ public class UserDBResource {
 
     /**
      * Supprime un utilisateur en passant son mail
+     * Exemple : curl "localhost:8080/v1/userdb/toto@gmail.com" -X DELETE
      * 
      * @param mail - Mail de l'utilisateur
      * @return user - Utilisateur supprimé
@@ -81,6 +86,7 @@ public class UserDBResource {
 
     /**
      * Met à jour un utilisateur
+     * Exemple : curl "localhost:8080/v1/userdb/toto@gmail.com" -X PUT -d '{"mail":"titi@gmail.com", ...}'
      * 
      * @param user - Utilisateur à modifier
      * @return user - Utilisateur modifié
@@ -100,11 +106,13 @@ public class UserDBResource {
         dao.update(user);
         return Response.accepted().status(202).entity(user).build();
     }
-    
+
     /**
-     * Recupere le salt 
+     * Recupere le salt lié à l'addresse mail
+     * Exemple : curl "localhost:8080/v1/userdb/salt" -X GET
+     * 
      * @param mail
-     * @return 
+     * @return salt
      */
     @GET
     @Path("/salt")
@@ -114,6 +122,7 @@ public class UserDBResource {
 
     /**
      * Retourne la liste de tout les utilisateurs dans la base de données
+     * Exemple : curl "localhost:8080/v1/userdb" -X GET
      * 
      * @return users - Liste de tout les utilisateurs dans la base
      */

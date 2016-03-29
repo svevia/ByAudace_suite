@@ -19,6 +19,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,12 +43,18 @@ public class JpeuxAiderActivity extends Activity  {
     private String[] listPhrases = new String[50];
     private String pmEnvoye;
     private EditText nbDem;
+
     private ArrayList<String> items = new ArrayList<>();
 
-    private ArrayAdapter<String> adapter;
 
+
+
+    //private ArrayList<String> items = new ArrayList<>();
+    private ArrayAdapter<User> adapter;
     private AlertDialog.Builder alertDialogBuilder;
-
+    private final String URL = Configuration.SERVER + "/v1/phrase";
+    private List<User> users;
+    private RequestQueue queue;
     HelpActivity help = new HelpActivity();
     String pmComplete="";
     @Override
@@ -57,18 +74,40 @@ public class JpeuxAiderActivity extends Activity  {
 
         mListView = (ListView) findViewById(R.id.listView);
 
+
         items.add(" Mais au lieu de la simplicité,");
         items.add("Vive les chamallows !");
         items.add("Vive les sucettes !");
         items.add("Vive les croissants !");
         items.add("Vive les petits pains !");
         items.add("Vive les frites !");
+    users = new ArrayList<>();
+
+        queue = Volley.newRequestQueue(this);
 
 
 
 
         final Intent intent = getIntent();
 
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String json) {
+                        buildUsersFromJson(json);
+                        initComponent();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.err.println(error.getMessage());
+            }
+        });
+
+
+        queue.add(stringRequest);
+    }
 
 
         if(intent != null) {
@@ -77,10 +116,10 @@ public class JpeuxAiderActivity extends Activity  {
             String message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
 
             if (message != null){
-                 pmComplete= "PM: " + message.toString();
+                 pmComplete= message.toString();
 
                  if(pmComplete.length() >= 40) {
-                    tmp = "PM: " + pmComplete.substring(0,40) +"...";
+                    tmp = pmComplete.substring(0,40) +"...";
                  }
             }
 
@@ -93,6 +132,12 @@ public class JpeuxAiderActivity extends Activity  {
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 this.items);
+
+    private void initComponent(){
+        System.out.println("User create : "+users.toString());
+
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
+
 
 
         mListView.setAdapter(adapter);
@@ -119,14 +164,25 @@ public class JpeuxAiderActivity extends Activity  {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                alertNotification(view,android.R.drawable.ic_dialog_info, adapter.getItem(position), pmComplete);
+
+                alertNotification(view,android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(), pmComplete);
+
+
 
             }
         });
-
-
-
     }
+
+    /*private void showList() {
+        if (users.isEmpty()) {
+            textError.setText(getString(R.string.empty_list));
+            textError.setVisibility(View.VISIBLE);
+            listOfUsersView.setVisibility(View.GONE);
+        } else {
+            textError.setVisibility(View.GONE);
+            listOfUsersView.setVisibility(View.VISIBLE);
+        }
+    }*/
 
 
 
@@ -154,7 +210,7 @@ public class JpeuxAiderActivity extends Activity  {
         return super.onOptionsItemSelected(item);
     }
 
-    public void contact(View view){
+    public void contact(View view, String mail, String pm){
         alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set title
@@ -201,11 +257,11 @@ public class JpeuxAiderActivity extends Activity  {
     // retour = redirection sur la page de choix
 
 
-    public ArrayList getItems(){
+   /* public ArrayList getItems(){
         return this.items;
-    }
+    }*/
 
-    public ArrayAdapter<String> getAdaptater(){
+    public ArrayAdapter<User> getAdaptater(){
         return this.adapter;
     }
 
@@ -235,6 +291,7 @@ public class JpeuxAiderActivity extends Activity  {
 
     }
 
+
     public void onBackPressed()
     {
         System.out.println("backbutton");
@@ -243,5 +300,13 @@ public class JpeuxAiderActivity extends Activity  {
         super.onBackPressed();
     }
 
+
+
+    private void buildUsersFromJson(String json) {
+        final Gson gson = new GsonBuilder().create();
+        Type listType = new TypeToken<List<User>>() {
+        }.getType();
+        users = gson.fromJson(json, listType);
+    }
 
 }

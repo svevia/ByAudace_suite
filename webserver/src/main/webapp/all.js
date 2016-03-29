@@ -104,11 +104,10 @@ function getTaux(url) {
      });
 }
 
-
 function afficheTaux(data) {
 	console.log(data);
-	$("#bar").html(data);
-	window.location.replace("/html/stat");
+	$("#bar").html(data.percent);
+
 }
 
 function getPhrase(url) {
@@ -120,7 +119,8 @@ function getPhrase(url) {
         req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
        },
        success: function (data){
-        affichePhrase(data)
+        console.log(data);
+        affichePhrase(data);
        },
        error : function(jqXHR, textStatus, errorThrown) {
        			console.log('error: ' + textStatus);
@@ -128,9 +128,9 @@ function getPhrase(url) {
      });
 }
 
-
 function affichePhrase(data) {
-	console.log(data);
-	$("#bar").html(data.id + data.alias  + data.name );
-	window.location.replace("/html/phrase");
+  	for(var i=0; i< data.length; i++){
+        $("#itphrase_"+i).html(data[i].phrase);
+        $("#itbesoin_"+i).html(data[i].besoin);
+    }
 }

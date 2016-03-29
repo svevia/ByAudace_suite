@@ -29,6 +29,12 @@ public class UserDBResourceTest extends JerseyTest{
     }
     
     @Test
+    public void testReadUserWithNameFooAsObject() {
+        User utilisateur = target("/user/foo").request().get(User.class);
+        assertEquals("foo", utilisateur.getName());
+    }
+    
+    @Test
     public void should_return_user_as_object() {
     	h.createUser("tc@gmail.com", "Clavier", "Thomas", "AZERTY", "1234pouet", "user");
     	User user = target("/userdb/Clavier").request().get(User.class);

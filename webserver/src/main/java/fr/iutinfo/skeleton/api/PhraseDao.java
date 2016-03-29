@@ -9,7 +9,7 @@ public interface PhraseDao {
 
     @SqlUpdate("insert into phrase_metier (phrase, besoin, mail, terminee, consultee) values (:phrase, :besoin, :mail, :terminee, :consultee)")
     @GetGeneratedKeys
-    Phrase insert(@BindBean() Phrase phrase);
+    int insert(@BindBean() Phrase phrase);
 
     @SqlQuery("select * from phrase_metier where phrase = :phrase")
     @RegisterMapperFactory(BeanMapperFactory.class)
