@@ -4,8 +4,8 @@
         <ul class="nav navbar-nav">
             <li><a href="/">Deconnexion</a></li>
             <li><a href="/html/userdb">Utilisateurs</a></li>
-            <li><a href="/html/phrase">Phrases metier</a></li>
             <li><a href="/insert.jsp">Ajouter un utilisateur</a></li>
+            <li><a href="/html/phrase">Phrases metier</a></li>
             <li><a href="/stat.jsp">Statistiques</a></li>
         </ul>
     </div>
