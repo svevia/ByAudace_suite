@@ -61,6 +61,7 @@
           url: "/v1/phrase/" + id,
           success: function(msg){
             console.log("suppr"+this.id);
+            location.reload();
           },
           error: function(xhr, status, errorThrown){
             console.log("Error: " + errorThrown);
