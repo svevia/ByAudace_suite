@@ -219,6 +219,7 @@ public class MainActivity extends Activity {
     }
 
     // retour = fermeture de l'application
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         //Handle the back button
         if(keyCode == KeyEvent.KEYCODE_BACK) {
