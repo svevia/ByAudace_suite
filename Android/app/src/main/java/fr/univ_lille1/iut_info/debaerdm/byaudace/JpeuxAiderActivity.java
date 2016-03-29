@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -33,11 +33,13 @@ public class JpeuxAiderActivity extends Activity  {
     private String pmEnvoye;
     private EditText nbDem;
     private ArrayList<String> items = new ArrayList<>();
+
     private ArrayAdapter<String> adapter;
+
     private AlertDialog.Builder alertDialogBuilder;
 
     HelpActivity help = new HelpActivity();
-
+    String pmComplete="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,8 @@ public class JpeuxAiderActivity extends Activity  {
 
 
         mListView = (ListView) findViewById(R.id.listView);
-        items.add("Vive le Nutella !");
+
+        items.add(" Mais au lieu de la simplicité,");
         items.add("Vive les chamallows !");
         items.add("Vive les sucettes !");
         items.add("Vive les croissants !");
@@ -62,24 +65,38 @@ public class JpeuxAiderActivity extends Activity  {
         items.add("Vive les frites !");
 
 
+
+
         final Intent intent = getIntent();
-        String[]   myStringArray= new String[5];
-        myStringArray[1]= "a";
+
 
 
         if(intent != null) {
+
+            String tmp="";
             String message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
-            if (message != null)
-                items.add(message.toString());
+
+            if (message != null){
+                 pmComplete= "PM: " + message.toString();
+
+                 if(pmComplete.length() >= 40) {
+                    tmp = "PM: " + pmComplete.substring(0,40) +"...";
+                 }
+            }
+
+                items.add(tmp.toString());
 
             
 
         }
 
+
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 this.items);
 
+
         mListView.setAdapter(adapter);
+
 
          /*pmEnvoye = (String) getIntent().getSerializableExtra("sending");
 
@@ -97,7 +114,16 @@ public class JpeuxAiderActivity extends Activity  {
         mListView.setAdapter(adapter);*/
 
 
-        mListView.setAdapter(adapter);
+
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                alertNotification(view,android.R.drawable.ic_dialog_info, adapter.getItem(position), pmComplete);
+
+            }
+        });
+
 
 
     }
@@ -129,8 +155,7 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
     public void contact(View view){
-        alertDialogBuilder = new AlertDialog.Builder(
-                this);
+        alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set title
         alertDialogBuilder.setTitle("Contact");
@@ -174,10 +199,7 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
     // retour = redirection sur la page de choix
-    @Override
-    public void onBackPressed(){
-        finish();
-    }
+
 
     public ArrayList getItems(){
         return this.items;
@@ -186,4 +208,40 @@ public class JpeuxAiderActivity extends Activity  {
     public ArrayAdapter<String> getAdaptater(){
         return this.adapter;
     }
+
+    public void alertNotification(View view, int icon, String title, String text){
+
+        alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set title
+        alertDialogBuilder.setTitle(title);
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(text)
+                .setIcon(icon)
+                .setCancelable(false)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+    }
+
+    public void onBackPressed()
+    {
+        System.out.println("backbutton");
+        //SavePreferences();
+
+        super.onBackPressed();
+    }
+
+
 }

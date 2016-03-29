@@ -100,7 +100,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                alertNotification(view, android.R.drawable.ic_delete,"ParseError",error.getMessage());
+                System.out.println("ERROR : " + error.getMessage());
             }
 
         });
@@ -140,6 +140,7 @@ public class MainActivity extends Activity {
         String hashSalt = buildHash(mdp, salt);
         URL += login.toLowerCase();
 
+
         final StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"?mot_de_passe="+hashSalt,
                 new Response.Listener<String>() {
 
@@ -166,8 +167,9 @@ public class MainActivity extends Activity {
                 } else if (error instanceof ServerError) {
                     alertNotification(view, android.R.drawable.ic_popup_sync,"Maintenance en cours","Le serveur est actuellement indisponible, veuillez réessayer plus tard.");
 
-                }else if (error instanceof ParseError) {
-                    alertNotification(view, android.R.drawable.ic_delete,"ParseError",error.getMessage());
+                } else {
+                    System.out.println("ERROR : " + error.getMessage());
+                    //alertNotification(view, android.R.drawable.ic_delete,"ParseError",error.getMessage());
 
                 }
             }
