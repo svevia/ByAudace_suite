@@ -56,18 +56,17 @@ public class UserDBResource {
     
     @PUT
     @Path("/{mail}")
-    public Response updateUser(@PathParam("mail") String mail, User newparam) {
-    	User user = dao.findByMail(mail);
-    	newparam.setMail(user.getMail());
+    public Response updateUser(User user) {
+    	User oldUser = dao.findByMail(user.getMail());
     	System.out.println("Updating user : " + user);
-    	if (user.equals(newparam)) {
+    	if (user.equals(oldUser)) {
     		System.err.println("L'update n'a provoque aucune modification. La/les modifications sont surement identique a l'original");
     		return Response.accepted().status(418).build();
     	}
-    	if (user == null) {
+    	if (oldUser == null) {
     		return Response.accepted().status(404).build();
     	}
-    	dao.update(mail, newparam);
+    	dao.update(user);
     	return Response.accepted().status(202).entity(user).build();
     }
 

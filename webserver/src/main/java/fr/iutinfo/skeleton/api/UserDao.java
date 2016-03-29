@@ -26,7 +26,7 @@ public interface UserDao {
 	void dropUserTable(); 
 	
 	@SqlUpdate("UPDATE utilisateur SET (numero = :numero, digit = :digit, mot_de_passe = :mot_de_passe) WHERE mail = :mail")
-	void update(@Bind("mail") String mail, @BindBean() User user);
+	void update(@BindBean() User user);
 
 	@SqlUpdate("CREATE TABLE utilisateur (mail CHAR(200) PRIMARY KEY NOT NULL, nom CHAR(200), prenom CHAR(200), digit CHAR(20), numero CHAR(20), mot_de_passe CHAR(50) NOT NULL, role CHAR(50))")
 	void createUserTable();
