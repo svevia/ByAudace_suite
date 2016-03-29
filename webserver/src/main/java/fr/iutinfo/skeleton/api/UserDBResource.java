@@ -29,14 +29,14 @@ import org.slf4j.LoggerFactory;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserDBResource {
-
+    
     private static UserDao dao = BDDFactory.getDbi().open(UserDao.class);
     final static Logger logger = LoggerFactory.getLogger(UserDBResource.class);
 
     /**
-     * Créé un utilsateur et l'ajoute dans la base de données
-     * Exemple : curl "localhost:8080/v1/userdb" -X POST -d '{"mail":"toto@gmail.com", ...}'
-     * 
+     * Créé un utilsateur et l'ajoute dans la base de données Exemple : curl
+     * "localhost:8080/v1/userdb" -X POST -d '{"mail":"toto@gmail.com", ...}'
+     *
      * @param user - Les parametres de l'utilisateur
      * @return user - Utilisateur créé
      */
@@ -50,14 +50,14 @@ public class UserDBResource {
     }
 
     /**
-     * Recherche un utilisateur par son mail
-     * Exemple : curl "localhost:8080/v1/userdb/toto@gmail.com" -X GET 
-     * 
+     * Recherche un utilisateur par son mail Exemple : curl
+     * "localhost:8080/v1/userdb/toto@gmail.com" -X GET
+     *
      * @param mail - Mail de l'utilisateur
      * @return user - Utilisateur trouvé
      */
     @GET
-    @RolesAllowed({"admin,user"})
+    @RolesAllowed({"admin", "user"})
     @Path("/{mail}")
     public Response getUser(@PathParam("mail") String mail) {
         User user = dao.findByMail(mail);
@@ -68,9 +68,9 @@ public class UserDBResource {
     }
 
     /**
-     * Supprime un utilisateur en passant son mail
-     * Exemple : curl "localhost:8080/v1/userdb/toto@gmail.com" -X DELETE
-     * 
+     * Supprime un utilisateur en passant son mail Exemple : curl
+     * "localhost:8080/v1/userdb/toto@gmail.com" -X DELETE
+     *
      * @param mail - Mail de l'utilisateur
      * @return user - Utilisateur supprimé
      */
@@ -88,9 +88,10 @@ public class UserDBResource {
     }
 
     /**
-     * Met à jour un utilisateur
-     * Exemple : curl "localhost:8080/v1/userdb/toto@gmail.com" -X PUT -d '{"mail":"titi@gmail.com", ...}'
-     * 
+     * Met à jour un utilisateur Exemple : curl
+     * "localhost:8080/v1/userdb/toto@gmail.com" -X PUT -d
+     * '{"mail":"titi@gmail.com", ...}'
+     *
      * @param user - Utilisateur à modifier
      * @return user - Utilisateur modifié
      */
@@ -112,22 +113,40 @@ public class UserDBResource {
     }
 
     /**
-     * Recupere le salt lié à l'addresse mail
-     * Exemple : curl "localhost:8080/v1/userdb/salt" -X GET
-     * 
+     * Recupere le salt lié à l'addresse mail Exemple : curl
+     * "localhost:8080/v1/userdb/salt?toto@gmail.com" -X GET
+     *
      * @param mail
      * @return salt
      */
     @GET
     @Path("/salt")
-    public String getSalt(@QueryParam("mail") String mail) {
-        return dao.getSalt(mail);
+    public Response getSalt(@QueryParam("mail") String mail) {
+        String salt = dao.getSalt(mail);
+        if (salt == null) {
+            return Response.accepted().status(Response.Status.NOT_FOUND).build();
+        } else {
+            return Response.accepted().status(Response.Status.OK).entity(salt).build();
+        }
+    }
+
+    /**
+     * Retourne le nom et le prenom lié au mail
+     * Exemple : curl "localhost:8080/v1/userdb/user?mail=toto@gmail.com" -X GET
+     * 
+     * @param mail
+     * @return nom et prenom
+     */
+    @GET
+    @Path("/user")
+    public String getNomAndPrenom(@QueryParam("mail") String mail) {
+        return "NOM:" + dao.getNom(mail) + ",PRENOM:" + dao.getPrenom(mail);
     }
 
     /**
      * Retourne la liste de tout les utilisateurs dans la base de données
      * Exemple : curl "localhost:8080/v1/userdb" -X GET
-     * 
+     *
      * @return users - Liste de tout les utilisateurs dans la base
      */
     @GET

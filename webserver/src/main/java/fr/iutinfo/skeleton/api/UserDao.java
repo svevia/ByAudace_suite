@@ -18,7 +18,13 @@ public interface UserDao {
         @SqlQuery("select salt from utilisateur where mail = :mail")
         String getSalt(@Bind("mail") String mail);
         
-	@SqlQuery("SELECT * FROM utilisateur")
+        @SqlQuery("select nom from utilisateur where mail = :mail")
+        String getNom(@Bind("mail") String mail);
+	
+        @SqlQuery("select prenom from utilisateur where mail = :mail")
+        String getPrenom(@Bind("mail") String mail);
+        
+        @SqlQuery("SELECT * FROM utilisateur")
 	@RegisterMapperFactory(BeanMapperFactory.class)
 	List<User> all();
 
@@ -35,4 +41,5 @@ public interface UserDao {
 	void createUserTable();
 
 	void close();
+
 }
