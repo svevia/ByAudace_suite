@@ -15,7 +15,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <a href="/html/phrase"><span style="font-size:30px;" class="glyphicon glyphicon-arrow-left"></span></a>
+            <a href="/html/userdb"><span style="font-size:30px;" class="glyphicon glyphicon-arrow-left"></span></a>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title">Détail du "User"</h3>
@@ -23,8 +23,11 @@
               <div class="panel-body">
                 Nom : ${it.nom}<br/>
 				Prenom : ${it.prenom} <br/>
-                mail : ${it.mail} <br/>
-                role : ${it.role} <br/>
+                Mot de passe : ${it.mot_de_passe} <br/>
+                Mail : ${it.mail} <br/>
+                Role : ${it.role} <br/>
+                Telephone : ${it.numero} <br/>
+                Digit : ${it.digit} <br/>
               </div>
             </div>
         </div>

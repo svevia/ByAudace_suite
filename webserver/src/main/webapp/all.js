@@ -36,11 +36,11 @@ function getByAnnotation() {
      }
  }
 
-function postUserBdd(mail,pass,nom,prenom,tel,digit) {
-    postUserGeneric(mail,pass,nom,prenom,tel,digit, "v1/userdb/");
+function postUserBdd(mail,nom,prenom,digit,pass,role,tel) {
+    postUserGeneric(mail,nom,prenom,digit,pass,role,tel, "v1/userdb/");
 }
 
-function postUserGeneric(mail,pass,nom,prenom,tel,digit,url) {
+function postUserGeneric(mail,nom,prenom,digit,pass,role,tel,url) {
 	console.log(url);
 	$.ajax({
 		type : 'POST',
@@ -53,7 +53,8 @@ function postUserGeneric(mail,pass,nom,prenom,tel,digit,url) {
 			"prenom" : prenom,
 			"digit" : digit,
 			"mot_de_passe" : pass,
-			"role" : "user"
+			"role" : role,
+			"numero" : tel
 		}),
 		success : function(data, textStatus, jqXHR) {
 			afficheUser(data);

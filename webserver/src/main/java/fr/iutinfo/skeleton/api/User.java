@@ -13,15 +13,16 @@ import org.skife.jdbi.v2.tweak.ResultSetMapper;
 public class User implements Principal {
     final static Logger logger = LoggerFactory.getLogger(User.class);
 
+    private String mail;
     private String name;
     private String prenom;
-    private String mail;
+    private String digit;
     private String numero; // Telephone
     private String mot_de_passe;
+    private String role;
     private String passwdHash;
     private String salt;
-    private String digit;
-    private String role;
+
 
     public User(String mail, String nom, String prenom, String digit, String mot_de_passe, String role) {
         this.name = nom;
@@ -32,7 +33,7 @@ public class User implements Principal {
         this.role = role;
         this.numero = "";
     }
-    
+
     public User(String mail, String nom, String prenom, String digit, String mot_de_passe, String role, String numero) {
         this.name = nom;
         this.prenom = prenom;
@@ -73,7 +74,7 @@ public class User implements Principal {
 
     public void setMot_de_passe(String mot_de_passe) {
         passwdHash = buildHash(mot_de_passe, getSalt());
-        this.mot_de_passe = mot_de_passe;
+        this.mot_de_passe = passwdHash;
     }
 
     public String getMot_de_passe() {
@@ -108,7 +109,7 @@ public class User implements Principal {
     public void setNumero(String numero) {
         this.numero = numero;
     }
-    
+
     /* Other methods */
 
     private String buildHash(String mot_de_passe, String s) {
@@ -117,10 +118,14 @@ public class User implements Principal {
         return hasher.hash().toString();
     }
 
-    public boolean isGoodPassword(String mot_de_passe) {
-        return true;
-        //String hash = buildHash(mot_de_passe, getSalt());
-        //return hash.equals(getPasswdHash());
+    public boolean isGoodPassword(String pass) {
+        //return true;
+        System.out.println("pass:" + pass);
+        String hash = buildHash(pass, getSalt());
+        System.out.println("salt:" + getSalt());
+        System.out.println("hash:" + hash);
+        System.out.println("passwdhash:" + getPasswdHash());
+        return hash.equals(getPasswdHash());
     }
 
     public String getPasswdHash() {

@@ -27,9 +27,12 @@ import android.widget.TextView;
 public class HelpActivity extends Activity implements TextWatcher {
 
 
-    private EditText pm;
-    Button envoy;
 
+    private EditText pm;
+
+
+
+    Button envoy;
 
     public static String EXTRA_MESSAGE="0";
 
@@ -73,11 +76,6 @@ public class HelpActivity extends Activity implements TextWatcher {
         this.finish();
 
     }
-
-
-
-
-
 
 
     @Override

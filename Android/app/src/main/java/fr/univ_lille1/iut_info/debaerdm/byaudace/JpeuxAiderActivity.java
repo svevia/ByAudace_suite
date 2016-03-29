@@ -36,7 +36,6 @@ public class JpeuxAiderActivity extends Activity  {
     private ArrayAdapter<String> adapter;
     private AlertDialog.Builder alertDialogBuilder;
 
-
     HelpActivity help = new HelpActivity();
 
     @Override
@@ -55,8 +54,13 @@ public class JpeuxAiderActivity extends Activity  {
 
 
         mListView = (ListView) findViewById(R.id.listView);
-        for(int i=0; i<1; i++)
-            items.add("Vive le Nutella !");
+        items.add("Vive le Nutella !");
+        items.add("Vive les chamallows !");
+        items.add("Vive les sucettes !");
+        items.add("Vive les croissants !");
+        items.add("Vive les petits pains !");
+        items.add("Vive les frites !");
+
 
         final Intent intent = getIntent();
         String[]   myStringArray= new String[5];
@@ -64,17 +68,17 @@ public class JpeuxAiderActivity extends Activity  {
 
 
         if(intent != null) {
-            String  message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
-            if(message != null)
+            String message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
+            if (message != null)
                 items.add(message.toString());
-            adapter.notifyDataSetChanged();
-            saveStringToPreferences(message.toString());
+
+
+
         }
-
-
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 this.items);
+
         mListView.setAdapter(adapter);
 
          /*pmEnvoye = (String) getIntent().getSerializableExtra("sending");
@@ -92,27 +96,15 @@ public class JpeuxAiderActivity extends Activity  {
                 android.R.layout.simple_list_item_1, Integer.parseInt(pmEnvoye));
         mListView.setAdapter(adapter);*/
 
+
+        mListView.setAdapter(adapter);
+
+
     }
 
 
 
-    private void saveStringToPreferences(String str){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("label", str);
-        editor.apply();
-    }
 
-
-    public void onResume(){
-        super.onResume();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String previousText = preferences.getString("label", "");
-        if(! TextUtils.isEmpty(previousText)){
-            items.add(help.getPm().getText().toString());
-            adapter.notifyDataSetChanged();
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
