@@ -59,7 +59,6 @@
 	$(document).ready(function() {
 		$("button").click(function () {
 		var mail= this.id;
-		console.log("mail :" + mail);
 		$("#oui").click(function () {
 		 	$.ajax({
 	          type: "DELETE",
