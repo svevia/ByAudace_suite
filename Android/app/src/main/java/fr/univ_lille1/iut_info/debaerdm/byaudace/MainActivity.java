@@ -19,7 +19,6 @@ import android.widget.EditText;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -94,11 +93,6 @@ public class MainActivity extends Activity {
 
 
     public void login(final View view){
-
-        Intent activity = new Intent(MainActivity.this, HelpActivity.class);
-        startActivity(activity);
-        finish();
-
         final String login = ""+loginText.getText();
         final String password = "" + passwordText.getText();
 
