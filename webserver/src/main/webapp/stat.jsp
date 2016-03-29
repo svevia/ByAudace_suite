@@ -23,11 +23,12 @@
 	        <div class="col-md-6 col-md-offset-3">
 	            <h1>Phrases métier non résolues</h1>
 				<div class="progress">
-					<div id="bar" class="progress-bar" role="progressbar" aria-valuenow="${it}" aria-valuemin="0" aria-valuemax="100" style="width:30%;">
+					<div id="bar" class="progress-bar" role="progressbar" aria-valuenow="${it}%" aria-valuemin="0" aria-valuemax="100" style="width:${it}%;">
 				    ${it}
 					</div>
+					<p>${it}%</p>
 				</div>
- 				<c:set var="taux" scope="session" value="30"/>
+ 				<c:set var="taux" scope="session" value="${it}"/>
                 <c:if test="${taux <= 30}">
 				<div class="alert alert-danger alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -64,9 +65,9 @@
 	        </div>
 	    </div>
 
-	    <script type="text/javascript">
+	    <script>
 		$(document).ready(function(){
-			getTaux("/v1/phrase/pourcentage");
+			var taux = getTaux("/v1/phrase/pourcentage");
 		});
 		</script>
 

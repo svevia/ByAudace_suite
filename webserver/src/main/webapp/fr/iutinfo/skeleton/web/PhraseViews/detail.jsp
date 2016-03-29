@@ -22,7 +22,7 @@
               <div class="panel-body" style="font-size:17px;">
                 ${it.phrase}<br/>
 				        ${it.besoin}<br/>                
-                ${it.mail_deposant}<br/>
+                ${it.mail}<br/>
                 nombre de consultations : ${it.consultee}<br/>
                 <c:set var="finie" scope="session" value="${it.terminee}"/>
                 <c:if test="${finie == false}"><span style="font-size:25px;" class="glyphicon glyphicon-remove-circle"></span></br></c:if>
