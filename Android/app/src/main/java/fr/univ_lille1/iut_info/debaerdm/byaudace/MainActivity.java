@@ -13,12 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -37,19 +33,11 @@ import com.google.common.base.Charsets;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 
-import java.security.SecureRandom;
-
 public class MainActivity extends Activity {
 
-    private static final String LOGIN[] = {"","Toto", "Tutu", "Tata"};
-    private static final String MDP[] = {"","toto", "tutu", "tata"};
-    private String salt;
-    private Button loginButton;
+    private String salt = null;
     private EditText loginText;
     private EditText passwordText;
-    private PopupWindow errorMessage;
-    private LinearLayout layout;
-    private TextView tv;
     private RequestQueue queue;
     private AlertDialog.Builder alertDialogBuilder;
     private boolean ok = false;
@@ -69,12 +57,8 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        loginButton = (Button) findViewById(R.id.LogButton);
         loginText = (EditText) findViewById(R.id.LoginText);
         passwordText = (EditText) findViewById(R.id.PasswordText);
-        errorMessage = new PopupWindow(this);
-        layout = new LinearLayout(this);
-        tv = new TextView(this);
         checkbox = (CheckBox) findViewById(R.id.checkBox);
 
         // si l'utilisateur a mis en mémoire ses identifiants
@@ -95,11 +79,32 @@ public class MainActivity extends Activity {
     }
 
 
-    public void login(View view){
+    public void login(final View view){
 
-        String login = ""+loginText.getText();
-        String password = buildHash("" + passwordText.getText(), getSalt());
-        load(login, password, view);
+        final String login = ""+loginText.getText();
+        final String password = "" + passwordText.getText();
+
+        //String cacahuete = null;
+        queue = Volley.newRequestQueue(this);
+
+        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/salt?mail="+login.toLowerCase(),
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String json) {
+                        salt = json;
+                        load(login, password, view);
+                    }
+
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR : " + error.getMessage());
+            }
+
+        });
+        queue.add(request);
 
         // stockage des identifiants
         checkButtonClicked(this.getCurrentFocus());
@@ -131,15 +136,12 @@ public class MainActivity extends Activity {
             return;
         }
 
-        Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
-        startActivity(activity);
-        finish();
-
         queue = Volley.newRequestQueue(this);
-
+        String hashSalt = buildHash(mdp, salt);
         URL += login.toLowerCase();
-/*
-        final StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"?mot_de_passe="+mdp,
+
+
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"?mot_de_passe="+hashSalt,
                 new Response.Listener<String>() {
 
                     @Override
@@ -165,8 +167,9 @@ public class MainActivity extends Activity {
                 } else if (error instanceof ServerError) {
                     alertNotification(view, android.R.drawable.ic_popup_sync,"Maintenance en cours","Le serveur est actuellement indisponible, veuillez réessayer plus tard.");
 
-                }else if (error instanceof ParseError) {
-                    alertNotification(view, android.R.drawable.ic_delete,"ParseError",error.getMessage());
+                } else {
+                    System.out.println("ERROR : " + error.getMessage());
+                    //alertNotification(view, android.R.drawable.ic_delete,"ParseError",error.getMessage());
 
                 }
             }
@@ -174,7 +177,7 @@ public class MainActivity extends Activity {
         });
 
         queue.add(stringRequest);
-*/
+
     }
 
     @Override
@@ -270,20 +273,6 @@ public class MainActivity extends Activity {
     public String buildHash(String mot_de_passe, String s) {
         Hasher hasher = Hashing.md5().newHasher();
         hasher.putString(mot_de_passe + s, Charsets.UTF_8);
-        return hasher.hash().toString();
-    }
-
-    public String getSalt() {
-        if (salt == null) {
-            salt = generateSalt();
-        }
-        return salt;
-    }
-
-    private String generateSalt() {
-        SecureRandom random = new SecureRandom();
-        Hasher hasher = Hashing.md5().newHasher();
-        hasher.putLong(random.nextLong());
         return hasher.hash().toString();
     }
 

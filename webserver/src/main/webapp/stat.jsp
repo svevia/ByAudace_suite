@@ -4,20 +4,27 @@
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
+
+		<script src="all.js"></script>
 	    <jsp:include page="/layout/head.jsp"/>
 	    <meta charset="UTF-8">
 	    <title>Phrases Metier</title>
 	</head>
 	<body>
+
 		<jsp:include page="/layout/logo.jsp"/>
 	    <jsp:include page="/layout/navbar.jsp"/>
+
+	    <input id="userlogin" type="hidden"  value="admin">
+	    <input id="passwdlogin" type="hidden"  value="admin">
+
 	    <div class="container">
 	        <div class="row">
 	        <div class="col-md-6 col-md-offset-3">
 	            <h1>Phrases métier non résolues</h1>
 				<div class="progress">
-					<div id="bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width:30%;">
-				    30%
+					<div id="bar" class="progress-bar" role="progressbar" aria-valuenow="${it}" aria-valuemin="0" aria-valuemax="100" style="width:30%;">
+				    ${it}
 					</div>
 				</div>
  				<c:set var="taux" scope="session" value="30"/>
@@ -56,5 +63,12 @@
 			</div>
 	        </div>
 	    </div>
+
+	    <script type="text/javascript">
+		$(document).ready(function(){
+			getTaux("/v1/phrase/pourcentage");
+		});
+		</script>
+
 	</body>
 </html>

@@ -8,7 +8,7 @@ public class Phrase  {
     /* Obligatoire */
     private String phrase;
     private String besoin;
-    private String mail_deposant;
+    private String mail;
     private boolean terminee;
     private String numero;
     private int consultee;
@@ -17,10 +17,10 @@ public class Phrase  {
 
     }
 
-    public Phrase(String phrase, String besoin, String mail_deposant, String numero) {
+    public Phrase(String phrase, String besoin, String mail, String numero) {
         this.phrase = phrase;
         this.besoin = besoin;
-        this.mail_deposant = mail_deposant;
+        this.mail = mail;
         this.terminee = false;
         this.consultee = 0;
     }
@@ -33,12 +33,12 @@ public class Phrase  {
         this.phrase = phrase;
     }
 
-    public String getMail_deposant() {
-        return this.mail_deposant;
+    public String getMail() {
+        return this.mail;
     }
 
-    public void setMail_deposant(String mail_deposant) {
-        this.mail_deposant = mail_deposant;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public void setBesoin(String besoin) {

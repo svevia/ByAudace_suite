@@ -20,7 +20,6 @@ public class User implements Principal {
     private String numero; // Telephone
     private String mot_de_passe;
     private String role;
-    private String passwdHash;
     private String salt;
 
 
@@ -28,7 +27,7 @@ public class User implements Principal {
         this.name = nom;
         this.prenom = prenom;
         this.mail = mail;
-        setMot_de_passe(mot_de_passe);
+        this.mot_de_passe = mot_de_passe;
         this.digit = digit;
         this.role = role;
         this.numero = "";
@@ -38,7 +37,7 @@ public class User implements Principal {
         this.name = nom;
         this.prenom = prenom;
         this.mail = mail;
-        setMot_de_passe(mot_de_passe);
+        this.mot_de_passe = mot_de_passe;
         this.digit = digit;
         this.role = role;
         this.numero = numero;
@@ -72,9 +71,8 @@ public class User implements Principal {
         this.prenom = prenom;
     }
 
-    public void setMot_de_passe(String mot_de_passe) {
-        passwdHash = buildHash(mot_de_passe, getSalt());
-        this.mot_de_passe = passwdHash;
+    public void setMot_de_passe(String pass) {
+        this.mot_de_passe = pass;
     }
 
     public String getMot_de_passe() {
@@ -112,28 +110,19 @@ public class User implements Principal {
 
     /* Other methods */
 
-    private String buildHash(String mot_de_passe, String s) {
+    private String buildHash(String pass, String s) {
         Hasher hasher = Hashing.md5().newHasher();
-        hasher.putString(mot_de_passe + s, Charsets.UTF_8);
+        hasher.putString(pass + s, Charsets.UTF_8);
         return hasher.hash().toString();
     }
 
     public boolean isGoodPassword(String pass) {
-        //return true;
         System.out.println("pass:" + pass);
         String hash = buildHash(pass, getSalt());
         System.out.println("salt:" + getSalt());
         System.out.println("hash:" + hash);
-        System.out.println("passwdhash:" + getPasswdHash());
-        return hash.equals(getPasswdHash());
-    }
-
-    public String getPasswdHash() {
-        return passwdHash;
-    }
-
-    public void setPasswdHash(String passwdHash) {
-        this.passwdHash = passwdHash;
+        System.out.println("passwdhash:" + getMot_de_passe());
+        return hash.equals(getMot_de_passe());
     }
 
     @Override
@@ -141,7 +130,7 @@ public class User implements Principal {
         if (getClass() != arg.getClass())
             return false;
         User user = (User) arg;
-        return name.equals(user.name) && prenom.equals(user.prenom) && mail.equals(user.mail) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
+        return name.equals(user.name) && prenom.equals(user.prenom) && mail.equals(user.mail) && mot_de_passe.equals(user.getMot_de_passe()) && salt.equals((user.getSalt()));
     }
 
     @Override
@@ -178,7 +167,7 @@ public class User implements Principal {
 
     public void resetPasswordHash() {
         if (mot_de_passe != null && ! mot_de_passe.isEmpty()) {
-            setMot_de_passe(getMot_de_passe());
+            setMot_de_passe(buildHash(mot_de_passe, getSalt()));
         }
     }
 
