@@ -44,12 +44,6 @@ public class JpeuxAiderActivity extends Activity  {
     private EditText nbDem;
 
     private ArrayList<String> items = new ArrayList<>();
-
-
-
-
-    //private ArrayList<String> items = new ArrayList<>();
-
     private ArrayAdapter<Phrase> adapter;
 
     private AlertDialog.Builder alertDialogBuilder;
@@ -72,11 +66,6 @@ public class JpeuxAiderActivity extends Activity  {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_jpeuxaider);
-
-
-
-
-
         mListView = (ListView) findViewById(R.id.listView);
 
 
@@ -86,7 +75,7 @@ public class JpeuxAiderActivity extends Activity  {
         items.add("Vive les croissants !");
         items.add("Vive les petits pains !");
         items.add("Vive les frites !");
-    users = new ArrayList<>();
+        users = new ArrayList<>();
 
         queue = Volley.newRequestQueue(this);
 
@@ -114,7 +103,7 @@ public class JpeuxAiderActivity extends Activity  {
         queue.add(stringRequest);
     }
 
-
+/*
         if(intent != null) {
 
             String tmp="";
@@ -133,38 +122,17 @@ public class JpeuxAiderActivity extends Activity  {
             
 
         }
+        */
 
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-                this.items);
+        //adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
+
 
     private void initComponent(){
         System.out.println("Phrase create : "+users.toString());
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
-
-
-
         mListView.setAdapter(adapter);
-
-
-         /*pmEnvoye = (String) getIntent().getSerializableExtra("sending");
-
-        mListView = (ListView) findViewById(R.id.listView);
-
-        for(int i=0; i < listPhrases.length; i++) {
-            if(listPhrases[i].isEmpty()) {
-                listPhrases[i] = pmEnvoye;
-                break;
-            }
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(JpeuxAiderActivity.this,
-                android.R.layout.simple_list_item_1, Integer.parseInt(pmEnvoye));
-        mListView.setAdapter(adapter);*/
-
-
-
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             
@@ -224,21 +192,6 @@ public class JpeuxAiderActivity extends Activity  {
             }
         });
     }
-
-
-    /*private void showList() {
-        if (users.isEmpty()) {
-            textError.setText(getString(R.string.empty_list));
-            textError.setVisibility(View.VISIBLE);
-            listOfUsersView.setVisibility(View.GONE);
-        } else {
-            textError.setVisibility(View.GONE);
-            listOfUsersView.setVisibility(View.VISIBLE);
-        }
-    }*/
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
