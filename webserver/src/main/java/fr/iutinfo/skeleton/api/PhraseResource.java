@@ -34,6 +34,7 @@ public class PhraseResource {
 
     @GET
     @Path("/{phrase}")
+    @RolesAllowed("admin,user")
     public Phrase getPhrase(@PathParam("phrase") String phrase) {
         Phrase ph = dao.findByPhrase(phrase);
         if (ph == null) {
@@ -103,6 +104,7 @@ public class PhraseResource {
     }
 
     @GET
+    @RolesAllowed("admin,user")
     public List<Phrase> getAllPhrase() {
         return dao.all();
     }
