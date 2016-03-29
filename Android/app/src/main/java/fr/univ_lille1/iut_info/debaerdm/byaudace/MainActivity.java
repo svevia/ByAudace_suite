@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.Menu;
@@ -20,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,7 +28,7 @@ import com.android.volley.toolbox.Volley;
 
 public class MainActivity extends Activity {
 
-    private final String URL = Configuration.SERVER + "/v1/auth";
+    private final String URL = Configuration.SERVER + "/v1/userdb";
     private static final String LOGIN[] = {"","Toto", "Tutu", "Tata"};
     private static final String MDP[] = {"","toto", "tutu", "tata"};
     private Button loginButton;
@@ -122,8 +120,13 @@ public class MainActivity extends Activity {
 
         queue = Volley.newRequestQueue(this);
 
+        // tmp : en attendant la réparation du serv
+        Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
+        startActivity(activity);
+        finish();
 
-        final StringRequest stringRequest = new StringRequest(Request.Method.POST, URL+"?"+mdp,
+
+        final StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
                 new Response.Listener<String>() {
 
                     @Override
@@ -140,20 +143,11 @@ public class MainActivity extends Activity {
             public void onErrorResponse(VolleyError error) {
                 alertNotification(view,"Erreur !","Mauvais identifiant ou mauvais mot de passe.");
             }
-        }){
+        });
 
-            @Override
-            public byte[] getBody() throws AuthFailureError {
-                return mdp.getBytes();
-            }
-
-            @Override
-            public String getBodyContentType() {
-                return "application/json";
-            }
-        };
 
         queue.add(stringRequest);
+
     }
 
     @Override

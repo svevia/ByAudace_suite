@@ -4,6 +4,7 @@ fr/iutinfo/skeleton/auth/AuthFilter.class
 fr/iutinfo/skeleton/api/Api.class
 fr/iutinfo/skeleton/web/WebApplication.class
 fr/iutinfo/skeleton/web/PhraseViews.class
+fr/iutinfo/skeleton/api/UserAuthResource.class
 fr/iutinfo/skeleton/api/UserDBResource.class
 fr/iutinfo/skeleton/api/BDDFactory.class
 fr/iutinfo/skeleton/api/User.class
