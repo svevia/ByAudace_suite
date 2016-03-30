@@ -33,9 +33,13 @@ import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.*;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.common.net.HttpHeaders;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.HttpCookie;
@@ -113,49 +117,43 @@ public class HelpActivity extends Activity{
         final String login = intent.getStringExtra("user_mail");
         final String mdp = intent.getStringExtra("user_mot_de_passe");
 
-        System.out.println("EditText 1 :"+phraseUne.getEditText().toString());
+        Map<String, String> params = new HashMap<>();
+        params.put("phrase", "test");//phraseUne.getEditText().getText().toString());
+        params.put("besoin", "test");//phraseDeux.getEditText().getText().toString());
+        params.put("mail", login);
+        params.put("terminee", String.valueOf(false));
+        params.put("consultee", String.valueOf(0));
+
+
+        System.out.println("EditText 1 :" + phraseUne.getEditText().toString());
         System.out.println("EditText 2 :"+phraseDeux.getEditText().toString());
 
         queue = Volley.newRequestQueue(this);
 
-        final StringRequest request = new StringRequest(Request.Method.POST, Configuration.SERVER+"/v1/phrase",
-                new Response.Listener<String>() {
-
+        final com.android.volley.toolbox.JsonObjectRequest request = new JsonObjectRequest(Configuration.SERVER+"/v1/phrase", new JSONObject(params),
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(String json) {
-                        System.out.println(json);
+                    public void onResponse(JSONObject response) {
+                        try {
+                            VolleyLog.v("Response:%n %s", response.toString(4));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
-
-                if (null != error.networkResponse)
-                {
-                    Log.d("Volley Error Response", "" + error.networkResponse.statusCode);
-                }
+                VolleyLog.e("Error: ", error.getMessage());
             }
-
         }){
-            @Override
-            protected Map<String, String> getParams(){
-                Map<String, String> params = new HashMap<>();
-                params.put("phrase", "test");//phraseUne.getEditText().getText().toString());
-                params.put("besoin", "test");//phraseDeux.getEditText().getText().toString());
-                params.put("mail", login);
-                params.put("terminee", ""+false);
-                params.put("consultee", ""+0);
-
-                System.out.println("Param :"+params.toString());
-                return params;
-            }
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
-                System.out.println(params.toString());
-                return params;
+            Map<String, String> params = new HashMap<>();
+            //params.put("Content-Type","application/json");
+            params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
+            System.out.println(params.toString());
+            return params;
             }
         };
 
