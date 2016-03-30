@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -101,7 +102,7 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
     private void initComponent(){
-        System.out.println("Phrase create : "+users.toString());
+        System.out.println("Phrase create : " + users.toString());
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
 
@@ -127,7 +128,8 @@ public class JpeuxAiderActivity extends Activity  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                alertNotification(view, android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(), adapter.getItem(position).getPhrase());
+                alertNotification(view, android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(), adapter.getItem(position).getPhrase(), position);
+                //alertContact(position);
             }
         });
     }
@@ -154,35 +156,28 @@ public class JpeuxAiderActivity extends Activity  {
         return super.onOptionsItemSelected(item);
     }
 
-    public void contact(View view){
-        alertDialogBuilder = new AlertDialog.Builder(this);
+    // retour = redirection sur la page de choix
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 
-        // set title
-        alertDialogBuilder.setTitle("Contact");
+
+    public void alertNotification(View view, int icon, String title, String text, final int position){
+
+        alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        alertDialogBuilder.setTitle(title);
 
         // set dialog message
         alertDialogBuilder
-                .setMessage("Êtes-vous sûr de vouloir contacter cette personne ?")
+                .setMessage(text)
+                .setIcon(icon)
                 .setCancelable(false)
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton("Contacter", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
-                        // redirection vers l'envoi du mail
-
-                        Intent i = new Intent(Intent.ACTION_SEND);
-                        i.setType("message/rfc822");
-                        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"exemple@audace.com"});
-                        i.putExtra(Intent.EXTRA_SUBJECT, "ByAudace : Demande de contact");
-                        i.putExtra(Intent.EXTRA_TEXT   , "Bonjour [prénomExemple],\n\n" +
-                                "J'ai pris connaissance de votre besoin : [besoin] et vous propose mon aide afin de le résoudre.\n" +
-                                "Merci de me contacter en retour de ce mail.\n\n" +
-                                "Bonne journée !");
-                        try {
-                            startActivity(Intent.createChooser(i, "Envoi du mail..."));
-                        } catch (android.content.ActivityNotFoundException ex) {
-                            Toast.makeText(JpeuxAiderActivity.this, "Aucune application mail n'est installée.", Toast.LENGTH_SHORT).show();
-                        }
-
+                        alertContact(position);
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -196,28 +191,44 @@ public class JpeuxAiderActivity extends Activity  {
 
         // show it
         alertDialog.show();
+
     }
 
-    // retour = redirection sur la page de choix
-    @Override
-    public void onBackPressed(){
-        finish();
-    }
+    public void alertContact(final int position){
 
-    public void alertNotification(View view, int icon, String title, String text){
+        alertDialogBuilder = new AlertDialog.Builder(this);
 
-        alertDialogBuilder = new AlertDialog.Builder(
-                this);
-
-        alertDialogBuilder.setTitle(title);
+        // set title
+        alertDialogBuilder.setTitle("Contact : " + adapter.getItem(position).getMail());
 
         // set dialog message
         alertDialogBuilder
-                .setMessage(text)
-                .setIcon(icon)
+                .setMessage("Êtes-vous sûr de vouloir contacter cette personne ?")
                 .setCancelable(false)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+
+                        // redirection vers l'envoi du mail
+
+                        Intent i = new Intent(Intent.ACTION_SEND);
+                        i.setType("message/rfc822");
+                        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{adapter.getItem(position).getMail()});
+                        i.putExtra(Intent.EXTRA_SUBJECT, "ByAudace : Demande de contact");
+                        i.putExtra(Intent.EXTRA_TEXT   , "Bonjour [prénomExemple],\n\n\n" +
+                                "J'ai pris connaissance de votre besoin : \n\n" + adapter.getItem(position).getBesoin() + "\n\net vous propose mon aide afin de le résoudre.\n" +
+                                "Merci de me contacter en retour de ce mail.\n\n\n" +
+                                "Bonne journée !");
+                        try {
+                            startActivity(Intent.createChooser(i, "Envoi du mail..."));
+                        } catch (android.content.ActivityNotFoundException ex) {
+                            Toast.makeText(JpeuxAiderActivity.this, "Aucune application mail n'est installée.", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
                     }
                 });
 

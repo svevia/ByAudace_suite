@@ -37,7 +37,7 @@ function getByAnnotation() {
  }
 
 function postUserBdd(mail,nom,prenom,digit,pass,role,tel) {
-    postUserGeneric(mail,nom,prenom,digit,pass,role,tel, "v1/userdb/");
+    postUserGeneric(mail,nom,prenom,digit,pass,role,tel, "/v1/userdb/");
 }
 
 function postUserGeneric(mail,nom,prenom,digit,pass,role,tel,url) {

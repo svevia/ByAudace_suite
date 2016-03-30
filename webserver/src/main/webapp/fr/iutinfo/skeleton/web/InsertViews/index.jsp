@@ -4,18 +4,16 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <script src="all.js"></script>
+        <script src="/all.js"></script>
       <jsp:include page="/layout/head.jsp"/>
       <meta charset="utf-8">
       <title>Ajout User</title>
     </head>
     <body>
       <jsp:include page="/layout/logo.jsp"/>
-      <jsp:include page="/layout/navbar.jsp"/>
-
-  <input id="userlogin" type="hidden"  value="admin">
-  <input id="passwdlogin" type="hidden"  value="admin">
-
+    <jsp:include page="/layout/navbar.jsp">
+    <jsp:param name="name" value = "${it}"/>
+	</jsp:include>
 <div class="container">
 
 <h1>Ajout utilisateur</h1>

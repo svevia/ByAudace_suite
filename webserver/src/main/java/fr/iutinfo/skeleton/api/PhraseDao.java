@@ -5,6 +5,10 @@ import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
+/**
+ * Requêtes SQL sur la table utilisateur utilisés dans UserDBResource
+ * @author seysn
+ */
 public interface PhraseDao {
 
     @SqlUpdate("insert into phrase_metier (phrase, besoin, mail, terminee, consultee) values (:phrase, :besoin, :mail, :terminee, :consultee)")
@@ -32,14 +36,6 @@ public interface PhraseDao {
             + "or besoin like :search or phrase like :search")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> search(@Bind("search") String search);
-    
-    /*
-    @SqlQuery("select * from phrase_metier order by :champ")
-    @RegisterMapperFactory(BeanMapperFactory.class)
-    List<Phrase> allOrderBy(@Bind("champ") String champ);
-    */
-    
-    // Requete si dessous NORMALEMENT temporaires (parce que la requête d'au dessus marche pas)
     
     @SqlQuery("select * from phrase_metier order by besoin")
     @RegisterMapperFactory(BeanMapperFactory.class)
