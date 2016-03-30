@@ -24,15 +24,15 @@ import android.widget.TextView;
  */
 public class HelpActivity extends Activity implements TextWatcher {
 
-    private EditText pm;
     private Button envoy;
 
     private final String URL = Configuration.SERVER + "/v1/phrase";
-    private int i=0;
 
     private EditText status;
     private TextView nbCharTxt;
     private Spinner spin;
+    private Intent intent;
+    //private Req
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +63,14 @@ public class HelpActivity extends Activity implements TextWatcher {
 
         envoy = (Button) findViewById(R.id.button);
 
+        intent = this.getIntent();
     }
 
     public void postPhrase(View view){
-
         Intent i = new Intent( HelpActivity.this, JpeuxAiderActivity.class );
         //i.putExtra(EXTRA_MESSAGE, pm.getText().toString());
+
+
         startActivity(i);
         this.finish();
 

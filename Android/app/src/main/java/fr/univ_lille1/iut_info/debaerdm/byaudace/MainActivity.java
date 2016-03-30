@@ -166,7 +166,7 @@ public class MainActivity extends Activity {
                         activity.putExtra("user_prenom", user.getPrenom());
                         activity.putExtra("user_numero", user.getNumero());
                         activity.putExtra("user_mail", login);
-                        activity.putExtra("user_mot_de_passe", hashSalt);
+                        activity.putExtra("user_mot_de_passe", mdp);
                         startActivity(activity);
                         finish();
                     }
