@@ -194,7 +194,7 @@ public class JpeuxAiderActivity extends Activity  {
                         i.setType("message/rfc822");
                         i.putExtra(Intent.EXTRA_EMAIL  , new String[]{adapter.getItem(position).getMail()});
                         i.putExtra(Intent.EXTRA_SUBJECT, "ByAudace : Demande de contact");
-                        i.putExtra(Intent.EXTRA_TEXT   , "Bonjour [prénomExemple],\n\n\n" +
+                        i.putExtra(Intent.EXTRA_TEXT   , "Bonjour "+adapter.getItem(position).getMail().split("@")[0]+",\n\n\n" +
                                 "J'ai pris connaissance de votre besoin : \n\n" + adapter.getItem(position).getBesoin() + "\n\net vous propose mon aide afin de le résoudre.\n" +
                                 "Merci de me contacter en retour de ce mail.\n\n\n" +
                                 "Bonne journée !");
