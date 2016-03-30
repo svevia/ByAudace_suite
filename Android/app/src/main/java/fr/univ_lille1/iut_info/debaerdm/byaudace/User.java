@@ -7,11 +7,13 @@ public class User {
 
     private String name;
     private String prenom;
+    private String salt;
 
 
-    public User(String nom, String prenom) {
+    public User(String nom, String prenom, String salt) {
         this.name = nom;
         this.prenom = prenom;
+        this.salt = salt;
     }
 
     public User() {}
@@ -24,9 +26,13 @@ public class User {
         return prenom;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
     @Override
     public String toString() {
-        return name + ", " + prenom;
+        return "Nom : "+name + ", Prenom : " + prenom+ ", Salt : "+salt;
     }
 
 }
