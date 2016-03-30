@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.Menu;
@@ -62,15 +63,11 @@ public class JpeuxAiderActivity extends Activity  {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        // portrait mode
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setContentView(R.layout.activity_jpeuxaider);
         mListView = (ListView) findViewById(R.id.listView);
-
-        items.add(" Mais au lieu de la simplicité,");
-        items.add("Vive les chamallows !");
-        items.add("Vive les sucettes !");
-        items.add("Vive les croissants !");
-        items.add("Vive les petits pains !");
-        items.add("Vive les frites !");
 
         mListView = (ListView) findViewById(R.id.listView);
         users = new ArrayList<>();
@@ -88,7 +85,7 @@ public class JpeuxAiderActivity extends Activity  {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.err.println(error.getMessage());
+                //System.err.println(error.getMessage());
             }
         }){
             @Override
@@ -157,7 +154,7 @@ public class JpeuxAiderActivity extends Activity  {
         return super.onOptionsItemSelected(item);
     }
 
-    public void contact(View view, String mail, String pm){
+    public void contact(View view){
         alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set title
