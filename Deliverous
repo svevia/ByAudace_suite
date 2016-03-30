@@ -1,5 +1,5 @@
 java:
-  image: svevia/byaudace/webserver
+  image: svevia/byaudace
   ports:
   - ip: 178.33.45.178
     container_port: 8080
