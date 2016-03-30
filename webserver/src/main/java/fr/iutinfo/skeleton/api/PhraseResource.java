@@ -18,10 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Path("/phrase")
-@RolesAllowed({"admin"})
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-
+@RolesAllowed({"admin","user"})
 /**
  * Requêtes REST liés à la table phrase_metier de la base de données
  *
@@ -45,6 +44,11 @@ public class PhraseResource {
         dao.insert(phrase);
         return phrase;
     }
+    
+    /*@POST
+    public void createPhraseWithParam(String phrase, String besoin, String mail, String terminee, String consultee) {
+        dao.insert(phrase, besoin, mail, terminee, consultee);
+    }*/
 
     /**
      * Recupère l'objet Phrase associé à l'élément phrase
@@ -55,7 +59,6 @@ public class PhraseResource {
      */
     @GET
     @Path("/{phrase}")
-    @RolesAllowed({"admin","user"})
     public Phrase getPhrase(@PathParam("phrase") String phrase) {
         Phrase ph = dao.findByPhrase(phrase);
         if (ph == null) {
@@ -83,6 +86,18 @@ public class PhraseResource {
         return ph;
     }
 
+    /**
+     * Recupere le nombre de phrase terminées
+     * Exemple : curl "localhost:8080/v1/phrase/terminee" -X GET
+     * 
+     * @return nombre de phrases terminees
+     */
+    @GET
+    @Path("/terminee")
+    public String getTerminee() {
+        return "" + dao.getTermCount(true);
+    }
+    
     /**
      * Recupere le pourcentage de phrase terminées
      * Exemple : curl "localhost:8080/v1/phrase/pourcentage" -X GET
@@ -131,7 +146,6 @@ public class PhraseResource {
      */
     @GET
     @Path("/orderconsultee")
-    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderConsultee() {
         return dao.orderConsultee();
     }
@@ -144,7 +158,6 @@ public class PhraseResource {
      */
     @GET
     @Path("/orderphrase")
-    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderPhrase() {
         return dao.orderPhrase();
     }
@@ -157,7 +170,6 @@ public class PhraseResource {
      */
     @GET
     @Path("/ordermail")
-    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderMail() {
         return dao.orderMail();
     }
@@ -170,7 +182,6 @@ public class PhraseResource {
      */
     @GET
     @Path("/orderterminee")
-    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderTerminee() {
         return dao.orderTerminee();
     }
@@ -182,7 +193,7 @@ public class PhraseResource {
      * @return phrases - Liste des phrases
      */
     @GET
-    @RolesAllowed({"admin","user"})
+    
     public List<Phrase> getAllPhrase() {
         return dao.all();
     }
