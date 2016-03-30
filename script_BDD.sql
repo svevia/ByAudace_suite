@@ -1,6 +1,6 @@
-DROP TABLE utilisateur;
-DROP TABLE aide;
-DROP TABLE phrase_metier;
+DROP TABLE if exists utilisateur;
+DROP TABLE if exists aide ;
+DROP TABLE if exists phrase_metier ;
 
 CREATE TABLE utilisateur(
 	mail CHAR(200) PRIMARY KEY NOT NULL,

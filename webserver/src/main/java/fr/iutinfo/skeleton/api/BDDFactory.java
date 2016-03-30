@@ -12,7 +12,7 @@ public class BDDFactory {
     public static DBI getDbi() {
         if(dbi == null) {
             SQLiteDataSource ds = new SQLiteDataSource();
-            ds.setUrl("jdbc:sqlite:data.db");
+            ds.setUrl("jdbc:sqlite:/tmp/data.db");
             dbi = new DBI(ds);
         }
         return dbi;
