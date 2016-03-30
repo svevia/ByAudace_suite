@@ -15,6 +15,12 @@ public interface PhraseDao {
     @GetGeneratedKeys
     int insert(@BindBean() Phrase phrase);
 
+    /*@SqlUpdate("insert into phrase_metier (phrase, besoin, mail, terminee, consultee) values (:phrase, :besoin, :mail, :terminee, :consultee)")
+    @GetGeneratedKeys
+    int insert(@Bind("phrase") String phrase, @Bind("besoin") String besoin, 
+            @Bind("mail") String mail, @Bind("terminee") String terminee, 
+            @Bind("consultee") String consultee);*/
+    
     @SqlQuery("select * from phrase_metier where phrase = :phrase")
     @RegisterMapperFactory(BeanMapperFactory.class)
     Phrase findByPhrase(@Bind("phrase") String phrase);
