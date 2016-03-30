@@ -93,7 +93,6 @@ public class JpeuxAiderActivity extends Activity  {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("Authorization", "basic " + Base64.encodeToString((intent.getStringExtra("user_mail") + ":" + intent.getStringExtra("user_mot_de_passe")).getBytes(), Base64.NO_WRAP));
-                System.out.println(params.toString());
                 return params;
             }
         };
@@ -102,34 +101,15 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
     private void initComponent(){
-        System.out.println("Phrase create : " + users.toString());
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
-
         mListView.setAdapter(adapter);
-
-        /*if(intent != null) {
-
-            String tmp="";
-            String message = intent.getStringExtra(HelpActivity.EXTRA_MESSAGE);
-
-            if (message != null){
-                pmComplete= message.toString();
-
-                if(pmComplete.length() >= 40) {
-                    tmp = pmComplete.substring(0,40) +"...";
-                }
-            }
-
-            items.add(tmp.toString());
-        }*/
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                alertNotification(view, android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(), adapter.getItem(position).getPhrase(), position);
-                //alertContact(position);
+                alertNotification(view, android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
+                        adapter.getItem(position).getBesoin()+"\n"+adapter.getItem(position).getPhrase(), position);
             }
         });
     }
