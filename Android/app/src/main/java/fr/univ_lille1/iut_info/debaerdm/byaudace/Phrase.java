@@ -21,6 +21,7 @@ public class Phrase {
         this.besoin = besoin;
         this.mail = mail;
         this.terminee = false;
+        this.numero = numero;
         this.consultee = 0;
     }
 
