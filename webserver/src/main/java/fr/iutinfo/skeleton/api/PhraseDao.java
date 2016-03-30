@@ -29,7 +29,7 @@ public interface PhraseDao {
     int getTermCount(@Bind("bool") boolean bool);
 
     @SqlQuery("select * from phrase_metier where mail like :search "
-            + "or besoin like :search or mail like :search")
+            + "or besoin like :search or phrase like :search")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> search(@Bind("search") String search);
     
