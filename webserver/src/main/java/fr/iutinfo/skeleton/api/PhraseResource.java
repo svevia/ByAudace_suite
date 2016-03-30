@@ -66,7 +66,7 @@ public class PhraseResource {
     
     @GET
     @Path("/search")
-    public Phrase search(@QueryParam("search") String search) {
+    public List<Phrase> search(@QueryParam("search") String search) {
         return dao.search("%" + search + "%");
     }
 
