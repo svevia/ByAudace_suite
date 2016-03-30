@@ -41,7 +41,7 @@ public class UserDBResource {
      * @return user - Utilisateur créé
      */
     @POST
-    @RolesAllowed({"admin"})
+    @RolesAllowed("admin")
     public User createUser(User user) {
         System.out.println("Create user : " + user);
         user.resetPasswordHash();
