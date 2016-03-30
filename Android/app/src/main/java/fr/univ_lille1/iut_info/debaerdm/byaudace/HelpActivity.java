@@ -100,81 +100,6 @@ public class HelpActivity extends Activity{
         nbCharTxt = (TextView) findViewById(R.id.nbChar);
         nbCharTxt2 = (TextView) findViewById(R.id.nbChar2);
 
-
-        /*phraseMetier.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                int nbChar = phraseMetier.getText().toString().length();
-                int leftChar = 300 - nbChar;
-                String restant = "";
-
-                if (leftChar == 0 || leftChar == 1) {
-                    restant = " caractère restant.";
-                } else {
-                    restant = " caractères restants.";
-                }
-
-                nbCharTxt.setText(Integer.toString(leftChar) + restant);
-                nbCharTxt.setTextColor(Color.GREEN);
-
-                if (leftChar < 50 && leftChar >= 11) {
-                    nbCharTxt .setTextColor(Color.rgb(255, 165, 0));
-                } else if (leftChar <= 10 && leftChar >= 0) {
-                    nbCharTxt .setTextColor(Color.RED);
-                }
-
-            }
-        });
-
-        phraseMetier.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                int nbChar = phraseBesoin.getText().toString().length();
-                int leftChar = 300 - nbChar;
-                String restant = "";
-
-                if (leftChar == 0 || leftChar == 1) {
-                    restant = " caractère restant.";
-                } else {
-                    restant = " caractères restants.";
-                }
-
-                nbCharTxt2.setText(Integer.toString(leftChar) + restant);
-                nbCharTxt2.setTextColor(Color.GREEN);
-
-                if (leftChar < 50 && leftChar >= 11) {
-                    nbCharTxt2.setTextColor(Color.rgb(255, 165, 0));
-                } else if (leftChar <= 10 && leftChar >= 0) {
-                    nbCharTxt2.setTextColor(Color.RED);
-                }
-
-            }
-        });
-
-        phraseMetier.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_LENGTH)});
-        phraseBesoin.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_LENGTH)});*/
-
-
         phraseUne = new TextViewNbChar(phraseMetier, nbCharTxt);
         phraseDeux = new TextViewNbChar(phraseBesoin, nbCharTxt2);
 
@@ -198,8 +123,9 @@ public class HelpActivity extends Activity{
         final String mdp = intent.getStringExtra("user_mot_de_passe");
 
         Map<String, String> params = new HashMap<>();
-        params.put("phrase", phraseUne.getEditText().getText().toString());//phraseUne.getEditText().getText().toString());
-        params.put("besoin", phraseDeux.getEditText().getText().toString());//phraseDeux.getEditText().getText().toString());
+        params.put("phrase",
+                phraseUne.getEditText().getText().toString().replace("?", "").replace("(","").replace(")","").replace("<","").replace(">","").replace("\"","").replace("\'","").replace("@","").replace("&","").replace("$","").replace("*","").replace("=",""));//phraseUne.getEditText().getText().toString());
+        params.put("besoin", phraseDeux.getEditText().getText().toString().replace("?", "").replace("(","").replace(")","").replace("<","").replace(">","").replace("\"","").replace("\'","").replace("@","").replace("&","").replace("$","").replace("*","").replace("=",""));//phraseDeux.getEditText().getText().toString());
         params.put("mail", login);
         params.put("terminee", String.valueOf(false));
         params.put("consultee", String.valueOf(0));
