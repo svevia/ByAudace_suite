@@ -12,7 +12,9 @@
 	</head>
 	<body>
 		<jsp:include page="/layout/logo.jsp"/>
-	    <jsp:include page="/layout/navbar.jsp"/>
+	    <jsp:include page="/layout/navbar.jsp">
+	    <jsp:param name="name" value = "${it.name}"/>
+		</jsp:include>
 
 	    <input id="userlogin" type="hidden"  value="admin">
 	    <input id="passwdlogin" type="hidden"  value="admin">
@@ -42,7 +44,7 @@
 
 					<table id="table" class="table">
 					<% int cpt =0; %>
-					<c:forEach items="${it}" var="item">
+					<c:forEach items="${it.phrases}" var="item">
 					    <tr>
 					    <td id="itphrase_<%=cpt%>" style="background-color:lightsteelblue;">${item.phrase}</td>
 					    <td id="td2_<%=cpt%>" style="background-color:lightsteelblue;"><a id="link_<%=cpt%>" href="/html/phrase/${item.phrase}">détails</a></td>
