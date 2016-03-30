@@ -5,6 +5,10 @@ import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
+/**
+ * Requêtes SQL sur la table utilisateur utilisés dans UserDBResource
+ * @author seysn
+ */
 public interface UserDao {
 
 	@SqlUpdate("INSERT INTO utilisateur (mail, numero, nom, prenom, digit, mot_de_passe, role, salt) values (:mail, :numero, :nom, :prenom, :digit, :mot_de_passe, :role, :salt)")

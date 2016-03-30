@@ -54,8 +54,6 @@
 					    <%cpt++; %>
 					    </c:forEach>
 					</table>
-					<input id="cpt" type="hidden"  value="<%=cpt%>">
-
 				</div>
 	            </div>
 	        </div>
@@ -113,9 +111,8 @@
 			getPhrase("/v1/phrase/ordermail");
 		});
 		$("#confirm").click(function () {
-			var cpt = $("#cpt").val();
 			var search = $("#search").val();
-			getSearch("/v1/phrase/search?search="+search, cpt);
+			getSearch("/v1/phrase/search?search="+search);
 		});
 	});
 	</script>
