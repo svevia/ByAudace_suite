@@ -28,10 +28,10 @@ public class PhraseViews {
     		this.phrases = phrases;
     		this.name = name;
     	}
-		public List<Phrase> getPhrase() {
+		public List<Phrase> getPhrases() {
 			return phrases;
 		}
-		public void setPhrase(List<Phrase> phrases) {
+		public void setPhrases(List<Phrase> phrases) {
 			this.phrases = phrases;
 		}
 		public String getName() {
@@ -44,9 +44,9 @@ public class PhraseViews {
     
     @GET
     @Template
-    public List<Phrase> getAllPhrase(@Context SecurityContext context) {
+    public Returner getAllPhrase(@Context SecurityContext context) {
         String name = context.getUserPrincipal().getName();
-        return dao.all();
+        return new Returner(dao.all(), name);
     }
 
     public class ReturnerPhrase{
