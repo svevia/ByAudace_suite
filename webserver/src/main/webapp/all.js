@@ -99,18 +99,11 @@ function getTaux(url) {
         req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
        },
        success: function (data){
-        afficheTaux(data)
        },
        error : function(jqXHR, textStatus, errorThrown) {
        			console.log('error: ' + textStatus);
        	}
      });
-}
-
-function afficheTaux(data) {
-	console.log(data);
-	$("#bar").html(data.percent);
-
 }
 
 function getPhrase(url) {
@@ -139,4 +132,22 @@ function affichePhrase(data) {
         document.getElementById("button_"+i).setAttribute('name', data[i].phrase);
 
     }
+}
+
+function getSearch(url) {
+     $.ajax({
+       type: "GET",
+       url: url,
+       dataType: 'json',
+       beforeSend : function(req) {
+        req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+       },
+       success: function (data){
+        console.log(data);
+        affichePhrase(data);
+       },
+       error : function(jqXHR, textStatus, errorThrown) {
+            console.log('error: ' + textStatus);
+        }
+     });
 }

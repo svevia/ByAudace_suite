@@ -21,14 +21,13 @@
 	    <div class="container">
 	        <div class="row">
 	        <div class="col-md-6 col-md-offset-3">
+	        	<c:set var="taux" scope="session" value="20"/>
+	        	<p>percent : ${it.percent}</p>
 	            <h1>Phrases métier non résolues</h1>
 				<div class="progress">
-					<div id="bar" class="progress-bar" role="progressbar" aria-valuenow="${it}%" aria-valuemin="0" aria-valuemax="100" style="width:${it}%;">
-				    ${it}
+					<div id="bar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:${taux}%;">
 					</div>
-					<p>${it}%</p>
 				</div>
- 				<c:set var="taux" scope="session" value="${it}"/>
                 <c:if test="${taux <= 30}">
 				<div class="alert alert-danger alert-dismissible" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -67,7 +66,8 @@
 
 	    <script>
 		$(document).ready(function(){
-			var taux = getTaux("/v1/phrase/pourcentage");
+			var json = JSON.parse(getTaux("/v1/phrase/pourcentage"));
+			
 		});
 		</script>
 
