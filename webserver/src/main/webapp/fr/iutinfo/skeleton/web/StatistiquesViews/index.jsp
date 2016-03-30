@@ -8,7 +8,7 @@
 		<script src="all.js"></script>
 	    <jsp:include page="/layout/head.jsp"/>
 	    <meta charset="UTF-8">
-	    <title>Phrases Metier</title>
+	    <title>Stats</title>
 	</head>
 	<body>
 
