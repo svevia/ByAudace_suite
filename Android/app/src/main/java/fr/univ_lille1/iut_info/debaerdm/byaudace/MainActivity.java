@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Base64;
@@ -62,6 +63,9 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // portrait mode
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setContentView(R.layout.activity_main);
 
@@ -162,7 +166,7 @@ public class MainActivity extends Activity {
                         activity.putExtra("user_prenom", user.getPrenom());
                         activity.putExtra("user_numero", user.getNumero());
                         activity.putExtra("user_mail", login);
-                        activity.putExtra("user_mot_de_passe", hashSalt);
+                        activity.putExtra("user_mot_de_passe", mdp);
                         startActivity(activity);
                         finish();
                     }
