@@ -49,17 +49,14 @@
     </LinearLayout>
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/phrase"
         android:hint="Besoin"
-        android:layout_below="@+id/pm"
+        android:singleLine="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="33dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:singleLine="true"/>
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -101,5 +98,16 @@
         android:layout_below="@+id/page_buttons"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="300 caractères restants."
+        android:id="@+id/nbChar2"
+        android:layout_gravity="center_horizontal"
+        android:layout_above="@+id/phrase"
+        android:layout_alignLeft="@+id/nbChar"
+        android:layout_alignStart="@+id/nbChar" />
 
 </RelativeLayout>

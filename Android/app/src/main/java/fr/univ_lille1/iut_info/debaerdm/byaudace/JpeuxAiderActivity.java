@@ -108,7 +108,7 @@ public class JpeuxAiderActivity extends Activity  {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                alertNotification(view, android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
+                alertNotification(android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
                         adapter.getItem(position).getBesoin()+"\n"+adapter.getItem(position).getPhrase(), position);
             }
         });
@@ -143,7 +143,7 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
 
-    public void alertNotification(View view, int icon, String title, String text, final int position){
+    public void alertNotification(int icon, String title, String text, final int position){
 
         alertDialogBuilder = new AlertDialog.Builder(
                 this);
@@ -188,7 +188,7 @@ public class JpeuxAiderActivity extends Activity  {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        // redirection vers l'envoi du mail
+                        // redirection vers l'activité d'envoi du mail
 
                         Intent i = new Intent(Intent.ACTION_SEND);
                         i.setType("message/rfc822");

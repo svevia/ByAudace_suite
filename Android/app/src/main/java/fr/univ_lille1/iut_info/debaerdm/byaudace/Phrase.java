@@ -21,6 +21,7 @@ public class Phrase {
         this.besoin = besoin;
         this.mail = mail;
         this.terminee = false;
+        this.numero = numero;
         this.consultee = 0;
     }
 
@@ -39,7 +40,7 @@ public class Phrase {
     public boolean getTerminee() {
         return this.terminee;
     }
-    
+
     public int getConsultee() {
         return this.consultee;
     }
