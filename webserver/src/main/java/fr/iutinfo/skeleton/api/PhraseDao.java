@@ -28,6 +28,11 @@ public interface PhraseDao {
     @SqlQuery("select count(*) from phrase_metier where terminee = :bool")
     int getTermCount(@Bind("bool") boolean bool);
 
+    @SqlQuery("select * from phrase_metier where mail like :search "
+            + "or besoin like :search or phrase like :search")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    List<Phrase> search(@Bind("search") String search);
+    
     /*
     @SqlQuery("select * from phrase_metier order by :champ")
     @RegisterMapperFactory(BeanMapperFactory.class)
@@ -55,5 +60,6 @@ public interface PhraseDao {
     @SqlQuery("select * from phrase_metier order by terminee")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderTerminee();
+    
     void close();
 }

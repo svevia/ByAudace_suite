@@ -2,6 +2,7 @@ package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -23,15 +24,15 @@ import android.widget.TextView;
  */
 public class HelpActivity extends Activity implements TextWatcher {
 
-    private EditText pm;
     private Button envoy;
 
     private final String URL = Configuration.SERVER + "/v1/phrase";
-    private int i=0;
 
     private EditText status;
     private TextView nbCharTxt;
     private Spinner spin;
+    private Intent intent;
+    //private Req
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,9 @@ public class HelpActivity extends Activity implements TextWatcher {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // portrait mode
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setContentView(R.layout.activity_help);
 
@@ -59,12 +63,14 @@ public class HelpActivity extends Activity implements TextWatcher {
 
         envoy = (Button) findViewById(R.id.button);
 
+        intent = this.getIntent();
     }
 
     public void postPhrase(View view){
-
         Intent i = new Intent( HelpActivity.this, JpeuxAiderActivity.class );
         //i.putExtra(EXTRA_MESSAGE, pm.getText().toString());
+
+
         startActivity(i);
         this.finish();
 
@@ -132,14 +138,6 @@ public class HelpActivity extends Activity implements TextWatcher {
     public void onClick(View v) {
         // TODO Auto-generated method stub
 
-    }
-
-    public int getI(){
-        return this.i;
-    }
-
-    public EditText getPm(){
-        return this.pm;
     }
 
 }

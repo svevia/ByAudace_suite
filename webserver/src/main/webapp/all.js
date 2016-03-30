@@ -99,18 +99,11 @@ function getTaux(url) {
         req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
        },
        success: function (data){
-        afficheTaux(data)
        },
        error : function(jqXHR, textStatus, errorThrown) {
        			console.log('error: ' + textStatus);
        	}
      });
-}
-
-function afficheTaux(data) {
-	console.log(data);
-	$("#bar").html(data.percent);
-
 }
 
 function getPhrase(url) {
@@ -139,4 +132,39 @@ function affichePhrase(data) {
         document.getElementById("button_"+i).setAttribute('name', data[i].phrase);
 
     }
+}
+
+function getSearch(url, cpt) {
+     $.ajax({
+       type: "GET",
+       url: url,
+       dataType: 'json',
+       beforeSend : function(req) {
+        req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+       },
+       success: function (data, cpt){
+        console.log(data);
+        afficheSearch(data);
+       },
+       error : function(jqXHR, textStatus, errorThrown) {
+            console.log('error: ' + textStatus);
+        }
+     });
+}
+
+function afficheSearch(data, cpt) {
+  for( var j=0; j<cpt; j++){
+    if(j<data.length){
+        $("#itphrase_"+j).html(data[j].phrase);
+        $("#itbesoin_"+j).html(data[j].besoin);
+        document.getElementById("link_"+i).href = "/html/phrase/"+data[i].phrase;
+        document.getElementById("button_"+i).setAttribute('name', data[i].phrase);
+    }
+    else{
+      document.documentElement.removeChild(document.getElementById("itphrase_"+j));
+      document.documentElement.removeChild(document.getElementById("td2_"+j));
+      document.documentElement.removeChild(document.getElementById("itbesoin_"+j));
+      document.documentElement.removeChild(document.getElementById("td4_"+j));
+    }
+  }
 }

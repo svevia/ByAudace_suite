@@ -140,7 +140,7 @@ public class UserDBResource {
     @GET
     @Path("/user")
     public String getNomAndPrenom(@QueryParam("mail") String mail) {
-        return "NOM:" + dao.getNom(mail) + ",PRENOM:" + dao.getPrenom(mail);
+        return "NOM:" + dao.getNom(mail) + ",PRENOM:" + dao.getPrenom(mail) + ",SALT:" + dao.getSalt(mail) + ",NUMERO:" + dao.getNumero(mail);
     }
 
     /**

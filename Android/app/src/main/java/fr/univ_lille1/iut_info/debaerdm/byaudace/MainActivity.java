@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Base64;
@@ -43,7 +44,6 @@ import java.util.Map;
 
 public class MainActivity extends Activity {
 
-    private String salt = null;
     private EditText loginText;
     private EditText passwordText;
     private RequestQueue queue;
@@ -63,6 +63,9 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        // portrait mode
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         setContentView(R.layout.activity_main);
 
@@ -94,16 +97,15 @@ public class MainActivity extends Activity {
 
         queue = Volley.newRequestQueue(this);
 
-        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/salt?mail="+login.toLowerCase(),
+        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/user?mail="+login.toLowerCase(),
                 new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String json) {
-                        buildUsersFromJson(json);
                         System.out.println("Json : " + json);
+                        String[] tok = json.split(",");
+                        user = new User(tok[0].split(":")[1], tok[1].split(":")[1], tok[2].split(":")[1], tok[3].split(":")[1]);
                         System.out.println("User : " + user.toString());
-                        salt = json;
-                        System.out.println(salt);
                         load(login, password, view);
                     }
 
@@ -119,13 +121,6 @@ public class MainActivity extends Activity {
 
         // stockage des identifiants
         checkButtonClicked(this.getCurrentFocus());
-    }
-
-    private void buildUsersFromJson(String json) {
-        final Gson gson = new GsonBuilder().create();
-        Type listType = new TypeToken<List<User>>() {
-        }.getType();
-        user = gson.fromJson(json, listType);
     }
 
     public void checkButtonClicked(View view){
@@ -156,7 +151,7 @@ public class MainActivity extends Activity {
         }
 
         queue = Volley.newRequestQueue(this);
-        final String hashSalt = buildHash(mdp, salt);
+        final String hashSalt = buildHash(mdp, user.getSalt());
         URL += login.toLowerCase();
 
         System.out.println(hashSalt);
@@ -169,8 +164,9 @@ public class MainActivity extends Activity {
                         Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
                         activity.putExtra("user_nom", user.getNom());
                         activity.putExtra("user_prenom", user.getPrenom());
+                        activity.putExtra("user_numero", user.getNumero());
                         activity.putExtra("user_mail", login);
-                        activity.putExtra("user_mot_de_passe", hashSalt);
+                        activity.putExtra("user_mot_de_passe", mdp);
                         startActivity(activity);
                         finish();
                     }
