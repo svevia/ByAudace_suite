@@ -124,8 +124,8 @@ public class HelpActivity extends Activity{
 
         Map<String, String> params = new HashMap<>();
         params.put("phrase",
-                phraseUne.getEditText().getText().toString().replace("?", "").replace("(","").replace(")","").replace("<","").replace(">","").replace("\"","").replace("\'","").replace("@","").replace("&","").replace("$","").replace("*","").replace("=",""));//phraseUne.getEditText().getText().toString());
-        params.put("besoin", phraseDeux.getEditText().getText().toString().replace("?", "").replace("(","").replace(")","").replace("<","").replace(">","").replace("\"","").replace("\'","").replace("@","").replace("&","").replace("$","").replace("*","").replace("=",""));//phraseDeux.getEditText().getText().toString());
+                phraseUne.getEditText().getText().toString().replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", ""));//phraseUne.getEditText().getText().toString());
+        params.put("besoin", phraseDeux.getEditText().getText().toString().replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", ""));
         params.put("mail", login);
         params.put("terminee", String.valueOf(false));
         params.put("consultee", String.valueOf(0));
