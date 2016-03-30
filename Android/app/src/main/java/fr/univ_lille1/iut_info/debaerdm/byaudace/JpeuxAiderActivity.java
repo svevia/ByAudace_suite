@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +14,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,18 +41,14 @@ import java.util.Map;
 public class JpeuxAiderActivity extends Activity  {
 
     private ListView mListView;
-
-    private String[] listPhrases = new String[50];
-    private String pmEnvoye;
-    private EditText nbDem;
-
-    private ArrayList<String> items = new ArrayList<>();
     private ArrayAdapter<Phrase> adapter;
     private AlertDialog.Builder alertDialogBuilder;
     private final String URL = Configuration.SERVER + "/v1/phrase";
     private List<Phrase> users;
     private RequestQueue queue;
     private Intent intent;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +70,7 @@ public class JpeuxAiderActivity extends Activity  {
         intent = this.getIntent();
 
         queue = Volley.newRequestQueue(this);
+        
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
                 new Response.Listener<String>() {
