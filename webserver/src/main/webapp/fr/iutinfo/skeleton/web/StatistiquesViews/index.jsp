@@ -24,7 +24,6 @@
 	        <div class="row">
 	        <div class="col-md-6 col-md-offset-3">
 	        	<c:set var="taux" scope="session" value="20"/>
-	        	<p>percent :</p>
 	            <h1>Phrases métier non résolues</h1>
 				<div class="progress">
 					<div id="bar" class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width:${taux}%;">
