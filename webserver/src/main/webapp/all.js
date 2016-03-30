@@ -37,7 +37,7 @@ function getByAnnotation() {
  }
 
 function postUserBdd(mail,nom,prenom,digit,pass,role,tel) {
-    postUserGeneric(mail,nom,prenom,digit,pass,role,tel, "v1/userdb/");
+    postUserGeneric(mail,nom,prenom,digit,pass,role,tel, "/v1/userdb/");
 }
 
 function postUserGeneric(mail,nom,prenom,digit,pass,role,tel,url) {
@@ -134,7 +134,7 @@ function affichePhrase(data) {
     }
 }
 
-function getSearch(url, cpt) {
+function getSearch(url) {
      $.ajax({
        type: "GET",
        url: url,
@@ -142,29 +142,35 @@ function getSearch(url, cpt) {
        beforeSend : function(req) {
         req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
        },
-       success: function (data, cpt){
+       success: function (data){
         console.log(data);
         afficheSearch(data);
        },
        error : function(jqXHR, textStatus, errorThrown) {
-            console.log('error: ' + textStatus);
+        console.log('error: ' + textStatus);
         }
      });
 }
 
-function afficheSearch(data, cpt) {
-  for( var j=0; j<cpt; j++){
+function afficheSearch(data) {
+
+  var rows = document.getElementById('table').getElementsByTagName('tr');
+  var count = rows.length;
+  console.log(count);
+
+  for(j=0; j<count; j++){
     if(j<data.length){
-        $("#itphrase_"+j).html(data[j].phrase);
-        $("#itbesoin_"+j).html(data[j].besoin);
-        document.getElementById("link_"+i).href = "/html/phrase/"+data[i].phrase;
-        document.getElementById("button_"+i).setAttribute('name', data[i].phrase);
+      console.log(data[j]);
+      $("#itphrase_"+j).html(data[j].phrase);
+      $("#itbesoin_"+j).html(data[j].besoin);
+       document.getElementById("link_"+j).href = "/html/phrase/"+data[j].phrase;
+      document.getElementById("button_"+j).setAttribute('name', data[j].phrase);
     }
     else{
-      document.documentElement.removeChild(document.getElementById("itphrase_"+j));
-      document.documentElement.removeChild(document.getElementById("td2_"+j));
-      document.documentElement.removeChild(document.getElementById("itbesoin_"+j));
-      document.documentElement.removeChild(document.getElementById("td4_"+j));
+      $("#itphrase_"+j).hide();
+      $("#itbesoin_"+j).hide();
+      $("#td2_"+j).hide();
+      $("#td4_"+j).hide();
     }
   }
 }

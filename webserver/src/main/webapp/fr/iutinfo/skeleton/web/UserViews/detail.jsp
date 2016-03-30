@@ -10,7 +10,10 @@
   </head>
   <body>
         <jsp:include page="/layout/logo.jsp"/>
-    <jsp:include page="/layout/navbar.jsp"/>
+    <jsp:include page="/layout/navbar.jsp">
+    <jsp:param name="name" value = "${it.name}"/>
+	</jsp:include>
+
 
     <div class="container">
       <div class="row">
@@ -21,13 +24,13 @@
                 <h3 class="panel-title">Détails</h3>
               </div>
               <div class="panel-body">
-                Nom : ${it.nom}<br/>
-				        Prenom : ${it.prenom} <br/>
-                Mot de passe : ${it.mot_de_passe} <br/>
-                Mail : ${it.mail} <br/>
-                Role : ${it.role} <br/>
-                Telephone : ${it.numero} <br/>
-                Digit : ${it.digit} <br/>
+                Nom : ${it.user.nom}<br/>
+				Prenom : ${it.user.prenom} <br/>
+                Mot de passe : ${it.user.mot_de_passe} <br/>
+                Mail : ${it.user.mail} <br/>
+                Role : ${it.user.role} <br/>
+                Telephone : ${it.user.numero} <br/>
+                Digit : ${it.user.digit} <br/>
               </div>
             </div>
         </div>

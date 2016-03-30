@@ -11,6 +11,12 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Requêtes REST liés à la connection d'un utilisateur
+ *
+ * @author seysn
+ * @date 30/03/16
+ */
 @Path("/auth")
 public class UserAuthResource {
     private static UserDao dao = BDDFactory.getDbi().open(UserDao.class);

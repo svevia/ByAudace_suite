@@ -40,13 +40,29 @@ public class Phrase {
     public boolean getTerminee() {
         return this.terminee;
     }
-
-
+    
     public int getConsultee() {
         return this.consultee;
     }
 
     public String toString() {
-        return this.phrase+ " (" + this.besoin + ")";
+
+        String ret = "";
+
+        if(this.getBesoin().length() >= 40){
+            ret += this.getBesoin().substring(0,40) + "...";
+        }else{
+            ret += this.getBesoin();
+        }
+
+        ret += "\n";
+
+        if(this.getPhrase().length() >= 40){
+            ret += this.getPhrase().substring(0,40) + "...";
+        }else{
+            ret += this.getPhrase();
+        }
+
+        return ret;
     }
 }
