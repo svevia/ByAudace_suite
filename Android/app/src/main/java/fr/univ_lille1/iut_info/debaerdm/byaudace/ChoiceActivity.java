@@ -28,6 +28,7 @@ public class ChoiceActivity extends Activity {
 
         setContentView(R.layout.activity_choice);
 
+        intent = this.getIntent();
     }
 
     // retour = redirection sur la page de login
@@ -62,22 +63,23 @@ public class ChoiceActivity extends Activity {
 
 
     public void onClick2(View v) {
-        Intent intent = new Intent(this, HelpActivity.class);
-        startActivity(intent);
-
-
-
-    }
-
-    public void onClick(View v) {
-        Intent intent = new Intent(this, JpeuxAiderActivity.class);
+        intent.setClass(this, HelpActivity.class);
         intent.putExtra("user_nom", intent.getStringExtra("user_nom"));
         intent.putExtra("user_prenom", intent.getStringExtra("user_prenom"));
+        intent.putExtra("user_numero", intent.getStringExtra("user_numero"));
         intent.putExtra("user_mail", intent.getStringExtra("user_mail"));
         intent.putExtra("user_mot_de_passe", intent.getStringExtra("user_mot_de_passe"));
         startActivity(intent);
+    }
 
-
+    public void onClick(View v) {
+        intent.setClass(this, JpeuxAiderActivity.class); //= new Intent(this, JpeuxAiderActivity.class);
+        intent.putExtra("user_nom", intent.getStringExtra("user_nom"));
+        intent.putExtra("user_prenom", intent.getStringExtra("user_prenom"));
+        intent.putExtra("user_numero", intent.getStringExtra("user_numero"));
+        intent.putExtra("user_mail", intent.getStringExtra("user_mail"));
+        intent.putExtra("user_mot_de_passe", intent.getStringExtra("user_mot_de_passe"));
+        startActivity(intent);
     }
 
 }
