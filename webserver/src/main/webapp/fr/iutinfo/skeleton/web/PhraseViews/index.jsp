@@ -114,7 +114,7 @@
 		$("#confirm").click(function () {
 			var search = $("#search").val();
 			console.log(search);
-			getSearch("/v1/phrase/search/"+ saisie);
+			getSearch("/v1/phrase/search?search="+search);
 		});
 	});
 	</script>

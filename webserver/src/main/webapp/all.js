@@ -143,7 +143,6 @@ function getSearch(url) {
         req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
        },
        success: function (data){
-        console.log(data);
         affichePhrase(data);
        },
        error : function(jqXHR, textStatus, errorThrown) {
