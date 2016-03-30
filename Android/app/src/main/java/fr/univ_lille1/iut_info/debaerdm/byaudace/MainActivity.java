@@ -100,7 +100,7 @@ public class MainActivity extends Activity {
                     public void onResponse(String json) {
                         System.out.println("Json : " + json);
                         String[] tok = json.split(",");
-                        user = new User(tok[0].split(":")[1], tok[1].split(":")[1], tok[2].split(":")[1]);
+                        user = new User(tok[0].split(":")[1], tok[1].split(":")[1], tok[2].split(":")[1], tok[3].split(":")[1]);
                         System.out.println("User : " + user.toString());
                         load(login, password, view);
                     }
@@ -160,6 +160,7 @@ public class MainActivity extends Activity {
                         Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
                         activity.putExtra("user_nom", user.getNom());
                         activity.putExtra("user_prenom", user.getPrenom());
+                        activity.putExtra("user_numero", user.getNumero());
                         activity.putExtra("user_mail", login);
                         activity.putExtra("user_mot_de_passe", hashSalt);
                         startActivity(activity);
