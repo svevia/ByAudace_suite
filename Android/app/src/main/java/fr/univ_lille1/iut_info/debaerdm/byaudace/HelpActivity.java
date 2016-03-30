@@ -134,12 +134,4 @@ public class HelpActivity extends Activity implements TextWatcher {
 
     }
 
-    public int getI(){
-        return this.i;
-    }
-
-    public EditText getPm(){
-        return this.pm;
-    }
-
 }
