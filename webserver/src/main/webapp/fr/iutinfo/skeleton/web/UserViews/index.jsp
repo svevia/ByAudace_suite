@@ -11,8 +11,10 @@
     <title>Utilisateurs</title>
   </head>
   <body>
-        <jsp:include page="/layout/logo.jsp"/>
-    <jsp:include page="/layout/navbar.jsp"/>
+     <jsp:include page="/layout/logo.jsp"/>
+    <jsp:include page="/layout/navbar.jsp">
+    <jsp:param name="name" value = "${it.name}"/>
+	</jsp:include>
 
 	<input id="userlogin" type="hidden"  value="admin">
 	<input id="passwdlogin" type="hidden"  value="admin">
@@ -23,7 +25,7 @@
              <h1>Utilisateurs</h1>
             <div class="panel panel-default">
                     <table class="table">
-                    <c:forEach items="${it}" var="item">
+                    <c:forEach items="${it.user}" var="item">
                         <tr>
                         <td><a href="/html/userdb/${item.mail}">${item.mail}</a></td>
                         <td><button id="${item.mail}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>

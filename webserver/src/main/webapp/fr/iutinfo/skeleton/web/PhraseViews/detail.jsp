@@ -5,12 +5,15 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <title>${it.phrase}</title>
+    <title>${it.phrases.phrase}</title>
     <jsp:include page="/layout/head.jsp"/>
   </head>
   <body>
     <jsp:include page="/layout/logo.jsp"/>
-    <jsp:include page="/layout/navbar.jsp"/>
+    <jsp:include page="/layout/navbar.jsp">
+    <jsp:param name="name" value = "${it.connect}"/>
+	</jsp:include>
+
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -20,11 +23,11 @@
                 <h3 class="panel-title">Détails</h3>
               </div>
               <div class="panel-body" style="font-size:17px;">
-                ${it.phrase}<br/>
-				        ${it.besoin}<br/>                
-                ${it.mail}<br/>
-                nombre de consultations : ${it.consultee}<br/>
-                <c:set var="finie" scope="session" value="${it.terminee}"/>
+                ${it.phrases.phrase}<br/>
+				${it.phrases.besoin}<br/>                
+                ${it.phrases.mail}<br/>
+                nombre de consultations : ${it.phrases.consultee}<br/>
+                <c:set var="finie" scope="session" value="${it.phrases.terminee}"/>
                 <c:if test="${finie == false}"><span style="font-size:25px;" class="glyphicon glyphicon-remove-circle"></span></br></c:if>
                 <c:if test="${finie == true}"><span style="font-size:25px;" class="glyphicon glyphicon-ok-circle"></span><br/></c:if>
               </div>
