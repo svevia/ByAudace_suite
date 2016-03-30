@@ -22,17 +22,37 @@ import org.slf4j.LoggerFactory;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 
+/**
+ * Requêtes REST liés à la table phrase_metier de la base de données
+ *
+ * @author seysn
+ * @date 30/03/16
+ */
 public class PhraseResource {
 
     private static PhraseDao dao = BDDFactory.getDbi().open(PhraseDao.class);
     final static Logger logger = LoggerFactory.getLogger(PhraseResource.class);
 
+    /**
+     * Créé une phrase et l'ajoute dans la base de données 
+     * Exemple : curl "localhost:8080/v1/phrase" -X POST -d '{"mail":"toto@gmail.com", ...}'
+     *
+     * @param phrase - Phrase à ajouter
+     * @return phrase - Phrase créée
+     */
     @POST
     public Phrase createPhrase(Phrase phrase) {
         dao.insert(phrase);
         return phrase;
     }
 
+    /**
+     * Recupère l'objet Phrase associé à l'élément phrase
+     * Exemple : curl "localhost:8080/v1/phrase/ma%20phrase" -X GET
+     * 
+     * @param phrase - Attribut phrase recherchée
+     * @return phrase - Objet Phrase trouvée
+     */
     @GET
     @Path("/{phrase}")
     @RolesAllowed({"admin","user"})
@@ -44,9 +64,16 @@ public class PhraseResource {
         return ph;
     }
 
+    /**
+     * Supprime l'objet Phrase associé à l'élément phrase et la retourne
+     * Exemple : curl "localhost:8080/v1/phrase/ma%20phrase" -X DELETE
+     * 
+     * @param phrase - Attribut phrase recherchée
+     * @return phrase - Objet Phrase supprimée
+     */
     @DELETE
     @Path("/{phrase}")
-    public Phrase deleteUser(@PathParam("phrase") String phrase) {
+    public Phrase deletePhrase(@PathParam("phrase") String phrase) {
         Phrase ph = dao.findByPhrase(phrase);
         System.out.println("Deleting phrase : " + phrase);
         if (ph == null) {
@@ -56,6 +83,12 @@ public class PhraseResource {
         return ph;
     }
 
+    /**
+     * Recupere le pourcentage de phrase terminées
+     * Exemple : curl "localhost:8080/v1/phrase/pourcentage" -X GET
+     * 
+     * @return pourcentage
+     */
     @GET
     @Path("/pourcentage")
     public String getPourcentage() {
@@ -64,22 +97,25 @@ public class PhraseResource {
         return "{ \"percent\":" + ((double) a/b) * 100 + " }";
     }
     
+    /**
+     * Recherche une phrase à l'aide des champs phrase, besoin ou mail
+     * Exemple : curl "localhost:8080/v1/phrase/search?search=audace" -X GET
+     * 
+     * @param search
+     * @return phrase
+     */
     @GET
     @Path("/search")
     public List<Phrase> search(@QueryParam("search") String search) {
         return dao.search("%" + search + "%");
     }
 
-    /*@GET
-    @Path("/order")
-    public List<Phrase> getAllOrderBy(@QueryParam("champ") String champ) {
-        List<Phrase> res = dao.allOrderBy(champ);
-        System.out.println("Recherche triée par " + champ);
-        for (Phrase p : res)
-            System.out.println(p);
-        return res;
-    }*/
-
+    /**
+     * Recupere tout les elements dans la table ordonnés avec le champ besoin
+     * Exemple : curl "localhost:8080/v1/phrase/orderbesoin" -X GET
+     * 
+     * @return phrases - Liste des phrases
+     */
     @GET
     @Path("/orderbesoin")
     @RolesAllowed({"admin","user"})
@@ -87,6 +123,12 @@ public class PhraseResource {
         return dao.orderBesoin();
     }
 
+    /**
+     * Recupere tout les elements dans la table ordonnés avec le champ besoin
+     * Exemple : curl "localhost:8080/v1/phrase/orderbesoin" -X GET
+     * 
+     * @return phrases - Liste des phrases
+     */
     @GET
     @Path("/orderconsultee")
     @RolesAllowed({"admin","user"})
@@ -94,6 +136,12 @@ public class PhraseResource {
         return dao.orderConsultee();
     }
 
+    /**
+     * Recupere tout les elements dans la table ordonnés avec le champ phrase
+     * Exemple : curl "localhost:8080/v1/phrase/orderphrase" -X GET
+     * 
+     * @return phrases - Liste des phrases
+     */
     @GET
     @Path("/orderphrase")
     @RolesAllowed({"admin","user"})
@@ -101,6 +149,12 @@ public class PhraseResource {
         return dao.orderPhrase();
     }
 
+    /**
+     * Recupere tout les elements dans la table ordonnés avec le champ mail
+     * Exemple : curl "localhost:8080/v1/phrase/ordermail" -X GET
+     * 
+     * @return phrases - Liste des phrases
+     */
     @GET
     @Path("/ordermail")
     @RolesAllowed({"admin","user"})
@@ -108,6 +162,12 @@ public class PhraseResource {
         return dao.orderMail();
     }
 
+    /**
+     * Recupere tout les elements dans la table ordonnés avec le champ terminee
+     * Exemple : curl "localhost:8080/v1/phrase/orderterminee" -X GET
+     * 
+     * @return phrases - Liste des phrases
+     */
     @GET
     @Path("/orderterminee")
     @RolesAllowed({"admin","user"})
@@ -115,6 +175,12 @@ public class PhraseResource {
         return dao.orderTerminee();
     }
 
+    /**
+     * Recupere tout les elements dans la table
+     * Exemple : curl "localhost:8080/v1/phrase" -X GET
+     * 
+     * @return phrases - Liste des phrases
+     */
     @GET
     @RolesAllowed({"admin","user"})
     public List<Phrase> getAllPhrase() {
