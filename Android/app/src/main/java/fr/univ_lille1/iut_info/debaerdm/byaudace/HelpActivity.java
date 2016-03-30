@@ -5,14 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,26 +20,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.*;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.common.net.HttpHeaders;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.HttpCookie;
-import java.net.HttpURLConnection;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,6 +56,11 @@ public class HelpActivity extends Activity{
     private TextViewNbChar phraseUne;
     private TextViewNbChar phraseDeux;
 
+    private TextView textViewUn;
+    private EditText editTextUn;
+    private TextView textViewDeux;
+    private EditText editTextDeux;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +83,7 @@ public class HelpActivity extends Activity{
         phraseMetier = (EditText) findViewById(R.id.pm);
         phraseBesoin = (EditText) findViewById(R.id.phrase);
         nbCharTxt = (TextView) findViewById(R.id.nbChar);
+
         nbCharTxt2 = (TextView) findViewById(R.id.nbChar);
 
         phraseUne = new TextViewNbChar(phraseMetier, nbCharTxt);
@@ -100,12 +91,16 @@ public class HelpActivity extends Activity{
         phraseDeux = new TextViewNbChar(phraseMetier, nbCharTxt);
         phraseDeux.getTextView().addTextChangedListener(phraseDeux);
 
+
         EditText tmp = phraseUne.getEditText();
         tmp.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_LENGTH)});
         phraseUne.setEditText(tmp);
-        tmp = phraseDeux.getEditText();
-        tmp.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_LENGTH)});
-        phraseDeux.setEditText(tmp);
+
+        EditText tmp2 = phraseDeux.getEditText();
+        tmp2.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_LENGTH)});
+        phraseDeux.setEditText(tmp2);
+
+
 
         envoy = (Button) findViewById(R.id.button);
 
@@ -118,8 +113,14 @@ public class HelpActivity extends Activity{
         final String mdp = intent.getStringExtra("user_mot_de_passe");
 
         Map<String, String> params = new HashMap<>();
+
         params.put("phrase", "test");//phraseUne.getEditText().getText().toString());
         params.put("besoin", "test");//phraseDeux.getEditText().getText().toString());
+
+        params.put("phrase",
+                phraseUne.getEditText().getText().toString().replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", ""));//phraseUne.getEditText().getText().toString());
+        params.put("besoin", phraseDeux.getEditText().getText().toString().replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", ""));
+
         params.put("mail", login);
         params.put("terminee", String.valueOf(false));
         params.put("consultee", String.valueOf(0));
@@ -159,8 +160,10 @@ public class HelpActivity extends Activity{
 
         queue.add(request);
 
-        /*startActivity(intent);
-        this.finish();*/
+
+
+        startActivity(intent);
+        this.finish();
 
     }
 

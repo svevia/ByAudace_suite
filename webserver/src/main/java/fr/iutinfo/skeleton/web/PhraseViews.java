@@ -1,7 +1,6 @@
 package fr.iutinfo.skeleton.web;
 
 import fr.iutinfo.skeleton.api.*;
-import fr.iutinfo.skeleton.web.UserViews.Returner;
 
 import org.glassfish.jersey.server.mvc.Template;
 
@@ -21,7 +20,12 @@ import java.util.List;
 public class PhraseViews {
     private static PhraseDao dao = BDDFactory.getDbi().open(PhraseDao.class);
 
+    /**
+     * class interne serveant à coupler une List de phrase et le nom de l'utilisateur loggé
+     * afin de l'afficher dans la navbar
+     */
     public class Returner{
+    						
     	List<Phrase> phrases;
     	String name;
     	public Returner(List<Phrase> phrases, String name){
@@ -42,6 +46,11 @@ public class PhraseViews {
 		}
     }
     
+    /**
+     * Affiche la liste de toutes les phrases
+     * @param context
+     * @return
+     */
     @GET
     @Template
     public Returner getAllPhrase(@Context SecurityContext context) {
@@ -49,6 +58,10 @@ public class PhraseViews {
         return new Returner(dao.all(), name);
     }
 
+    /**
+     * class interne serveant à coupler une phrase et le nom de l'utilisateur loggé
+     * afin de l'afficher dans la navbar
+     */
     public class ReturnerPhrase{
     	Phrase phrases;
     	String connect;
@@ -71,6 +84,12 @@ public class PhraseViews {
     }
     
     
+    /**
+     * Affiche le detail d'une phrase
+     * @param name
+     * @param context
+     * @return
+     */
     @GET
     @Template(name = "detail")
     @Path("/{name}")

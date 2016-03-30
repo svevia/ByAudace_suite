@@ -24,8 +24,6 @@ import org.slf4j.LoggerFactory;
 /**
  * Requêtes REST liés à la table phrase_metier de la base de données
  *
- * @author seysn
- * @date 30/03/16
  */
 public class PhraseResource {
 

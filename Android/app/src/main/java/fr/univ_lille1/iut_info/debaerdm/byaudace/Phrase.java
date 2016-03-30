@@ -40,7 +40,7 @@ public class Phrase {
     public boolean getTerminee() {
         return this.terminee;
     }
-    
+
     public int getConsultee() {
         return this.consultee;
     }

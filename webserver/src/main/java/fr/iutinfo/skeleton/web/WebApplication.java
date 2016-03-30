@@ -8,7 +8,8 @@ import fr.iutinfo.skeleton.auth.AuthFilter;
 
 import javax.ws.rs.ApplicationPath;
 
-@ApplicationPath("html")
+
+@ApplicationPath("html")//ajouter /html/ devant chaque URL utilisant les vues de la page web
 public class WebApplication extends ResourceConfig {
 
     public WebApplication() {

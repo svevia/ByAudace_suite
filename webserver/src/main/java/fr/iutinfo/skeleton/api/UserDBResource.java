@@ -21,8 +21,6 @@ import org.slf4j.LoggerFactory;
 /**
  * Requêtes REST liés à la table utilisateurs de la base de données
  *
- * @author seysn
- * @date 29/03/16
  */
 @Path("/userdb")
 

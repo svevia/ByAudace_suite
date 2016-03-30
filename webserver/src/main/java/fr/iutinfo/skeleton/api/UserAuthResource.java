@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 /**
  * Requêtes REST liés à la connection d'un utilisateur
  *
- * @author seysn
- * @date 30/03/16
  */
 @Path("/auth")
 public class UserAuthResource {
