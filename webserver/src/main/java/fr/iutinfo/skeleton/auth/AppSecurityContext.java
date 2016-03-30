@@ -19,12 +19,16 @@ public class AppSecurityContext implements SecurityContext {
     }
 
     @Override
-    public Principal getUserPrincipal() {
+    public Principal getUserPrincipal() {//retourne l'user loggé
         return this.user;
     }
 
+    /**
+     * Verifie le rôle d'un tulisateur
+     * @param s
+     */
     @Override
-    public boolean isUserInRole(String s) {
+    public boolean isUserInRole(String s) { 
         logger.debug("isUserInRole called for : " + s);
         if ("admin".equals(s)) {
             return user.isInAdminGroup();

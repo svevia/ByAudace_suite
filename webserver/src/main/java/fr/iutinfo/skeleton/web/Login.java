@@ -48,7 +48,7 @@ public class Login{
         return null;
     }
     
-    private void requestLoginForm() {
+    private void requestLoginForm() { //affiche le formulaire de connexion du navigateur
         throw new WebApplicationException(Response
                 .status(Response.Status.UNAUTHORIZED)
                 .header(HttpHeaders.WWW_AUTHENTICATE, "Basic realm=\"Mon application\"")
@@ -56,7 +56,7 @@ public class Login{
     }
 
     private void setCookieAndRedirectToUserDetail(User currentUser) throws URISyntaxException {
-        URI location = new URI("/html/userdb");
+        URI location = new URI("/html/userdb");//redirige vers la liste des utilisateurs après login
         throw new WebApplicationException(Response
                 .temporaryRedirect(location)
                 .cookie(new NewCookie("user", currentUser.getMail()))

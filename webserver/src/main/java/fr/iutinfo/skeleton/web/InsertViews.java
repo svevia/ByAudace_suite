@@ -17,6 +17,10 @@ import fr.iutinfo.skeleton.api.BDDFactory;
 import fr.iutinfo.skeleton.api.User;
 import fr.iutinfo.skeleton.api.UserDao;
 
+/**
+ * Vue pour la page d'insertion d'un nouvel utilisateur
+ *
+ */
 
 @Path("/insert")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)

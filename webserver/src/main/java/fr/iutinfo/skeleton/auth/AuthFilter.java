@@ -35,9 +35,6 @@ public class AuthFilter implements ContainerRequestFilter {
             if (loginPassword == null || loginPassword.length != 2) {
                 throw new WebApplicationException(Status.NOT_ACCEPTABLE);
             }
-
-
-
             UserDao dao = BDDFactory.getDbi().open(UserDao.class);
             User user = dao.findByMail(loginPassword[0]);
 
