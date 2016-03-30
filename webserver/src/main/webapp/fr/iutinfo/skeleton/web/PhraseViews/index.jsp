@@ -45,15 +45,16 @@
 					<c:forEach items="${it}" var="item">
 					    <tr>
 					    <td id="itphrase_<%=cpt%>" style="background-color:lightsteelblue;">${item.phrase}</td>
-					    <td style="background-color:lightsteelblue;"><a id="link_<%=cpt%>" href="/html/phrase/${item.phrase}">détails</a></td>
+					    <td id="td2_<%=cpt%>" style="background-color:lightsteelblue;"><a id="link_<%=cpt%>" href="/html/phrase/${item.phrase}">détails</a></td>
 						</tr>
 						<tr>
 					    <td id="itbesoin_<%=cpt%>">${item.besoin}</td>
-					  	<td><button type="button" id="button_<%=cpt%>" name="${item.phrase}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
+					  	<td id="td4_<%=cpt%>"><button type="button" id="button_<%=cpt%>" name="${item.phrase}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
 					    </tr>
 					    <%cpt++; %>
 					    </c:forEach>
 					</table>
+					<input id="cpt" type="hidden"  value="<%=cpt%>">
 
 				</div>
 	            </div>
@@ -112,9 +113,9 @@
 			getPhrase("/v1/phrase/ordermail");
 		});
 		$("#confirm").click(function () {
+			var cpt = $("#cpt").val();
 			var search = $("#search").val();
-			console.log(search);
-			getSearch("/v1/phrase/search?search="+search);
+			getSearch("/v1/phrase/search?search="+search, cpt);
 		});
 	});
 	</script>
