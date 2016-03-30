@@ -31,7 +31,7 @@ public interface PhraseDao {
     @SqlQuery("select * from phrase_metier where mail like :search "
             + "or besoin like :search or mail like :search")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    Phrase search(@Bind("search") String search);
+    List<Phrase> search(@Bind("search") String search);
     
     /*
     @SqlQuery("select * from phrase_metier order by :champ")
