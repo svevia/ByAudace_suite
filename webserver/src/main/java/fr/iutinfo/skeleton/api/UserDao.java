@@ -24,6 +24,9 @@ public interface UserDao {
         @SqlQuery("select prenom from utilisateur where mail = :mail")
         String getPrenom(@Bind("mail") String mail);
         
+        @SqlQuery("select numero from utilisateur where mail = :mail")
+        String getNumero(@Bind("mail") String mail);
+        
         @SqlQuery("SELECT * FROM utilisateur")
 	@RegisterMapperFactory(BeanMapperFactory.class)
 	List<User> all();

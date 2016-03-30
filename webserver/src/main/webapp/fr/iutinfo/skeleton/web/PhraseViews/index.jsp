@@ -23,6 +23,17 @@
 	             <h1>Phrases métier</h1>
 	            <div class="panel panel-default">
 
+	                <div id="custom-search-input">
+	                    <div class="input-group col-md-6">
+	                        <input id="search" type="text" class="search-query form-control" placeholder="rechercher une phrase metier"/>
+	                        <span class="input-group-btn">
+	                        <button id="confirm" class="btn btn-danger" type="button">
+	                        <span class=" glyphicon glyphicon-search"></span>
+	                        </button>
+	                        </span>
+	                    </div>
+	                </div>
+
 	            	<div class="btn-group" role="group" aria-label="...">
 					  <button id="phrase" type="button" class="btn btn-default">phrase</button>
 					  <button id="besoin" type="button" class="btn btn-default">besoin</button>
@@ -70,6 +81,7 @@
 	<script>
 
 	$(document).ready(function() {
+		var saisie = " ";
 		$("button").click(function () {
 		var id = $(this).attr("name");
 		$("#oui").click(function () {
@@ -98,6 +110,11 @@
 		});
 		$("#mail").click(function () {
 			getPhrase("/v1/phrase/ordermail");
+		});
+		$("#confirm").click(function () {
+			var search = $("#search").val();
+			console.log(search);
+			getSearch("/v1/phrase/search/"+ saisie);
 		});
 	});
 	</script>

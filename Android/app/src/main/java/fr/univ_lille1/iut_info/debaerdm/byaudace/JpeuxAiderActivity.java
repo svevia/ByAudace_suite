@@ -52,6 +52,7 @@ public class JpeuxAiderActivity extends Activity  {
     private final String URL = Configuration.SERVER + "/v1/phrase";
     private List<Phrase> users;
     private RequestQueue queue;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +71,7 @@ public class JpeuxAiderActivity extends Activity  {
 
         mListView = (ListView) findViewById(R.id.listView);
         users = new ArrayList<>();
-        final Intent intent = this.getIntent();
+        intent = this.getIntent();
 
         queue = Volley.newRequestQueue(this);
 

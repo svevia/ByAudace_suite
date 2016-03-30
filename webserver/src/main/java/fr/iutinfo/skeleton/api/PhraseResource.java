@@ -10,6 +10,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 
@@ -34,7 +35,7 @@ public class PhraseResource {
 
     @GET
     @Path("/{phrase}")
-    @RolesAllowed("admin,user")
+    @RolesAllowed({"admin","user"})
     public Phrase getPhrase(@PathParam("phrase") String phrase) {
         Phrase ph = dao.findByPhrase(phrase);
         if (ph == null) {
@@ -62,6 +63,12 @@ public class PhraseResource {
         int b = dao.getAllCount();
         return "{ \"percent\":" + ((double) a/b) * 100 + " }";
     }
+    
+    @GET
+    @Path("/search")
+    public List<Phrase> search(@QueryParam("search") String search) {
+        return dao.search("%" + search + "%");
+    }
 
     /*@GET
     @Path("/order")
@@ -75,36 +82,41 @@ public class PhraseResource {
 
     @GET
     @Path("/orderbesoin")
+    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderBesoin() {
         return dao.orderBesoin();
     }
 
     @GET
     @Path("/orderconsultee")
+    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderConsultee() {
         return dao.orderConsultee();
     }
 
     @GET
     @Path("/orderphrase")
+    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderPhrase() {
         return dao.orderPhrase();
     }
 
     @GET
     @Path("/ordermail")
+    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderMail() {
         return dao.orderMail();
     }
 
     @GET
     @Path("/orderterminee")
+    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderTerminee() {
         return dao.orderTerminee();
     }
 
     @GET
-    @RolesAllowed("admin,user")
+    @RolesAllowed({"admin","user"})
     public List<Phrase> getAllPhrase() {
         return dao.all();
     }
