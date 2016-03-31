@@ -5,18 +5,22 @@ import org.slf4j.LoggerFactory;
 public class Phrase  {
     final static Logger logger = LoggerFactory.getLogger(Phrase.class);
 
-    /* Obligatoire */
+    /* attributs de la table phrase contenue dans la base de données */
     private String phrase;
     private String besoin;
     private String mail;
     private boolean terminee;
     private String numero;
     private int consultee;
-
+    /**constucteur**/
     public Phrase(){
 
     }
-
+    /**
+     * construteur 
+     * @param phrase, besoin, mail, numero
+     * terminee initialisee a false et consultee a 0
+     **/
     public Phrase(String phrase, String besoin, String mail, String numero) {
         this.phrase = phrase;
         this.besoin = besoin;
@@ -24,7 +28,7 @@ public class Phrase  {
         this.terminee = false;
         this.consultee = 0;
     }
-
+    //getters et setters de l'objet
     public String getPhrase() {
         return this.phrase;
     }
