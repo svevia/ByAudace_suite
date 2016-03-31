@@ -1,6 +1,8 @@
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!--cette page affiche les détails d'une phrase métier soit sa phrase,
+son besoin, le nombre de consultation, si elle est terminée-->
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -17,16 +19,19 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6 col-md-offset-3">
+        <%--retour à phrase métier--%>
           <a href="/html/phrase"><span style="font-size:30px;" class="glyphicon glyphicon-arrow-left"></span></a>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h3 class="panel-title">Détails</h3>
               </div>
+              <%--place les attribus de it qui est appelé par la requête /phrase/${it.phrase}--%>
               <div class="panel-body" style="font-size:17px;">
                 ${it.phrases.phrase}<br/>
-				${it.phrases.besoin}<br/>                
+		${it.phrases.besoin}<br/>                
                 ${it.phrases.mail}<br/>
                 nombre de consultations : ${it.phrases.consultee}<br/>
+                <%--vérifie l'attribut terminee de la phrase et fait un affichage différent en fonction--%>
                 <c:set var="finie" scope="session" value="${it.phrases.terminee}"/>
                 <c:if test="${finie == false}"><span style="font-size:25px;" class="glyphicon glyphicon-remove-circle"></span></br></c:if>
                 <c:if test="${finie == true}"><span style="font-size:25px;" class="glyphicon glyphicon-ok-circle"></span><br/></c:if>
