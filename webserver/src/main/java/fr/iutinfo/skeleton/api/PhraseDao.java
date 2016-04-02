@@ -11,7 +11,7 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
  */
 public interface PhraseDao {
     //insertion d'une phrase (methode post)
-    @SqlUpdate("insert into phrase_metier (phrase, besoin, mail, terminee, consultee) values (:phrase, :besoin, :mail, :terminee, :consultee)")
+    @SqlUpdate("insert into phrase_metier (phrase, besoin, mail, categorie, terminee, consultee) values (:phrase, :besoin, :categorie, :mail, :terminee, :consultee)")
     @GetGeneratedKeys
     int insert(@BindBean() Phrase phrase);
     //selection d'une phrase en fonction de son intitule "phrase" (methode get)
