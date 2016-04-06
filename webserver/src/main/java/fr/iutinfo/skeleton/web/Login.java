@@ -36,12 +36,11 @@ public class Login{
         User oldUser = dao.findByMail(oldLogin);
        
         
-        //logger.debug("User - current : " + currentUser.toString() + ", old : " + oldUser);
-        if (oldUser == null && currentUser != null) {
-        	setCookieAndRedirectToUserDetail(currentUser);
+        if (oldUser == null && currentUser != null) {//si l'utilisateur est déjà loggé
+        	setCookieAndRedirectToUserDetail(currentUser);//on redirige vers la page principale
         } 
-        if ( currentUser == null || currentUser.getMail().equals(oldUser.getMail())) {
-            requestLoginForm();
+        if ( currentUser == null || currentUser.getMail().equals(oldUser.getMail())) {//Si la personne n'est pas ou plus loggé
+            requestLoginForm();//on demande le login
         } else {
             setCookieAndRedirectToUserDetail(currentUser);
         }
@@ -59,7 +58,7 @@ public class Login{
         URI location = new URI("/html/userdb");//redirige vers la liste des utilisateurs après login
         throw new WebApplicationException(Response
                 .temporaryRedirect(location)
-                .cookie(new NewCookie("user", currentUser.getMail()))
+                .cookie(new NewCookie("user", currentUser.getMail()+":"+currentUser.getMot_de_passe()))
                 .build()
         );
     }

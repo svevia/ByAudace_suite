@@ -17,9 +17,7 @@
 	    <jsp:include page="/layout/navbar.jsp">
     	<jsp:param name="name" value = "${it}"/>
 		</jsp:include>
-	<%--champs d'authentification admin--%>
-	    <input id="userlogin" type="hidden"  value="admin">
-	    <input id="passwdlogin" type="hidden"  value="admin">
+
 	<%--affiche une barre de porgression avec le taux de phrases non résolues généré par le script--%>
 	    <div class="container">
 	        <div class="row">

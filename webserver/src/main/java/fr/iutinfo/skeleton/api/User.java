@@ -110,19 +110,17 @@ public class User implements Principal {
 
     /* Other methods */
 
-    private String buildHash(String pass, String s) {
+    public String buildHash(String pass, String s) {
         Hasher hasher = Hashing.md5().newHasher();
         hasher.putString(pass + s, Charsets.UTF_8);
         return hasher.hash().toString();
     }
 
     public boolean isGoodPassword(String pass) {
-        System.out.println("pass:" + pass);
-        String hash = buildHash(pass, getSalt());
         System.out.println("salt:" + getSalt());
-        System.out.println("hash:" + hash);
+        System.out.println("hash:" + pass);
         System.out.println("passwdhash:" + getMot_de_passe());
-        return hash.equals(getMot_de_passe());
+        return pass.equals(getMot_de_passe());
     }
 
     @Override
@@ -130,7 +128,7 @@ public class User implements Principal {
         if (getClass() != arg.getClass())
             return false;
         User user = (User) arg;
-        return name.equals(user.name) && prenom.equals(user.prenom) && mail.equals(user.mail) && mot_de_passe.equals(user.getMot_de_passe()) && salt.equals((user.getSalt()));
+        return mail.equals(user.mail);
     }
 
     @Override

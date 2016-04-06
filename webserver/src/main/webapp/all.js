@@ -8,6 +8,12 @@ function getUserGeneric(name, url) {
 	});
 }
 
+function getCookie(name) {
+	  var value = "; " + document.cookie;
+	  var parts = value.split("; " + name + "=");
+	  if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
 function getByAnnotation() {
 	getSecure("v1/secure/byannotation");
 }
@@ -20,7 +26,7 @@ function getByAnnotation() {
        url: url,
        dataType: 'json',
        beforeSend : function(req) {
-        req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+        req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
        },
        success: function (data){
         afficheUser(data)
@@ -57,8 +63,8 @@ function postUserGeneric(mail,nom,prenom,digit,pass,role,tel,url) {
 			"numero" : tel
 		}),
     beforeSend : function(req) {
-      req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
-    },
+    	req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
+    	},
 		success : function(data, textStatus, jqXHR) {
 			afficheUser(data);
 		},
@@ -96,7 +102,7 @@ function getTaux(url) {
        url: url,
        dataType: 'json',
        beforeSend : function(req) {
-        req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+           req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
        },
        success: function (data){
        },
@@ -112,7 +118,7 @@ function getPhrase(url) {
        url: url,
        dataType: 'json',
        beforeSend : function(req) {
-        req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+           req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
        },
        success: function (data){
         console.log(data);
@@ -140,7 +146,7 @@ function getSearch(url) {
        url: url,
        dataType: 'json',
        beforeSend : function(req) {
-        req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
+           req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
        },
        success: function (data){
         console.log(data);

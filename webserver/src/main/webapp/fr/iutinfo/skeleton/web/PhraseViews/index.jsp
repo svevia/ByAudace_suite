@@ -19,9 +19,6 @@
 	  
 	    <jsp:param name="name" value = "${it.name}"/>
 		</jsp:include>
-		<%--champs d'authentification admin--%>
-	    <input id="userlogin" type="hidden"  value="admin">
-	    <input id="passwdlogin" type="hidden"  value="admin">
 	    
 	    <div class="container">
 	        <div class="row">

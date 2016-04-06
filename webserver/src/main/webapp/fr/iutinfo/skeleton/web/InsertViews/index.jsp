@@ -14,9 +14,7 @@
     <jsp:include page="/layout/navbar.jsp">
     <jsp:param name="name" value = "${it}"/>
 	</jsp:include>
-	
-		<input id="userlogin" type="hidden"  value="admin">
-	    <input id="passwdlogin" type="hidden"  value="admin">
+
 <div class="container">
 
 <h1>Ajout utilisateur</h1>
