@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 
 public class ChoiceActivity extends Activity {
 
@@ -77,7 +76,7 @@ public class ChoiceActivity extends Activity {
     }
 
     public void onClick(View v) {
-        intent.setClass(this, JpeuxAiderActivity.class); //= new Intent(this, JpeuxAiderActivity.class);
+        intent.setClass(this, JpeuxAiderActivity.class);
         intent.putExtra("user_nom", intent.getStringExtra("user_nom"));
         intent.putExtra("user_prenom", intent.getStringExtra("user_prenom"));
         intent.putExtra("user_numero", intent.getStringExtra("user_numero"));

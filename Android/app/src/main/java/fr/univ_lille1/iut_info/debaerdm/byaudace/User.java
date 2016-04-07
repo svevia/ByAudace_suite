@@ -18,8 +18,6 @@ public class User {
         this.numero = numero;
     }
 
-    public User() {}
-
     public String getNom() {
         return name;
     }
