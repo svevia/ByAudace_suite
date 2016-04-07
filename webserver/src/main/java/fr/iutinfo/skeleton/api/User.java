@@ -1,14 +1,14 @@
 package fr.iutinfo.skeleton.api;
 
-import com.google.common.base.Charsets;
-import com.google.common.hash.Hasher;
-import com.google.common.hash.Hashing;
+import java.security.Principal;
+import java.security.SecureRandom;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.security.Principal;
-import java.security.SecureRandom;
-import org.skife.jdbi.v2.tweak.ResultSetMapper;
+import com.google.common.base.Charsets;
+import com.google.common.hash.Hasher;
+import com.google.common.hash.Hashing;
 
 public class User implements Principal {
     final static Logger logger = LoggerFactory.getLogger(User.class);
@@ -18,7 +18,7 @@ public class User implements Principal {
     private String prenom;
     private String digit;
     private String numero; // Telephone
-    private String mot_de_passe;
+    private String mot_de_passe;//serait crypter juste après
     private String role;
     private String salt;
 
@@ -27,7 +27,7 @@ public class User implements Principal {
         this.name = nom;
         this.prenom = prenom;
         this.mail = mail;
-        this.mot_de_passe = mot_de_passe;
+        this.mot_de_passe = mot_de_passe;//serait crypter juste après
         this.digit = digit;
         this.role = role;
         this.numero = "";
@@ -38,19 +38,6 @@ public class User implements Principal {
         this.prenom = prenom;
         this.mail = mail;
         this.mot_de_passe = mot_de_passe;
-        this.digit = digit;
-        this.role = role;
-        this.numero = numero;
-    }
-
-    public User(String mail, String nom, String prenom, String digit, String mot_de_passe, String role, String numero, boolean aCrypter) {
-        this.name = nom;
-        this.prenom = prenom;
-        this.mail = mail;
-        this.mot_de_passe = mot_de_passe;
-        if(aCrypter){
-        	resetPasswordHash();
-        }
         this.digit = digit;
         this.role = role;
         this.numero = numero;
