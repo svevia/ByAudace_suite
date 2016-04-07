@@ -10,10 +10,22 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+/**
+ * ChoiceActivity est l'activité de choix, où l'utilisateur est redirigé après s'être authentifié avec succès.
+ * Celle-ci propose deux options :
+ * "HELP", où l'utilisateur est redirigé vers l'activité HelpActivity afin de poster sa phrase ;
+ * "J'PEUX AIDER", où l'utilisateur est redirigé vers l'activité JpeuxAiderActivity afin de consulter les phrases métier.
+ */
 public class ChoiceActivity extends Activity {
 
     private Intent intent;
 
+    /**
+     * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
+     * Elle est appelée automatiquement lorsqu'une activité ChoiceActivity est créée avec un Intent,
+     * ou lorsque le terminal change d'orientation ; le bundle passé en paramètre permet alors
+     * la sauvegarde des données.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +46,15 @@ public class ChoiceActivity extends Activity {
         intent = this.getIntent();
     }
 
-    // retour = redirection sur la page de login
+    /**
+     * La méthode onBackPressed surcharge la méthode du même nom dans la classe mère Activity.
+     * Elle est appelée automatiquement lorsque l'utilisateur presse le bouton "retour" de
+     * son terminal.
+     */
     @Override
     public void onBackPressed(){
+
+        // redirection sur la page de login
         Intent i = new Intent( ChoiceActivity.this, MainActivity.class );
         startActivity(i);
         this.finish();

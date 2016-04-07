@@ -36,7 +36,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by kancurzv on 23/03/16.
+ * JpeuxAiderActivity est l'activité de consultation des demandes d'aide, où l'utilisateur est redirigé
+ * après avoir sélectionné l'option adaptée sur l'activité ChoiceActivity.
+ * L'activité ici présente permet à l'utilisateur de visualiser toutes les demandes postées par les utilisateurs
+ * de l'application ; s'il se sent capable d'aider parmi l'une d'entre elles, il peut la sélectionner et se mettre
+ * en contact avec la personne l'ayant postée (via l'envoi automatisé d'un mail).
  */
 public class JpeuxAiderActivity extends Activity  {
 
@@ -48,8 +52,12 @@ public class JpeuxAiderActivity extends Activity  {
     private RequestQueue queue;
     private Intent intent;
 
-
-
+    /**
+     * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
+     * Elle est appelée automatiquement lorsqu'une activité JpeuxAiderActivity est créée avec un Intent,
+     * ou lorsque le terminal change d'orientation ; le bundle passé en paramètre permet alors
+     * la sauvegarde des données.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +140,11 @@ public class JpeuxAiderActivity extends Activity  {
         return super.onOptionsItemSelected(item);
     }
 
-    // retour = redirection sur la page de choix
+    /**
+    * La méthode onBackPressed surcharge la méthode du même nom dans la classe mère Activity.
+    * Elle est appelée automatiquement lorsque l'utilisateur presse le bouton "retour" de
+    * son terminal.
+    */
     @Override
     public void onBackPressed(){
         finish();
