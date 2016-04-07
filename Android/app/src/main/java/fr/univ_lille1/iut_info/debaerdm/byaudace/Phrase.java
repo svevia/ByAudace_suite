@@ -12,9 +12,6 @@ public class Phrase {
     private String numero;
     private int consultee;
 
-    public Phrase(){
-
-    }
 
     public Phrase(String phrase, String besoin, String mail, String numero) {
         this.phrase = phrase;

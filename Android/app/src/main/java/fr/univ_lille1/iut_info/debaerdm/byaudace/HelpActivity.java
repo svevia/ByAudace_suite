@@ -5,14 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.util.Base64;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,14 +52,8 @@ public class HelpActivity extends Activity{
     private RequestQueue queue;
     private AlertDialog.Builder alertDialogBuilder;
     private boolean ok;
-    private Phrase phrase;
     private TextViewNbChar phraseUne;
     private TextViewNbChar phraseDeux;
-
-    private TextView textViewUn;
-    private EditText editTextUn;
-    private TextView textViewDeux;
-    private EditText editTextDeux;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +103,7 @@ public class HelpActivity extends Activity{
 
         Map<String, String> params = new HashMap<>();
         params.put("phrase",
-                phraseUne.getEditText().getText().toString().replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", ""));//phraseUne.getEditText().getText().toString());
+                phraseUne.getEditText().getText().toString().replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", ""));
         params.put("besoin", phraseDeux.getEditText().getText().toString().replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", ""));
         params.put("mail", login);
         params.put("terminee", String.valueOf(false));
@@ -171,46 +160,11 @@ public class HelpActivity extends Activity{
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void alertNotification(View view, int icon, String title, String text){
-        if (!ok) {
-            ok = true;
-            alertDialogBuilder = new AlertDialog.Builder(
-                    this);
-
-            // set title
-            alertDialogBuilder.setTitle(title);
-
-            // set dialog message
-            alertDialogBuilder
-                    .setMessage(text)
-                    .setIcon(icon)
-                    .setCancelable(false)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            ok = false;
-                        }
-                    });
-
-            // create alert dialog
-            AlertDialog alertDialog = alertDialogBuilder.create();
-
-            // show it
-            alertDialog.show();
-        }
-    }
-
-
-    public void onClick(View v) {
-        // TODO Auto-generated method stub
-
     }
 
 }
