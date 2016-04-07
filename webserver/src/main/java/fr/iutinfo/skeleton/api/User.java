@@ -43,6 +43,19 @@ public class User implements Principal {
         this.numero = numero;
     }
 
+    public User(String mail, String nom, String prenom, String digit, String mot_de_passe, String role, String numero, boolean aCrypter) {
+        this.name = nom;
+        this.prenom = prenom;
+        this.mail = mail;
+        this.mot_de_passe = mot_de_passe;
+        if(aCrypter){
+        	resetPasswordHash();
+        }
+        this.digit = digit;
+        this.role = role;
+        this.numero = numero;
+    }
+    
     public User(){}
 
     /* Getters Setters */
