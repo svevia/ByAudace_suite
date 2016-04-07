@@ -59,5 +59,11 @@ public interface PhraseDao {
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderTerminee();
     
+    @SqlUpdate("create table phrase_metier(phrase CHAR(300) PRIMARY KEY NOT NULL,besoin CHAR(300),mail CHAR(200) NOT NULL,categorie CHAR(200),terminee BOOLEAN DEFAULT \"false\",consultee INT DEFAULT 0,FOREIGN KEY(mail) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE)")
+    void createPhraseTable();
+    
+    @SqlUpdate("CREATE TABLE aide(mail_repondant CHAR(200),phrase CHAR(300),date DATETIME,FOREIGN KEY(mail_repondant) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE,FOREIGN KEY(phrase) REFERENCES phrase_metier(phrase) ON UPDATE CASCADE ON DELETE CASCADE,PRIMARY KEY(mail_repondant,phrase))")
+    void createAideTable();
+    
     void close();
 }

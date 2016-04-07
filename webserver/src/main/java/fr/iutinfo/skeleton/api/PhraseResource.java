@@ -39,6 +39,7 @@ public class PhraseResource {
      * @return phrase - Phrase créée
      */
     @POST
+    @RolesAllowed({"admin","user"})
     public Phrase createPhrase(Phrase phrase) {
         dao.insert(phrase);
         return phrase;
@@ -116,7 +117,6 @@ public class PhraseResource {
      */
     @GET
     @Path("/orderbesoin")
-    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderBesoin() {
         return dao.orderBesoin();
     }
@@ -129,7 +129,6 @@ public class PhraseResource {
      */
     @GET
     @Path("/orderconsultee")
-    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderConsultee() {
         return dao.orderConsultee();
     }
@@ -142,7 +141,6 @@ public class PhraseResource {
      */
     @GET
     @Path("/orderphrase")
-    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderPhrase() {
         return dao.orderPhrase();
     }
@@ -155,7 +153,6 @@ public class PhraseResource {
      */
     @GET
     @Path("/ordermail")
-    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderMail() {
         return dao.orderMail();
     }
@@ -168,7 +165,6 @@ public class PhraseResource {
      */
     @GET
     @Path("/orderterminee")
-    @RolesAllowed({"admin","user"})
     public List<Phrase> getOrderTerminee() {
         return dao.orderTerminee();
     }

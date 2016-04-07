@@ -32,7 +32,7 @@ public class Login{
 	UserDao dao = BDDFactory.getDbi().open(UserDao.class);
     @GET
     public User login(@Context SecurityContext context, @QueryParam("user") String oldLogin) throws URISyntaxException {
-        User currentUser = (User) context.getUserPrincipal();
+    	User currentUser = (User) context.getUserPrincipal();
         User oldUser = dao.findByMail(oldLogin);
        
         
