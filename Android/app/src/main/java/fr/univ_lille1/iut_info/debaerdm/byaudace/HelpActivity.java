@@ -61,6 +61,7 @@ public class HelpActivity extends Activity{
      * Elle est appelée automatiquement lorsqu'une activité HelpActivity est créée avec un Intent,
      * ou lorsque le terminal change d'orientation ; le bundle passé en paramètre permet alors
      * la sauvegarde des données.
+     * Elle est ici utilisée pour initialiser tous les attributs privés de la classe.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +104,12 @@ public class HelpActivity extends Activity{
         intent = this.getIntent();
     }
 
+    /**
+     * La méthode postPhrase, appelée par défaut lorsque l'utilisateur presse le bouton "Envoyer",
+     * envoie sa demande sur le serveur via une requête POST.
+     * Elle opère quelques traitements sur les différents champs envoyés au serveur, afin d'éviter
+     * de compromettre le fonctionnement du système.
+     */
     public void postPhrase(final View view){
         intent.setClass(HelpActivity.this, JpeuxAiderActivity.class);
         final String login = intent.getStringExtra("user_mail");

@@ -50,6 +50,8 @@ public class ChoiceActivity extends Activity {
      * La méthode onBackPressed surcharge la méthode du même nom dans la classe mère Activity.
      * Elle est appelée automatiquement lorsque l'utilisateur presse le bouton "retour" de
      * son terminal.
+     * Ici, appeler cette méthode tue l'activité en fonctionnement et redirige l'utilisateur
+     * sur la page de login.
      */
     @Override
     public void onBackPressed(){
@@ -82,8 +84,12 @@ public class ChoiceActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public void onClick2(View v) {
+    /**
+     * La méthode helpme est par défaut appelée lorsque l'utilisateur appuie sur le bouton de demande d'aide
+     * ("HELP"). Celle-ci redirige l'utilisateur vers l'activité HelpActivity, tout en lui passant grâce à
+     * l'intent les données nécessaires au maintien de la connexion de sa session.
+     */
+    public void helpme(View v) {
         intent.setClass(this, HelpActivity.class);
         intent.putExtra("user_nom", intent.getStringExtra("user_nom"));
         intent.putExtra("user_prenom", intent.getStringExtra("user_prenom"));
@@ -93,7 +99,12 @@ public class ChoiceActivity extends Activity {
         startActivity(intent);
     }
 
-    public void onClick(View v) {
+    /**
+     * La méthode aider est par défaut appelée lorsque l'utilisateur appuie sur le bouton de consultation
+     * des demandes d'aide ("J'PEUX AIDER"). Celle-ci redirige l'utilisateur vers l'activité JpeuxAiderActivity,
+     * tout en lui passant grâce à l'intent les données nécessaires au maintien de la connexion de sa session.
+     */
+    public void aider(View v) {
         intent.setClass(this, JpeuxAiderActivity.class);
         intent.putExtra("user_nom", intent.getStringExtra("user_nom"));
         intent.putExtra("user_prenom", intent.getStringExtra("user_prenom"));
