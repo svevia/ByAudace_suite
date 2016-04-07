@@ -1,8 +1,6 @@
 package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -34,7 +32,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by kancurzv on 23/03/16.
+ * HelpActivity est l'activité de demande d'aide, où l'utilisateur est redirigé après avoir sélectionné
+ * l'option adaptée sur l'activité ChoiceActivity.
+ * L'activité ici présente permet à l'utilisateur de formuler sa demande sous la forme d'une phrase métier
+ * et d'un besoin, ainsi que d'une catégorie de besoin.
+ * Une fois formulée, la demande peut être envoyée sur le serveur.
  */
 public class HelpActivity extends Activity{
 
@@ -50,11 +52,16 @@ public class HelpActivity extends Activity{
     private Spinner spin;
     private Intent intent;
     private RequestQueue queue;
-    private AlertDialog.Builder alertDialogBuilder;
     private boolean ok;
     private TextViewNbChar phraseUne;
     private TextViewNbChar phraseDeux;
 
+    /**
+     * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
+     * Elle est appelée automatiquement lorsqu'une activité HelpActivity est créée avec un Intent,
+     * ou lorsque le terminal change d'orientation ; le bundle passé en paramètre permet alors
+     * la sauvegarde des données.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
