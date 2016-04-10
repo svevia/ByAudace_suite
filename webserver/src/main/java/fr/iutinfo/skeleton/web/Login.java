@@ -42,7 +42,7 @@ public class Login{
         if ( currentUser == null || currentUser.getMail().equals(oldUser.getMail())) {//Si la personne n'est pas ou plus loggé
             requestLoginForm();//on demande le login
         } else {
-            setCookieAndRedirectToUserDetail(currentUser);
+            setCookieAndRedirectToUserDetail(currentUser);//stock les infos de la personne dans un cookie
         }
         return null;
     }

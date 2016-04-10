@@ -22,6 +22,9 @@ public class AuthFilter implements ContainerRequestFilter {
     final static Logger logger = LoggerFactory.getLogger(AuthFilter.class);
     @Context private HttpServletRequest request;
     @Override
+    /**
+     * Verifie si un utilisateur peu se logger, il récupère les infos saisies, les decodes et verifie si elles sont corrects
+     */
     public void filter(ContainerRequestContext containerRequest) throws WebApplicationException {
 
         String auth = containerRequest.getHeaderString(HttpHeaders.AUTHORIZATION);
@@ -29,7 +32,7 @@ public class AuthFilter implements ContainerRequestFilter {
         logger.info("auth : " + auth);
 
         if (auth != null) {
-            String[] loginPassword = BasicAuth.decode(auth);
+            String[] loginPassword = BasicAuth.decode(auth);//décode la base 64
             logger.debug("login : " + loginPassword[0]);
             logger.debug("password : " + loginPassword[1]);
             
@@ -39,12 +42,11 @@ public class AuthFilter implements ContainerRequestFilter {
             UserDao dao = BDDFactory.getDbi().open(UserDao.class);
             User user = dao.findByMail(loginPassword[0]);
             if(user != null){
-            	String passwd = user.buildHash(loginPassword[1], user.getSalt());
-	            if((!user.isGoodPassword(passwd) && !user.isGoodPassword(loginPassword[1])) || user == null) {
-	                throw new WebApplicationException(Status.UNAUTHORIZED);
+            	String passwd = user.buildHash(loginPassword[1], user.getSalt()); // crypte le mot de passe entré avec le salt associé au user
+	            if((!user.isGoodPassword(passwd) && !user.isGoodPassword(loginPassword[1])) || user == null) {//verifie l'egalité des 2 mot de passes
+	                throw new WebApplicationException(Status.UNAUTHORIZED);//renvoi une erreur 401
 	            }
             }
-            request.getSession(true).setAttribute("login",loginPassword[0]);
             containerRequest.setSecurityContext(new AppSecurityContext(user, scheme));
         }
     }

@@ -24,7 +24,7 @@ public class UserSecurityTest extends JerseyTest{
 	
 	@Test
     public void password_should_be_hached() {
-    	h.createUser("tc@gmail.com", "Clavier", "Thomas", "AZERTY", "1234pouet", "user");
+    	h.createUser("tc@gmail.com", "Clavier", "Thomas", "AZERTY", "1234pouet", "user","000");
     	User user = target("/userdb/Clavier").request().get(User.class);
         assertNotEquals("1234pouet", user.getMot_de_passe());
     }

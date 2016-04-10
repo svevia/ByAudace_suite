@@ -23,11 +23,7 @@ public class Helper {
         dao.createUserTable();
     }
     
-    User createUser(String mail, String nom, String prenom, String digit, String mot_de_passe, String role) {
-    	User user = new User(mail, nom, prenom, digit, mot_de_passe, role);
-    	return doPost(user);
-    }
-    
+
 
     User createUser(String mail, String nom, String prenom, String digit, String mot_de_passe, String role, String numero) {
         User user = new User(mail, nom, prenom, digit, mot_de_passe, role, numero);
@@ -35,7 +31,7 @@ public class Helper {
     }
     
     User createUserWithEmail(String email) {
-        User user = new User(email, "", "", "", "", "");
+        User user = new User(email, "", "", "", "", "","");
         return doPost(user);
     }
 

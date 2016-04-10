@@ -13,17 +13,18 @@ public class BDDFactory {
     private static DBI dbi = null;
 
     public static DBI getDbi() {
-    	if(!new File("data.db").exists()){
+    	if(!new File("data.db").exists()){//si la BDD n'existe pas
     		try {
-				new File("data.db").createNewFile();
+				new File("data.db").createNewFile();//creation du fichier vide
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+    		//chargement de la BDD
             SQLiteDataSource ds = new SQLiteDataSource();
             ds.setUrl("jdbc:sqlite:data.db");
             dbi = new DBI(ds);
-    		init();
+    		init();//creation des tables et des users par défaut
     	}
     	
     	
@@ -35,6 +36,9 @@ public class BDDFactory {
         return dbi;
     }
 
+    /**
+     * Cree les tables de la BDD ainsi que les users de base
+     */
 	private static void init() {
 		UserDao user = BDDFactory.getDbi().open(UserDao.class);
 		user.createUserTable();

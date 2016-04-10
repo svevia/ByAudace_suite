@@ -23,16 +23,6 @@ public class User implements Principal {
     private String salt;
 
 
-    public User(String mail, String nom, String prenom, String digit, String mot_de_passe, String role) {
-        this.name = nom;
-        this.prenom = prenom;
-        this.mail = mail;
-        this.mot_de_passe = mot_de_passe;//serait crypter juste après
-        this.digit = digit;
-        this.role = role;
-        this.numero = "";
-    }
-
     public User(String mail, String nom, String prenom, String digit, String mot_de_passe, String role, String numero) {
         this.name = nom;
         this.prenom = prenom;
