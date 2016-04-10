@@ -7,7 +7,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Created by debaerdm on 30/03/16.
+ * La classe TextViewNbChar est une TextView avec une gestion intégrée du nombre de caractères.
+ * Elle est utile si l'on veut proposer à l'utilisateur une zone de saisie de texte avec un nombre restreint
+ * de caractères ; cette classe permet alors à tout moment à celui-ci de savoir combien de caractères il lui
+ * est encore possible d'entrer.
  */
 public class TextViewNbChar{
 

@@ -1,7 +1,10 @@
 package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 /**
- * Created by debaerdm on 29/03/16.
+ * La classe User représente un utilisateur.
+ * Utilisée pour l'authentification de celui-ci et le maintien de sa session à travers les activités, celle-ci
+ * contient ses nom, prénom et numéro, ainsi que le sel nécessaire au cryptage de son mot de passe.
+ * Sont également accessibles depuis ici getters et setters pour les attributs cités-ci dessus.
  */
 public class User {
 

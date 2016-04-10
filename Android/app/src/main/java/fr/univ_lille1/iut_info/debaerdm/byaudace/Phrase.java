@@ -1,7 +1,10 @@
 package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
 /**
- * Created by debaerdm on 25/03/16.
+ * La classe Phrase est utilisée pour représenter un couple phrae métier / besoin.
+ * Elle contient également le mail de l'utilisateur l'ayant postée, ainsi que plusieurs informations
+ * statistiques nécessaires à la gestion de ses instanciations par la pile de l'application Android
+ * ainsi que par le panel admin.
  */
 public class Phrase {
 
@@ -42,6 +45,13 @@ public class Phrase {
         return this.consultee;
     }
 
+    /**
+     * La méthode toString renvoie l'état actuel de l'objet sous forme de String.
+     * Elle est notamment utilisée pour obtenir une prévisualisation rapide de l'objet dans la pile
+     * de l'application Android.
+     * Si le besoin ou la phrase métier sont considérés comme trop longs, ils seront raccourcis à la
+     * longueur maximale autorisée.
+     */
     public String toString() {
 
         String ret = "";
