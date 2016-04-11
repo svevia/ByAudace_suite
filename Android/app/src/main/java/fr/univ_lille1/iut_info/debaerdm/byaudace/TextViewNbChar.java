@@ -32,7 +32,7 @@ public class TextViewNbChar{
             public void afterTextChanged(Editable s) {
                 int nbChar = getEditText().getText().toString().length();
                 int leftChar = 300 - nbChar;
-                String restant = "";
+                String restant;
 
                 if(leftChar == 0 || leftChar == 1){
                     restant = " caractère restant.";
@@ -40,7 +40,7 @@ public class TextViewNbChar{
                     restant = " caractères restants.";
                 }
 
-                getTextView().setText(Integer.toString(leftChar) + restant);
+                getTextView().setText(String.format("%d"+ restant,leftChar));
                 getTextView().setTextColor(Color.GREEN);
 
                 if (leftChar < 50 && leftChar >= 11) {
@@ -64,10 +64,4 @@ public class TextViewNbChar{
     public TextView getTextView() {
         return textView;
     }
-
-    public void setTextView(TextView textView) {
-        this.textView = textView;
-    }
-
-
 }

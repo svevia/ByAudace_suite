@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -38,19 +37,9 @@ import java.util.Map;
  */
 public class HelpActivity extends Activity{
 
-    private Button envoy;
-
-    private final String URL = Configuration.SERVER + "/v1/phrase";
-    private final int MAX_LENGTH= 300;
-
-    private EditText phraseMetier;
-    private EditText phraseBesoin;
-    private TextView nbCharTxt;
-    private TextView nbCharTxt2;
-    private Spinner spin;
+    private static final String URL = Configuration.SERVER + "/v1/phrase";
+    private static final int MAX_LENGTH= 300;
     private Intent intent;
-    private RequestQueue queue;
-    private boolean ok;
     private TextViewNbChar phraseUne;
     private TextViewNbChar phraseDeux;
 
@@ -64,6 +53,12 @@ public class HelpActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Spinner spin;
+        EditText phraseMetier;
+        EditText phraseBesoin;
+        TextView nbCharTxt;
+        TextView nbCharTxt2;
 
         // fullscreen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -96,9 +91,6 @@ public class HelpActivity extends Activity{
         tmp2.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_LENGTH)});
         phraseDeux.setEditText(tmp2);
 
-
-        envoy = (Button) findViewById(R.id.button);
-
         intent = this.getIntent();
     }
 
@@ -109,6 +101,7 @@ public class HelpActivity extends Activity{
      * de compromettre le fonctionnement du système.
      */
     public void postPhrase(final View view){
+        RequestQueue queue;
         intent.setClass(HelpActivity.this, JpeuxAiderActivity.class);
         final String login = intent.getStringExtra("user_mail");
         final String mdp = intent.getStringExtra("user_mot_de_passe");
@@ -123,7 +116,7 @@ public class HelpActivity extends Activity{
 
         queue = Volley.newRequestQueue(this);
 
-        final com.android.volley.toolbox.JsonObjectRequest request = new JsonObjectRequest(Configuration.SERVER+"/v1/phrase", new JSONObject(params),
+        final com.android.volley.toolbox.JsonObjectRequest request = new JsonObjectRequest(URL, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -143,15 +136,12 @@ public class HelpActivity extends Activity{
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
             Map<String, String> params = new HashMap<>();
-            //params.put("Content-Type","application/json");
             params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
             System.out.println(params.toString());
             return params;
             }
         };
-
         queue.add(request);
-
         startActivity(intent);
         this.finish();
 

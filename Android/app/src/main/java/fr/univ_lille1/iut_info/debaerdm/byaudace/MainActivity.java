@@ -45,7 +45,6 @@ public class MainActivity extends Activity {
     private EditText loginText;
     private EditText passwordText;
     private RequestQueue queue;
-    private AlertDialog.Builder alertDialogBuilder;
     private boolean ok = false;
     private SharedPreferences pref;
     private CheckBox checkbox;
@@ -116,7 +115,7 @@ public class MainActivity extends Activity {
                         // A corriger : Les champs peuvent être nuls dans le User
                         user = new User(tok[0].split(":")[1], tok[1].split(":")[1], tok[2].split(":")[1], tok[3].split(":")[1]);
                         System.out.println("User : " + user.toString());
-                        load(login, password, view);
+                        load(login, password);
                     }
 
                 }, new Response.ErrorListener() {
@@ -141,7 +140,7 @@ public class MainActivity extends Activity {
      * survenu durant l'authentification.
      * Si c'est le cas, la nature du problème est indiquée clairement à l'utilisateur.
      */
-    private void load(final String login, final String mdp, final View view){
+    private void load(final String login, final String mdp){
 
         String URL = Configuration.SERVER + "/v1/auth/";
 
@@ -214,12 +213,12 @@ public class MainActivity extends Activity {
 
             pref.edit().putString("login", login)
                     .putString("mdp", password)
-                    .commit();
+                    .apply();
 
         }else{
             pref.edit().putString("login", null)
                     .putString("mdp", null)
-                    .commit();
+                    .apply();
         }
     }
 
@@ -270,6 +269,7 @@ public class MainActivity extends Activity {
      * @param text Texte à afficher en tant que texte de corps de la fenêtre
      */
     public void alertNotification(int icon, String title, String text){
+        AlertDialog.Builder alertDialogBuilder;
         if (!ok) {
             ok = true;
             alertDialogBuilder = new AlertDialog.Builder(

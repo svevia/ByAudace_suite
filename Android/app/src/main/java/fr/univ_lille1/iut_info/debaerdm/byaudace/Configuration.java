@@ -7,5 +7,5 @@ package fr.univ_lille1.iut_info.debaerdm.byaudace;
  * concentrés au sein de cette même classe abstraite.
  */
 public abstract class Configuration {
-    public static final String SERVER = "http://192.168.1.4:8080";
+    public static final String SERVER = "http://192.168.0.17:8080";
 }

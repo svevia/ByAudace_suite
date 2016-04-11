@@ -66,13 +66,7 @@ public class ChoiceActivity extends Activity {
      * l'intent les données nécessaires au maintien de la connexion de sa session.
      */
     public void helpme(View v) {
-        intent.setClass(this, HelpActivity.class);
-        intent.putExtra("user_nom", intent.getStringExtra("user_nom"));
-        intent.putExtra("user_prenom", intent.getStringExtra("user_prenom"));
-        intent.putExtra("user_numero", intent.getStringExtra("user_numero"));
-        intent.putExtra("user_mail", intent.getStringExtra("user_mail"));
-        intent.putExtra("user_mot_de_passe", intent.getStringExtra("user_mot_de_passe"));
-        startActivity(intent);
+        intentClass(HelpActivity.class);
     }
 
     /**
@@ -81,7 +75,11 @@ public class ChoiceActivity extends Activity {
      * tout en lui passant grâce à l'intent les données nécessaires au maintien de la connexion de sa session.
      */
     public void aider(View v) {
-        intent.setClass(this, JpeuxAiderActivity.class);
+        intentClass(JpeuxAiderActivity.class);
+    }
+
+    public void intentClass(Class changeClass){
+        intent.setClass(this, changeClass);
         intent.putExtra("user_nom", intent.getStringExtra("user_nom"));
         intent.putExtra("user_prenom", intent.getStringExtra("user_prenom"));
         intent.putExtra("user_numero", intent.getStringExtra("user_numero"));

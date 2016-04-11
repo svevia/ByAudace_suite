@@ -45,9 +45,8 @@ public class JpeuxAiderActivity extends Activity  {
     private ListView mListView;
     private ArrayAdapter<Phrase> adapter;
     private AlertDialog.Builder alertDialogBuilder;
-    private final String URL = Configuration.SERVER + "/v1/phrase";
+    private static final String URL = Configuration.SERVER + "/v1/phrase";
     private List<Phrase> users;
-    private RequestQueue queue;
     private Intent intent;
 
     /**
@@ -62,6 +61,7 @@ public class JpeuxAiderActivity extends Activity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        RequestQueue queue;
         // fullscreen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
