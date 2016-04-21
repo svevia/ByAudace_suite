@@ -107,9 +107,6 @@ public class User implements Principal {
     }
 
     public boolean isGoodPassword(String pass) {
-        System.out.println("salt:" + getSalt());
-        System.out.println("hash:" + pass);
-        System.out.println("passwdhash:" + getMot_de_passe());
         return pass.equals(getMot_de_passe());
     }
 

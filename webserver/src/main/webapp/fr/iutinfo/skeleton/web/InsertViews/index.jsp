@@ -55,7 +55,6 @@ user</label>
 admin</label>
   </div>
   <button id="submit" class="btn btn-default">Creer</button>
-</form>
   </div>
 
   <script type="text/javascript">
