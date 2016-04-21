@@ -5,6 +5,9 @@ lt application files
 # Files for the Dalvik VM
 *.dex
 
+#BDD
+data.db
+
 # Java class files
 *.class
 Configuration.java
