@@ -40,6 +40,9 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.3.0.M2</version>
                 <configuration>
+                    <stopPort>9966</stopPort>
+                    <stopKey>foo</stopKey>
+                    <stopWait>10</stopWait>
                     <scanIntervalSeconds>5</scanIntervalSeconds>
                     <war>${project.basedir}/target/${project.artifactId}.war</war>
                     <webApp>
