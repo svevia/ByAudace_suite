@@ -1,6 +1,5 @@
 package fr.iutinfo.skeleton.api;
 
-import java.sql.Date;
 import java.util.List;
 import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
@@ -15,38 +14,23 @@ public interface PhraseDao {
     @SqlUpdate("insert into phrase_metier (phrase, besoin, mail, categorie, terminee, consultee) values (:phrase, :besoin,:mail, :categorie,  :terminee, :consultee)")
     @GetGeneratedKeys
     int insert(@BindBean() Phrase phrase);
-    
-    @SqlUpdate("insert into aide (mail_repondant,phrase,date) values (:mail_repondant,:phrase,:date)")
-    @GetGeneratedKeys
-    int help(@Bind("mail_repondant") String mail_repondant, @Bind("phrase") String phrase, @Bind("date") Date date);
-    
     //selection d'une phrase en fonction de son intitule "phrase" (methode get)
     @SqlQuery("select * from phrase_metier where phrase = :phrase")
     @RegisterMapperFactory(BeanMapperFactory.class)
     Phrase findByPhrase(@Bind("phrase") String phrase);
-    
-    
     //suppression d'une phrase en fonction de son intitule "phrase" (utilisee dans PhraseViews/index.jsp methode delete)
     @SqlUpdate("delete from phrase_metier where phrase = :phrase")
     void delete(@Bind("phrase") String phrase);
-    
-    
     //selection de toutes les phrases (utilisee dans PhraseViews/index.jsp methode get)
     @SqlQuery("select * from phrase_metier")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> all();
-    
-    
     //retourne le nombre total de phrases (utilisee dans StatistiqueViews/index.jsp methode get)
     @SqlQuery("select count(*) from phrase_metier")
     int getAllCount();
-    
-    
     //retourne le nombre total de phrases terminees (utilisee dans StatistiqueViews/index.jsp methode get)
     @SqlQuery("select count(*) from phrase_metier where terminee = :bool")
     int getTermCount(@Bind("bool") boolean bool);
-    
-    
     //selectionne les phrases correspondant a la recherche (utilisee dans PhraseViews/index.jsp methode get)
     @SqlQuery("select * from phrase_metier where mail like :search "
             + "or besoin like :search or phrase like :search")
