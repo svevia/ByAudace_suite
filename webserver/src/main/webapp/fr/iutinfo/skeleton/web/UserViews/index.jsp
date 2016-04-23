@@ -63,8 +63,7 @@
 	          type: "DELETE",
 	          url: "/v1/userdb/" + mail,
 	          beforeSend : function(req) {
-       			req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
-
+	        	  req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
        		  },
 	          success: function(msg){
 	            location.reload();

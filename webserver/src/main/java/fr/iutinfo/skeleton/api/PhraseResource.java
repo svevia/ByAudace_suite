@@ -1,5 +1,6 @@
 package fr.iutinfo.skeleton.api;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -43,6 +44,13 @@ public class PhraseResource {
     public Phrase createPhrase(Phrase phrase) {
         dao.insert(phrase);
         return phrase;
+    }
+
+    @POST
+    @Path("/help")
+    @RolesAllowed({"admin","user"})
+    public void aiderPhrase(Aide aide) {
+        dao.help(aide.phrase.getPhrase(),aide.user.getMail(),new java.sql.Date(Calendar.getInstance().getTime().getTime()));
     }
 
     /**

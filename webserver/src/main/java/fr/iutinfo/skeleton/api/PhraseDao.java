@@ -1,5 +1,6 @@
 package fr.iutinfo.skeleton.api;
 
+import java.sql.Date;
 import java.util.List;
 import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
@@ -11,9 +12,13 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
  */
 public interface PhraseDao {
     //insertion d'une phrase (methode post)
-    @SqlUpdate("insert into phrase_metier (phrase, besoin, mail, categorie, terminee, consultee) values (:phrase, :besoin,:mail, :categorie,  :terminee, :consultee)")
+    @SqlUpdate("insert into phrase_metier (phrase, besoin, mail, categorie, terminee) values (:phrase, :besoin , :mail, :categorie,  :terminee)")
     @GetGeneratedKeys
     int insert(@BindBean() Phrase phrase);
+
+    @SqlUpdate("insert into aide (mail_repondant,phrase,date) values (:mail_repondant,:phrase,:date)")
+    int help(@Bind("mail_repondant") String mail_repondant, @Bind("phrase") String phrase, @Bind("date") Date date);
+    
     //selection d'une phrase en fonction de son intitule "phrase" (methode get)
     @SqlQuery("select * from phrase_metier where phrase = :phrase")
     @RegisterMapperFactory(BeanMapperFactory.class)
@@ -60,7 +65,7 @@ public interface PhraseDao {
     List<Phrase> orderTerminee();
     
     //cree la table contenant les phrases
-    @SqlUpdate("create table phrase_metier(phrase CHAR(300) PRIMARY KEY NOT NULL,besoin CHAR(300),mail CHAR(200) NOT NULL,categorie CHAR(200),terminee BOOLEAN DEFAULT \"false\",consultee INT DEFAULT 0,FOREIGN KEY(mail) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE)")
+    @SqlUpdate("create table phrase_metier(id INTEGER PRIMARY KEY AUTOINCREMENT, phrase CHAR(300) NOT NULL,besoin CHAR(300),date DATETIME,mail CHAR(200) NOT NULL,categorie CHAR(200),terminee BOOLEAN DEFAULT \"false\",FOREIGN KEY(mail) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE)")
     void createPhraseTable();
     
     //creee la table d'association entre User et phrase indiquant qui a aidé une phrase

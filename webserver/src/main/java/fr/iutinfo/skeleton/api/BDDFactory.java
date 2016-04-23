@@ -5,6 +5,10 @@ import org.sqlite.SQLiteDataSource;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.inject.Singleton;
 
@@ -47,6 +51,8 @@ public class BDDFactory {
 		PhraseDao phrase = BDDFactory.getDbi().open(PhraseDao.class);
 		phrase.createPhraseTable();
 		phrase.createAideTable();
+		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+		new PhraseResource().createPhrase(new Phrase("phrase 1","besoin 1", "admin", "categorie 1",df.format(new Date(Calendar.getInstance().getTimeInMillis()))));
 	}
 
 }

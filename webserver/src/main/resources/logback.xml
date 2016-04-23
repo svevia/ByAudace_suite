@@ -9,6 +9,6 @@
         <appender-ref ref="STDOUT"/>
     </root>
 
-    <logger name="fr.iutinfo.skeleton" level="OFF"/>
+    <logger name="fr.iutinfo.skeleton" level="ALL"/>
 
 </configuration>

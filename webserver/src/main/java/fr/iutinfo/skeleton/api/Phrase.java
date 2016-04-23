@@ -1,4 +1,7 @@
 package fr.iutinfo.skeleton.api;
+import java.sql.Date;
+import java.util.Calendar;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -6,29 +9,30 @@ public class Phrase  {
     final static Logger logger = LoggerFactory.getLogger(Phrase.class);
 
     /* attributs de la table phrase contenue dans la base de données */
+    private int id;
     private String phrase;
     private String besoin;
+    private String date;
     private String mail;
     private String categorie;
     private boolean terminee;
-    private String numero;
-    private int consultee;
+    
     /**constucteur**/
     public Phrase(){
-
     }
+    
     /**
      * construteur 
      * @param phrase, besoin, mail, numero
      * terminee initialisee a false et consultee a 0
      **/
-    public Phrase(String phrase, String besoin, String mail, String categorie) {
+    public Phrase(String phrase, String besoin, String mail, String categorie, String d) {
         this.phrase = phrase;
         this.besoin = besoin;
         this.mail = mail;
         this.categorie = categorie;
         this.terminee = false;
-        this.consultee = 0;
+        this.date = d;
     }
     //getters et setters de l'objet
     public String getPhrase() {
@@ -38,8 +42,16 @@ public class Phrase  {
     public void setPhrase(String phrase) {
         this.phrase = phrase;
     }
+    
+    public int getId() {
+		return id;
+	}
 
-    public String getMail() {
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getMail() {
         return this.mail;
     }
 
@@ -54,7 +66,17 @@ public class Phrase  {
     public String getBesoin() {
         return this.besoin;
     }
-    public void setCategorie(String categorie) {
+    
+
+    public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public void setCategorie(String categorie) {
         this.categorie = categorie;
     }
 
@@ -68,14 +90,6 @@ public class Phrase  {
 
     public void setTerminee(boolean terminee) {
         this.terminee = terminee;
-    }
-
-    public int getConsultee() {
-        return this.consultee;
-    }
-
-    public void setConsultee(int consultee) {
-        this.consultee = consultee;
     }
 
     public String toString() {

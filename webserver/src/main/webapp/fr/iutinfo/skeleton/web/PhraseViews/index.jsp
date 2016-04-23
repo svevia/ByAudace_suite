@@ -87,15 +87,15 @@
 		<%--attention ! réccupère l'attribut "name" du bouton et non "id", pour le passer en paramètre à la requête delete du serveur--%>
 		$("button").click(function () {
 		var id = $(this).attr("name");
+		console.log(id);
 		<%--confirme la suppression d'une phrase, appel direct au serveur--%>
 		$("#oui").click(function () {
 		 	$.ajax({
 	          type: "DELETE",
 	          url: "/v1/phrase/" + id,
-	          <%--vérifie que la session correspond à admin avant d'envoyer la requête--%>
 	          beforeSend : function(req) {
-       			req.setRequestHeader("Authorization", "Basic " + btoa($("#userlogin").val() + ":" + $("#passwdlogin").val()));
-       		  },
+	        	  req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
+	        },
 	          success: function(msg){
 	            location.reload();
 	          },

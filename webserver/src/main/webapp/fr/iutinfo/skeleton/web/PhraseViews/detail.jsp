@@ -27,10 +27,11 @@ son besoin, le nombre de consultation, si elle est terminée-->
               </div>
               <%--place les attribus de it qui est appelé par la requête /phrase/${it.phrase}--%>
               <div class="panel-body" style="font-size:17px;">
+              id : ${it.phrases.id}<br/>
                 ${it.phrases.phrase}<br/>
-		${it.phrases.besoin}<br/>                
+				${it.phrases.besoin}<br/>                
                 ${it.phrases.mail}<br/>
-                nombre de consultations : ${it.phrases.consultee}<br/>
+                date : ${it.phrases.date}<br/>
                 <%--vérifie l'attribut terminee de la phrase et fait un affichage différent en fonction--%>
                 <c:set var="finie" scope="session" value="${it.phrases.terminee}"/>
                 <c:if test="${finie == false}"><span style="font-size:25px;" class="glyphicon glyphicon-remove-circle"></span></br></c:if>

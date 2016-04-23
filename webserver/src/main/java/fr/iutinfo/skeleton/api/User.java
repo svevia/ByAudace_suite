@@ -107,6 +107,8 @@ public class User implements Principal {
     }
 
     public boolean isGoodPassword(String pass) {
+    	logger.trace("pass : " + pass);
+    	logger.trace("pass User : " + getMot_de_passe());
         return pass.equals(getMot_de_passe());
     }
 
