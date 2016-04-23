@@ -6,7 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -26,6 +28,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+
+import org.json.JSONArray;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -48,6 +52,8 @@ public class JpeuxAiderActivity extends Activity  {
     private static final String URL = Configuration.SERVER + "/v1/phrase";
     private List<Phrase> users;
     private Intent intent;
+    private SwipeRefreshLayout swipeContainer;
+    private RequestQueue queue;
 
     /**
      * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
@@ -61,13 +67,56 @@ public class JpeuxAiderActivity extends Activity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RequestQueue queue;
         // fullscreen
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_jpeuxaider);
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // listener
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                // ---------------------------------------------------------------------------------
+                queue = Volley.newRequestQueue(getApplicationContext());
+
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String json) {
+                                buildUsersFromJson(json);
+                                initComponent();
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        //System.err.println(error.getMessage());
+                    }
+                }){
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        Map<String, String> params = new HashMap<>();
+                        params.put("Authorization", "basic " + Base64.encodeToString((intent.getStringExtra("user_mail") + ":" + intent.getStringExtra("user_mot_de_passe")).getBytes(), Base64.NO_WRAP));
+                        return params;
+                    }
+                };
+
+                queue.add(stringRequest);
+                // ---------------------------------------------------------------------------------
+
+                swipeContainer.setRefreshing(false);
+            }
+        });
+        // Couleurs du logo de chargement
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
+
         mListView = (ListView) findViewById(R.id.listView);
 
         mListView = (ListView) findViewById(R.id.listView);
@@ -239,4 +288,5 @@ public class JpeuxAiderActivity extends Activity  {
         Type listType = new TypeToken<List<Phrase>>() {}.getType();
         users = gson.fromJson(json, listType);
     }
+
 }
