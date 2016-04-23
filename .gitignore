@@ -39,6 +39,8 @@ captures/
 .classpath
 .project
 .settings/
+.metadata/
+.recommenders/
 
 # Intellij
 *.iml
