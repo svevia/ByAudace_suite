@@ -23,13 +23,12 @@ public class Phrase  {
      * @param phrase, besoin, mail, numero
      * terminee initialisee a false et consultee a 0
      **/
-    public Phrase(String phrase, String besoin, String mail, String categorie, String d) {
+    public Phrase(String phrase, String besoin, String mail, String categorie) {
         this.phrase = phrase;
         this.besoin = besoin;
         this.mail = mail;
         this.categorie = categorie;
         this.terminee = false;
-        this.date = d;
     }
     //getters et setters de l'objet
     public String getPhrase() {
