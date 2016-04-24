@@ -2,9 +2,9 @@ package fr.iutinfo.skeleton.api;
 
 public class Aide {
 
-	int phrase;
-	String utilisateur;
-	String date;
+	private int phrase;
+	private String utilisateur;
+	private String date;
 	
 	
 	public Aide(){
