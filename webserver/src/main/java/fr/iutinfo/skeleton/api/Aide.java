@@ -2,42 +2,45 @@ package fr.iutinfo.skeleton.api;
 
 public class Aide {
 
-	Phrase phrase;
-	User user;
+	int phrase;
+	String utilisateur;
+	String date;
 	
 	
 	public Aide(){
 		
 	}
 	
-	public Aide(User user, Phrase phrase){
-		this.user = user;
+	public Aide(String user, int phrase){
+		this.utilisateur = user;
 		this.phrase = phrase;
 	}
 
 
-	public Phrase getPhrase() {
+	public int getPhrase() {
 		return phrase;
 	}
 
 
-	public void setPhrase(Phrase phrase) {
+	public void setPhrase(int phrase) {
 		this.phrase = phrase;
 	}
 
-
-	public User getUser() {
-		return user;
+	public String getUtilisateur() {
+		return utilisateur;
 	}
 
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setUtilisateur(String utilisateur) {
+		this.utilisateur = utilisateur;
 	}
-	
-	
-	
-	
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
 	
 	
 }

@@ -50,7 +50,7 @@ public class PhraseResource {
     @Path("/help")
     @RolesAllowed({"admin","user"})
     public void aiderPhrase(Aide aide) {
-        dao.help(aide.phrase.getPhrase(),aide.user.getMail(),new java.sql.Date(Calendar.getInstance().getTime().getTime()));
+        dao.help(aide);
     }
 
     /**

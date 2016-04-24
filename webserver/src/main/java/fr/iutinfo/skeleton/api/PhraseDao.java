@@ -16,8 +16,8 @@ public interface PhraseDao {
     @GetGeneratedKeys
     int insert(@BindBean() Phrase phrase);
 
-    @SqlUpdate("insert into aide (mail_repondant,phrase,date) values (:mail_repondant,:phrase,:date)")
-    int help(@Bind("mail_repondant") String mail_repondant, @Bind("phrase") String phrase, @Bind("date") Date date);
+    @SqlUpdate("insert into aide (mail_repondant,phrase,date) values (:utilisateur,:phrase,:date)")
+    int help(@BindBean() Aide aide);
     
     
     //selection d'une phrase en fonction de son intitule "phrase" (methode get)
