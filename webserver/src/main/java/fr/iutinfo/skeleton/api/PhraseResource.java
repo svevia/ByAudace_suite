@@ -54,17 +54,16 @@ public class PhraseResource {
     }
 
     /**
-     * Recupère l'objet Phrase associé à l'élément phrase
-     * Exemple : curl "localhost:8080/v1/phrase/ma%20phrase" -X GET
+     * Recupère l'objet Phrase associé à l'élément id
      * 
-     * @param phrase - Attribut phrase recherchée
+     * @param id - Attribut phrase recherchée
      * @return phrase - Objet Phrase trouvée
      */
     @GET
-    @Path("/{phrase}")
+    @Path("/{id}")
     @RolesAllowed({"admin","user"})
-    public Phrase getPhrase(@PathParam("phrase") String phrase) {
-        Phrase ph = dao.findByPhrase(phrase);
+    public Phrase getPhrase(@PathParam("id") int id) {
+        Phrase ph = dao.findById(id);
         if (ph == null) {
             throw new WebApplicationException(404);
         }
@@ -72,27 +71,25 @@ public class PhraseResource {
     }
 
     /**
-     * Supprime l'objet Phrase associé à l'élément phrase et la retourne
-     * Exemple : curl "localhost:8080/v1/phrase/ma%20phrase" -X DELETE
+     * Supprime l'objet Phrase associé à l'élément id et la retourne
      * 
-     * @param phrase - Attribut phrase recherchée
+     * @param id - Attribut phrase recherchée
      * @return phrase - Objet Phrase supprimée
      */
     @DELETE
-    @Path("/{phrase}")
-    public Phrase deletePhrase(@PathParam("phrase") String phrase) {
-        Phrase ph = dao.findByPhrase(phrase);
-        System.out.println("Deleting phrase : " + phrase);
+    @Path("/{id}")
+    public Phrase deletePhrase(@PathParam("id") int id) {
+        Phrase ph = dao.findById(id);
+        System.out.println("Deleting phrase : " + id);
         if (ph == null) {
             throw new WebApplicationException(404);
         }
-        dao.delete(phrase);
+        dao.delete(id);
         return ph;
     }
 
     /**
      * Recupere le pourcentage de phrase terminées
-     * Exemple : curl "localhost:8080/v1/phrase/pourcentage" -X GET
      * 
      * @return pourcentage
      */
@@ -106,7 +103,6 @@ public class PhraseResource {
     
     /**
      * Recherche une phrase à l'aide des champs phrase, besoin ou mail
-     * Exemple : curl "localhost:8080/v1/phrase/search?search=audace" -X GET
      * 
      * @param search
      * @return phrase
@@ -119,7 +115,6 @@ public class PhraseResource {
 
     /**
      * Recupere tout les elements dans la table ordonnés avec le champ besoin
-     * Exemple : curl "localhost:8080/v1/phrase/orderbesoin" -X GET
      * 
      * @return phrases - Liste des phrases
      */
@@ -131,7 +126,6 @@ public class PhraseResource {
 
     /**
      * Recupere tout les elements dans la table ordonnés avec le champ besoin
-     * Exemple : curl "localhost:8080/v1/phrase/orderbesoin" -X GET
      * 
      * @return phrases - Liste des phrases
      */
@@ -143,7 +137,6 @@ public class PhraseResource {
 
     /**
      * Recupere tout les elements dans la table ordonnés avec le champ phrase
-     * Exemple : curl "localhost:8080/v1/phrase/orderphrase" -X GET
      * 
      * @return phrases - Liste des phrases
      */
@@ -155,7 +148,6 @@ public class PhraseResource {
 
     /**
      * Recupere tout les elements dans la table ordonnés avec le champ mail
-     * Exemple : curl "localhost:8080/v1/phrase/ordermail" -X GET
      * 
      * @return phrases - Liste des phrases
      */
@@ -167,7 +159,6 @@ public class PhraseResource {
 
     /**
      * Recupere tout les elements dans la table ordonnés avec le champ terminee
-     * Exemple : curl "localhost:8080/v1/phrase/orderterminee" -X GET
      * 
      * @return phrases - Liste des phrases
      */
@@ -179,7 +170,6 @@ public class PhraseResource {
 
     /**
      * Recupere tout les elements dans la table
-     * Exemple : curl "localhost:8080/v1/phrase" -X GET
      * 
      * @return phrases - Liste des phrases
      */

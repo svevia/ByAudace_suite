@@ -19,13 +19,21 @@ public interface PhraseDao {
     @SqlUpdate("insert into aide (mail_repondant,phrase,date) values (:mail_repondant,:phrase,:date)")
     int help(@Bind("mail_repondant") String mail_repondant, @Bind("phrase") String phrase, @Bind("date") Date date);
     
+    
+    //selection d'une phrase en fonction de son intitule "phrase" (methode get)
+    @SqlQuery("select * from phrase_metier where id = :id")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    Phrase findById(@Bind("id") int id);
+    
     //selection d'une phrase en fonction de son intitule "phrase" (methode get)
     @SqlQuery("select * from phrase_metier where phrase = :phrase")
     @RegisterMapperFactory(BeanMapperFactory.class)
     Phrase findByPhrase(@Bind("phrase") String phrase);
+    
     //suppression d'une phrase en fonction de son intitule "phrase" (utilisee dans PhraseViews/index.jsp methode delete)
-    @SqlUpdate("delete from phrase_metier where phrase = :phrase")
-    void delete(@Bind("phrase") String phrase);
+    @SqlUpdate("delete from phrase_metier where id = :id")
+    void delete(@Bind("id") int id);
+    
     //selection de toutes les phrases (utilisee dans PhraseViews/index.jsp methode get)
     @SqlQuery("select * from phrase_metier")
     @RegisterMapperFactory(BeanMapperFactory.class)

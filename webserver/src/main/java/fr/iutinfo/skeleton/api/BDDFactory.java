@@ -53,6 +53,8 @@ public class BDDFactory {
 		phrase.createAideTable();
 		DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 		new PhraseResource().createPhrase(new Phrase("phrase 1","besoin 1", "admin", "categorie 1",df.format(new Date(Calendar.getInstance().getTimeInMillis()))));
+		new PhraseResource().createPhrase(new Phrase("phrase 2","besoin 2", "admin", "categorie 2",df.format(new Date(Calendar.getInstance().getTimeInMillis()))));
+
 	}
 
 }

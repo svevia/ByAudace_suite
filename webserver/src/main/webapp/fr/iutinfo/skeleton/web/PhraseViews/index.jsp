@@ -48,11 +48,11 @@
 					<c:forEach items="${it.phrases}" var="item">
 					    <tr>
 					    <td id="itphrase_<%=cpt%>" style="background-color:lightsteelblue;">${item.phrase}</td>
-					    <td id="td2_<%=cpt%>" style="background-color:lightsteelblue;"><a id="link_<%=cpt%>" href="/html/phrase/${item.phrase}">détails</a></td>
+					    <td id="td2_<%=cpt%>" style="background-color:lightsteelblue;"><a id="link_<%=cpt%>" href="/html/phrase/${item.id}">détails</a></td>
 						</tr>
 						<tr>
 					    <td id="itbesoin_<%=cpt%>">${item.besoin}</td>
-					  	<td id="td4_<%=cpt%>"><button type="button" id="button_<%=cpt%>" name="${item.phrase}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
+					  	<td id="td4_<%=cpt%>"><button type="button" id="button_<%=cpt%>" name="${item.id}" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
 					    </tr>
 					    <%cpt++; %>
 					    </c:forEach>

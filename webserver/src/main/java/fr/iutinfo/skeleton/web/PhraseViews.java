@@ -92,10 +92,10 @@ public class PhraseViews {
      */
     @GET
     @Template(name = "detail")
-    @Path("/{name}")
-    public ReturnerPhrase getPhrase(@PathParam("name") String name,@Context SecurityContext context) {
+    @Path("/{id}")
+    public ReturnerPhrase getPhrase(@PathParam("id") int id,@Context SecurityContext context) {
         String connect = context.getUserPrincipal().getName();
-        Phrase phrases = dao.findByPhrase(name);
+        Phrase phrases = dao.findById(id);
         if (phrases == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
