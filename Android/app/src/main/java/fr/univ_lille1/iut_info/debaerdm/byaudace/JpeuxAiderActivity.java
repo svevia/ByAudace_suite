@@ -60,8 +60,9 @@ public class JpeuxAiderActivity extends Activity  {
      * Elle est appelée automatiquement lorsqu'une activité JpeuxAiderActivity est créée avec un Intent,
      * ou lorsque le terminal change d'orientation ; le bundle passé en paramètre permet alors
      * la sauvegarde des données.
-     * Ici, elle initialise les attributs privés de la classe, et récupère via une requête GET toutes
-     * les demandes postées par le réseau des utilisateurs.
+     * Ici, elle initialise les attributs privés de la classe, récupère via une requête GET toutes
+     * les demandes postées par le réseau des utilisateurs, et les injecte dans la liste de
+     * l'application.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,34 +80,7 @@ public class JpeuxAiderActivity extends Activity  {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-                // ---------------------------------------------------------------------------------
-                queue = Volley.newRequestQueue(getApplicationContext());
-
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String json) {
-                                buildUsersFromJson(json);
-                                initComponent();
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        //System.err.println(error.getMessage());
-                    }
-                }){
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("Authorization", "basic " + Base64.encodeToString((intent.getStringExtra("user_mail") + ":" + intent.getStringExtra("user_mot_de_passe")).getBytes(), Base64.NO_WRAP));
-                        return params;
-                    }
-                };
-
-                queue.add(stringRequest);
-                // ---------------------------------------------------------------------------------
-
+                getConnexion();
                 swipeContainer.setRefreshing(false);
             }
         });
@@ -123,8 +97,16 @@ public class JpeuxAiderActivity extends Activity  {
         users = new ArrayList<>();
         intent = this.getIntent();
 
+        getConnexion();
+    }
+
+    /**
+     * La méthode getConnexion réalise la connexion avec le serveur REST via une requête GET.
+     * Elle passe ensuite la main à la méthode initComponent pour remplir la liste de couples phrase métier / besoin.
+     */
+    private void getConnexion(){
+
         queue = Volley.newRequestQueue(this);
-        
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, URL,
                 new Response.Listener<String>() {
@@ -148,6 +130,7 @@ public class JpeuxAiderActivity extends Activity  {
         };
 
         queue.add(stringRequest);
+
     }
 
     /**
