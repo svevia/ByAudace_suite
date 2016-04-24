@@ -88,6 +88,8 @@ public class Phrase  {
         this.terminee = terminee;
     }
 
+    
+    
     public String toString() {
         return this.phrase+ " (" + this.besoin + ")";
     }
