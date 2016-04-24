@@ -3,7 +3,6 @@ package fr.iutinfo.skeleton.api;
 import javax.ws.rs.ApplicationPath;
 
 import fr.iutinfo.skeleton.auth.AuthFilter;
-import org.glassfish.jersey.filter.LoggingFilter;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;

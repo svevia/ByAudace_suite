@@ -1,6 +1,5 @@
 package fr.iutinfo.skeleton.api;
 
-import java.util.Calendar;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;

@@ -1,6 +1,5 @@
 package fr.iutinfo.skeleton.api;
 
-import java.sql.Date;
 import java.util.List;
 import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
@@ -77,7 +76,7 @@ public interface PhraseDao {
     void createPhraseTable();
     
     //creee la table d'association entre User et phrase indiquant qui a aidé une phrase
-    @SqlUpdate("CREATE TABLE aide(mail_repondant CHAR(200),phrase CHAR(300),date DATETIME,FOREIGN KEY(mail_repondant) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE,FOREIGN KEY(phrase) REFERENCES phrase_metier(phrase) ON UPDATE CASCADE ON DELETE CASCADE,PRIMARY KEY(mail_repondant,phrase))")
+    @SqlUpdate("CREATE TABLE aide(mail_repondant CHAR(200),phrase CHAR(300),date DATETIME,FOREIGN KEY(mail_repondant) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE,FOREIGN KEY(phrase) REFERENCES phrase_metier(phrase) ON UPDATE CASCADE ON DELETE CASCADE,PRIMARY KEY(mail_repondant,phrase,date))")
     void createAideTable();
     
     void close();
