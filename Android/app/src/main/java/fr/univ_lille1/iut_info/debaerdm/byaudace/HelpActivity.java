@@ -104,12 +104,13 @@ public class HelpActivity extends Activity{
         final String mdp = intent.getStringExtra("user_mot_de_passe");
 
         Map<String, String> params = new HashMap<>();
+        // .replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", "")
         params.put("phrase",
-                phraseUne.getEditText().getText().toString().replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", ""));
-        params.put("besoin", phraseDeux.getEditText().getText().toString().replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", ""));
+                phraseUne.getEditText().getText().toString());
+        params.put("besoin", phraseDeux.getEditText().getText().toString());
         params.put("mail", login);
         params.put("terminee", String.valueOf(false));
-        params.put("consultee", String.valueOf(0));
+        //params.put("consultee", String.valueOf(0));
 
         queue = Volley.newRequestQueue(this);
 
