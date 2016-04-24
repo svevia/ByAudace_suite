@@ -49,8 +49,9 @@ public class PhraseResource {
     @POST
     @Path("/help")
     @RolesAllowed({"admin","user"})
-    public void aiderPhrase(Aide aide) {
+    public Aide aiderPhrase(Aide aide) {
         dao.help(aide);
+        return aide;
     }
 
     /**
