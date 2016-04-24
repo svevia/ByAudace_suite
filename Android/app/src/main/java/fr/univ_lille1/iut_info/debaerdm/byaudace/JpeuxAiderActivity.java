@@ -22,6 +22,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
@@ -30,9 +32,15 @@ import com.google.gson.reflect.TypeToken;
 
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -112,6 +120,13 @@ public class JpeuxAiderActivity extends Activity  {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String json) {
+                        try {
+                            byte[] u = json.toString().getBytes(
+                                    "ISO-8859-1");
+                            json = new String(u, "UTF-8");
+                        } catch (UnsupportedEncodingException e ){
+                            e.printStackTrace();
+                        }
                         buildUsersFromJson(json);
                         initComponent();
                     }
@@ -246,11 +261,56 @@ public class JpeuxAiderActivity extends Activity  {
                             Toast.makeText(JpeuxAiderActivity.this, "Aucune application mail n'est installée.", Toast.LENGTH_SHORT).show();
                         }
 
+
                         // ----------------------------------------------------------------------------------------------------------------
                         // communication avec le serveur REST pour les stats
 
                         // id phrase, mail user
                         // post /v1/phrase/help
+                        // ----------------------------------------------------------------------------------------------------------------
+
+                        RequestQueue queue;
+                        final String login = intent.getStringExtra("user_mail");
+                        final String mdp = intent.getStringExtra("user_mot_de_passe");
+
+                        Map<String, String> params = new HashMap<>();
+                        params.put("phrase",position + "");
+                        params.put("utilisateur",login);
+                        //params.put("date", new java.sql.Date(Calendar.getInstance().getTime().getTime()).toString());
+                        Date date = new Date();
+                        params.put("date",(new Timestamp(date.getTime())).toString());
+                        //params.put("consultee", String.valueOf(0));
+
+                        queue = Volley.newRequestQueue(getApplication().getApplicationContext());
+
+                        String url = URL + "/help";
+                        final com.android.volley.toolbox.JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(params),
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            VolleyLog.v("Response:%n %s", response.toString(4));
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.e("Error: ", error.getMessage());
+                            }
+                        }){
+
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
+                                System.out.println(params.toString());
+                                return params;
+                            }
+                        };
+                        queue.add(request);
+                        // ----------------------------------------------------------------------------------------------------------------
                         // ----------------------------------------------------------------------------------------------------------------
 
                     }

@@ -25,6 +25,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +44,7 @@ public class HelpActivity extends Activity{
     private Intent intent;
     private TextViewNbChar phraseUne;
     private TextViewNbChar phraseDeux;
+    private Spinner categorie;
 
     /**
      * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
@@ -53,8 +56,6 @@ public class HelpActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Spinner spin;
         EditText phraseMetier;
         EditText phraseBesoin;
         TextView nbCharTxt;
@@ -68,9 +69,9 @@ public class HelpActivity extends Activity{
         setContentView(R.layout.activity_help);
 
 
-        spin = (Spinner) findViewById(R.id.spinner);
+        categorie = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter adapter = ArrayAdapter. createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_item) ;
-        spin.setAdapter(adapter);
+        categorie.setAdapter(adapter);
 
         phraseMetier = (EditText) findViewById(R.id.pm);
         phraseBesoin = (EditText) findViewById(R.id.phrase);
@@ -110,7 +111,10 @@ public class HelpActivity extends Activity{
         params.put("besoin", phraseDeux.getEditText().getText().toString());
         params.put("mail", login);
         params.put("terminee", String.valueOf(false));
-        //params.put("consultee", String.valueOf(0));
+        params.put("categorie", categorie.toString());
+
+        Date date = new Date();
+        params.put("date",(new Timestamp(date.getTime())).toString());
 
         queue = Volley.newRequestQueue(this);
 

@@ -8,5 +8,4 @@ package fr.univ_lille1.iut_info.debaerdm.byaudace;
  */
 public abstract class Configuration {
     public static final String SERVER = "http://51.255.166.61:8080";
-    // "http://51.255.166.61:8080";
 }
