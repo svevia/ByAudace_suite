@@ -111,7 +111,7 @@ public class HelpActivity extends Activity{
         params.put("besoin", phraseDeux.getEditText().getText().toString());
         params.put("mail", login);
         params.put("terminee", String.valueOf(false));
-        params.put("categorie", categorie.toString());
+        params.put("categorie", categorie.getSelectedItem().toString());
 
         Date date = new Date();
         params.put("date",(new Timestamp(date.getTime())).toString());
