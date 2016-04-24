@@ -63,3 +63,4 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
+Android/app/src/main/java/fr/univ_lille1/iut_info/debaerdm/byaudace/Configuration.java
