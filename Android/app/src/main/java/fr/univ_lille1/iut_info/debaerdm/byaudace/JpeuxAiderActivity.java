@@ -246,6 +246,13 @@ public class JpeuxAiderActivity extends Activity  {
                             Toast.makeText(JpeuxAiderActivity.this, "Aucune application mail n'est installée.", Toast.LENGTH_SHORT).show();
                         }
 
+                        // ----------------------------------------------------------------------------------------------------------------
+                        // communication avec le serveur REST pour les stats
+
+                        // id phrase, mail user
+                        // post /v1/phrase/help
+                        // ----------------------------------------------------------------------------------------------------------------
+
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
