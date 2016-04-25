@@ -29,8 +29,9 @@ son besoin, le nombre de consultation, si elle est terminée-->
               <div class="panel-body" style="font-size:17px;">
               id : ${it.phrases.id}<br/>
                 ${it.phrases.phrase}<br/>
-				${it.phrases.besoin}<br/>                
-                ${it.phrases.mail}<br/>
+				${it.phrases.besoin}<br/>  
+				categorie : ${it.phrases.categorie}<br/>          
+                user : ${it.phrases.mail}<br/>
                 date : ${it.phrases.date}<br/>
                 <%--vérifie l'attribut terminee de la phrase et fait un affichage différent en fonction--%>
                 <c:set var="finie" scope="session" value="${it.phrases.terminee}"/>
