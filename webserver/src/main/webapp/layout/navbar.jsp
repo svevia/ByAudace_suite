@@ -7,9 +7,9 @@
             <li><a href="/html/phrase">Phrases metier</a></li>
             <li><a href="/html/statistiques">Statistiques</a></li>
             <li><a href="/ByAudace.apk">Télécharment application</a></li>
+            </ul>
+        <ul class="nav navbar-nav navbar-right">
             <li><a href="#">logger en : <%= request.getParameter("name") %></a></li>
-
-
-	</ul>
+		</ul>
     </div>
 </nav>
