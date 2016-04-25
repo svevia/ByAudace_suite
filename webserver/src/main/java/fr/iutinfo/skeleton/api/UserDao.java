@@ -39,7 +39,7 @@ public interface UserDao {
         
         
         //renvoi la liste des utilisateurs
-        @SqlQuery("SELECT * FROM utilisateur")
+        @SqlQuery("SELECT * FROM utilisateur order by mail asc")
 	@RegisterMapperFactory(BeanMapperFactory.class)
 	List<User> all();
 

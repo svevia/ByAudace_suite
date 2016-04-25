@@ -34,7 +34,7 @@ public interface PhraseDao {
     void delete(@Bind("id") int id);
     
     //selection de toutes les phrases (utilisee dans PhraseViews/index.jsp methode get)
-    @SqlQuery("select * from phrase")
+    @SqlQuery("select * from phrase order by date desc")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> all();
     //retourne le nombre total de phrases (utilisee dans StatistiqueViews/index.jsp methode get)
