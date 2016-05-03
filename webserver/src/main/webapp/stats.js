@@ -5,7 +5,7 @@ $(document).ready(function(){
 	getNombrePhrase(function(nb){
 		nbrPhrase = nb;
 		$('#phrasesTotales').text(nb);
-		getActivite(function(nb2){
+		getActivite(function(nb2,nbrPhrase){
 			$('#moyenne').text(nb2/nbrPhrase)
 		});
 	});
@@ -51,7 +51,7 @@ function getNombreFinit(success) {
      });
 }
 
-function getActivite(success) {
+function getActivite(success,nbrPhrase) {
     return $.ajax({
        type: "GET",
        url: "/v1/phrase/activite",
@@ -59,8 +59,7 @@ function getActivite(success) {
            req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
        },
        success: function (data){
-        console.log(data);
-        success(data);
+        success(data,nbrPhrase);
        },
        error : function(jqXHR, textStatus, errorThrown) {
        			console.log('error: ' + textStatus);
