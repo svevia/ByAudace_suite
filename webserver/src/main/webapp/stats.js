@@ -3,11 +3,12 @@ $(document).ready(function(){
 		$('#usersInscrits').text(nb);
 	});
 	getNombrePhrase(function(nb){
-		nbrPhrase = nb;
+		var nbrPhrase = nb;
 		$('#phrasesTotales').text(nb);
-		getActivite(function(nb2,nbrPhrase){
+		getActivite(function(nb2 , nbrPhrase){
+			alert(nbrPhrase);
 			$('#moyenne').text(nb2/nbrPhrase)
-		});
+		},nbrPhrase);
 	});
 	getNombreFinit(function(nb){
 		$('#phrasesFinit').text(nb);
