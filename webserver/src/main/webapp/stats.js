@@ -3,7 +3,7 @@ $(document).ready(function(){
 		$('#usersInscrits').text(nb);
 	});
 	getNombrePhrase(function(nb){
-		nbrPhrase = nb;
+		var nbrPhrase = nb;
 		$('#phrasesTotales').text(nb);
 	});
 	getNombreFinit(function(nb){
