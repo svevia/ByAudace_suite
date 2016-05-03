@@ -1,6 +1,8 @@
 package fr.iutinfo.skeleton.api;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
@@ -168,6 +170,29 @@ public class PhraseResource {
         return dao.orderTerminee();
     }
 
+    @GET
+    @Path("/nbr")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Integer getNbrUser(){
+    	return dao.getAllCount();
+    }
+    
+    @GET
+    @Path("/finit")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Integer getFinish(){
+    	return dao.getTermCount(true);
+    }
+    
+    @GET
+    @Path("/activite")
+    @Produces(MediaType.TEXT_PLAIN)
+    public int getActivite(){
+    	return dao.phrasePoste();
+    }
+    
+    
+    
     /**
      * Recupere tout les elements dans la table
      * 

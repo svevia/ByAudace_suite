@@ -60,6 +60,11 @@ public interface UserDao {
 	@SqlUpdate("CREATE TABLE utilisateur(mail CHAR(200) PRIMARY KEY NOT NULL,numero CHAR(20),nom CHAR(200),prenom CHAR(200),digit CHAR(20),mot_de_passe CHAR(50) NOT NULL,role CHAR(50),salt TEXT)")
 	void createUserTable();
 
+	@SqlQuery("Select count(*) FROM utilisateur")
+	int getNbrUser();
+	
 	void close();
+
+
 
 }

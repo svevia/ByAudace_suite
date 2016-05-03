@@ -1,6 +1,9 @@
 package fr.iutinfo.skeleton.api;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
+
 import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import org.skife.jdbi.v2.tweak.BeanMapperFactory;
@@ -41,7 +44,7 @@ public interface PhraseDao {
     @SqlQuery("select count(*) from phrase")
     int getAllCount();
     //retourne le nombre total de phrases terminees (utilisee dans StatistiqueViews/index.jsp methode get)
-    @SqlQuery("select count(*) from phrase where terminee = :bool")
+    @SqlQuery("select count(*) from phrase where terminee = 1")
     int getTermCount(@Bind("bool") boolean bool);
     //selectionne les phrases correspondant a la recherche (utilisee dans PhraseViews/index.jsp methode get)
     @SqlQuery("select * from phrase where mail like :search "
@@ -70,6 +73,10 @@ public interface PhraseDao {
     @SqlQuery("select * from phrase order by terminee")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderTerminee();
+    
+    @SqlQuery("select count(*) as nbr from phrase where date('%Y-%m-%d', time()-7*24*3600) ")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    int phrasePoste();
     
     //cree la table contenant les phrases
     @SqlUpdate("create table phrase(id INTEGER PRIMARY KEY AUTOINCREMENT, phrase CHAR(300) NOT NULL,besoin CHAR(300),date DATETIME,mail CHAR(200) NOT NULL,categorie CHAR(200),terminee BOOLEAN DEFAULT \"false\",FOREIGN KEY(mail) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE)")

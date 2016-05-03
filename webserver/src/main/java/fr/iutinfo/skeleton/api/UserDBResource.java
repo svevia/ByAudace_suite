@@ -127,6 +127,14 @@ public class UserDBResource {
             return Response.accepted().status(Response.Status.OK).entity(salt).build();
         }
     }
+    
+    
+    @GET
+    @Path("/nbr")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Integer getNbrUser(){
+    	return dao.getNbrUser();
+    }
 
     /**
      * Retourne le nom et le prenom lié au mail
