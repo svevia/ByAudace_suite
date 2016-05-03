@@ -6,7 +6,7 @@ $(document).ready(function(){
 		var nbrPhrase = nb;
 		$('#phrasesTotales').text(nb);
 		getActivite(function(nb2 , nbrPhrase){
-			alert(nbrPhrase);
+			var moyenne = nb2/nbrPhrase;
 			$('#moyenne').text(nb2/nbrPhrase)
 		},nbrPhrase);
 	});

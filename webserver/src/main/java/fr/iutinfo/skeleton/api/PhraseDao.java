@@ -74,7 +74,7 @@ public interface PhraseDao {
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderTerminee();
     
-    @SqlQuery("select count(*) as nbr from phrase where date('%Y-%m-%d', time()-7*24*3600) ")
+    @SqlQuery("select count(*) from aide where date > datetime('now', '-7 days')")
     @RegisterMapperFactory(BeanMapperFactory.class)
     int phrasePoste();
     
