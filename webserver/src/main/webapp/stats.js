@@ -1,18 +1,18 @@
 $(document).ready(function(){
-	var nbrPhrase = 0;
 	getNombreUser(function(nb){
 		$('#usersInscrits').text(nb);
 	});
 	getNombrePhrase(function(nb){
 		nbrPhrase = nb;
 		$('#phrasesTotales').text(nb);
+		getActivite(function(nb2){
+			$('#moyenne').text(nb2/nbrPhrase)
+		});
 	});
 	getNombreFinit(function(nb){
 		$('#phrasesFinit').text(nb);
 	});
-	getActivite(function(nb){
-		$('#moyenne').text(nb/nbrPhrase)
-	});
+
 });
 
 function getNombreUser(success) {
