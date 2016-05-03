@@ -1,9 +1,10 @@
 $(document).ready(function(){
+	var nbrPhrase = 0;
 	getNombreUser(function(nb){
 		$('#usersInscrits').text(nb);
 	});
 	getNombrePhrase(function(nb){
-		var nbrPhrase = nb;
+		nbrPhrase = nb;
 		$('#phrasesTotales').text(nb);
 	});
 	getNombreFinit(function(nb){
