@@ -63,6 +63,8 @@ public class JpeuxAiderActivity extends Activity  {
     private SwipeRefreshLayout swipeContainer;
     private RequestQueue queue;
 
+    private ListAdapter adap;
+
     /**
      * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
      * Elle est appelée automatiquement lorsqu'une activité JpeuxAiderActivity est créée avec un Intent,
@@ -157,8 +159,16 @@ public class JpeuxAiderActivity extends Activity  {
      */
     private void initComponent() {
 
+        adap = new ListAdapter(this, android.R.layout.simple_list_item_1, users);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
         mListView.setAdapter(adapter);
+
+        /*
+        View header = (View)getLayoutInflater().inflate(R.layout.list, null);
+        mListView.addHeaderView(header);
+
+        mListView.setAdapter(adap);
+        */
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

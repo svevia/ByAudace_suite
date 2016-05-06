@@ -54,6 +54,7 @@ public class Phrase {
      */
     public String toString() {
 
+        /*
         String ret = "";
 
         if(this.getBesoin().length() >= 40){
@@ -71,5 +72,8 @@ public class Phrase {
         }
 
         return ret;
+        */
+
+        return this.getBesoin() + "\n" + this.getPhrase();
     }
 }
