@@ -57,6 +57,7 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
         else if(pm.getCategorie() == "Technique")
             holder.imgIcon.setImageResource(R.drawable.defaut);
         else if(pm.getCategorie() == "Juridique")
+            holder.imgIcon.setImageResource(R.drawable.defaut);
         else if(pm.getCategorie() == "Ressources humaines")
             holder.imgIcon.setImageResource(R.drawable.defaut);
         else if(pm.getCategorie() == "Partenariat")
