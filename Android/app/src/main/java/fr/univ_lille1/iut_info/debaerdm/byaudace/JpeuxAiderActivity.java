@@ -4,16 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -30,20 +27,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.util.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 /**
  * JpeuxAiderActivity est l'activité de consultation des demandes d'aide, où l'utilisateur est redirigé
@@ -55,15 +50,13 @@ import java.util.Map;
 public class JpeuxAiderActivity extends Activity  {
 
     private ListView mListView;
-    private ArrayAdapter<Phrase> adapter;
+    private PhraseAdapter adapter;
     private AlertDialog.Builder alertDialogBuilder;
     private static final String URL = Configuration.SERVER + "/v1/phrase";
     private List<Phrase> users;
     private Intent intent;
     private SwipeRefreshLayout swipeContainer;
     private RequestQueue queue;
-
-    private ListAdapter adap;
 
     /**
      * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
@@ -123,9 +116,11 @@ public class JpeuxAiderActivity extends Activity  {
                     @Override
                     public void onResponse(String json) {
                         try {
-                            byte[] u = json.toString().getBytes(
-                                    "ISO-8859-1");
+                            byte[] u = json.getBytes("ISO-8859-1");
                             json = new String(u, "UTF-8");
+                            System.out.println("///////////////////////////////////////////////////////////////////////////////////////");
+                            System.out.println(json);
+                            System.out.println("///////////////////////////////////////////////////////////////////////////////////////");
                         } catch (UnsupportedEncodingException e ){
                             e.printStackTrace();
                         }
@@ -159,16 +154,10 @@ public class JpeuxAiderActivity extends Activity  {
      */
     private void initComponent() {
 
-        adap = new ListAdapter(this, android.R.layout.simple_list_item_1, users);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, users);
+        adapter = new PhraseAdapter(this,
+                R.layout.listview_item_row, users);
+
         mListView.setAdapter(adapter);
-
-        /*
-        View header = (View)getLayoutInflater().inflate(R.layout.list, null);
-        mListView.addHeaderView(header);
-
-        mListView.setAdapter(adap);
-        */
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -177,6 +166,9 @@ public class JpeuxAiderActivity extends Activity  {
                         adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
             }
         });
+
+
+
     }
 
     /**

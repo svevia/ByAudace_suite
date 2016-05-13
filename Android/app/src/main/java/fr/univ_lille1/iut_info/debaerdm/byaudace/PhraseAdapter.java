@@ -6,19 +6,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 
 /**
- * Created by Rémy on 06/05/2016.
+ * Created by Rémy on 13/05/2016.
  */
-public class ListAdapter extends ArrayAdapter<Phrase> {
+public class PhraseAdapter extends ArrayAdapter<Phrase> {
 
     Context context;
     int layoutResourceId;
-    List<Phrase> data;
+    List<Phrase> data = null;
 
-    public ListAdapter(Context context, int layoutResourceId, List<Phrase> data) {
+    public PhraseAdapter(Context context, int layoutResourceId, List<Phrase> data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
@@ -28,28 +30,14 @@ public class ListAdapter extends ArrayAdapter<Phrase> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
-
-        Phrase holder = null;
-
-        if(row == null){
-            LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-            row = inflater.inflate(layoutResourceId, parent, false);
-            holder = data.get(position);
-            row.setTag(holder);
-        }
-
-        return row;
-
-        /*
-
-        WeatherHolder holder = null;
+        PhraseHolder holder = null;
 
         if(row == null)
         {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
 
-            holder = new WeatherHolder();
+            holder = new PhraseHolder();
             holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
             holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
 
@@ -57,24 +45,31 @@ public class ListAdapter extends ArrayAdapter<Phrase> {
         }
         else
         {
-            holder = (WeatherHolder)row.getTag();
+            holder = (PhraseHolder)row.getTag();
         }
 
-        Weather weather = data[position];
-        holder.txtTitle.setText(weather.title);
-        holder.imgIcon.setImageResource(weather.icon);
+        Phrase pm = data.get(position);
+
+        holder.txtTitle.setText(pm.toString());
+
+        if(pm.getCategorie() == "Marché")
+            holder.imgIcon.setImageResource(R.drawable.defaut);
+        else if(pm.getCategorie() == "Technique")
+            holder.imgIcon.setImageResource(R.drawable.defaut);
+        else if(pm.getCategorie() == "Juridique")
+        else if(pm.getCategorie() == "Ressources humaines")
+            holder.imgIcon.setImageResource(R.drawable.defaut);
+        else if(pm.getCategorie() == "Partenariat")
+            holder.imgIcon.setImageResource(R.drawable.defaut);
+        else
+            holder.imgIcon.setImageResource(R.drawable.defaut);
 
         return row;
-        */
-
     }
 
-    /*
-    static class WeatherHolder
+    static class PhraseHolder
     {
         ImageView imgIcon;
         TextView txtTitle;
     }
-    */
-
 }
