@@ -52,16 +52,18 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
 
         holder.txtTitle.setText(pm.toString());
 
+        System.out.println(pm.getCategorie());
+
         if(pm.getCategorie() == "Marché")
-            holder.imgIcon.setImageResource(R.drawable.defaut);
+            holder.imgIcon.setImageResource(R.drawable.marche);
         else if(pm.getCategorie() == "Technique")
-            holder.imgIcon.setImageResource(R.drawable.defaut);
+            holder.imgIcon.setImageResource(R.drawable.technique);
         else if(pm.getCategorie() == "Juridique")
-            holder.imgIcon.setImageResource(R.drawable.defaut);
+            holder.imgIcon.setImageResource(R.drawable.justice);
         else if(pm.getCategorie() == "Ressources humaines")
-            holder.imgIcon.setImageResource(R.drawable.defaut);
+            holder.imgIcon.setImageResource(R.drawable.rh);
         else if(pm.getCategorie() == "Partenariat")
-            holder.imgIcon.setImageResource(R.drawable.defaut);
+            holder.imgIcon.setImageResource(R.drawable.partenariat);
         else
             holder.imgIcon.setImageResource(R.drawable.defaut);
 

@@ -67,6 +67,7 @@ public class Phrase {
         }else{
             ret += this.getBesoin();
         }
+        //ret += ' (' + this.getCategorie() + ')';
 
         ret += "\n";
 

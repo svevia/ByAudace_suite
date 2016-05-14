@@ -53,7 +53,7 @@ public class JpeuxAiderActivity extends Activity  {
     private PhraseAdapter adapter;
     private AlertDialog.Builder alertDialogBuilder;
     private static final String URL = Configuration.SERVER + "/v1/phrase";
-    private List<Phrase> users;
+    private List<Phrase> phrases;
     private Intent intent;
     private SwipeRefreshLayout swipeContainer;
     private RequestQueue queue;
@@ -88,16 +88,16 @@ public class JpeuxAiderActivity extends Activity  {
             }
         });
         // Couleurs du logo de chargement
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+        swipeContainer.setColorSchemeResources(android.R.color.holo_orange_light,
                 android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
+                android.R.color.holo_blue_bright,
                 android.R.color.holo_red_light);
 
 
         mListView = (ListView) findViewById(R.id.listView);
 
         mListView = (ListView) findViewById(R.id.listView);
-        users = new ArrayList<>();
+        phrases = new ArrayList<>();
         intent = this.getIntent();
 
         getConnexion();
@@ -118,13 +118,10 @@ public class JpeuxAiderActivity extends Activity  {
                         try {
                             byte[] u = json.getBytes("ISO-8859-1");
                             json = new String(u, "UTF-8");
-                            System.out.println("///////////////////////////////////////////////////////////////////////////////////////");
-                            System.out.println(json);
-                            System.out.println("///////////////////////////////////////////////////////////////////////////////////////");
                         } catch (UnsupportedEncodingException e ){
                             e.printStackTrace();
                         }
-                        buildUsersFromJson(json);
+                        buildPhrasesFromJson(json);
                         initComponent();
                     }
                 }, new Response.ErrorListener() {
@@ -155,7 +152,7 @@ public class JpeuxAiderActivity extends Activity  {
     private void initComponent() {
 
         adapter = new PhraseAdapter(this,
-                R.layout.listview_item_row, users);
+                R.layout.listview_item_row, phrases);
 
         mListView.setAdapter(adapter);
 
@@ -333,12 +330,17 @@ public class JpeuxAiderActivity extends Activity  {
 
     /**
      * La méthode buildUsersFromJason est appelée au moment de la réception des données (GET) par l'application.
-     * Elle initialise la liste des utilisateurs présents sur le serveur.
+     * Elle initialise la liste des couples phrase métier / besoin dans l'application.
      */
-    private void buildUsersFromJson(String json) {
+    private void buildPhrasesFromJson(String json) {
+        // Le json passé en paramètre contient bien toutes les informations de toutes les phrases
+        // Pourtant, l'objet gson ne contient que les intitulés des phrases métiers et des besoins...
+
         final Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<Phrase>>() {}.getType();
-        users = gson.fromJson(json, listType);
+        phrases = gson.fromJson(json, listType);
+        System.out.println(gson.fromJson(json, listType));
+        System.out.println(phrases);
     }
 
 }
