@@ -73,6 +73,10 @@ public class MainActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
+
+        // animation
+        overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+
         loginText = (EditText) findViewById(R.id.LoginText);
         passwordText = (EditText) findViewById(R.id.PasswordText);
         checkbox = (CheckBox) findViewById(R.id.checkBox);

@@ -339,8 +339,6 @@ public class JpeuxAiderActivity extends Activity  {
         final Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<Phrase>>() {}.getType();
         phrases = gson.fromJson(json, listType);
-        System.out.println(gson.fromJson(json, listType));
-        System.out.println(phrases);
     }
 
 }
