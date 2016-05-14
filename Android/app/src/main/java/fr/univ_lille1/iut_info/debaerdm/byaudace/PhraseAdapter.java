@@ -49,21 +49,20 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
         }
 
         Phrase pm = data.get(position);
-
         holder.txtTitle.setText(pm.toString());
 
         System.out.println(pm.getCategorie());
 
-        if(pm.getCategorie() == "Marché")
-            holder.imgIcon.setImageResource(R.drawable.marche);
-        else if(pm.getCategorie() == "Technique")
-            holder.imgIcon.setImageResource(R.drawable.technique);
-        else if(pm.getCategorie() == "Juridique")
+        if(pm.getCategorie() == 0)
             holder.imgIcon.setImageResource(R.drawable.justice);
-        else if(pm.getCategorie() == "Ressources humaines")
-            holder.imgIcon.setImageResource(R.drawable.rh);
-        else if(pm.getCategorie() == "Partenariat")
+        else if(pm.getCategorie() == 1)
+            holder.imgIcon.setImageResource(R.drawable.marche);
+        else if(pm.getCategorie() == 2)
             holder.imgIcon.setImageResource(R.drawable.partenariat);
+        else if(pm.getCategorie() == 3)
+            holder.imgIcon.setImageResource(R.drawable.rh);
+        else if(pm.getCategorie() == 4)
+            holder.imgIcon.setImageResource(R.drawable.technique);
         else
             holder.imgIcon.setImageResource(R.drawable.defaut);
 

@@ -16,11 +16,11 @@
     <string name="audacelink">campus-audace.com</string>
 
     <string-array name="spinner">
-        <item>Marché</item>
-        <item>Technique</item>
         <item>Juridique</item>
-        <item>Ressources humaines</item>
+        <item>Marché</item>
         <item>Partenariat</item>
+        <item>Ressources humaines</item>
+        <item>Technique</item>
         <item>Autre</item>
     </string-array>
 

@@ -8,7 +8,7 @@ package fr.univ_lille1.iut_info.debaerdm.byaudace;
  */
 public class Phrase {
 
-    private String categorie;
+    private int categorie;
     private String phrase;
     private String besoin;
     private String mail;
@@ -17,7 +17,7 @@ public class Phrase {
     private int consultee;
 
 
-    public Phrase(String phrase, String besoin, String mail, String numero, String categorie) {
+    public Phrase(String phrase, String besoin, String mail, String numero, int categorie) {
         this.phrase = phrase;
         this.besoin = besoin;
         this.mail = mail;
@@ -47,7 +47,7 @@ public class Phrase {
         return this.consultee;
     }
 
-    public String getCategorie() {
+    public int getCategorie() {
         return this.categorie;
     }
 
