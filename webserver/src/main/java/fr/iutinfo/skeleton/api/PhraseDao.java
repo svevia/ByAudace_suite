@@ -79,7 +79,7 @@ public interface PhraseDao {
     int phrasePoste();
     
     //cree la table contenant les phrases
-    @SqlUpdate("create table phrase(id INTEGER PRIMARY KEY AUTOINCREMENT, phrase CHAR(300) NOT NULL,besoin CHAR(300),date DATETIME,mail CHAR(200) NOT NULL,categorie CHAR(200),terminee BOOLEAN DEFAULT \"false\",FOREIGN KEY(mail) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE)")
+    @SqlUpdate("create table phrase(id INTEGER PRIMARY KEY AUTOINCREMENT, phrase CHAR(300) NOT NULL,besoin CHAR(300),date DATETIME,mail CHAR(200) NOT NULL,categorie INTEGER,terminee BOOLEAN DEFAULT \"false\",FOREIGN KEY(mail) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE)")
     void createPhraseTable();
     
     //creee la table d'association entre User et phrase indiquant qui a aidé une phrase

@@ -11,7 +11,7 @@ public class Phrase  {
     private String besoin;
     private String date;
     private String mail;
-    private String categorie;
+    private int categorie;
     private boolean terminee;
     
     /**constucteur**/
@@ -23,7 +23,7 @@ public class Phrase  {
      * @param phrase, besoin, mail, numero
      * terminee initialisee a false et consultee a 0
      **/
-    public Phrase(String phrase, String besoin, String mail, String categorie) {
+    public Phrase(String phrase, String besoin, String mail, int categorie) {
         this.phrase = phrase;
         this.besoin = besoin;
         this.mail = mail;
@@ -72,11 +72,11 @@ public class Phrase  {
 		this.date = date;
 	}
 
-	public void setCategorie(String categorie) {
+	public void setCategorie(int categorie) {
         this.categorie = categorie;
     }
 
-    public String getCategorie() {
+    public int getCategorie() {
         return this.categorie;
     }
 

@@ -51,8 +51,8 @@ public class BDDFactory {
 		PhraseDao phrase = BDDFactory.getDbi().open(PhraseDao.class);
 		phrase.createPhraseTable();
 		phrase.createAideTable();
-		new PhraseResource().createPhrase(new Phrase("phrase 1","besoin 1", "admin", "categorie 1"));
-		new PhraseResource().createPhrase(new Phrase("phrase 2","besoin 2", "admin", "categorie 2"));
+		new PhraseResource().createPhrase(new Phrase("phrase 1","besoin 1", "admin", 1));
+		new PhraseResource().createPhrase(new Phrase("phrase 2","besoin 2", "admin", 2));
 
 	}
 
