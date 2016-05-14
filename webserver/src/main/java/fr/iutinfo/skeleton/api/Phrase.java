@@ -9,7 +9,7 @@ public class Phrase  {
     private int id;
     private String phrase;
     private String besoin;
-    private int date;
+    private String date;
     private String mail;
     private String categorie;
     private boolean terminee;
@@ -64,11 +64,11 @@ public class Phrase  {
     }
     
 
-    public int getDate() {
+    public String getDate() {
 		return date;
 	}
 
-	public void setDate(int date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
