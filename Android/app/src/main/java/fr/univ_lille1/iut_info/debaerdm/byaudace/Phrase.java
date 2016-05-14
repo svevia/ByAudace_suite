@@ -8,6 +8,7 @@ package fr.univ_lille1.iut_info.debaerdm.byaudace;
  */
 public class Phrase {
 
+    private String categorie;
     private String phrase;
     private String besoin;
     private String mail;
@@ -16,10 +17,11 @@ public class Phrase {
     private int consultee;
 
 
-    public Phrase(String phrase, String besoin, String mail, String numero) {
+    public Phrase(String phrase, String besoin, String mail, String numero, String categorie) {
         this.phrase = phrase;
         this.besoin = besoin;
         this.mail = mail;
+        this.categorie = categorie;
         this.terminee = false;
         this.numero = numero;
         this.consultee = 0;
@@ -45,6 +47,10 @@ public class Phrase {
         return this.consultee;
     }
 
+    public String getCategorie() {
+        return this.categorie;
+    }
+
     /**
      * La méthode toString renvoie l'état actuel de l'objet sous forme de String.
      * Elle est notamment utilisée pour obtenir une prévisualisation rapide de l'objet dans la pile
@@ -61,6 +67,7 @@ public class Phrase {
         }else{
             ret += this.getBesoin();
         }
+        //ret += ' (' + this.getCategorie() + ')';
 
         ret += "\n";
 
@@ -71,5 +78,8 @@ public class Phrase {
         }
 
         return ret;
+
+        // return this.getBesoin() + "\n" + this.getPhrase();
+
     }
 }
