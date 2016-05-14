@@ -104,7 +104,7 @@ public class HelpActivity extends Activity{
         final String login = intent.getStringExtra("user_mail");
         final String mdp = intent.getStringExtra("user_mot_de_passe");
 
-        Map<String, String> params = new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         // .replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", "")
         params.put("phrase",
                 phraseUne.getEditText().getText().toString());
@@ -112,7 +112,7 @@ public class HelpActivity extends Activity{
         params.put("mail", login);
         params.put("terminee", String.valueOf(false));
         //params.put("categorie", categorie.getSelectedItem().toString());
-        params.put("categorie",String.valueOf(categorie.getSelectedItemPosition()));
+        params.put("categorie",categorie.getSelectedItemPosition());
 
         Date date = new Date();
         params.put("date",(new Timestamp(date.getTime())).toString());
