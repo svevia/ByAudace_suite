@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
 import android.util.TypedValue;
+import android.view.DragEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -159,11 +160,19 @@ public class JpeuxAiderActivity extends Activity  {
 
         mListView.setAdapter(adapter);
 
+        mListView.setLongClickable(true);
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                alertNotification(android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
+                    adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
+                return true;
+            }
+        });
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //alertNotification(android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
-                        //adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
 
                 // Gestion du déroulement des phrases
                 LinearLayout test = (LinearLayout) mListView.getChildAt(position);
@@ -173,6 +182,7 @@ public class JpeuxAiderActivity extends Activity  {
                     lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85,
                             getResources().getDisplayMetrics());
                     adapter.getItem(position).setDeroulee(false);
+
                 }else{
                     //lp.height = "wrap_content";
                     lp.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 300,
