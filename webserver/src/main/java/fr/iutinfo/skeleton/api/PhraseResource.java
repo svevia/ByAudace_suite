@@ -1,9 +1,6 @@
 package fr.iutinfo.skeleton.api;
 
-import java.sql.Date;
 import java.util.List;
-import java.util.Map;
-
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;

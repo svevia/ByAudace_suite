@@ -1,8 +1,6 @@
 package fr.iutinfo.skeleton.api;
 
-import java.sql.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
@@ -74,7 +72,7 @@ public interface PhraseDao {
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderTerminee();
     
-    @SqlQuery("select count(*) from aide where date > datetime('now', '-7 days')")
+    @SqlQuery("select count(*) from aide where date >= datetime('now', '-7 days')")
     @RegisterMapperFactory(BeanMapperFactory.class)
     int phrasePoste();
     

@@ -46,6 +46,16 @@ public class UserDBResource {
         dao.insert(user);
         return user;
     }
+    
+    @POST
+    @RolesAllowed("admin")
+    @Path("/mail")
+    public void sendMail(String msg) {
+    	List<String> mails = dao.getAllMail();
+    	for(String mail : mails){
+    		Mailer.sendMail(mail, msg);
+    	}
+    }
 
     /**
      * Recherche un utilisateur par son mail Exemple : curl

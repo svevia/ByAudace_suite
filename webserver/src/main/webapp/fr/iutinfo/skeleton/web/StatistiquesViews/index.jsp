@@ -29,8 +29,6 @@
 
 
 
-
-	<%--affiche une barre de porgression avec le taux de phrases non résolues généré par le script--%>
 	    <div class="container">
 	    
 	    
@@ -101,6 +99,22 @@
                         </div>
                     </div>
 				</div>
+				
+				<h1>Contacter la communauté :</h1>
+				<div id="formMail">
+				<div class="col-lg-8 col-md-6">
+					<textarea class="form-control" id="message" placeholder="mail" rows="10"></textarea>
+					<br/>
+					<div class="form-group">
+			   		<div class="col-sm-offset-2 col-sm-10">
+			      <button id="sendMail" type="submit" class="btn btn-default">Envoyer</button>
+			    </div>
+			  </div>
+				
+				</div>
+				</div>
+				
+				
 
 	    
 	    </div>

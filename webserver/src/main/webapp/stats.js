@@ -13,7 +13,12 @@ $(document).ready(function(){
 	getNombreFinit(function(nb){
 		$('#phrasesFinit').text(nb);
 	});
-
+	
+	 $("#sendMail").click(function () {
+		 sendMail($('#message').val());
+ });	
+	
+	
 });
 
 function getNombreUser(success) {
@@ -29,6 +34,27 @@ function getNombreUser(success) {
        },
        error : function(jqXHR, textStatus, errorThrown) {
        			console.log('error: ' + textStatus);
+
+       	}
+     });
+}
+
+function sendMail(data) {
+    return $.ajax({
+       type: "POST",
+       url: "/v1/userdb/mail",
+       contentType : 'application/json',
+		data : data,
+       beforeSend : function(req) {
+           req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
+       },
+       success: function (data){
+        alert("mail envoyé");
+        
+       },
+       error : function(jqXHR, textStatus, errorThrown) {
+       			console.log('error: ' + textStatus);
+       			alert("erreur d'envoi, contacter l'administrateur système");
 
        	}
      });

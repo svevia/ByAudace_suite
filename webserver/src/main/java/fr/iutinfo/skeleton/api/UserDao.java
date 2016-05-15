@@ -63,7 +63,13 @@ public interface UserDao {
 	@SqlQuery("Select count(*) FROM utilisateur")
 	int getNbrUser();
 	
+	@SqlQuery("Select mail FROM utilisateur")
+	List<String> getAllMail();
+	
+	
 	void close();
+
+
 
 
 
