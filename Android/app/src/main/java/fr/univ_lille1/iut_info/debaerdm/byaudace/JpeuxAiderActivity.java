@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -160,12 +161,14 @@ public class JpeuxAiderActivity extends Activity  {
 
         mListView.setAdapter(adapter);
 
+        // Notifications de contact
         mListView.setLongClickable(true);
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                alertNotification(android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
-                    adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
+                //alertNotification(android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
+                    //adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
+                alertContact(position);
                 return true;
             }
         });
@@ -177,6 +180,7 @@ public class JpeuxAiderActivity extends Activity  {
                 // Gestion du déroulement des phrases
                 LinearLayout test = (LinearLayout) mListView.getChildAt(position);
                 ViewGroup.LayoutParams lp = test.getLayoutParams();
+                // amène parfois un NullPointerException
 
                 if(adapter.getItem(position).isDeroulee()) {
                     lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85,
@@ -185,7 +189,8 @@ public class JpeuxAiderActivity extends Activity  {
 
                 }else{
                     //lp.height = "wrap_content";
-                    lp.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 300,
+                    lp.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                            350,
                             getResources().getDisplayMetrics());
                     adapter.getItem(position).setDeroulee(true);
                 }
