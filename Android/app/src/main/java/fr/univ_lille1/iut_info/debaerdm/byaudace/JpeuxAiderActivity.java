@@ -5,12 +5,16 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -151,6 +155,9 @@ public class JpeuxAiderActivity extends Activity  {
      */
     private void initComponent() {
 
+        final float dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1,
+                getResources().getDisplayMetrics());
+
         adapter = new PhraseAdapter(this,
                 R.layout.listview_item_row, phrases);
 
@@ -159,8 +166,21 @@ public class JpeuxAiderActivity extends Activity  {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                alertNotification(android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
-                        adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
+                //alertNotification(android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
+                        //adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
+
+                // Gestion du déroulement des phrases
+
+                LinearLayout test = (LinearLayout) mListView.getChildAt(position);
+                ViewGroup.LayoutParams lp = test.getLayoutParams();
+
+                if(adapter.getItem(position).isDeroulee())
+                    lp.height = (int)dp * 85;
+                else{
+                    //lp.height = "wrap_content";
+                    adapter.getItem(position).setDeroulee(true);
+                }
+                test.setLayoutParams(lp);
             }
         });
 
