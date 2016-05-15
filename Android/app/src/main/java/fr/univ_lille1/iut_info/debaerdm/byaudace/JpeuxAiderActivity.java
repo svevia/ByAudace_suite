@@ -5,12 +5,17 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
+import android.util.TypedValue;
+import android.view.DragEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -139,7 +144,6 @@ public class JpeuxAiderActivity extends Activity  {
         };
 
         queue.add(stringRequest);
-
     }
 
     /**
@@ -156,16 +160,38 @@ public class JpeuxAiderActivity extends Activity  {
 
         mListView.setAdapter(adapter);
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setLongClickable(true);
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 alertNotification(android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
-                        adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
+                    adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
+                return true;
             }
         });
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                // Gestion du déroulement des phrases
+                LinearLayout test = (LinearLayout) mListView.getChildAt(position);
+                ViewGroup.LayoutParams lp = test.getLayoutParams();
 
+                if(adapter.getItem(position).isDeroulee()) {
+                    lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85,
+                            getResources().getDisplayMetrics());
+                    adapter.getItem(position).setDeroulee(false);
+
+                }else{
+                    //lp.height = "wrap_content";
+                    lp.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 300,
+                            getResources().getDisplayMetrics());
+                    adapter.getItem(position).setDeroulee(true);
+                }
+                test.setLayoutParams(lp);
+            }
+        });
     }
 
     /**

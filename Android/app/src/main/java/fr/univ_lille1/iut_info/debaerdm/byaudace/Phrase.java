@@ -15,6 +15,7 @@ public class Phrase {
     private boolean terminee;
     private String numero;
     private int consultee;
+    private boolean deroulee;
 
 
     public Phrase(String phrase, String besoin, String mail, String numero, int categorie) {
@@ -25,6 +26,7 @@ public class Phrase {
         this.terminee = false;
         this.numero = numero;
         this.consultee = 0;
+        this.deroulee = false;
     }
 
     public String getPhrase() {
@@ -51,6 +53,14 @@ public class Phrase {
         return this.categorie;
     }
 
+    public boolean isDeroulee(){
+        return this.deroulee;
+    }
+
+    public void setDeroulee(boolean b){
+        this.deroulee = b;
+    }
+
     /**
      * La méthode toString renvoie l'état actuel de l'objet sous forme de String.
      * Elle est notamment utilisée pour obtenir une prévisualisation rapide de l'objet dans la pile
@@ -59,7 +69,7 @@ public class Phrase {
      * longueur maximale autorisée.
      */
     public String toString() {
-
+/*
         String ret = "";
 
         if(this.getBesoin().length() >= 40){
@@ -78,8 +88,9 @@ public class Phrase {
         }
 
         return ret;
+        */
 
-        // return this.getBesoin() + "\n" + this.getPhrase();
+        return this.getBesoin() + "\n" + this.getPhrase();
 
     }
 }
