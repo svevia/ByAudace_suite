@@ -143,7 +143,6 @@ public class JpeuxAiderActivity extends Activity  {
         };
 
         queue.add(stringRequest);
-
     }
 
     /**
@@ -154,9 +153,6 @@ public class JpeuxAiderActivity extends Activity  {
      * de celui-ci, mais également d'envoyer un mail de contact à l'auteur de la demande d'aide.
      */
     private void initComponent() {
-
-        final float dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1,
-                getResources().getDisplayMetrics());
 
         adapter = new PhraseAdapter(this,
                 R.layout.listview_item_row, phrases);
@@ -170,22 +166,22 @@ public class JpeuxAiderActivity extends Activity  {
                         //adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
 
                 // Gestion du déroulement des phrases
-
                 LinearLayout test = (LinearLayout) mListView.getChildAt(position);
                 ViewGroup.LayoutParams lp = test.getLayoutParams();
 
-                if(adapter.getItem(position).isDeroulee())
-                    lp.height = (int)dp * 85;
-                else{
+                if(adapter.getItem(position).isDeroulee()) {
+                    lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85,
+                            getResources().getDisplayMetrics());
+                    adapter.getItem(position).setDeroulee(false);
+                }else{
                     //lp.height = "wrap_content";
+                    lp.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 300,
+                            getResources().getDisplayMetrics());
                     adapter.getItem(position).setDeroulee(true);
                 }
                 test.setLayoutParams(lp);
             }
         });
-
-
-
     }
 
     /**

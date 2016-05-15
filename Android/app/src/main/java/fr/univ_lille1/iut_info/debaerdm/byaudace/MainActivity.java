@@ -190,8 +190,7 @@ public class MainActivity extends Activity {
                     alertNotification(android.R.drawable.ic_popup_sync,"Maintenance en cours","Le serveur est actuellement indisponible, veuillez réessayer plus tard.");
 
                 } else {
-                    System.out.println("ERROR : " + error.getMessage());
-                    //alertNotification(view, android.R.drawable.ic_delete,"ParseError",error.getMessage());
+                    alertNotification(android.R.drawable.ic_delete,"ParseError",error.getMessage());
                 }
             }
 
