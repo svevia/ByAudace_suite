@@ -33,6 +33,7 @@ son besoin, le nombre de consultation, si elle est terminée-->
 				categorie : ${it.phrases.categorie}<br/>          
                 user : ${it.phrases.mail}<br/>
                 date : ${it.phrases.date}<br/>
+                signalement : ${it.phrases.signalement}<br/>
                 <%--vérifie l'attribut terminee de la phrase et fait un affichage différent en fonction--%>
                 <c:set var="finie" scope="session" value="${it.phrases.terminee}"/>
                 <c:if test="${finie == false}"><span style="font-size:25px;" class="glyphicon glyphicon-remove-circle"></span></br></c:if>
