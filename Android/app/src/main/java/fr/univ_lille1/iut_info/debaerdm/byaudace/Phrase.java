@@ -8,25 +8,29 @@ package fr.univ_lille1.iut_info.debaerdm.byaudace;
  */
 public class Phrase {
 
+    private int id;
     private int categorie;
     private String phrase;
     private String besoin;
     private String mail;
     private boolean terminee;
-    private String numero;
     private int consultee;
     private boolean deroulee;
 
 
-    public Phrase(String phrase, String besoin, String mail, String numero, int categorie) {
+    public Phrase(int id, String phrase, String besoin, String mail, int categorie) {
+        this.id = id;
         this.phrase = phrase;
         this.besoin = besoin;
         this.mail = mail;
         this.categorie = categorie;
         this.terminee = false;
-        this.numero = numero;
         this.consultee = 0;
         this.deroulee = false;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public String getPhrase() {

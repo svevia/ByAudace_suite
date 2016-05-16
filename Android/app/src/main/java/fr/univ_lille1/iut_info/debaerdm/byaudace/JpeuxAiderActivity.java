@@ -169,7 +169,8 @@ public class JpeuxAiderActivity extends Activity  {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 //alertNotification(android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
                     //adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
-                alertContact(position);
+                //alertContact(position);
+                alertSignalement(position);
                 return true;
             }
         });
@@ -310,12 +311,10 @@ public class JpeuxAiderActivity extends Activity  {
                         final String mdp = intent.getStringExtra("user_mot_de_passe");
 
                         Map<String, String> params = new HashMap<>();
-                        params.put("phrase",position + "");
+                        params.put("phrase",adapter.getItem(position).getId() + "");
                         params.put("utilisateur",login);
-                        //params.put("date", new java.sql.Date(Calendar.getInstance().getTime().getTime()).toString());
                         Date date = new Date();
                         params.put("date",(new Timestamp(date.getTime())).toString());
-                        //params.put("consultee", String.valueOf(0));
 
                         queue = Volley.newRequestQueue(getApplication().getApplicationContext());
 
@@ -380,49 +379,32 @@ public class JpeuxAiderActivity extends Activity  {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        RequestQueue queue;
-                        final String login = intent.getStringExtra("user_mail");
-                        final String mdp = intent.getStringExtra("user_mot_de_passe");
-
-                        Map<String, String> params = new HashMap<>();
-                        params.put("phrase",position + "");
-                        params.put("utilisateur",login);
-                        //params.put("date", new java.sql.Date(Calendar.getInstance().getTime().getTime()).toString());
-                        Date date = new Date();
-                        params.put("date",(new Timestamp(date.getTime())).toString());
-                        //params.put("consultee", String.valueOf(0));
-
-                        queue = Volley.newRequestQueue(getApplication().getApplicationContext());
-
-                        String url = URL + Configuration.SERVER + "/signalement/@id";
-                        final com.android.volley.toolbox.JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(params),
-                                new Response.Listener<JSONObject>() {
+                        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"/signalement/" + adapter.getItem(position).getId(),
+                                new Response.Listener<String>() {
                                     @Override
-                                    public void onResponse(JSONObject response) {
+                                    public void onResponse(String json) {
                                         try {
-                                            VolleyLog.v("Response:%n %s", response.toString(4));
-                                        } catch (JSONException e) {
+                                            byte[] u = json.getBytes("ISO-8859-1");
+                                            json = new String(u, "UTF-8");
+                                        } catch (UnsupportedEncodingException e ){
                                             e.printStackTrace();
                                         }
                                     }
                                 }, new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                VolleyLog.e("Error: ", error.getMessage());
+                                //System.err.println(error.getMessage());
                             }
                         }){
-
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<>();
-                                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
-                                //System.out.println(params.toString());
+                                params.put("Authorization", "basic " + Base64.encodeToString((intent.getStringExtra("user_mail") + ":" + intent.getStringExtra("user_mot_de_passe")).getBytes(), Base64.NO_WRAP));
                                 return params;
                             }
                         };
-                        queue.add(request);
-                        // ----------------------------------------------------------------------------------------------------------------
-                        // ----------------------------------------------------------------------------------------------------------------
+
+                        queue.add(stringRequest);
 
                     }
                 })
