@@ -63,6 +63,7 @@ public class JpeuxAiderActivity extends Activity  {
     private Intent intent;
     private SwipeRefreshLayout swipeContainer;
     private RequestQueue queue;
+    private int history = -1;
 
     /**
      * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
@@ -180,21 +181,26 @@ public class JpeuxAiderActivity extends Activity  {
                 // Gestion du déroulement des phrases
                 LinearLayout test = (LinearLayout) mListView.getChildAt(position);
                 ViewGroup.LayoutParams lp = test.getLayoutParams();
-                // amène parfois un NullPointerException
 
-                if(adapter.getItem(position).isDeroulee()) {
-                    lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85,
-                            getResources().getDisplayMetrics());
-                    adapter.getItem(position).setDeroulee(false);
-
-                }else{
-                    //lp.height = "wrap_content";
-                    lp.height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                // On ne peut dérouler qu'une phrase à la fois
+                if(history == -1){
+                    lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                             350,
                             getResources().getDisplayMetrics());
                     adapter.getItem(position).setDeroulee(true);
+                    history = position;
+
+                }else{
+                    if(history == position) {
+                        lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85,
+                                getResources().getDisplayMetrics());
+                        adapter.getItem(position).setDeroulee(false);
+                        history = -1;
+                    }
                 }
+
                 test.setLayoutParams(lp);
+
             }
         });
     }
@@ -335,7 +341,7 @@ public class JpeuxAiderActivity extends Activity  {
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<>();
                                 params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
-                                System.out.println(params.toString());
+                                //System.out.println(params.toString());
                                 return params;
                             }
                         };
@@ -364,9 +370,6 @@ public class JpeuxAiderActivity extends Activity  {
      * Elle initialise la liste des couples phrase métier / besoin dans l'application.
      */
     private void buildPhrasesFromJson(String json) {
-        // Le json passé en paramètre contient bien toutes les informations de toutes les phrases
-        // Pourtant, l'objet gson ne contient que les intitulés des phrases métiers et des besoins...
-
         final Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<Phrase>>() {}.getType();
         phrases = gson.fromJson(json, listType);
