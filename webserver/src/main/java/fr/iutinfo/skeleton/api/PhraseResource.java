@@ -73,9 +73,9 @@ public class PhraseResource {
     @GET
     @Path("/signalement/{id}")
     @RolesAllowed({"admin","user"})
-    public int signalPhrase(@PathParam("id") int id) {
+    public Phrase signalPhrase(@PathParam("id") int id) {
         dao.signal(id);
-        return id;
+        return dao.findById(id);
     }
 
     /**
