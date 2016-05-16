@@ -7,6 +7,7 @@ public class Phrase  {
 
     /* attributs de la table phrase contenue dans la base de données */
     private int id;
+    private int signalement;
     private String phrase;
     private String besoin;
     private String date;
@@ -29,6 +30,7 @@ public class Phrase  {
         this.mail = mail;
         this.categorie = categorie;
         this.terminee = false;
+        this.signalement = 0;
     }
     //getters et setters de l'objet
     public String getPhrase() {
@@ -87,10 +89,16 @@ public class Phrase  {
     public void setTerminee(boolean terminee) {
         this.terminee = terminee;
     }
+    
+    public int getSignalement() {
+		return signalement;
+	}
 
-    
-    
-    public String toString() {
+	public void setSignalement(int signalement) {
+		this.signalement = signalement;
+	}
+
+	public String toString() {
         return this.phrase+ " (" + this.besoin + ")";
     }
 }

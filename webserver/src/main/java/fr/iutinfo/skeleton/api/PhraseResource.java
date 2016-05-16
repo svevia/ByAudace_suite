@@ -68,6 +68,15 @@ public class PhraseResource {
         }
         return ph;
     }
+    
+    
+    @GET
+    @Path("/signalement/{id}")
+    @RolesAllowed({"admin","user"})
+    public int signalPhrase(@PathParam("id") int id) {
+        dao.signal(id);
+        return id;
+    }
 
     /**
      * Supprime l'objet Phrase associé à l'élément id et la retourne

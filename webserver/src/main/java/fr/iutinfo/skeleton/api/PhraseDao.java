@@ -12,7 +12,7 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
  */
 public interface PhraseDao {
     //insertion d'une phrase (methode post)
-    @SqlUpdate("insert into phrase (phrase, besoin, date, mail, categorie, terminee) values (:phrase, :besoin, :date , :mail, :categorie,  :terminee)")
+    @SqlUpdate("insert into phrase (phrase, besoin, date, mail, categorie, terminee, signalement) values (:phrase, :besoin, :date , :mail, :categorie,  :terminee, :signalement)")
     @GetGeneratedKeys
     int insert(@BindBean() Phrase phrase);
 
@@ -33,6 +33,9 @@ public interface PhraseDao {
     //suppression d'une phrase en fonction de son intitule "phrase" (utilisee dans PhraseViews/index.jsp methode delete)
     @SqlUpdate("delete from phrase where id = :id")
     void delete(@Bind("id") int id);
+    
+    @SqlUpdate("UPDATE phrase SET signalement = signalement + 1 where id = :id")
+	void signal(@Bind("id") int id);
     
     //selection de toutes les phrases (utilisee dans PhraseViews/index.jsp methode get)
     @SqlQuery("select * from phrase order by date desc")
@@ -77,7 +80,7 @@ public interface PhraseDao {
     int phrasePoste();
     
     //cree la table contenant les phrases
-    @SqlUpdate("create table phrase(id INTEGER PRIMARY KEY AUTOINCREMENT, phrase CHAR(300) NOT NULL,besoin CHAR(300),date DATETIME,mail CHAR(200) NOT NULL,categorie INTEGER,terminee BOOLEAN DEFAULT \"false\",FOREIGN KEY(mail) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE)")
+    @SqlUpdate("create table phrase(id INTEGER PRIMARY KEY AUTOINCREMENT, phrase CHAR(300) NOT NULL,besoin CHAR(300),date DATETIME,mail CHAR(200) NOT NULL,categorie INTEGER,terminee BOOLEAN DEFAULT \"false\",signalement INTEGER, FOREIGN KEY(mail) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE)")
     void createPhraseTable();
     
     //creee la table d'association entre User et phrase indiquant qui a aidé une phrase
@@ -85,4 +88,6 @@ public interface PhraseDao {
     void createAideTable();
     
     void close();
+
+
 }
