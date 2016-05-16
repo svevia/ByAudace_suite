@@ -365,6 +365,83 @@ public class JpeuxAiderActivity extends Activity  {
 
     }
 
+
+    public void alertSignalement(final int position){
+
+        alertDialogBuilder = new AlertDialog.Builder(this);
+
+        // set title
+        alertDialogBuilder.setTitle("Signaler : " + adapter.getItem(position).getMail());
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Êtes-vous sûr de vouloir signaler cette phrase ?")
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        RequestQueue queue;
+                        final String login = intent.getStringExtra("user_mail");
+                        final String mdp = intent.getStringExtra("user_mot_de_passe");
+
+                        Map<String, String> params = new HashMap<>();
+                        params.put("phrase",position + "");
+                        params.put("utilisateur",login);
+                        //params.put("date", new java.sql.Date(Calendar.getInstance().getTime().getTime()).toString());
+                        Date date = new Date();
+                        params.put("date",(new Timestamp(date.getTime())).toString());
+                        //params.put("consultee", String.valueOf(0));
+
+                        queue = Volley.newRequestQueue(getApplication().getApplicationContext());
+
+                        String url = URL + Configuration.SERVER + "/signalement/@id";
+                        final com.android.volley.toolbox.JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(params),
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            VolleyLog.v("Response:%n %s", response.toString(4));
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.e("Error: ", error.getMessage());
+                            }
+                        }){
+
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
+                                //System.out.println(params.toString());
+                                return params;
+                            }
+                        };
+                        queue.add(request);
+                        // ----------------------------------------------------------------------------------------------------------------
+                        // ----------------------------------------------------------------------------------------------------------------
+
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+    }
+
+
+
     /**
      * La méthode buildUsersFromJason est appelée au moment de la réception des données (GET) par l'application.
      * Elle initialise la liste des couples phrase métier / besoin dans l'application.
