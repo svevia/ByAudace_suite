@@ -12,11 +12,11 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
  */
 public interface PhraseDao {
     //insertion d'une phrase (methode post)
-    @SqlUpdate("insert into phrase (phrase, besoin, date, mail, categorie, terminee, signalement) values (:phrase, :besoin, :date , :mail, :categorie,  :terminee, :signalement)")
+    @SqlUpdate("insert into phrase (phrase, besoin, date, id_user, categorie, terminee, signalement) values (:phrase, :besoin, :date , :id_user, :categorie,  :terminee, :signalement)")
     @GetGeneratedKeys
     int insert(@BindBean() Phrase phrase);
 
-    @SqlUpdate("insert into aide (mail_repondant,phrase,date) values (:utilisateur,:phrase,:date)")
+    @SqlUpdate("insert into aide (id_repondant,phrase,date) values (:utilisateur,:phrase,:date)")
     int help(@BindBean() Aide aide);
     
     
@@ -47,6 +47,7 @@ public interface PhraseDao {
     //retourne le nombre total de phrases terminees (utilisee dans StatistiqueViews/index.jsp methode get)
     @SqlQuery("select count(*) from phrase where terminee = 1")
     int getTermCount(@Bind("bool") boolean bool);
+    
     //selectionne les phrases correspondant a la recherche (utilisee dans PhraseViews/index.jsp methode get)
     @SqlQuery("select * from phrase where mail like :search "
             + "or besoin like :search or phrase like :search")
@@ -80,11 +81,11 @@ public interface PhraseDao {
     int phrasePoste();
     
     //cree la table contenant les phrases
-    @SqlUpdate("create table phrase(id INTEGER PRIMARY KEY AUTOINCREMENT, phrase CHAR(300) NOT NULL,besoin CHAR(300),date DATETIME,mail CHAR(200) NOT NULL,categorie INTEGER,terminee BOOLEAN DEFAULT \"false\",signalement INTEGER, FOREIGN KEY(mail) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE)")
+    @SqlUpdate("create table phrase(id INTEGER PRIMARY KEY AUTOINCREMENT, phrase CHAR(300) NOT NULL,besoin CHAR(300),date DATETIME,id_user INTEGER NOT NULL,categorie INTEGER,terminee BOOLEAN DEFAULT \"false\",signalement INTEGER, FOREIGN KEY(id) REFERENCES utilisateur(id) ON UPDATE CASCADE ON DELETE CASCADE)")
     void createPhraseTable();
     
     //creee la table d'association entre User et phrase indiquant qui a aidé une phrase
-    @SqlUpdate("CREATE TABLE aide(mail_repondant CHAR(200),phrase CHAR(300),date DATETIME,FOREIGN KEY(mail_repondant) REFERENCES utilisateur(mail) ON UPDATE CASCADE ON DELETE CASCADE,FOREIGN KEY(phrase) REFERENCES phrase(phrase) ON UPDATE CASCADE ON DELETE CASCADE,PRIMARY KEY(mail_repondant,phrase,date))")
+    @SqlUpdate("CREATE TABLE aide(id_repondant INTEGER,phrase CHAR(300),date DATETIME,FOREIGN KEY(id_repondant) REFERENCES utilisateur(id) ON UPDATE CASCADE ON DELETE CASCADE,FOREIGN KEY(phrase) REFERENCES phrase(phrase) ON UPDATE CASCADE ON DELETE CASCADE,PRIMARY KEY(id_repondant,phrase,date))")
     void createAideTable();
     
     void close();

@@ -3,7 +3,7 @@ package fr.iutinfo.skeleton.api;
 public class Aide {
 
 	private int phrase;
-	private String utilisateur;
+	private int utilisateur;
 	private String date;
 	
 	
@@ -11,7 +11,7 @@ public class Aide {
 		
 	}
 	
-	public Aide(String user, int phrase){
+	public Aide(int user, int phrase){
 		this.utilisateur = user;
 		this.phrase = phrase;
 	}
@@ -26,11 +26,11 @@ public class Aide {
 		this.phrase = phrase;
 	}
 
-	public String getUtilisateur() {
+	public int getUtilisateur() {
 		return utilisateur;
 	}
 
-	public void setUtilisateur(String utilisateur) {
+	public void setUtilisateur(int utilisateur) {
 		this.utilisateur = utilisateur;
 	}
 

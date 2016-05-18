@@ -25,8 +25,8 @@
                     <table class="table">
                     <c:forEach items="${it.user}" var="item">
                         <tr>
-                        <td><a href="/html/userdb/${item.mail}">${item.mail}</a></td>
-                        <td><button id="${item.mail}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
+                        <td><a href="/html/userdb/${item.id}">${item.mail}</a></td>
+                        <td><button id="${item.id}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -57,11 +57,11 @@
 
 	$(document).ready(function() {
 		$("button").click(function () {
-		var mail= this.id;
+		var id= this.id;
 		$("#oui").click(function () {
 		 	$.ajax({
 	          type: "DELETE",
-	          url: "/v1/userdb/" + mail,
+	          url: "/v1/userdb/" + id,
 	          beforeSend : function(req) {
 	        	  req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
        		  },

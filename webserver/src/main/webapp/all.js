@@ -42,12 +42,8 @@ function getByAnnotation() {
      }
  }
 
-function postUserBdd(mail,nom,prenom,digit,pass,role,tel) {
-    postUserGeneric(mail,nom,prenom,digit,pass,role,tel, "/v1/userdb/");
-}
-
-function postUserGeneric(mail,nom,prenom,digit,pass,role,tel,url) {
-	console.log(url);
+function postUser(mail,nom,prenom,digit,pass,role,tel) {
+	url = "/v1/userdb/";
 	if(role == "admin"){
 		url += "admin/";
 	}
@@ -69,6 +65,44 @@ function postUserGeneric(mail,nom,prenom,digit,pass,role,tel,url) {
     	req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
     	},
 		success : function(data, textStatus, jqXHR) {
+			if(data == null){
+				alert("email dejà utilisé");
+			}
+			afficheUser(data);
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+				alert('error: ' + textStatus);
+		}
+	});
+}
+
+function editUser(mail,nom,prenom,digit,pass,tel,role) {
+	url = "/v1/userdb/edit/";
+	if(role == "admin"){
+		url += "admin/";
+	}
+	$.ajax({
+		type : 'POST',
+		contentType : 'application/json',
+		url : url,
+		dataType : "json",
+		data : JSON.stringify({
+			"mail" : mail,
+			"nom" : nom,
+			"prenom" : prenom,
+			"digit" : digit,
+			"mot_de_passe" : pass,
+			"numero" : tel,
+			"role" : role,
+			"id" : id
+		}),
+    beforeSend : function(req) {
+    	req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
+    	},
+		success : function(data, textStatus, jqXHR) {
+			if(data == null){
+				alert("email dejà utilisé");
+			}
 			afficheUser(data);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {

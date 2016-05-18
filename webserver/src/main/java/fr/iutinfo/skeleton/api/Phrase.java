@@ -11,7 +11,7 @@ public class Phrase  {
     private String phrase;
     private String besoin;
     private String date;
-    private String mail;
+    private int id_user;
     private int categorie;
     private boolean terminee;
     
@@ -24,10 +24,10 @@ public class Phrase  {
      * @param phrase, besoin, mail, numero
      * terminee initialisee a false et consultee a 0
      **/
-    public Phrase(String phrase, String besoin, String mail, int categorie) {
+    public Phrase(String phrase, String besoin, int id_user, int categorie) {
         this.phrase = phrase;
         this.besoin = besoin;
-        this.mail = mail;
+        this.id_user = id_user;
         this.categorie = categorie;
         this.terminee = false;
         this.signalement = 0;
@@ -49,15 +49,16 @@ public class Phrase  {
 		this.id = id;
 	}
 
-	public String getMail() {
-        return this.mail;
-    }
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+    public int getId_user() {
+		return id_user;
+	}
 
-    public void setBesoin(String besoin) {
+	public void setId_user(int id_user) {
+		this.id_user = id_user;
+	}
+
+	public void setBesoin(String besoin) {
         this.besoin = besoin;
     }
 

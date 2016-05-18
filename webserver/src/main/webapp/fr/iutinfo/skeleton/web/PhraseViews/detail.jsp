@@ -31,7 +31,7 @@ son besoin, le nombre de consultation, si elle est terminée-->
                 ${it.phrases.phrase}<br/>
 				${it.phrases.besoin}<br/>  
 				categorie : ${it.phrases.categorie}<br/>          
-                user : ${it.phrases.mail}<br/>
+                user : ${it.phrases.id_user}<br/>
                 date : ${it.phrases.date}<br/>
                 signalement : ${it.phrases.signalement}<br/>
                 <%--vérifie l'attribut terminee de la phrase et fait un affichage différent en fonction--%>

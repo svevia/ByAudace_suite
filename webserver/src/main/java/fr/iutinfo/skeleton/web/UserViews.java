@@ -92,12 +92,12 @@ public class UserViews {
      * @return
      */
     @GET
-    @Template(name = "detail")
-    @Path("/{mail}")
+    @Template(name = "edit")
+    @Path("/{id}")
     @RolesAllowed("admin")
-    public ReturnerUser getDetail(@PathParam("mail") String mail,@Context SecurityContext context) {
+    public ReturnerUser getDetail(@PathParam("id") int id,@Context SecurityContext context) {
     	String name = context.getUserPrincipal().getName();
-        User user = dao.findByMail(mail);
+        User user = dao.findById(id);
         if (user == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }

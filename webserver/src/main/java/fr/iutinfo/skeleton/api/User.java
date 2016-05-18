@@ -13,6 +13,7 @@ import com.google.common.hash.Hashing;
 public class User implements Principal {
     final static Logger logger = LoggerFactory.getLogger(User.class);
 
+    private int id;
     private String mail;
     private String name;
     private String prenom;
@@ -37,11 +38,21 @@ public class User implements Principal {
 
     /* Getters Setters */
 
+    
+    
     public String getMail() {
         return mail;
     }
 
-    public void setMail(String mail) {
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setMail(String mail) {
         this.mail = mail;
     }
 

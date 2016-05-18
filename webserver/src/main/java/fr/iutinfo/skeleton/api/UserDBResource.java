@@ -33,7 +33,6 @@ public class UserDBResource {
 
     /**
      * Créé un utilsateur et l'ajoute dans la base de données Exemple : curl
-     * "localhost:8080/v1/userdb" -X POST -d '{"mail":"toto@gmail.com", ...}'
      *
      * @param user - Les parametres de l'utilisateur
      * @return user - Utilisateur créé
@@ -41,15 +40,19 @@ public class UserDBResource {
     @POST
     @RolesAllowed("admin")
     public User createUser(User user) {
-        System.out.println("Create user : " + user);
-        user.resetPasswordHash();
-        dao.insert(user);
-        return user;
+    	if(dao.findByMail(user.getMail())== null){
+	        System.out.println("Create user : " + user);
+	        user.resetPasswordHash();
+	        dao.insert(user);
+	        return user;
+    	}
+    	else{
+    		return null;
+    	}
     }
     
     /**
      * Créé un utilsateur et l'ajoute dans la base de données Exemple : curl
-     * "localhost:8080/v1/userdb" -X POST -d '{"mail":"toto@gmail.com", ...}'
      *
      * @param user - Les parametres de l'utilisateur
      * @return user - Utilisateur créé
@@ -58,12 +61,48 @@ public class UserDBResource {
     @RolesAllowed("root")
     @Path("/admin")
     public User createAdmin(User user) {
-        System.out.println("Create admin : " + user);
-        user.resetPasswordHash();
-        dao.insert(user);
-        return user;
+    	if(dao.findByMail(user.getMail())== null){
+	        System.out.println("Create admin : " + user);
+	        user.resetPasswordHash();
+	        dao.insert(user);
+	        return user;
+    	}
+    	else{
+    		return null;
+    	}
     }
+
     
+    
+    @POST
+    @RolesAllowed("admin")
+    @Path("/edit")
+    public User editUser(User user) {
+    	if((dao.findByMail(user.getMail())== null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
+	        //user.resetPasswordHash();
+	        dao.update(user);
+	        return user;
+    	}
+    	else{
+    		return null;
+    	}
+    }
+
+    
+    @POST
+    @RolesAllowed("root")
+    @Path("/edit/admin")
+    public User editAdmin(User user) {
+    	if((dao.findByMail(user.getMail())== null) ||(dao.findByMail(user.getMail()).getId() == user.getId()) ){
+        //user.resetPasswordHash();
+        dao.update(user);
+        return user;
+	}
+	else{
+		return null;
+	}
+}
+
     
     
     @POST
@@ -75,6 +114,7 @@ public class UserDBResource {
     		Mailer.sendMail(mail, msg);
     	}
     }
+    
 
     /**
      * Recherche un utilisateur par son mail Exemple : curl
@@ -85,11 +125,11 @@ public class UserDBResource {
      */
     @GET
     @RolesAllowed({"admin", "user"})
-    @Path("/{mail}")
-    public Response getUser(@PathParam("mail") String mail) {
-        User user = dao.findByMail(mail);
+    @Path("/{id}")
+    public Response getUser(@PathParam("id") int id) {
+        User user = dao.findById(id);
         if (user == null) {
-            return Response.accepted().status(404).build();
+            return Response.accepted().status(403).build();
         }
         return Response.accepted().status(202).entity(user).build();
     }
@@ -102,15 +142,15 @@ public class UserDBResource {
      * @return user - Utilisateur supprimé
      */
     @DELETE
-    @Path("/{mail}")
+    @Path("/{id}")
     @RolesAllowed({"admin"})
-    public Response deleteUser(@PathParam("mail") String mail) {
-        User user = dao.findByMail(mail);
+    public Response deleteUser(@PathParam("id") int id) {
+        User user = dao.findById(id);
         System.out.println("Deleting user : " + user);
         if (user == null) {
             return Response.accepted().status(404).build();
         }
-        dao.delete(mail);
+        dao.delete(id);
         return Response.accepted().status(202).entity(user).build();
     }
 
@@ -174,8 +214,8 @@ public class UserDBResource {
      */
     @GET
     @Path("/user")
-    public String getNomAndPrenom(@QueryParam("mail") String mail) {
-        return "NOM:" + dao.getNom(mail) + ",PRENOM:" + dao.getPrenom(mail) + ",SALT:" + dao.getSalt(mail) + ",NUMERO:" + dao.getNumero(mail);
+    public String getNomAndPrenom(@QueryParam("id") int id) {
+        return "NOM:" + dao.getNom(id) + ",PRENOM:" + dao.getPrenom(id) + ",SALT:" + dao.getSalt(dao.getMail(id)) + ",NUMERO:" + dao.getNumero(id);
     }
 
     /**

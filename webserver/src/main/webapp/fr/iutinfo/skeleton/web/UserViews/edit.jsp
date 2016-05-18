@@ -7,12 +7,12 @@
         <script src="/all.js"></script>
       <jsp:include page="/layout/head.jsp"/>
       <meta charset="utf-8">
-      <title>Ajout User</title>
+      <title>Edit User</title>
     </head>
     <body>
       <jsp:include page="/layout/logo.jsp"/>
     <jsp:include page="/layout/navbar.jsp">
-    <jsp:param name="name" value = "${it}"/>
+    <jsp:param name="name" value = "${it.name}"/>
 	</jsp:include>
 
 <div class="container">
@@ -20,41 +20,32 @@
 <h1>Ajout utilisateur</h1>
   <div class="form-group">
     <label for="mail">Adresse mail</label>
-    <input type="email" class="form-control" id="mail" placeholder="mail">
+    <input type="email" class="form-control" id="mail" value="${it.user.mail}">
   </div>
   <div class="form-group">
     <label for="mot-de-passe">Mot de passe</label>
-    <input type="password" class="form-control" id="password" placeholder="Password">
+    <input type="password" class="form-control" id="password"  value="${it.user.mot_de_passe}">
   </div>
   <div class="form-group">
     <label for="nom">Nom</label>
-    <input type="text" class="form-control" id="nom" placeholder="nom">
+    <input type="text" class="form-control" id="nom"  value="${it.user.nom}">
   </div>
   <div class="form-group">
     <label for="prenom">Prenom</label>
-    <input type="text" class="form-control" id="prenom" placeholder="prenom">
+    <input type="text" class="form-control" id="prenom" value="${it.user.prenom}">
   </div>
   <div class="form-group">
     <label for="tel">Telephone</label>
-    <input type="tel" class="form-control" id="tel" placeholder="tel">
+    <input type="tel" class="form-control" id="tel" value="${it.user.numero}">
   </div>
   <div class="form-group">
     <label for="mail">Digit</label>
-    <input type="text" class="form-control" id="digit" placeholder="digit">
+    <input type="text" class="form-control" id="digit" value="${it.user.digit}">
   </div>
 
-  <div class="form-group">
-          <label for="roleLabel">Role</label>
-          <br/>
-<label class="radio-inline">
-  <input type = "radio" name = "role" id = "user" value = "user" checked = "checked" />
-user</label>
-
-<label class="radio-inline">
-<input type = "radio" name = "role" id = "admin" value = "admin" />
-admin</label>
-  </div>
-  <button id="submit" class="btn btn-default">Creer</button>
+<input type="hidden" class="form-control" id="role" value="${it.user.role}">
+<input type="hidden" class="form-control" id="id" value="${it.user.id}">
+  <button id="submit" class="btn btn-default">Editer</button>
   </div>
 
   <script type="text/javascript">
@@ -66,8 +57,9 @@ admin</label>
                 prenom = $('#prenom').val();
                 tel = $('#tel').val();
                 digit = $('#digit').val();
-                role = $("input:radio[name ='role']:checked").val();
-                postUser(mail,nom,prenom,digit,pass,role,tel)});
+                role = $("#role").val();
+                id = $('#id').val();
+                editUser(mail,nom,prenom,digit,pass,tel,role,id)});
         });
   </script>
 
