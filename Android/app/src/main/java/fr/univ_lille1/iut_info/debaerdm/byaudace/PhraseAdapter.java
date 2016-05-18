@@ -48,7 +48,7 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
             holder = (PhraseHolder)row.getTag();
         }
 
-        Phrase pm = data.get(position);
+        final Phrase pm = data.get(position);
         holder.txtTitle.setText(pm.toString());
 
         System.out.println(pm.getCategorie());
