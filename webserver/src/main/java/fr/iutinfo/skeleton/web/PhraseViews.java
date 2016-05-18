@@ -65,9 +65,14 @@ public class PhraseViews {
     public class ReturnerPhrase{
     	Phrase phrases;
     	String connect;
+    	String mail;
+    	
     	public ReturnerPhrase(Phrase phrases, String connect){
+    		
+    		UserDao userDao = BDDFactory.getDbi().open(UserDao.class);
     		this.phrases = phrases;
     		this.connect = connect;
+    		this.mail = userDao.findById(phrases.getId_user()).getMail();
     	}
 		public Phrase getPhrases() {
 			return phrases;
@@ -81,6 +86,14 @@ public class PhraseViews {
 		public void setConnect(String connect) {
 			this.connect = connect;
 		}
+		public String getMail() {
+			return mail;
+		}
+		public void setMail(String mail) {
+			this.mail = mail;
+		}
+		
+		
     }
     
     
