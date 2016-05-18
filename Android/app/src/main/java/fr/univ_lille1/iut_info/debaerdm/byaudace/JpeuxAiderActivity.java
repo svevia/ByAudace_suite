@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -167,43 +168,98 @@ public class JpeuxAiderActivity extends Activity  {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                //alertNotification(android.R.drawable.ic_dialog_info, adapter.getItem(position).getMail(),
-                    //adapter.getItem(position).getBesoin() + "\n" + adapter.getItem(position).getPhrase(), position);
-                //alertContact(position);
-                alertSignalement(position);
+                alertContact(position);
                 return true;
             }
         });
+
+        final SwipeDetector sd = new SwipeDetector();
+        mListView.setOnTouchListener(sd);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                if (sd.swipeDetected()) {
+                    alertSignalement(position);
+
+                }else {
+
+                /*
                 // Gestion du déroulement des phrases
-                LinearLayout test = (LinearLayout) mListView.getChildAt(position);
-                ViewGroup.LayoutParams lp = test.getLayoutParams();
+                Phrase pp = adapter.getItem(position);
 
-                // On ne peut dérouler qu'une phrase à la fois
-                if(history == -1){
-                    lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                            350,
-                            getResources().getDisplayMetrics());
-                    adapter.getItem(position).setDeroulee(true);
-                    history = position;
+                // Si la phrase est déjà déroulée
+                if(pp.isDeroulee()){
+                    //alertContact(position);
+                    fermerPhrase(position);
 
+                // Si la phrase n'est pas déroulée
                 }else{
-                    if(history == position) {
-                        lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85,
-                                getResources().getDisplayMetrics());
-                        adapter.getItem(position).setDeroulee(false);
-                        history = -1;
+                    ouvrirPhrase(position);
+
+                    if(history == -1){
+                        history = position;
+
+                    }else if(position == history){
+                        fermerPhrase(position);
+
+                    }else{
+                        fermerPhrase(history);
+                        history = position;
                     }
+
+
+                }
+                */
+
+                    LinearLayout test = (LinearLayout) mListView.getChildAt(position);
+                    ViewGroup.LayoutParams lp = test.getLayoutParams();
+
+                    // On ne peut dérouler qu'une phrase à la fois
+                    if (history == -1) {
+                        lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                                350,
+                                getResources().getDisplayMetrics());
+                        adapter.getItem(position).setDeroulee(true);
+                        history = position;
+
+                    } else {
+                        if (history == position) {
+                            lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85,
+                                    getResources().getDisplayMetrics());
+                            adapter.getItem(position).setDeroulee(false);
+                            history = -1;
+                        }
+                    }
+
+                    test.setLayoutParams(lp);
+
                 }
 
-                test.setLayoutParams(lp);
 
             }
         });
+    }
+
+    public void ouvrirPhrase(int position){
+        LinearLayout test = (LinearLayout) mListView.getChildAt(position);
+        ViewGroup.LayoutParams lp = test.getLayoutParams();
+        lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                350,
+                getResources().getDisplayMetrics());
+        test.setLayoutParams(lp);
+        adapter.getItem(position).setDeroulee(true);
+    }
+
+    public void fermerPhrase(int position){
+        LinearLayout test = (LinearLayout) mListView.getChildAt(position);
+        ViewGroup.LayoutParams lp = test.getLayoutParams();
+        lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                85,
+                getResources().getDisplayMetrics());
+        test.setLayoutParams(lp);
+        adapter.getItem(position).setDeroulee(false);
     }
 
     /**
