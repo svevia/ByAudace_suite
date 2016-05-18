@@ -141,7 +141,7 @@ public class JpeuxAiderActivity extends Activity  {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("Authorization", "basic " + Base64.encodeToString((intent.getStringExtra("user_mail") + ":" + intent.getStringExtra("user_mot_de_passe")).getBytes(), Base64.NO_WRAP));
+                params.put("Authorization", "basic " + Base64.encodeToString((intent.getStringExtra("user_mail") + ":" + intent.getStringExtra("mdp")).getBytes(), Base64.NO_WRAP));
                 return params;
             }
         };
@@ -329,7 +329,7 @@ public class JpeuxAiderActivity extends Activity  {
         alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set title
-        alertDialogBuilder.setTitle("Contact : " + adapter.getItem(position).getMail());
+        alertDialogBuilder.setTitle("Contact : " + adapter.getItem(position).getId());
 
         // set dialog message
         alertDialogBuilder
@@ -342,9 +342,9 @@ public class JpeuxAiderActivity extends Activity  {
 
                         Intent i = new Intent(Intent.ACTION_SEND);
                         i.setType("message/rfc822");
-                        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{adapter.getItem(position).getMail()});
+                        i.putExtra(Intent.EXTRA_EMAIL  , new int[]{adapter.getItem(position).getIdUser()});
                         i.putExtra(Intent.EXTRA_SUBJECT, "ByAudace : Demande de contact");
-                        i.putExtra(Intent.EXTRA_TEXT   , "Bonjour "+adapter.getItem(position).getMail().split("@")[0]+",\n\n\n" +
+                        i.putExtra(Intent.EXTRA_TEXT   , "Bonjour ,\n\n\n" +
                                 "J'ai pris connaissance de votre besoin : \n\n" + adapter.getItem(position).getBesoin() + "\n\net vous propose mon aide afin de le résoudre.\n" +
                                 "Merci de me contacter en retour de ce mail.\n\n\n" +
                                 "Bonne journée !");
@@ -364,11 +364,12 @@ public class JpeuxAiderActivity extends Activity  {
 
                         RequestQueue queue;
                         final String login = intent.getStringExtra("user_mail");
+                        final int id_user = intent.getIntExtra("id",0);
                         final String mdp = intent.getStringExtra("user_mot_de_passe");
 
-                        Map<String, String> params = new HashMap<>();
+                        Map<String, Object> params = new HashMap<>();
                         params.put("phrase",adapter.getItem(position).getId() + "");
-                        params.put("utilisateur",login);
+                        params.put("utilisateur",id_user);
                         Date date = new Date();
                         params.put("date",(new Timestamp(date.getTime())).toString());
 
@@ -395,7 +396,7 @@ public class JpeuxAiderActivity extends Activity  {
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<>();
-                                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
+                                params.put("Authorization", "basic " + Base64.encodeToString((id_user + ":" + mdp).getBytes(), Base64.NO_WRAP));
                                 //System.out.println(params.toString());
                                 return params;
                             }
@@ -426,7 +427,7 @@ public class JpeuxAiderActivity extends Activity  {
         alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set title
-        alertDialogBuilder.setTitle("Signaler : " + adapter.getItem(position).getMail());
+        alertDialogBuilder.setTitle("Signaler : " + adapter.getItem(position).getIdUser());
 
         // set dialog message
         alertDialogBuilder
@@ -455,7 +456,7 @@ public class JpeuxAiderActivity extends Activity  {
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<>();
-                                params.put("Authorization", "basic " + Base64.encodeToString((intent.getStringExtra("user_mail") + ":" + intent.getStringExtra("user_mot_de_passe")).getBytes(), Base64.NO_WRAP));
+                                params.put("Authorization", "basic " + Base64.encodeToString((intent.getIntExtra("id",0) + ":" + intent.getStringExtra("user_mot_de_passe")).getBytes(), Base64.NO_WRAP));
                                 return params;
                             }
                         };

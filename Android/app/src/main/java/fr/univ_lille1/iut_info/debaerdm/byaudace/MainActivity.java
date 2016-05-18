@@ -108,7 +108,8 @@ public class MainActivity extends Activity {
 
         queue = Volley.newRequestQueue(this);
 
-        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/user?mail="+login.toLowerCase(),
+        /*
+        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/mail="+login.toLowerCase(),
                 new Response.Listener<String>() {
 
                     @Override
@@ -117,9 +118,34 @@ public class MainActivity extends Activity {
                         String[] tok = json.split(",");
 
                         // A corriger : Les champs peuvent être nuls dans le User
-                        user = new User(tok[0].split(":")[1], tok[1].split(":")[1], tok[2].split(":")[1], tok[3].split(":")[1]);
+                        user = new User(Integer.valueOf(tok[0].split(":")[1]), tok[1].split(":")[1], tok[2].split(":")[1], tok[3].split(":")[1]);
                         System.out.println("User : " + user.toString());
                         load(login, password);
+                    }
+
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR : " + error.getMessage());
+            }
+
+        });
+        queue.add(request);
+        */
+
+        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/salt?mail="+login.toLowerCase(),
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String json) {
+                        System.out.println("Json : " + json);
+                        //String[] tok = json.split(",");
+
+                        // A corriger : Les champs peuvent être nuls dans le User
+                        //user = new User(Integer.valueOf(tok[0].split(":")[1]), tok[1].split(":")[1], tok[2].split(":")[1], tok[3].split(":")[1]);
+                        //System.out.println("User : " + user.toString());
+                        load(json, login, password);
                     }
 
                 }, new Response.ErrorListener() {
@@ -144,7 +170,7 @@ public class MainActivity extends Activity {
      * survenu durant l'authentification.
      * Si c'est le cas, la nature du problème est indiquée clairement à l'utilisateur.
      */
-    private void load(final String login, final String mdp){
+    private void load(final String salt, final String login, final String mdp){
 
         String URL = Configuration.SERVER + "/v1/auth/";
 
@@ -154,7 +180,7 @@ public class MainActivity extends Activity {
         }
 
         queue = Volley.newRequestQueue(this);
-        final String hashSalt = buildHash(mdp, user.getSalt());
+        final String hashSalt = buildHash(mdp, salt);
         URL += login.toLowerCase();
 
         System.out.println(hashSalt);
@@ -165,11 +191,8 @@ public class MainActivity extends Activity {
                     @Override
                     public void onResponse(String json) {
                         Intent activity = new Intent(MainActivity.this, ChoiceActivity.class);
-                        activity.putExtra("user_nom", user.getNom());
-                        activity.putExtra("user_prenom", user.getPrenom());
-                        activity.putExtra("user_numero", user.getNumero());
                         activity.putExtra("user_mail", login);
-                        activity.putExtra("user_mot_de_passe", mdp);
+                        activity.putExtra("mdp", hashSalt);
                         startActivity(activity);
                         finish();
                     }

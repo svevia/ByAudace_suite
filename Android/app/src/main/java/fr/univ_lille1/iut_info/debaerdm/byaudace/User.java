@@ -8,38 +8,44 @@ package fr.univ_lille1.iut_info.debaerdm.byaudace;
  */
 public class User {
 
-    private String name;
+    private String digit;
+    private String nom;
     private String prenom;
-    private String salt;
     private String numero;
+    private String mdp;
+    private int id;
+    private String mail;
 
 
-    public User(String nom, String prenom, String salt, String numero) {
-        this.name = nom;
+    public User(String digit, int id, String mail, String mdp, String nom, String numero, String prenom) {
+        this.digit = digit;
+        this.id = id;
+        this.mail = mail.substring(1,mail.length()-1);
+        this.mdp = mdp.substring(1,mdp.length()-1);
+        this.nom = nom;
         this.prenom = prenom;
-        this.salt = salt;
         this.numero = numero;
+
     }
 
+    public int getId() {
+        return id;
+    }
     public String getNom() {
-        return name;
+        return nom;
     }
-
     public String getPrenom() {
         return prenom;
     }
-
-    public String getSalt() {
-        return salt;
-    }
-
     public String getNumero() {
         return numero;
     }
+    public String getMail(){ return this.mail; }
+    public String getMdp(){ return this.mdp; }
 
     @Override
     public String toString() {
-        return "Nom : "+name + ", Prenom : " + prenom+ ", Numero : "+ numero+", Salt : "+salt;
+        return "Nom : "+nom + ", Prenom : " + prenom+ ", Numero : "+ numero;
     }
 
 }

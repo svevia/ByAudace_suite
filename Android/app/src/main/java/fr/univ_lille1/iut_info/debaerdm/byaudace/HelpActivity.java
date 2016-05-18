@@ -101,7 +101,8 @@ public class HelpActivity extends Activity{
     public void postPhrase(final View view){
         RequestQueue queue;
         intent.setClass(HelpActivity.this, JpeuxAiderActivity.class);
-        final String login = intent.getStringExtra("user_mail");
+        final int id = intent.getIntExtra("id",0);
+        final String mail = intent.getStringExtra("user_mail");
         final String mdp = intent.getStringExtra("user_mot_de_passe");
 
         Map<String, Object> params = new HashMap<>();
@@ -109,7 +110,7 @@ public class HelpActivity extends Activity{
         params.put("phrase",
                 phraseUne.getEditText().getText().toString());
         params.put("besoin", phraseDeux.getEditText().getText().toString());
-        params.put("mail", login);
+        params.put("id", id);
         params.put("terminee", String.valueOf(false));
         //params.put("categorie", categorie.getSelectedItem().toString());
         params.put("categorie",categorie.getSelectedItemPosition());
@@ -139,10 +140,10 @@ public class HelpActivity extends Activity{
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-            Map<String, String> params = new HashMap<>();
-            params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
-            System.out.println(params.toString());
-            return params;
+                Map<String, String> params = new HashMap<>();
+                System.out.println("/////////////////////////////" + mail + " " + mdp);
+                params.put("Authorization", "basic " + Base64.encodeToString((mail + ":" + mdp).getBytes(), Base64.NO_WRAP));
+                return params;
             }
         };
         queue.add(request);

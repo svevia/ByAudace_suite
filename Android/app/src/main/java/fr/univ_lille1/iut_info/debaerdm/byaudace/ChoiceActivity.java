@@ -5,9 +5,21 @@ import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ChoiceActivity est l'activité de choix, où l'utilisateur est redirigé après s'être authentifié avec succès.
@@ -18,6 +30,7 @@ import android.view.WindowManager;
 public class ChoiceActivity extends Activity {
 
     private Intent intent;
+    private User user;
 
     /**
      * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
@@ -37,9 +50,50 @@ public class ChoiceActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+
         setContentView(R.layout.activity_choice);
 
         intent = this.getIntent();
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        // création utilisateur
+        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/mail/"+intent.getStringExtra("user_mail"),
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String json) {
+                        System.out.println("Json : " + json);
+                        String[] tok = json.split(",");
+
+                        // A corriger : Les champs peuvent être nuls dans le User
+                        user = new User(tok[0].split(":")[1], //digit
+                                Integer.valueOf(tok[1].split(":")[1]), //id
+                                tok[2].split(":")[1], //mail
+                                tok[3].split(":")[1], //mdp
+                                tok[4].split(":")[1], //nom
+                                tok[5].split(":")[1], //numero
+                                tok[6].split(":")[1]); //prenom
+
+                        System.out.println("User : " + user.toString());
+                    }
+
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.out.println("ERROR : " + error.getMessage());
+            }
+
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "basic " + Base64.encodeToString((intent.getStringExtra("user_mail") + ":" + intent.getStringExtra("mdp")).getBytes(), Base64.NO_WRAP));
+                System.out.println(params.toString());
+                return params;
+            }
+        };
+        queue.add(request);
     }
 
     /**
@@ -78,11 +132,12 @@ public class ChoiceActivity extends Activity {
 
     public void intentClass(Class changeClass){
         intent.setClass(this, changeClass);
-        intent.putExtra("user_nom", intent.getStringExtra("user_nom"));
-        intent.putExtra("user_prenom", intent.getStringExtra("user_prenom"));
-        intent.putExtra("user_numero", intent.getStringExtra("user_numero"));
-        intent.putExtra("user_mail", intent.getStringExtra("user_mail"));
-        intent.putExtra("user_mot_de_passe", intent.getStringExtra("user_mot_de_passe"));
+        intent.putExtra("id", user.getId());
+        intent.putExtra("user_nom", user.getNom());
+        intent.putExtra("user_prenom", user.getPrenom());
+        intent.putExtra("user_numero", user.getNumero());
+        intent.putExtra("user_mail", user.getMail());
+        intent.putExtra("user_mot_de_passe", user.getMdp());
         startActivity(intent);
     }
 
