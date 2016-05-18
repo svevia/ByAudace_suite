@@ -47,6 +47,25 @@ public class UserDBResource {
         return user;
     }
     
+    /**
+     * Créé un utilsateur et l'ajoute dans la base de données Exemple : curl
+     * "localhost:8080/v1/userdb" -X POST -d '{"mail":"toto@gmail.com", ...}'
+     *
+     * @param user - Les parametres de l'utilisateur
+     * @return user - Utilisateur créé
+     */
+    @POST
+    @RolesAllowed("root")
+    @Path("/admin")
+    public User createAdmin(User user) {
+        System.out.println("Create admin : " + user);
+        user.resetPasswordHash();
+        dao.insert(user);
+        return user;
+    }
+    
+    
+    
     @POST
     @RolesAllowed("admin")
     @Path("/mail")

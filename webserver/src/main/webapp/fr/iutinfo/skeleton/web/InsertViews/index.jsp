@@ -66,7 +66,7 @@ admin</label>
                 prenom = $('#prenom').val();
                 tel = $('#tel').val();
                 digit = $('#digit').val();
-                role = $("input:radio[name ='role']:checked").val()
+                role = $("input:radio[name ='role']:checked").val();
                 console.log(role);
                 postUserBdd(mail,nom,prenom,digit,pass,role,tel)});
         });

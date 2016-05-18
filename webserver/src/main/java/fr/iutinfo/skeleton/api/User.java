@@ -136,8 +136,12 @@ public class User implements Principal {
         this.salt = salt;
     }
 
+    public boolean isInRootGroup(){
+        return this.role.equals("root");
+    }
+    
     public boolean isInAdminGroup(){
-        return this.role.equals("admin");
+        return (this.role.equals("admin"))||(this.role.equals("root"));
     }
 
     public boolean isInUserGroup(){

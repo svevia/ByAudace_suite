@@ -48,6 +48,9 @@ function postUserBdd(mail,nom,prenom,digit,pass,role,tel) {
 
 function postUserGeneric(mail,nom,prenom,digit,pass,role,tel,url) {
 	console.log(url);
+	if(role == "admin"){
+		url += "admin/";
+	}
 	$.ajax({
 		type : 'POST',
 		contentType : 'application/json',
@@ -69,7 +72,7 @@ function postUserGeneric(mail,nom,prenom,digit,pass,role,tel,url) {
 			afficheUser(data);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-			alert('postUser error: ' + textStatus);
+				alert('error: ' + textStatus);
 		}
 	});
 }

@@ -57,7 +57,7 @@
                                         <i class="fa fa-check fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div id="phrasesFinit" class="huge">26</div>
+                                        <div id="phrasesFinit" class="huge">0</div>
                                         <div>Phrases résolues</div>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@
                                         <i class="fa fa-bars fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div id="phrasesTotales" class="huge">26</div>
+                                        <div id="phrasesTotales" class="huge">0</div>
                                         <div>Phrases totales</div>
                                     </div>
                                 </div>

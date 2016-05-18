@@ -44,6 +44,7 @@ public class BDDFactory {
 		user.createUserTable();
 		new UserDBResource().createUser(new User("admin", "admin", "admin", "admin", "admin", "admin","0000"));
 		new UserDBResource().createUser(new User("test", "test", "test", "test", "test", "user","0000"));
+		new UserDBResource().createUser(new User("root","root","root","root","root","root","0000"));
 		PhraseDao phrase = BDDFactory.getDbi().open(PhraseDao.class);
 		phrase.createPhraseTable();
 		phrase.createAideTable();
