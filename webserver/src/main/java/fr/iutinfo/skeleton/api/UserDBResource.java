@@ -133,6 +133,24 @@ public class UserDBResource {
         }
         return Response.accepted().status(202).entity(user).build();
     }
+    
+    /**
+     * Recherche un utilisateur par son mail Exemple : curl
+     * "localhost:8080/v1/userdb/toto@gmail.com" -X GET
+     *
+     * @param mail - Mail de l'utilisateur
+     * @return user - Utilisateur trouvé
+     */
+    @GET
+    @RolesAllowed({"admin", "user"})
+    @Path("/mail/{mail}")
+    public Response getUserByMail(@PathParam("mail") String mail) {
+        User user = dao.findByMail(mail);
+        if (user == null) {
+            return Response.accepted().status(403).build();
+        }
+        return Response.accepted().status(202).entity(user).build();
+    }
 
     /**
      * Supprime un utilisateur en passant son mail Exemple : curl
