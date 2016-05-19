@@ -59,7 +59,7 @@ public interface UserDao {
 	void dropUserTable(); 
 	
 	//update un user
-	@SqlUpdate("UPDATE utilisateur SET (mail = :mail, numero = :numero, nom = :nom, prenom = :prenom, digit = :digit, mot_de_passe = :mot_de_passe) WHERE id = :id")
+	@SqlUpdate("UPDATE utilisateur SET mail = :mail, numero = :numero, nom = :nom, prenom = :prenom, digit = :digit, mot_de_passe = :mot_de_passe WHERE id = :id")
 	void update(@BindBean() User user);
 
 	

@@ -20,17 +20,17 @@ public interface PhraseDao {
     int help(@BindBean() Aide aide);
     
     
-    //selection d'une phrase en fonction de son intitule "phrase" (methode get)
+    //selection d'une phrase en fonction de son id (methode get)
     @SqlQuery("select * from phrase where id = :id")
     @RegisterMapperFactory(BeanMapperFactory.class)
     Phrase findById(@Bind("id") int id);
     
-    //selection d'une phrase en fonction de son intitule "phrase" (methode get)
+    //selection d'une phrase en fonction de son id (methode get)
     @SqlQuery("select * from phrase where phrase = :phrase")
     @RegisterMapperFactory(BeanMapperFactory.class)
     Phrase findByPhrase(@Bind("phrase") String phrase);
     
-    //suppression d'une phrase en fonction de son intitule "phrase" (utilisee dans PhraseViews/index.jsp methode delete)
+    //suppression d'une phrase en fonction de son id (utilisee dans PhraseViews/index.jsp methode delete)
     @SqlUpdate("delete from phrase where id = :id")
     void delete(@Bind("id") int id);
     
@@ -68,7 +68,7 @@ public interface PhraseDao {
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderConsultee();
     
-    @SqlQuery("select * from phrase order by mail")
+    @SqlQuery("select * from phrase,utilisateur where phrase.id = utilisateur.id order by mail")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderMail();
     

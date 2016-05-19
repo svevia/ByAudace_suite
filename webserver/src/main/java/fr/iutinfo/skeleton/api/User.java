@@ -168,6 +168,7 @@ public class User implements Principal {
     }
 
     public void resetPasswordHash() {
+    	System.out.println(mot_de_passe);
         if (mot_de_passe != null && ! mot_de_passe.isEmpty()) {
             setMot_de_passe(buildHash(mot_de_passe, getSalt()));
         }

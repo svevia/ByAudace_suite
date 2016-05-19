@@ -78,8 +78,11 @@ public class UserDBResource {
     @RolesAllowed("admin")
     @Path("/edit")
     public User editUser(User user) {
-    	if((dao.findByMail(user.getMail())== null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
-	        //user.resetPasswordHash();
+    	if((dao.findByMail(user.getMail()) == null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
+    		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
+    			user.setSalt(dao.findById(user.getId()).getSalt());
+    			user.resetPasswordHash();
+    		}
 	        dao.update(user);
 	        return user;
     	}
@@ -94,7 +97,10 @@ public class UserDBResource {
     @Path("/edit/admin")
     public User editAdmin(User user) {
     	if((dao.findByMail(user.getMail())== null) ||(dao.findByMail(user.getMail()).getId() == user.getId()) ){
-        //user.resetPasswordHash();
+    		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
+    			user.setSalt(dao.findById(user.getId()).getSalt());
+    			user.resetPasswordHash();
+    		}
         dao.update(user);
         return user;
 	}

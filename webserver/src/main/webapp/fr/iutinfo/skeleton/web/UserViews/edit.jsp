@@ -19,6 +19,9 @@
 
 <h1>Ajout utilisateur</h1>
   <div class="form-group">
+    <label for="mail">ID : ${it.user.id}</label>
+  </div>
+  <div class="form-group">
     <label for="mail">Adresse mail</label>
     <input type="email" class="form-control" id="mail" value="${it.user.mail}">
   </div>

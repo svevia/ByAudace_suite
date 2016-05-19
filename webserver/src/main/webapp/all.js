@@ -106,7 +106,7 @@ function editUser(mail,nom,prenom,digit,pass,tel,role) {
 			afficheUser(data);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-				alert('error: ' + textStatus);
+				alert('error: ' + textStatus + "errorThrown :" + errorThrown);
 		}
 	});
 }
