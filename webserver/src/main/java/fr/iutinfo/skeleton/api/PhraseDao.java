@@ -68,7 +68,7 @@ public interface PhraseDao {
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderConsultee();
     
-    @SqlQuery("select * from phrase,utilisateur where phrase.id_user = utilisateur.id order by mail")
+    @SqlQuery("select phrase.id,phrase.phrase, besoin, phrase.date, categorie, terminee, mail from phrase,utilisateur where phrase.id_user = utilisateur.id order by mail")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderMail();
     
