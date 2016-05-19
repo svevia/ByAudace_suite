@@ -9,20 +9,20 @@ package fr.univ_lille1.iut_info.debaerdm.byaudace;
 public class Phrase {
 
     private int id;
+    private int id_user;
     private int categorie;
     private String phrase;
     private String besoin;
-    private String mail;
     private boolean terminee;
     private int consultee;
     private boolean deroulee;
 
 
-    public Phrase(int id, String phrase, String besoin, String mail, int categorie) {
+    public Phrase(int id, int id_user, String phrase, String besoin, int categorie) {
         this.id = id;
+        this.id_user = id_user;
         this.phrase = phrase;
         this.besoin = besoin;
-        this.mail = mail;
         this.categorie = categorie;
         this.terminee = false;
         this.consultee = 0;
@@ -33,12 +33,12 @@ public class Phrase {
         return this.id;
     }
 
-    public String getPhrase() {
-        return this.phrase;
+    public int getIdUser() {
+        return this.id;
     }
 
-    public String getMail() {
-        return this.mail;
+    public String getPhrase() {
+        return this.phrase;
     }
 
     public String getBesoin() {
