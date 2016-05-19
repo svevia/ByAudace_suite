@@ -12,6 +12,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -132,12 +133,12 @@ public class UserDBResource {
     @GET
     @RolesAllowed({"admin", "user"})
     @Path("/{id}")
-    public Response getUser(@PathParam("id") int id) {
+    public User getUser(@PathParam("id") int id) {
         User user = dao.findById(id);
         if (user == null) {
-            return Response.accepted().status(403).build();
+        	throw new WebApplicationException(403);
         }
-        return Response.accepted().status(202).entity(user).build();
+        return user;
     }
     
     /**
@@ -150,12 +151,12 @@ public class UserDBResource {
     @GET
     @RolesAllowed({"admin", "user"})
     @Path("/mail/{mail}")
-    public Response getUserByMail(@PathParam("mail") String mail) {
+    public User getUserByMail(@PathParam("mail") String mail) {
         User user = dao.findByMail(mail);
         if (user == null) {
-            return Response.accepted().status(403).build();
+        	throw new WebApplicationException(403);
         }
-        return Response.accepted().status(202).entity(user).build();
+        return user;
     }
 
     /**
