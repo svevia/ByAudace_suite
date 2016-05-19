@@ -135,9 +135,11 @@ public class UserDBResource {
     @Path("/{id}")
     public User getUser(@PathParam("id") int id) {
         User user = dao.findById(id);
+
         if (user == null) {
         	throw new WebApplicationException(403);
         }
+        System.out.println("Utilisateur demandé : " + id + " - " + user.getMail());
         return user;
     }
     
