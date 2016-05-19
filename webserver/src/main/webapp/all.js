@@ -171,8 +171,8 @@ function affichePhrase(data) {
   	for(var i=0; i< data.length; i++){
         $("#itphrase_"+i).html(data[i].phrase);
         $("#itbesoin_"+i).html(data[i].besoin);
-        document.getElementById("link_"+i).href = "/html/phrase/"+data[i].phrase;
-        document.getElementById("button_"+i).setAttribute('name', data[i].phrase);
+        document.getElementById("link_"+i).href = "/html/phrase/"+data[i].id;
+        document.getElementById("button_"+i).setAttribute('name', data[i].id);
 
     }
 }
