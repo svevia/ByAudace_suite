@@ -141,7 +141,6 @@ public class HelpActivity extends Activity{
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                System.out.println("/////////////////////////////" + mail + " " + mdp);
                 params.put("Authorization", "basic " + Base64.encodeToString((mail + ":" + mdp).getBytes(), Base64.NO_WRAP));
                 return params;
             }

@@ -65,6 +65,8 @@ public class JpeuxAiderActivity extends Activity  {
     private SwipeRefreshLayout swipeContainer;
     private RequestQueue queue;
     private int history = -1;
+    private User user;
+    private User poster;
 
     /**
      * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
@@ -107,6 +109,8 @@ public class JpeuxAiderActivity extends Activity  {
         mListView = (ListView) findViewById(R.id.listView);
         phrases = new ArrayList<>();
         intent = this.getIntent();
+
+        queue =  Volley.newRequestQueue(getApplication().getApplicationContext());
 
         getConnexion();
     }
@@ -168,6 +172,9 @@ public class JpeuxAiderActivity extends Activity  {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                poster = getUser(adapter.getItem(position).getIdUser(),
+                        intent.getStringExtra("user_mail"),
+                        intent.getStringExtra("user_mot_de_passe"));
                 alertContact(position);
                 return true;
             }
@@ -275,47 +282,6 @@ public class JpeuxAiderActivity extends Activity  {
 
 
     /**
-     * La méthode alertNotification permet d'afficher une fenêtre de type "pop-up" au dessus de l'activité
-     * en cours. Cette fenêtre possède un bouton de validation, qui appelle alertContact(), et un bouton de
-     * retrait, qui ferme simplement la pop-up.
-     *
-     * @param icon Icône à afficher à gauche du titre de la fenêtre (Android.R.drawable.ic*)
-     * @param title Texte à afficher en titre de la fenêtre
-     * @param text Texte à afficher en tant que texte de corps de la fenêtre
-     * @param position Paramètre indiquant la position de l'item dans la liste ; utile pour la redirection vers alertContact()
-     */
-    public void alertNotification(int icon, String title, String text, final int position){
-
-        alertDialogBuilder = new AlertDialog.Builder(
-                this);
-
-        alertDialogBuilder.setTitle(title);
-
-        // set dialog message
-        alertDialogBuilder
-                .setMessage(text)
-                .setIcon(icon)
-                .setCancelable(false)
-                .setPositiveButton("Contacter", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        alertContact(position);
-                    }
-                })
-                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // do nothing
-                    }
-                });
-
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
-
-    }
-
-    /**
      * La méthode alertContact permet à l'utilisateur consultant d'une demande d'aide d'entrer en contact
      * avec l'utilisateur l'ayant postée.
      * Redirige (actuellement) l'utilisateur vers une liste des applications qui permettent d'envoyer le
@@ -328,8 +294,16 @@ public class JpeuxAiderActivity extends Activity  {
 
         alertDialogBuilder = new AlertDialog.Builder(this);
 
+        final String login = intent.getStringExtra("user_mail");
+        final String mdp = intent.getStringExtra("user_mot_de_passe");
+        final int id_user = intent.getIntExtra("id",0);
+
+        // On récupère l'utilisateur ayant posté la phrase
+        //User poster = getUser(id_user,login,mdp);
+
         // set title
-        alertDialogBuilder.setTitle("Contact : " + adapter.getItem(position).getId());
+        alertDialogBuilder.setTitle("Contact : " + poster.getPrenom() + " " + poster.getNom());
+        //alertDialogBuilder.setTitle("Contact : " + adapter.getItem(position).getIdUser());
 
         // set dialog message
         alertDialogBuilder
@@ -339,12 +313,11 @@ public class JpeuxAiderActivity extends Activity  {
                     public void onClick(DialogInterface dialog, int id) {
 
                         // redirection vers l'activité d'envoi du mail
-
                         Intent i = new Intent(Intent.ACTION_SEND);
                         i.setType("message/rfc822");
                         i.putExtra(Intent.EXTRA_EMAIL  , new int[]{adapter.getItem(position).getIdUser()});
                         i.putExtra(Intent.EXTRA_SUBJECT, "ByAudace : Demande de contact");
-                        i.putExtra(Intent.EXTRA_TEXT   , "Bonjour ,\n\n\n" +
+                        i.putExtra(Intent.EXTRA_TEXT   , "Bonjour \n\n\n" +
                                 "J'ai pris connaissance de votre besoin : \n\n" + adapter.getItem(position).getBesoin() + "\n\net vous propose mon aide afin de le résoudre.\n" +
                                 "Merci de me contacter en retour de ce mail.\n\n\n" +
                                 "Bonne journée !");
@@ -362,18 +335,12 @@ public class JpeuxAiderActivity extends Activity  {
                         // post /v1/phrase/help
                         // ----------------------------------------------------------------------------------------------------------------
 
-                        RequestQueue queue;
-                        final String login = intent.getStringExtra("user_mail");
-                        final int id_user = intent.getIntExtra("id",0);
-                        final String mdp = intent.getStringExtra("user_mot_de_passe");
-
                         Map<String, Object> params = new HashMap<>();
                         params.put("phrase",adapter.getItem(position).getId() + "");
                         params.put("utilisateur",id_user);
                         Date date = new Date();
                         params.put("date",(new Timestamp(date.getTime())).toString());
 
-                        queue = Volley.newRequestQueue(getApplication().getApplicationContext());
 
                         String url = URL + "/help";
                         final com.android.volley.toolbox.JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(params),
@@ -396,7 +363,7 @@ public class JpeuxAiderActivity extends Activity  {
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<>();
-                                params.put("Authorization", "basic " + Base64.encodeToString((id_user + ":" + mdp).getBytes(), Base64.NO_WRAP));
+                                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
                                 //System.out.println(params.toString());
                                 return params;
                             }
@@ -486,9 +453,65 @@ public class JpeuxAiderActivity extends Activity  {
      * Elle initialise la liste des couples phrase métier / besoin dans l'application.
      */
     private void buildPhrasesFromJson(String json) {
+
         final Gson gson = new GsonBuilder().create();
         Type listType = new TypeToken<List<Phrase>>() {}.getType();
         phrases = gson.fromJson(json, listType);
+
+        for(Phrase p : phrases){
+            System.out.println("Phrase : " + p.getId() + " " + p.getIdUser());
+        }
+    }
+
+
+    private User getUser(int id, final String login, final String mdp){
+
+        System.out.println("//////// Création de l'utilisateur : " + id + " " + login + " ");
+
+        queue = Volley.newRequestQueue(this);
+
+        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/" + id,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String json) {
+                        System.out.println("/////// Création Utilisateur Json : " + json);
+                        String[] tok = json.split(",");
+
+                        // A corriger : Les champs peuvent être nuls dans le User
+                        user = new User(tok[0].split(":")[1], //digit
+                                Integer.valueOf(tok[1].split(":")[1]), //id
+                                tok[2].split(":")[1], //mail
+                                tok[3].split(":")[1], //mdp
+                                tok[4].split(":")[1], //nom
+                                tok[5].split(":")[1], //numero
+                                tok[6].split(":")[1]); //prenom
+
+                        // Ici, l'utilisateur est bien print
+                        System.out.println("///////////////// GetUser : " + user);
+                    }
+
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                System.err.println("ERROR : " + error.getMessage());
+            }
+
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
+                return params;
+            }
+        };
+        queue.add(request);
+
+        //// Ici, l'utilisateur est null = NullPointerException
+        //System.out.println("///////////////////////////////" + user.getPrenom());
+
+        return user;
     }
 
 }

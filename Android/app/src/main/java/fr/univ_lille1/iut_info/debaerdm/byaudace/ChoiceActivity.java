@@ -73,8 +73,6 @@ public class ChoiceActivity extends Activity {
                                 tok[4].split(":")[1], //nom
                                 tok[5].split(":")[1], //numero
                                 tok[6].split(":")[1]); //prenom
-
-                        System.out.println("User : " + user.toString());
                     }
 
                 }, new Response.ErrorListener() {
@@ -89,7 +87,6 @@ public class ChoiceActivity extends Activity {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("Authorization", "basic " + Base64.encodeToString((intent.getStringExtra("user_mail") + ":" + intent.getStringExtra("mdp")).getBytes(), Base64.NO_WRAP));
-                System.out.println(params.toString());
                 return params;
             }
         };

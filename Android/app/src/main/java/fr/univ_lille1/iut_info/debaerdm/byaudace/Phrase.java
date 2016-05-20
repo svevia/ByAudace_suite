@@ -29,12 +29,13 @@ public class Phrase {
         this.deroulee = false;
     }
 
+
     public int getId() {
         return this.id;
     }
 
     public int getIdUser() {
-        return this.id;
+        return this.id_user;
     }
 
     public String getPhrase() {
@@ -63,6 +64,10 @@ public class Phrase {
 
     public void setDeroulee(boolean b){
         this.deroulee = b;
+    }
+
+    public void setIdUser(int id){
+        this.id_user = id;
     }
 
     /**
