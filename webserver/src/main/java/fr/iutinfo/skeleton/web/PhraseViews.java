@@ -112,6 +112,8 @@ public class PhraseViews {
         if (phrases == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        return new ReturnerPhrase(phrases, connect);
+        else{
+        	return new ReturnerPhrase(phrases, connect);
+        }
     }
 }
