@@ -173,9 +173,10 @@ public class JpeuxAiderActivity extends Activity  {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 poster = getUser(adapter.getItem(position).getIdUser(),
+                        adapter.getItem(position),
                         intent.getStringExtra("user_mail"),
                         intent.getStringExtra("user_mot_de_passe"));
-                alertContact(position);
+                //alertContact(position);
                 return true;
             }
         });
@@ -188,7 +189,7 @@ public class JpeuxAiderActivity extends Activity  {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 if (sd.swipeDetected()) {
-                    alertSignalement(position);
+                    alertSignalement(adapter.getItem(position));
 
                 }else {
 
@@ -286,11 +287,8 @@ public class JpeuxAiderActivity extends Activity  {
      * avec l'utilisateur l'ayant postée.
      * Redirige (actuellement) l'utilisateur vers une liste des applications qui permettent d'envoyer le
      * mail ; dans le futur, elle enverra directement le mail sans utilisation d'application tierce.
-     *
-     * @param position Paramètre passé par la méthode alertNotification, indiquant la position du couple
-     *                 phrase métier / besoin concerné par cette notification dans la pile
      */
-    public void alertContact(final int position){
+    public void alertContact(final Phrase popeye, final User bonjour){
 
         alertDialogBuilder = new AlertDialog.Builder(this);
 
@@ -302,7 +300,7 @@ public class JpeuxAiderActivity extends Activity  {
         //User poster = getUser(id_user,login,mdp);
 
         // set title
-        alertDialogBuilder.setTitle("Contact : " + poster.getPrenom() + " " + poster.getNom());
+        alertDialogBuilder.setTitle("Contact : " + bonjour.getPrenom() + " " + bonjour.getNom());
         //alertDialogBuilder.setTitle("Contact : " + adapter.getItem(position).getIdUser());
 
         // set dialog message
@@ -315,10 +313,10 @@ public class JpeuxAiderActivity extends Activity  {
                         // redirection vers l'activité d'envoi du mail
                         Intent i = new Intent(Intent.ACTION_SEND);
                         i.setType("message/rfc822");
-                        i.putExtra(Intent.EXTRA_EMAIL  , new int[]{adapter.getItem(position).getIdUser()});
+                        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{bonjour.getMail()});
                         i.putExtra(Intent.EXTRA_SUBJECT, "ByAudace : Demande de contact");
-                        i.putExtra(Intent.EXTRA_TEXT   , "Bonjour \n\n\n" +
-                                "J'ai pris connaissance de votre besoin : \n\n" + adapter.getItem(position).getBesoin() + "\n\net vous propose mon aide afin de le résoudre.\n" +
+                        i.putExtra(Intent.EXTRA_TEXT   , "Bonjour " + bonjour.getPrenom() +"\n\n\n" +
+                                "J'ai pris connaissance de votre besoin : \n\n" + popeye.getBesoin() + "\n\net vous propose mon aide afin de le résoudre.\n" +
                                 "Merci de me contacter en retour de ce mail.\n\n\n" +
                                 "Bonne journée !");
                         try {
@@ -330,13 +328,10 @@ public class JpeuxAiderActivity extends Activity  {
 
                         // ----------------------------------------------------------------------------------------------------------------
                         // communication avec le serveur REST pour les stats
-
-                        // id phrase, mail user
-                        // post /v1/phrase/help
                         // ----------------------------------------------------------------------------------------------------------------
 
                         Map<String, Object> params = new HashMap<>();
-                        params.put("phrase",adapter.getItem(position).getId() + "");
+                        params.put("phrase",popeye.getId() + "");
                         params.put("utilisateur",id_user);
                         Date date = new Date();
                         params.put("date",(new Timestamp(date.getTime())).toString());
@@ -389,12 +384,15 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
 
-    public void alertSignalement(final int position){
+    public void alertSignalement(final Phrase phrase){
+
+        final String login = intent.getStringExtra("user_mail");
+        final String mdp = intent.getStringExtra("user_mot_de_passe");
 
         alertDialogBuilder = new AlertDialog.Builder(this);
 
         // set title
-        alertDialogBuilder.setTitle("Signaler : " + adapter.getItem(position).getIdUser());
+        alertDialogBuilder.setTitle("Signalement");
 
         // set dialog message
         alertDialogBuilder
@@ -403,7 +401,7 @@ public class JpeuxAiderActivity extends Activity  {
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"/signalement/" + adapter.getItem(position).getId(),
+                        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL+"/signalement/" + phrase.getId(),
                                 new Response.Listener<String>() {
                                     @Override
                                     public void onResponse(String json) {
@@ -423,7 +421,7 @@ public class JpeuxAiderActivity extends Activity  {
                             @Override
                             public Map<String, String> getHeaders() throws AuthFailureError {
                                 Map<String, String> params = new HashMap<>();
-                                params.put("Authorization", "basic " + Base64.encodeToString((intent.getIntExtra("id",0) + ":" + intent.getStringExtra("user_mot_de_passe")).getBytes(), Base64.NO_WRAP));
+                                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
                                 return params;
                             }
                         };
@@ -464,7 +462,7 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
 
-    private User getUser(int id, final String login, final String mdp){
+    private User getUser(int id, final Phrase popeye, final String login, final String mdp){
 
         System.out.println("//////// Création de l'utilisateur : " + id + " " + login + " ");
 
@@ -479,7 +477,7 @@ public class JpeuxAiderActivity extends Activity  {
                         String[] tok = json.split(",");
 
                         // A corriger : Les champs peuvent être nuls dans le User
-                        user = new User(tok[0].split(":")[1], //digit
+                        User coucou = new User(tok[0].split(":")[1], //digit
                                 Integer.valueOf(tok[1].split(":")[1]), //id
                                 tok[2].split(":")[1], //mail
                                 tok[3].split(":")[1], //mdp
@@ -489,6 +487,7 @@ public class JpeuxAiderActivity extends Activity  {
 
                         // Ici, l'utilisateur est bien print
                         System.out.println("///////////////// GetUser : " + user);
+                        alertContact(popeye,coucou);
                     }
 
                 }, new Response.ErrorListener() {

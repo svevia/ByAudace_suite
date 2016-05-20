@@ -22,8 +22,8 @@ public class User {
         this.id = id;
         this.mail = mail.substring(1,mail.length()-1);
         this.mdp = mdp.substring(1,mdp.length()-1);
-        this.nom = nom;
-        this.prenom = prenom;
+        this.nom = nom.substring(1,nom.length()-1);
+        this.prenom = prenom.substring(1,prenom.length()-1);
         this.numero = numero;
 
     }
