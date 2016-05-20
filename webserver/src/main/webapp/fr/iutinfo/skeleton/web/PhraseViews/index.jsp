@@ -27,8 +27,8 @@
 	            <div class="panel panel-default">
 			<%--barre de recherche pour les phrases métiers--%>
 	                <div id="custom-search-input">
-	                    <div class="input-group col-md-6">
-	                        <input id="search" type="text" class="search-query form-control" placeholder="rechercher une phrase metier"/>
+	                    <div class="input-group col-md-12">
+	                        <input id="search" type="text" class="search-query form-control" placeholder="rechercher ..."/>
 	                        <span class="input-group-btn">
 	                        <button id="confirm" class="btn btn-danger" type="button">
 	                        <span class=" glyphicon glyphicon-search"></span>
@@ -119,11 +119,20 @@
 		$("#mail").click(function () {
 			getPhrase("/v1/phrase/ordermail");
 		});
+		
+		$('*').keypress(function(e){
+		    if( e.which == 13 ){
+		    	var search = $("#search").val();
+				getSearch("/v1/phrase/search?search="+search);
+		    }
+		});
 		<%--reccupère la valeur contenue dans la search bar puis appel à all.js sur la recherche des phrases métier--%>
 		$("#confirm").click(function () {
 			var search = $("#search").val();
 			getSearch("/v1/phrase/search?search="+search);
 		});
+
+		
 	});
 	</script>
 </html>
