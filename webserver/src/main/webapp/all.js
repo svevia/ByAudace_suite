@@ -150,6 +150,7 @@ function getTaux(url) {
 }
 
 function getPhrase(url) {
+	  $("td").show();
      $.ajax({
        type: "GET",
        url: url,
@@ -158,7 +159,6 @@ function getPhrase(url) {
            req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
        },
        success: function (data){
-        console.log(data);
         affichePhrase(data);
        },
        error : function(jqXHR, textStatus, errorThrown) {
@@ -171,6 +171,7 @@ function affichePhrase(data) {
   	for(var i=0; i< data.length; i++){
         $("#itphrase_"+i).html(data[i].phrase);
         $("#itbesoin_"+i).html(data[i].besoin);
+        $("#signalement_"+i).html("signalement : " + data[i].signalement);
         document.getElementById("link_"+i).href = "/html/phrase/"+data[i].id;
         document.getElementById("button_"+i).setAttribute('name', data[i].id);
 
@@ -178,6 +179,7 @@ function affichePhrase(data) {
 }
 
 function getSearch(url) {
+
      $.ajax({
        type: "GET",
        url: url,
@@ -186,7 +188,6 @@ function getSearch(url) {
            req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
        },
        success: function (data){
-        console.log(data);
         afficheSearch(data);
        },
        error : function(jqXHR, textStatus, errorThrown) {
@@ -196,22 +197,24 @@ function getSearch(url) {
 }
 
 function afficheSearch(data) {
-
+	
+	
   var rows = document.getElementById('table').getElementsByTagName('tr');
-  var count = rows.length;
-  console.log(count);
+  var count = (rows.length)/2;
 
+  $("td").show();
   for(j=0; j<count; j++){
     if(j<data.length){
-      console.log(data[j]);
       $("#itphrase_"+j).html(data[j].phrase);
       $("#itbesoin_"+j).html(data[j].besoin);
-       document.getElementById("link_"+j).href = "/html/phrase/"+data[j].phrase;
-      document.getElementById("button_"+j).setAttribute('name', data[j].phrase);
+      $("#signalement_"+j).html("signalement : " + data[j].signalement);
+      document.getElementById("link_"+j).href = "/html/phrase/"+data[j].id;
+      document.getElementById("button_"+j).setAttribute('name', data[j].id);
     }
     else{
       $("#itphrase_"+j).hide();
       $("#itbesoin_"+j).hide();
+      $("#signalement_"+j).hide();
       $("#td2_"+j).hide();
       $("#td4_"+j).hide();
     }

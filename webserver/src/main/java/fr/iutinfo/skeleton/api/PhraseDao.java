@@ -49,8 +49,8 @@ public interface PhraseDao {
     int getTermCount(@Bind("bool") boolean bool);
     
     //selectionne les phrases correspondant a la recherche (utilisee dans PhraseViews/index.jsp methode get)
-    @SqlQuery("select * from phrase where mail like :search "
-            + "or besoin like :search or phrase like :search")
+    @SqlQuery("select phrase.* from phrase,utilisateur where phrase.id_user = utilisateur.id and (mail like :search "
+            + "or besoin like :search or phrase like :search)")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> search(@Bind("search") String search);
     
@@ -68,7 +68,7 @@ public interface PhraseDao {
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderConsultee();
     
-    @SqlQuery("select * from phrase,utilisateur where phrase.id_user = utilisateur.id order by mail")
+    @SqlQuery("select phrase.* from phrase,utilisateur where phrase.id_user = utilisateur.id order by mail")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderMail();
     

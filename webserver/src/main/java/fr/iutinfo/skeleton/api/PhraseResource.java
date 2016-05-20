@@ -118,7 +118,12 @@ public class PhraseResource {
     @GET
     @Path("/search")
     public List<Phrase> search(@QueryParam("search") String search) {
-        return dao.search("%" + search + "%");
+    	if(search == ""){
+    		return dao.all();
+    	}
+    	else{
+    		return dao.search("%" + search + "%");
+    	}
     }
 
     /**

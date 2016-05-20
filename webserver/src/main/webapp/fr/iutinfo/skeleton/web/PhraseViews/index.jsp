@@ -49,7 +49,7 @@
 					    <tr>
 					    <td id="itphrase_<%=cpt%>" style="background-color:lightsteelblue;">${item.phrase}</td>
 					    <td id="td2_<%=cpt%>" style="background-color:lightsteelblue;"><a id="link_<%=cpt%>" href="/html/phrase/${item.id}">détails</a></td>
-						 <td id="td2_<%=cpt%>" <c:if test="${item.signalement > 5}"> style="color:red;" </c:if> style="background-color:lightsteelblue;">signalements : ${item.signalement}</td>
+						<td id="signalement_<%=cpt%>" <c:if test="${item.signalement > 5}"> style="color:red;" </c:if> style="background-color:lightsteelblue;">signalements : ${item.signalement}</td>
 						</tr>
 						<tr>
 					    <td id="itbesoin_<%=cpt%>">${item.besoin}</td>
