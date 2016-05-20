@@ -109,6 +109,7 @@ public class PhraseViews {
     public ReturnerPhrase getPhrase(@PathParam("id") int id,@Context SecurityContext context) {
         String connect = context.getUserPrincipal().getName();
         Phrase phrases = dao.findById(id);
+        System.out.println(phrases.getId());
         if (phrases == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
