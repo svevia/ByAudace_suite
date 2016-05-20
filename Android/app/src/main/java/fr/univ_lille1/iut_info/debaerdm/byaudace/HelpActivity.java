@@ -115,7 +115,7 @@ public class HelpActivity extends Activity{
             // .replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", "")
             params.put("phrase", TextUtils.htmlEncode(phraseUne.getEditText().getText().toString()));
             params.put("besoin", phraseDeux.getEditText().getText().toString());
-            params.put("id", id);
+            params.put("id_user", id);
             params.put("terminee", String.valueOf(false));
             //params.put("categorie", categorie.getSelectedItem().toString());
             params.put("categorie",categorie.getSelectedItemPosition());
