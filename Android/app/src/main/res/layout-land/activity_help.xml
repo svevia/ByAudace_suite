@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
-    android:background="#FFFFFF">
+    android:background="#E8E9EA">
 
     <LinearLayout
         android:id="@+id/page_buttons"
@@ -45,6 +45,14 @@
         android:id="@+id/phrase"
         android:hint="Besoin"
         android:singleLine="true"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/edit_text"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_below="@+id/nbChar2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -54,20 +62,30 @@
         android:layout_height="wrap_content"
         android:id="@+id/pm"
         android:hint="Phrase métier"
+        android:singleLine="true"
+
+        android:background="@drawable/edit_text"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:layout_below="@+id/nbChar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:singleLine="true"/>
+        android:layout_marginRight="10dp"
+        android:layout_alignLeft="@+id/phrase"
+        android:layout_alignStart="@+id/phrase" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
         android:spinnerMode="dropdown"
-        android:layout_below="@+id/phrase"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/button"
+        android:layout_alignLeft="@+id/phrase"
+        android:layout_alignStart="@+id/phrase"
+        android:layout_toLeftOf="@+id/button"
+        android:layout_toStartOf="@+id/button" />
 
     <Button
         android:layout_width="wrap_content"
@@ -75,29 +93,38 @@
         android:text="Envoyer"
         android:id="@+id/button"
         android:onClick="postPhrase"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/phrase"
+        android:layout_toLeftOf="@+id/nbChar2"
+        android:layout_toStartOf="@+id/nbChar2"
+        android:layout_marginTop="23dp"
+        android:layout_marginLeft="10dp"
+        android:background="#a8a9aa"
+        android:textColor="#ffffff"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="300 caractères restants."
+        android:text="300"
         android:id="@+id/nbChar"
         android:layout_gravity="center_horizontal"
         android:layout_below="@+id/page_buttons"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignRight="@+id/pm"
+        android:layout_alignEnd="@+id/pm" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="300 caractères restants."
+        android:text="300"
         android:id="@+id/nbChar2"
         android:layout_gravity="center_horizontal"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/pm"
+        android:layout_alignLeft="@+id/nbChar"
+        android:layout_alignStart="@+id/nbChar" />
 
 </RelativeLayout>

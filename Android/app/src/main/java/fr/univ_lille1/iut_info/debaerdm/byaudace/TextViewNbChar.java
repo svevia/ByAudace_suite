@@ -20,7 +20,7 @@ public class TextViewNbChar{
     public TextViewNbChar(EditText editText, TextView textView){
         this.editText = editText;
         this.textView = textView;
-        textView.setTextColor(Color.GREEN);
+        textView.setTextColor(Color.parseColor("#339900"));
         this.editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -34,6 +34,7 @@ public class TextViewNbChar{
                 int leftChar = 300 - nbChar;
                 String restant;
 
+                /*
                 if(leftChar == 0 || leftChar == 1){
                     restant = " caractère restant.";
                 }else{
@@ -41,7 +42,9 @@ public class TextViewNbChar{
                 }
 
                 getTextView().setText(String.format("%d"+ restant,leftChar));
-                getTextView().setTextColor(Color.GREEN);
+                */
+                getTextView().setText(String.format("%d",leftChar));
+                getTextView().setTextColor(Color.parseColor("#339900"));
 
                 if (leftChar < 50 && leftChar >= 11) {
                     getTextView().setTextColor(Color.rgb(255, 165, 0));

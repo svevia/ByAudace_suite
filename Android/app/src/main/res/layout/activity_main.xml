@@ -12,8 +12,9 @@
         android:id="@+id/LoginText"
         android:hint="@string/Login"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:singleLine="true" />
+        android:layout_alignParentStart="false"
+        android:singleLine="true"
+        android:layout_alignParentLeft="false" />
 
     <Button
         android:layout_width="wrap_content"
@@ -23,7 +24,14 @@
         android:onClick="login"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/checkBox"
-        android:layout_centerHorizontal="true" />
+        android:background="#a8a9aa"
+        android:textColor="#ffffff"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_alignRight="@+id/checkBox"
+        android:layout_alignEnd="@+id/checkBox"
+        android:layout_alignLeft="@+id/checkBox"
+        android:layout_alignStart="@+id/checkBox" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -35,7 +43,9 @@
         android:layout_alignTop="@+id/LoginText"
         android:layout_alignParentStart="true"
         android:layout_marginTop="63dp"
-        android:layout_alignEnd="@+id/LoginText" />
+        android:layout_alignEnd="@+id/LoginText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/LoginText" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -56,9 +66,9 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/audacelink"
         android:id="@+id/textView"
+        android:clickable="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:clickable="true" />
+        android:layout_centerHorizontal="true" />
 
     <CheckBox
         android:layout_width="wrap_content"
