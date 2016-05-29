@@ -105,7 +105,7 @@
         android:text="Envoyer"
         android:id="@+id/button"
         android:onClick="postPhrase"
-        android:background="#a8a9aa"
+        android:background="@drawable/button"
         android:textColor="#ffffff"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
