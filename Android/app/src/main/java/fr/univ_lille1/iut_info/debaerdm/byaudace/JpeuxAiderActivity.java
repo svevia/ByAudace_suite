@@ -67,6 +67,7 @@ public class JpeuxAiderActivity extends Activity  {
     private int history = -1;
     private User user;
     private User poster;
+    private LinearLayout test;
 
     /**
      * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
@@ -221,27 +222,23 @@ public class JpeuxAiderActivity extends Activity  {
                 }
                 */
 
-                    LinearLayout test = (LinearLayout) mListView.getChildAt(position);
-                    ViewGroup.LayoutParams lp = test.getLayoutParams();
+                   // LinearLayout test = (LinearLayout) mListView.getChildAt(position);
+                    //ViewGroup.LayoutParams lp = test.getLayoutParams();
 
                     // On ne peut dérouler qu'une phrase à la fois
+                    System.out.println("///////////////////////////////////// " + history + " - " + position);
                     if (history == -1) {
-                        lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                                350,
-                                getResources().getDisplayMetrics());
-                        adapter.getItem(position).setDeroulee(true);
+                        ouvrirPhrase(position);
                         history = position;
 
                     } else {
                         if (history == position) {
-                            lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 85,
-                                    getResources().getDisplayMetrics());
-                            adapter.getItem(position).setDeroulee(false);
+                            fermerPhrase(position);
                             history = -1;
                         }
                     }
 
-                    test.setLayoutParams(lp);
+                    //test.setLayoutParams(lp);
 
                 }
 
@@ -251,7 +248,7 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
     public void ouvrirPhrase(int position){
-        LinearLayout test = (LinearLayout) mListView.getChildAt(position);
+        test = (LinearLayout) mListView.getChildAt(position);
         ViewGroup.LayoutParams lp = test.getLayoutParams();
         lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 350,
@@ -261,7 +258,7 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
     public void fermerPhrase(int position){
-        LinearLayout test = (LinearLayout) mListView.getChildAt(position);
+        //LinearLayout test = (LinearLayout) mListView.getChildAt(position);
         ViewGroup.LayoutParams lp = test.getLayoutParams();
         lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 85,
