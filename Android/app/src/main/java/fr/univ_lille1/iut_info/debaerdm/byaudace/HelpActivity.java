@@ -71,6 +71,7 @@ public class HelpActivity extends Activity{
 
 
         categorie = (Spinner) findViewById(R.id.spinner);
+        //ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.spinner, R.layout.spinner_item);
         ArrayAdapter adapter = ArrayAdapter. createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_item) ;
         categorie.setAdapter(adapter);
 

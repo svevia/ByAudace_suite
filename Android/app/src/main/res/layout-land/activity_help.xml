@@ -85,7 +85,10 @@
         android:layout_alignLeft="@+id/phrase"
         android:layout_alignStart="@+id/phrase"
         android:layout_toLeftOf="@+id/button"
-        android:layout_toStartOf="@+id/button" />
+        android:layout_toStartOf="@+id/button"
+        android:background="@drawable/edit_text"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"/>
 
     <Button
         android:layout_width="wrap_content"
