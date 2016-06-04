@@ -106,8 +106,6 @@ public class JpeuxAiderActivity extends Activity  {
 
 
         mListView = (ListView) findViewById(R.id.listView);
-
-        mListView = (ListView) findViewById(R.id.listView);
         phrases = new ArrayList<>();
         intent = this.getIntent();
 
@@ -248,7 +246,10 @@ public class JpeuxAiderActivity extends Activity  {
     }
 
     public void ouvrirPhrase(int position){
-        test = (LinearLayout) mListView.getChildAt(position);
+        test = (LinearLayout) mListView.getChildAt(position - mListView.getFirstVisiblePosition());
+        // getChildAt renvoie une position qui est relative au nombre d'éléments visibles sur l'écran,
+        // et non à la position de la phrase dans la liste.
+
         ViewGroup.LayoutParams lp = test.getLayoutParams();
         lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 350,
