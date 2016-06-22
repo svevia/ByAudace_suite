@@ -101,7 +101,7 @@
 		$('*').keypress(function(e){
 		    if( e.which == 13 ){
 		    	var search = $("#search").val();
-				getSearch("/v1/phrase/search?search="+search);
+		    	getSearchUser("/v1/userdb/search?search="+search);
 		    }
 		});
 		
