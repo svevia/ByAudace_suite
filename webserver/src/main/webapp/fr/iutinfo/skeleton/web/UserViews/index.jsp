@@ -18,16 +18,38 @@
 
 
     <div class="container">
+    
+
+    
+    
+    
+    
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
              <h1>Utilisateurs</h1>
             <div class="panel panel-default">
-                    <table class="table">
+            
+            	   <div id="custom-search-input">
+	                    <div class="input-group col-md-12">
+	                        <input id="search" type="text" class="search-query form-control" placeholder="rechercher ..."/>
+	                        <span class="input-group-btn">
+	                        <button id="confirm" class="btn btn-danger" type="button">
+	                        <span class=" glyphicon glyphicon-search"></span>
+	                        </button>
+	                        </span>
+	                    </div>
+	                </div>    
+            
+            
+            
+                    <table id="table" class="table">
+                    <% int cpt =0; %>
                     <c:forEach items="${it.user}" var="item">
-                        <tr>
-                        <td><a href="/html/userdb/${item.id}">${item.mail}</a></td>
-                        <td><button id="${item.id}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
+                        <tr id = "user_<%=cpt%>">
+                        <td id = "mail_<%=cpt%>"><a id="linkMail_<%=cpt%>" href="/html/userdb/${item.id}">${item.mail}</a></td>
+                        <td><button id="b_<%=cpt%>" name="${item.id}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
                         </tr>
+                        <%cpt++; %>
                     </c:forEach>
                 </table>
             </div>
@@ -57,7 +79,7 @@
 
 	$(document).ready(function() {
 		$("button").click(function () {
-		var id= this.id;
+		var id = $(this).attr("name");
 		$("#oui").click(function () {
 		 	$.ajax({
 	          type: "DELETE",
@@ -74,6 +96,20 @@
 	          },
 	          });
 			});
+		});
+		
+		$('*').keypress(function(e){
+		    if( e.which == 13 ){
+		    	var search = $("#search").val();
+				getSearch("/v1/phrase/search?search="+search);
+		    }
+		});
+		
+		
+		<%--reccupère la valeur contenue dans la search bar puis appel à all.js sur la recherche des users--%>
+		$("#confirm").click(function () {
+			var search = $("#search").val();
+			getSearchUser("/v1/userdb/search?search="+search);
 		});
 
 	});

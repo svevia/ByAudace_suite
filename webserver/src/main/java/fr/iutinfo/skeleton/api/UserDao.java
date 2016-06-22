@@ -73,6 +73,10 @@ public interface UserDao {
 	@SqlQuery("Select mail FROM utilisateur")
 	List<String> getAllMail();
 	
+    //selectionne les users correspondant a la recherche (utilisee dans UserView/index.jsp methode get)
+    @SqlQuery("select * from utilisateur where mail like :search ")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    List<User> search(@Bind("search") String search);
 	
 	void close();
 

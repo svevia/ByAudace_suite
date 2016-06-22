@@ -41,6 +41,8 @@
 					  <button id="phrase" type="button" class="btn btn-default">phrase</button>
 					  <button id="besoin" type="button" class="btn btn-default">besoin</button>
 					  <button id="mail" type="button" class="btn btn-default">mail</button>
+					  <button id="date" type="button" class="btn btn-default">date</button>
+					  <button id="signalement" type="button" class="btn btn-default">signalé</button>
 					</div>
 					<%--affichage de la liste des phrases métier--%>
 					<table id="table" class="table">
@@ -118,6 +120,15 @@
 		<%--appel à all.js pour trier les phrases par le champ mail--%>
 		$("#mail").click(function () {
 			getPhrase("/v1/phrase/ordermail");
+		});
+		
+		<%--appel à all.js pour trier les phrases par le champ mail--%>
+		$("#date").click(function () {
+			getPhrase("/v1/phrase/orderdate");
+		});
+		<%--appel à all.js pour trier les phrases par le champ mail--%>
+		$("#signalement").click(function () {
+			getPhrase("/v1/phrase/ordersignal");
 		});
 		
 		$('*').keypress(function(e){

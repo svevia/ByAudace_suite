@@ -171,14 +171,25 @@ public class PhraseResource {
     }
 
     /**
-     * Recupere tout les elements dans la table ordonnés avec le champ terminee
+     * Recupere tout les elements dans la table ordonnés avec le champ mail
      * 
      * @return phrases - Liste des phrases
      */
     @GET
-    @Path("/orderterminee")
-    public List<Phrase> getOrderTerminee() {
-        return dao.orderTerminee();
+    @Path("/orderdate")
+    public List<Phrase> getOrderDate() {
+        return dao.orderDate();
+    }
+    
+    /**
+     * Recupere tout les elements dans la table ordonnés avec le champ mail
+     * 
+     * @return phrases - Liste des phrases
+     */
+    @GET
+    @Path("/ordersignal")
+    public List<Phrase> getOrderSignalement() {
+        return dao.orderSignalement();
     }
 
     @GET

@@ -160,6 +160,24 @@ public class UserDBResource {
         }
         return user;
     }
+    
+    
+    /**
+     * Recherche un user à l'aide de son mail
+     * 
+     * @param search
+     * @return phrase
+     */
+    @GET
+    @Path("/search")
+    public List<User> search(@QueryParam("search") String search) {
+    	if(search == ""){
+    		return dao.all();
+    	}
+    	else{
+    		return dao.search("%" + search + "%");
+    	}
+    }
 
     /**
      * Supprime un utilisateur en passant son mail Exemple : curl

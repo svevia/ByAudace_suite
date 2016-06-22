@@ -68,13 +68,18 @@ public interface PhraseDao {
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderConsultee();
     
+    @SqlQuery("select * from phrase order by date DESC")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    List<Phrase> orderDate();
+    
+    @SqlQuery("select * from phrase order by signalement DESC")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    List<Phrase> orderSignalement();
+    
     @SqlQuery("select phrase.* from phrase,utilisateur where phrase.id_user = utilisateur.id order by mail")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> orderMail();
-    
-    @SqlQuery("select * from phrase order by terminee")
-    @RegisterMapperFactory(BeanMapperFactory.class)
-    List<Phrase> orderTerminee();
+
     
     @SqlQuery("select count(*) from aide where date >= datetime('now', '-7 days')")
     @RegisterMapperFactory(BeanMapperFactory.class)

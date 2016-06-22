@@ -196,9 +196,43 @@ function getSearch(url) {
      });
 }
 
+function getSearchUser(url) {
+
+    $.ajax({
+      type: "GET",
+      url: url,
+      dataType: 'json',
+      beforeSend : function(req) {
+          req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
+      },
+      success: function (data){
+       afficheSearchUser(data);
+      },
+      error : function(jqXHR, textStatus, errorThrown) {
+       console.log('error: ' + textStatus);
+       }
+    });
+}
+
+function afficheSearchUser(data) {
+	  var rows = document.getElementById('table').getElementsByTagName('tr');
+	  var count = rows.length;
+
+	  $("tr").show();
+	  for(j=0; j<count; j++){
+	    if(j<data.length){
+	      $("#linkMail_"+j).html(data[j].mail);
+	      document.getElementById("linkMail_"+j).href = "/html/userdb/"+data[j].id;
+	      document.getElementById("b_"+j).setAttribute('name', data[j].id);
+	    }
+	    else{
+	      $("#user_"+j).hide();
+	    }
+	  }
+}
+
+
 function afficheSearch(data) {
-	
-	
   var rows = document.getElementById('table').getElementsByTagName('tr');
   var count = (rows.length)/2;
 
