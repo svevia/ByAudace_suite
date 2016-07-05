@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,6 +41,7 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
             holder = new PhraseHolder();
             holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
             holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
+            //holder.contactButton = (Button)row.findViewById(R.id.contactButton);
 
             row.setTag(holder);
         }
@@ -50,6 +52,9 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
 
         final Phrase pm = data.get(position);
         holder.txtTitle.setText(pm.toString());
+        //holder.contactButton.setClickable(false);
+        //holder.contactButton.setFocusable(false);
+        //holder.contactButton.setCursorVisible(false);
 
         System.out.println(pm.getCategorie());
 
@@ -73,5 +78,6 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
     {
         ImageView imgIcon;
         TextView txtTitle;
+        Button contactButton;
     }
 }
