@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.api;
+package fr.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

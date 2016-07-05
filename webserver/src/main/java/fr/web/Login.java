@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.web;
+package fr.web;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -19,9 +19,9 @@ import javax.ws.rs.core.SecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.iutinfo.skeleton.api.BDDFactory;
-import fr.iutinfo.skeleton.api.User;
-import fr.iutinfo.skeleton.api.UserDao;
+import fr.api.BDDFactory;
+import fr.api.User;
+import fr.api.UserDao;
 
 @Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
@@ -34,8 +34,9 @@ public class Login{
     public User login(@Context SecurityContext context, @QueryParam("user") String oldLogin) throws URISyntaxException {
     	User currentUser = (User) context.getUserPrincipal();
         User oldUser = dao.findByMail(oldLogin);
-       
-        
+        if(currentUser != null){
+        	logger.trace("tentative de connexion avec :" +currentUser.getMail());
+        }
         if (oldUser == null && currentUser != null) {//si l'utilisateur est déjà loggé
         	setCookieAndRedirectToUserDetail(currentUser);//on redirige vers la page principale
         } 
@@ -57,6 +58,7 @@ public class Login{
     }
 
     private void setCookieAndRedirectToUserDetail(User currentUser) throws URISyntaxException {
+    	logger.trace("connexion accepté en tant que : " + currentUser.getMail());
         URI location = new URI("/html/userdb");//redirige vers la liste des utilisateurs après login
         throw new WebApplicationException(Response
                 .temporaryRedirect(location)

@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.api;
+package fr.api;
 
 import java.security.Security;
 import java.util.Properties;
@@ -10,7 +10,6 @@ public class Mailer {
 	
 	public static void sendMail(String Adresse, String msg){
 		if(Adresse.contains("@")){
-			System.out.println("msg : " + msg );
 		      // Recipient's email ID needs to be mentioned.
 		      String to = Adresse;
 	
@@ -58,7 +57,6 @@ public class Mailer {
 	
 		         // Send message
 		         Transport.send(message);
-		         System.out.println("Sent message successfully....");
 		      }catch (MessagingException mex) {
 		         mex.printStackTrace();
 		      }

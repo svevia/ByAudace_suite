@@ -1,10 +1,10 @@
-package fr.iutinfo.skeleton.web;
+package fr.web;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.glassfish.jersey.server.mvc.jsp.JspMvcFeature;
 
-import fr.iutinfo.skeleton.auth.AuthFilter;
+import fr.auth.AuthFilter;
 
 import javax.ws.rs.ApplicationPath;
 
@@ -13,7 +13,7 @@ import javax.ws.rs.ApplicationPath;
 public class WebApplication extends ResourceConfig {
 
     public WebApplication() {
-        packages("fr.iutinfo.skeleton.web");
+        packages("fr.web");
         register(JspMvcFeature.class);
         // Tracing support.
         //property(ServerProperties.TRACING, TracingConfig.ON_DEMAND.name());

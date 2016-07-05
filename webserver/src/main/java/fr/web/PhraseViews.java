@@ -1,8 +1,8 @@
-package fr.iutinfo.skeleton.web;
-
-import fr.iutinfo.skeleton.api.*;
+package fr.web;
 
 import org.glassfish.jersey.server.mvc.Template;
+
+import fr.api.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
@@ -72,7 +72,6 @@ public class PhraseViews {
     		UserDao userDao = BDDFactory.getDbi().open(UserDao.class);
     		this.phrases = phrases;
     		this.connect = connect;
-    		System.out.println("ID user returner : " + phrases.getId_user());
     		this.mail = userDao.findById(phrases.getId_user()).getMail();
     	}
 		public Phrase getPhrases() {
@@ -110,7 +109,6 @@ public class PhraseViews {
     public ReturnerPhrase getPhrase(@PathParam("id") int id,@Context SecurityContext context) {
         String connect = context.getUserPrincipal().getName();
         Phrase phrases = dao.findById(id);
-        System.out.println("ID : " + phrases.getId());
         if (phrases == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }

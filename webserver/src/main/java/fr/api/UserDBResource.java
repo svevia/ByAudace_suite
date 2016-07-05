@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.api;
+package fr.api;
 
 import java.util.List;
 
@@ -7,7 +7,6 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -42,9 +41,9 @@ public class UserDBResource {
     @RolesAllowed("admin")
     public User createUser(User user) {
     	if(dao.findByMail(user.getMail())== null){
-	        System.out.println("Create user : " + user);
 	        user.resetPasswordHash();
 	        dao.insert(user);
+	        logger.trace("creation user " + user.getMail() + " -- id = " + user.getId());
 	        return user;
     	}
     	else{
@@ -63,9 +62,9 @@ public class UserDBResource {
     @Path("/admin")
     public User createAdmin(User user) {
     	if(dao.findByMail(user.getMail())== null){
-	        System.out.println("Create admin : " + user);
 	        user.resetPasswordHash();
 	        dao.insert(user);
+	        logger.trace("creation admin " + user.getMail() + " -- id = " + user.getId());
 	        return user;
     	}
     	else{
@@ -110,15 +109,15 @@ public class UserDBResource {
 	}
 }
 
-    
+   
     
     @POST
     @RolesAllowed("admin")
     @Path("/mail")
-    public void sendMail(String msg) {
+    public void sendMail(String m) {
     	List<String> mails = dao.getAllMail();
     	for(String mail : mails){
-    		Mailer.sendMail(mail, msg);
+    		Mailer.sendMail(mail, m);
     	}
     }
     
@@ -139,7 +138,6 @@ public class UserDBResource {
         if (user == null) {
         	throw new WebApplicationException(403);
         }
-        System.out.println("Utilisateur demandé : " + id + " - " + user.getMail());
         return user;
     }
     
@@ -191,39 +189,14 @@ public class UserDBResource {
     @RolesAllowed({"admin"})
     public Response deleteUser(@PathParam("id") int id) {
         User user = dao.findById(id);
-        System.out.println("Deleting user : " + user);
         if (user == null) {
             return Response.accepted().status(404).build();
         }
         dao.delete(id);
+        logger.trace("suppression user " + user.getMail() + " -- id = " + user.getId());
         return Response.accepted().status(202).entity(user).build();
     }
-
-    /**
-     * Met à jour un utilisateur Exemple : curl
-     * "localhost:8080/v1/userdb/toto@gmail.com" -X PUT -d
-     * '{"mail":"titi@gmail.com", ...}'
-     *
-     * @param user - Utilisateur à modifier
-     * @return user - Utilisateur modifié
-     */
-    @PUT
-    @Path("/{mail}")
-    @RolesAllowed({"admin"})
-    public Response updateUser(User user) {
-        User oldUser = dao.findByMail(user.getMail());
-        System.out.println("Updating user : " + user);
-        if (user.equals(oldUser)) {
-            System.err.println("L'update n'a provoque aucune modification. La/les modifications sont surement identique a l'original");
-            return Response.accepted().status(418).build();
-        }
-        if (oldUser == null) {
-            return Response.accepted().status(404).build();
-        }
-        dao.update(user);
-        return Response.accepted().status(202).entity(user).build();
-    }
-
+    
     /**
      * Recupere le salt lié à l'addresse mail Exemple : curl
      * "localhost:8080/v1/userdb/salt?toto@gmail.com" -X GET

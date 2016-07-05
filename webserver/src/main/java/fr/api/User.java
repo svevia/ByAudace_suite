@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.api;
+package fr.api;
 
 import java.security.Principal;
 import java.security.SecureRandom;
@@ -118,8 +118,6 @@ public class User implements Principal {
     }
 
     public boolean isGoodPassword(String pass) {
-    	logger.trace("pass : " + pass);
-    	logger.trace("pass User : " + getMot_de_passe());
         return pass.equals(getMot_de_passe());
     }
 
@@ -168,7 +166,6 @@ public class User implements Principal {
     }
 
     public void resetPasswordHash() {
-    	System.out.println(mot_de_passe);
         if (mot_de_passe != null && ! mot_de_passe.isEmpty()) {
             setMot_de_passe(buildHash(mot_de_passe, getSalt()));
         }

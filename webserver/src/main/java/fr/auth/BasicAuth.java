@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.auth;
+package fr.auth;
 
 import javax.xml.bind.DatatypeConverter;
 

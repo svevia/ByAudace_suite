@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.api;
+package fr.api;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

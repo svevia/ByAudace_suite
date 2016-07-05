@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.api;
+package fr.api;
 
 import java.util.List;
 import org.skife.jdbi.v2.sqlobject.*;

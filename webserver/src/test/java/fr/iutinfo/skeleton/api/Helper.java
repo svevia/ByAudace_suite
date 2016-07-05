@@ -7,6 +7,10 @@ import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.api.BDDFactory;
+import fr.api.User;
+import fr.api.UserDao;
+
 public class Helper {
     final static Logger logger = LoggerFactory.getLogger(Helper.class);
     private static UserDao dao;

@@ -1,6 +1,4 @@
-package fr.iutinfo.skeleton.web;
-
-import java.util.List;
+package fr.web;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
@@ -13,20 +11,11 @@ import javax.ws.rs.core.SecurityContext;
 
 import org.glassfish.jersey.server.mvc.Template;
 
-import fr.iutinfo.skeleton.api.BDDFactory;
-import fr.iutinfo.skeleton.api.User;
-import fr.iutinfo.skeleton.api.UserDao;
-
-/**
- * Vue pour la page d'insertion d'un nouvel utilisateur
- *
- */
-
-@Path("/insert")
+@Path("/statistiques")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @Produces(MediaType.TEXT_HTML)
 @RolesAllowed("admin")
-public class InsertViews {
+public class StatistiquesViews {
     @GET
     @Template
     public String getAll(@Context SecurityContext context) {

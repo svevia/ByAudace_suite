@@ -1,10 +1,11 @@
-package fr.iutinfo.skeleton.auth;
+package fr.auth;
 
-import fr.iutinfo.skeleton.api.BDDFactory;
-import fr.iutinfo.skeleton.api.User;
-import fr.iutinfo.skeleton.api.UserDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import fr.api.BDDFactory;
+import fr.api.User;
+import fr.api.UserDao;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -29,12 +30,10 @@ public class AuthFilter implements ContainerRequestFilter {
 
         String auth = containerRequest.getHeaderString(HttpHeaders.AUTHORIZATION);
         String scheme = containerRequest.getUriInfo().getRequestUri().getScheme();
-        logger.info("auth : " + auth);
 
         if (auth != null) {
             String[] loginPassword = BasicAuth.decode(auth);//décode la base 64
-            logger.debug("login : " + loginPassword[0]);
-            logger.debug("password : " + loginPassword[1]);
+            
             
             if (loginPassword == null || loginPassword.length != 2) {
                 throw new WebApplicationException(Status.NOT_ACCEPTABLE);
@@ -44,9 +43,10 @@ public class AuthFilter implements ContainerRequestFilter {
             if(user != null){
             	String passwd = user.buildHash(loginPassword[1], user.getSalt()); // crypte le mot de passe entré avec le salt associé au user
 	            if((!user.isGoodPassword(passwd) && !user.isGoodPassword(loginPassword[1])) || user == null) {//verifie l'egalité des 2 mot de passes
-	                throw new WebApplicationException(Status.UNAUTHORIZED);//renvoi une erreur 401
+	            	throw new WebApplicationException(Status.UNAUTHORIZED);//renvoi une erreur 401
 	            }
             }
+            
             containerRequest.setSecurityContext(new AppSecurityContext(user, scheme));
         }
     }

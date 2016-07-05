@@ -1,8 +1,9 @@
-package fr.iutinfo.skeleton.auth;
+package fr.auth;
 
-import fr.iutinfo.skeleton.api.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import fr.api.User;
 
 import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
@@ -29,7 +30,6 @@ public class AppSecurityContext implements SecurityContext {
      */
     @Override
     public boolean isUserInRole(String s) { 
-        logger.debug("isUserInRole called for : " + s);
         if ("root".equals(s)) {
             return user.isInRootGroup();
         }

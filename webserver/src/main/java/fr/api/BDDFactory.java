@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.api;
+package fr.api;
 
 import org.skife.jdbi.v2.DBI;
 import org.sqlite.SQLiteDataSource;

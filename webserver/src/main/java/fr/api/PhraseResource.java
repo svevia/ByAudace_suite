@@ -1,4 +1,4 @@
-package fr.iutinfo.skeleton.api;
+package fr.api;
 
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
@@ -41,6 +41,7 @@ public class PhraseResource {
     @RolesAllowed({"admin","user"})
     public Phrase createPhrase(Phrase phrase) {
         dao.insert(phrase);
+        logger.trace("nouvelle phrase -- id = " + phrase.getId());
         return phrase;
     }
 
@@ -49,6 +50,7 @@ public class PhraseResource {
     @RolesAllowed({"admin","user"})
     public Aide aiderPhrase(Aide aide) {
         dao.help(aide);
+        logger.trace("aide reçu sur la phrase -- id = " + aide.getPhrase());
         return aide;
     }
 
@@ -75,6 +77,7 @@ public class PhraseResource {
     @RolesAllowed({"admin","user"})
     public Phrase signalPhrase(@PathParam("id") int id) {
         dao.signal(id);
+        logger.trace("signalement reçu sur la phrase -- id = " + id);
         return dao.findById(id);
     }
 
@@ -93,6 +96,7 @@ public class PhraseResource {
             throw new WebApplicationException(404);
         }
         dao.delete(id);
+        logger.trace("Suppression de la phrase -- id = " + id);
         return ph;
     }
 

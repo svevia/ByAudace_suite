@@ -1,11 +1,10 @@
-package fr.iutinfo.skeleton.web;
+package fr.web;
 
-
-import fr.iutinfo.skeleton.api.BDDFactory;
-import fr.iutinfo.skeleton.api.*;
 
 import org.eclipse.persistence.annotations.RangePartition;
 import org.glassfish.jersey.server.mvc.Template;
+
+import fr.api.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;

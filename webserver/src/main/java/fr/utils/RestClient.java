@@ -1,6 +1,4 @@
-package fr.iutinfo.skeleton.utils;
-
-import fr.iutinfo.skeleton.api.User;
+package fr.utils;
 
 import java.util.List;
 
@@ -8,6 +6,8 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
+
+import fr.api.User;
 
 public class RestClient {
 	

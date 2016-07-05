@@ -64,7 +64,7 @@ function postUser(mail,nom,prenom,digit,pass,role,tel) {
     beforeSend : function(req) {
     	req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
     	},
-		success : function(data, textStatus, jqXHR) {
+	success : function(data, textStatus, jqXHR) {
 			if(data == null){
 				alert("email dejà utilisé");
 			}

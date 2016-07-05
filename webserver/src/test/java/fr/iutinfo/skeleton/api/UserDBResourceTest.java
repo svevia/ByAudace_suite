@@ -14,6 +14,9 @@ import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.api.Api;
+import fr.api.User;
+
 public class UserDBResourceTest extends JerseyTest{
 	private Helper h;
 
