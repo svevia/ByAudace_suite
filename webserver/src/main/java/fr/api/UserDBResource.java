@@ -41,6 +41,10 @@ public class UserDBResource {
     @RolesAllowed("admin")
     public User createUser(User user) {
     	if(dao.findByMail(user.getMail())== null){
+    		String pass = user.generatePass();
+    		user.setMot_de_passe(pass);
+    		System.out.println(pass);
+    		Mailer.sendMail(user.getMail(), "Votre mot de passe pour Audace est :" + pass); 
 	        user.resetPasswordHash();
 	        dao.insert(user);
 	        logger.trace("creation user " + user.getMail() + " -- id = " + user.getId());

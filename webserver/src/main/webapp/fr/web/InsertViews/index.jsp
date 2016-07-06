@@ -23,10 +23,6 @@
     <input type="email" class="form-control" id="mail" placeholder="mail">
   </div>
   <div class="form-group">
-    <label for="mot-de-passe">Mot de passe</label>
-    <input type="password" class="form-control" id="password" placeholder="Password">
-  </div>
-  <div class="form-group">
     <label for="nom">Nom</label>
     <input type="text" class="form-control" id="nom" placeholder="nom">
   </div>
@@ -61,13 +57,12 @@ admin</label>
         $(document).ready(function() {
             $("#submit").click(function () {
                 mail = $('#mail').val();
-                pass = $('#password').val();
                 nom = $('#nom').val();
                 prenom = $('#prenom').val();
                 tel = $('#tel').val();
                 digit = $('#digit').val();
                 role = $("input:radio[name ='role']:checked").val();
-                postUser(mail,nom,prenom,digit,pass,role,tel)});
+                postUser(mail,nom,prenom,digit,role,tel)});
         });
   </script>
 

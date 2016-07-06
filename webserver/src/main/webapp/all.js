@@ -42,7 +42,7 @@ function getByAnnotation() {
      }
  }
 
-function postUser(mail,nom,prenom,digit,pass,role,tel) {
+function postUser(mail,nom,prenom,digit,role,tel) {
 	url = "/v1/userdb/";
 	if(role == "admin"){
 		url += "admin/";
@@ -57,7 +57,6 @@ function postUser(mail,nom,prenom,digit,pass,role,tel) {
 			"nom" : nom,
 			"prenom" : prenom,
 			"digit" : digit,
-			"mot_de_passe" : pass,
 			"role" : role,
 			"numero" : tel
 		}),

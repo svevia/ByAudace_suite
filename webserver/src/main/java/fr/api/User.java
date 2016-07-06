@@ -2,6 +2,7 @@ package fr.api;
 
 import java.security.Principal;
 import java.security.SecureRandom;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -163,6 +164,25 @@ public class User implements Principal {
         Hasher hasher = Hashing.md5().newHasher();
         hasher.putLong(random.nextLong());
         return hasher.hash().toString();
+    }
+    
+    public String generatePass(){
+    	String pass = "";
+    	String letters = "abcdefghijklmnopqrstuvwxyz";
+    	Random r = new Random();
+    	for(int i = 0; i < 8; i++){
+    		int type = r.nextInt(3);
+    		if(type == 0){
+    			pass += r.nextInt(10);
+    		}
+    		else if (type == 1){
+    			pass += letters.charAt(r.nextInt(letters.length()));
+    		}
+    		else{
+    			pass += Character.toUpperCase(letters.charAt(letters.length()));
+    		}
+    	}
+    	return pass;
     }
 
     public void resetPasswordHash() {

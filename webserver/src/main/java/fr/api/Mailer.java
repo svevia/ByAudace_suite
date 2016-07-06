@@ -14,7 +14,7 @@ public class Mailer {
 		      String to = Adresse;
 	
 		      // Sender's email ID needs to be mentioned
-		      String from = "Afengi@laposte.net";
+		      String from = "no-reply@campus-audace.com";
 	
 	
 		      // Get system properties
@@ -24,11 +24,11 @@ public class Mailer {
 		        final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 		      // Setup mail server
 				final String username = from;
-				final String password = "2X6kg3ns";
+				final String password = "qm8w288m";
 	
 				props.put("mail.smtp.auth", "true");
 				props.put("mail.smtp.starttls.enable", "true");
-				props.put("mail.smtp.host", "smtp.laposte.net");
+				props.put("mail.smtp.host", "smtp.gmail.com");
 				props.put("mail.smtp.port", "587");
 	
 				Session session = Session.getInstance(props,
