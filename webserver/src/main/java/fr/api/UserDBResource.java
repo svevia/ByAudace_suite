@@ -43,8 +43,7 @@ public class UserDBResource {
     	if(dao.findByMail(user.getMail())== null){
     		String pass = user.generatePass();
     		user.setMot_de_passe(pass);
-    		System.out.println(pass);
-    		Mailer.sendMail(user.getMail(), "Votre mot de passe pour Audace est :" + pass); 
+    		Mailer.sendMail(user.getMail(), Mailer.pass(pass)); 
 	        user.resetPasswordHash();
 	        dao.insert(user);
 	        logger.trace("creation user " + user.getMail() + " -- id = " + user.getId());
@@ -179,6 +178,26 @@ public class UserDBResource {
     	else{
     		return dao.search("%" + search + "%");
     	}
+    }
+    
+    
+    /**
+     * Mot de passe oublié
+     * 
+     * @param id
+     * @return user
+     */
+    @GET
+    @Path("/lost")
+    public User lost(@QueryParam("mail") String mail) {
+    	User user = dao.findByMail(mail);
+		String pass = user.generatePass();
+		user.setMot_de_passe(pass);
+		Mailer.sendMail(user.getMail(), Mailer.pass(pass)); 
+        user.resetPasswordHash();
+        
+        dao.update(user);
+    	return user;
     }
 
     /**

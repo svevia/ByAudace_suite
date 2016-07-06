@@ -7,7 +7,7 @@ import javax.mail.internet.*;
 
 public class Mailer {
 
-	
+
 	public static void sendMail(String Adresse, String msg){
 		if(Adresse.contains("@")){
 		      // Recipient's email ID needs to be mentioned.
@@ -64,5 +64,9 @@ public class Mailer {
 		
 		}
 		
+	}
+	
+	public static String pass(String pass){
+		return "Votre mot de passe pour Audace est :" + pass;
 	}
 }
