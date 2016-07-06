@@ -179,7 +179,7 @@ public class User implements Principal {
     			pass += letters.charAt(r.nextInt(letters.length()));
     		}
     		else{
-    			pass += Character.toUpperCase(letters.charAt(letters.length()));
+    			pass += Character.toUpperCase(letters.charAt(r.nextInt(letters.length())));
     		}
     	}
     	return pass;
