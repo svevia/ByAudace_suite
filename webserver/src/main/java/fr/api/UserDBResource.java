@@ -188,8 +188,8 @@ public class UserDBResource {
      * @return user
      */
     @GET
-    @Path("/lost")
-    public User lost(@QueryParam("mail") String mail) {
+    @Path("/lost/{mail}")
+    public User lost(@PathParam("mail") String mail) {
     	User user = dao.findByMail(mail);
 		String pass = user.generatePass();
 		user.setMot_de_passe(pass);

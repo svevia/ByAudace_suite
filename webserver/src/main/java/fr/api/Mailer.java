@@ -53,7 +53,7 @@ public class Mailer {
 		         message.setSubject("Audace a besoin de vous !");
 	
 		         // Now set the actual message
-		         message.setText(msg);
+		         message.setText(msg,"utf-8", "html");
 	
 		         // Send message
 		         Transport.send(message);
