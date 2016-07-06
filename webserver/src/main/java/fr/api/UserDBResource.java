@@ -191,6 +191,7 @@ public class UserDBResource {
     @Path("/lost/{mail}")
     public User lost(@PathParam("mail") String mail) {
     	User user = dao.findByMail(mail);
+    	logger.trace("mot de passe perdu pour : " + mail);
 		String pass = user.generatePass();
 		user.setMot_de_passe(pass);
 		Mailer.sendMail(user.getMail(), Mailer.pass(pass)); 
