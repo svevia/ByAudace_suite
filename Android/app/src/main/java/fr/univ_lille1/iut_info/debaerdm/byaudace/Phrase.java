@@ -99,7 +99,7 @@ public class Phrase {
         return ret;
         */
 
-        return this.getBesoin() + "\n\n" + this.getPhrase();
+        return this.getPhrase() + "\n\n" + this.getBesoin();
 
     }
 }

@@ -8,12 +8,13 @@
     <string name="title_activity_choice">choiceActivity</string>
     <string name="title_activity_help">helpActivity</string>
     <string name="title_activity_jpeuxaider">jpeuxAiderActivity</string>
-    <string name="help"><b>HELP !</b></string>
+    <string name="help"><b>A L\'AIDE !</b></string>
     <string name="aide"><b>J\'PEUX AIDER ?</b></string>
     <string name="peur">Même pas peur !</string>
     <string name="connected">Rester connecté</string>
     <string name="logo">logo</string>
     <string name="audacelink">campus-audace.com</string>
+    <string name="mdpoublie">Mot de passe oublié ?</string>
 
     <string-array name="spinner">
         <item>Juridique</item>

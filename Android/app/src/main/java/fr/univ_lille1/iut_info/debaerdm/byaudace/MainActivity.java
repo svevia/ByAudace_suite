@@ -8,12 +8,15 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
+import android.text.InputType;
 import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -42,6 +45,7 @@ import java.util.Map;
  */
 public class MainActivity extends Activity {
 
+    private TextView mdpoublie;
     private EditText loginText;
     private EditText passwordText;
     private RequestQueue queue;
@@ -80,6 +84,15 @@ public class MainActivity extends Activity {
         loginText = (EditText) findViewById(R.id.LoginText);
         passwordText = (EditText) findViewById(R.id.PasswordText);
         checkbox = (CheckBox) findViewById(R.id.checkBox);
+        mdpoublie = (TextView) findViewById(R.id.mdpOublie);
+
+        mdpoublie.setText(Html.fromHtml("<a href=''>Mot de passe oublié ?</a>"));
+        mdpoublie.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mdpOublie();
+            }
+        });
 
         // si l'utilisateur a mis en mémoire ses identifiants
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -330,6 +343,61 @@ public class MainActivity extends Activity {
         Hasher hasher = Hashing.md5().newHasher();
         hasher.putString(mot_de_passe + s, Charsets.UTF_8);
         return hasher.hash().toString();
+    }
+
+
+    public void mdpOublie(){
+        queue = Volley.newRequestQueue(this);
+
+        AlertDialog.Builder alertDialogBuilder;
+        alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set title
+        alertDialogBuilder.setTitle("Mot de passe oublié ?");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        input.setHint("Entrez votre adresse mail");
+        //input.setBackgroundResource(R.drawable.edit_text);
+        alertDialogBuilder.setView(input);
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Un mail contenant votre nouveau mot de passe vous sera envoyé.")
+                .setCancelable(false)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        // création utilisateur
+                        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/lost/"+input.getText().toString(),
+                                new Response.Listener<String>() {
+
+                                    @Override
+                                    public void onResponse(String json) {}
+
+                                }, new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                System.out.println("ERROR : " + error.getMessage());
+                            }
+
+                        });
+                        queue.add(request);
+
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {}
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
     }
 
 }

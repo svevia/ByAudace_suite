@@ -16,10 +16,12 @@ public class TextViewNbChar{
 
     private TextView textView;
     private EditText editText;
+    private int charMax;
 
-    public TextViewNbChar(EditText editText, TextView textView){
+    public TextViewNbChar(EditText editText, TextView textView, final int charMax){
         this.editText = editText;
         this.textView = textView;
+        this.charMax = charMax;
         textView.setTextColor(Color.parseColor("#339900"));
         this.editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -31,7 +33,7 @@ public class TextViewNbChar{
             @Override
             public void afterTextChanged(Editable s) {
                 int nbChar = getEditText().getText().toString().length();
-                int leftChar = 300 - nbChar;
+                int leftChar = charMax - nbChar;
                 String restant;
 
                 /*

@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/phrase"
-        android:hint="Besoin"
+        android:hint="Description du besoin (facultative)"
         android:singleLine="false"
 
         android:background="@drawable/edit_text"
@@ -136,7 +136,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="300"
+        android:text="100"
         android:textStyle="bold"
         android:id="@+id/nbChar2"
         android:layout_gravity="center_horizontal"

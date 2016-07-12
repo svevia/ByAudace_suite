@@ -80,8 +80,8 @@ public class HelpActivity extends Activity{
         nbCharTxt = (TextView) findViewById(R.id.nbChar);
         nbCharTxt2 = (TextView) findViewById(R.id.nbChar2);
 
-        phraseUne = new TextViewNbChar(phraseMetier, nbCharTxt);
-        phraseDeux = new TextViewNbChar(phraseBesoin, nbCharTxt2);
+        phraseUne = new TextViewNbChar(phraseMetier, nbCharTxt,300);
+        phraseDeux = new TextViewNbChar(phraseBesoin, nbCharTxt2,100);
 
         EditText tmp = phraseUne.getEditText();
         tmp.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_LENGTH)});

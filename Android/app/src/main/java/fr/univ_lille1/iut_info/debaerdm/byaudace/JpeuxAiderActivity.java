@@ -16,6 +16,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -68,6 +69,7 @@ public class JpeuxAiderActivity extends Activity  {
     private User user;
     private User poster;
     private LinearLayout test;
+    private View report;
 
     /**
      * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
@@ -180,51 +182,21 @@ public class JpeuxAiderActivity extends Activity  {
             }
         });
 
-        final SwipeDetector sd = new SwipeDetector();
-        mListView.setOnTouchListener(sd);
-
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                if (sd.swipeDetected()) {
-                    alertSignalement(adapter.getItem(position));
+                    LinearLayout test = (LinearLayout) mListView.getChildAt(position - mListView.getFirstVisiblePosition());
+                    View report = test.findViewById(R.id.imgReport);
 
-                }else {
-
-                /*
-                // Gestion du déroulement des phrases
-                Phrase pp = adapter.getItem(position);
-
-                // Si la phrase est déjà déroulée
-                if(pp.isDeroulee()){
-                    //alertContact(position);
-                    fermerPhrase(position);
-
-                // Si la phrase n'est pas déroulée
-                }else{
-                    ouvrirPhrase(position);
-
-                    if(history == -1){
-                        history = position;
-
-                    }else if(position == history){
-                        fermerPhrase(position);
-
-                    }else{
-                        fermerPhrase(history);
-                        history = position;
-                    }
-
-
-                }
-                */
-
-                   // LinearLayout test = (LinearLayout) mListView.getChildAt(position);
-                    //ViewGroup.LayoutParams lp = test.getLayoutParams();
+                    report.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertSignalement(adapter.getItem(position));
+                        }
+                    });
 
                     // On ne peut dérouler qu'une phrase à la fois
-                    System.out.println("///////////////////////////////////// " + history + " - " + position);
                     if (history == -1) {
                         ouvrirPhrase(position);
                         history = position;
@@ -235,20 +207,18 @@ public class JpeuxAiderActivity extends Activity  {
                             history = -1;
                         }
                     }
-
-                    //test.setLayoutParams(lp);
-
-                }
-
-
             }
         });
     }
 
     public void ouvrirPhrase(int position){
         test = (LinearLayout) mListView.getChildAt(position - mListView.getFirstVisiblePosition());
+        report = test.findViewById(R.id.imgReport);
         // getChildAt renvoie une position qui est relative au nombre d'éléments visibles sur l'écran,
         // et non à la position de la phrase dans la liste.
+
+        // La fonction de signalement devient visible
+        report.setVisibility(View.VISIBLE);
 
         ViewGroup.LayoutParams lp = test.getLayoutParams();
         lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
@@ -256,13 +226,16 @@ public class JpeuxAiderActivity extends Activity  {
                 getResources().getDisplayMetrics());
         test.setLayoutParams(lp);
         adapter.getItem(position).setDeroulee(true);
+
     }
 
     public void fermerPhrase(int position){
-        //LinearLayout test = (LinearLayout) mListView.getChildAt(position);
+        // La fonction de signalement est cachée
+        report.setVisibility(View.GONE);
+
         ViewGroup.LayoutParams lp = test.getLayoutParams();
         lp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
-                85,
+                80,
                 getResources().getDisplayMetrics());
         test.setLayoutParams(lp);
         adapter.getItem(position).setDeroulee(false);
@@ -292,6 +265,8 @@ public class JpeuxAiderActivity extends Activity  {
 
         final String login = intent.getStringExtra("user_mail");
         final String mdp = intent.getStringExtra("user_mot_de_passe");
+        final String nom = intent.getStringExtra("user_nom");
+        final String prenom = intent.getStringExtra("user_prenom");
         final int id_user = intent.getIntExtra("id",0);
 
         // On récupère l'utilisateur ayant posté la phrase
@@ -312,17 +287,16 @@ public class JpeuxAiderActivity extends Activity  {
                         Intent i = new Intent(Intent.ACTION_SEND);
                         i.setType("message/rfc822");
                         i.putExtra(Intent.EXTRA_EMAIL  , new String[]{bonjour.getMail()});
-                        i.putExtra(Intent.EXTRA_SUBJECT, "ByAudace : Demande de contact");
-                        i.putExtra(Intent.EXTRA_TEXT   , "Bonjour " + bonjour.getPrenom() +"\n\n\n" +
-                                "J'ai pris connaissance de votre besoin : \n\n" + popeye.getBesoin() + "\n\net vous propose mon aide afin de le résoudre.\n" +
-                                "Merci de me contacter en retour de ce mail.\n\n\n" +
+                        i.putExtra(Intent.EXTRA_SUBJECT, "Mise en relation ByAudace");
+                        i.putExtra(Intent.EXTRA_TEXT, "Bonjour " + bonjour.getPrenom() +",\n\n\n" +
+                                "Mon nom est " + prenom + " " + nom + ", j'ai pris connaissance de votre besoin : \n\n" + popeye.getBesoin() + "\n\net vous propose mon aide afin de le résoudre.\n" +
+                                "Merci de me contacter en retour de ce mail (mon adresse est la suivante : " +  login + ").\n\n\n" +
                                 "Bonne journée !");
                         try {
                             startActivity(Intent.createChooser(i, "Envoi du mail..."));
                         } catch (android.content.ActivityNotFoundException ex) {
                             Toast.makeText(JpeuxAiderActivity.this, "Aucune application mail n'est installée.", Toast.LENGTH_SHORT).show();
                         }
-
 
                         // ----------------------------------------------------------------------------------------------------------------
                         // communication avec le serveur REST pour les stats

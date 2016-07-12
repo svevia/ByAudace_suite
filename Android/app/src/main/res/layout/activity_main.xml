@@ -80,7 +80,20 @@
         android:id="@+id/textView"
         android:clickable="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:autoLink="web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="@string/mdpoublie"
+        android:id="@+id/mdpOublie"
+        android:clickable="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/PasswordText"
+        android:layout_alignEnd="@+id/PasswordText" />
 
     <CheckBox
         android:layout_width="wrap_content"
