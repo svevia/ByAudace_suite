@@ -20,12 +20,9 @@ public enum Categorie {
         this.id = id;
     }
 
-    public String getName(){
-        return name;
-    }
-
     public int getId(){
         return id;
     }
+    public String toString() { return this.name; }
 
 }

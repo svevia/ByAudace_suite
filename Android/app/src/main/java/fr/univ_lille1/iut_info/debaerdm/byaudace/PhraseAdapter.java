@@ -54,7 +54,8 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
             holder = new PhraseHolder();
             holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
             holder.imgReport = (ImageView)row.findViewById(R.id.imgReport);
-            holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
+            holder.txtPhrase = (TextView)row.findViewById(R.id.txtPhrase);
+            holder.txtBesoin = (TextView)row.findViewById(R.id.txtBesoin);
 
             row.setTag(holder);
         }
@@ -64,7 +65,8 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
         }
 
         final Phrase pm = data.get(position);
-        holder.txtTitle.setText(pm.toString());
+        holder.txtPhrase.setText(pm.getPhrase());
+        holder.txtBesoin.setText(pm.getBesoin());
 
         System.out.println(pm.getCategorie());
 
@@ -93,7 +95,8 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
     {
         ImageView imgIcon;
         ImageView imgReport;
-        TextView txtTitle;
+        TextView txtPhrase;
+        TextView txtBesoin;
     }
 
 }

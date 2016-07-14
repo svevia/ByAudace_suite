@@ -1,5 +1,7 @@
 package fr.univ_lille1.iut_info.debaerdm.byaudace;
 
+import java.util.Enumeration;
+
 /**
  * La classe Phrase est utilisée pour représenter un couple phrae métier / besoin.
  * Elle contient également le mail de l'utilisateur l'ayant postée, ainsi que plusieurs informations
@@ -14,6 +16,7 @@ public class Phrase {
     private String phrase;
     private String besoin;
     private boolean terminee;
+    private Enum catego;
     private int consultee;
     private boolean deroulee;
 
@@ -27,6 +30,20 @@ public class Phrase {
         this.terminee = false;
         this.consultee = 0;
         this.deroulee = false;
+
+        if(categorie == 0) {
+            this.catego = Categorie.JURIDIQUE;
+        }else if(categorie == 1) {
+            this.catego = Categorie.MARCHE;
+        }else if(categorie == 2) {
+            this.catego = Categorie.PARTENARIAT;
+        }else if(categorie == 3) {
+            this.catego = Categorie.RH;
+        }else if(categorie == 4) {
+            this.catego = Categorie.TECHNIQUE;
+        } else {
+            this.catego = Categorie.AUTRE;
+        }
     }
 
 
@@ -70,6 +87,8 @@ public class Phrase {
         this.id_user = id;
     }
 
+    public Enum getCatego(){ return this.catego; }
+
     /**
      * La méthode toString renvoie l'état actuel de l'objet sous forme de String.
      * Elle est notamment utilisée pour obtenir une prévisualisation rapide de l'objet dans la pile
@@ -78,26 +97,6 @@ public class Phrase {
      * longueur maximale autorisée.
      */
     public String toString() {
-/*
-        String ret = "";
-
-        if(this.getBesoin().length() >= 40){
-            ret += this.getBesoin().substring(0,40) + "...";
-        }else{
-            ret += this.getBesoin();
-        }
-        //ret += ' (' + this.getCategorie() + ')';
-
-        ret += "\n";
-
-        if(this.getPhrase().length() >= 40){
-            ret += this.getPhrase().substring(0,40) + "...";
-        }else{
-            ret += this.getPhrase();
-        }
-
-        return ret;
-        */
 
         return this.getPhrase() + "\n\n" + this.getBesoin();
 

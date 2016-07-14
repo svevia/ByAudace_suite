@@ -97,6 +97,7 @@ public class JpeuxAiderActivity extends Activity  {
             @Override
             public void onRefresh() {
                 getConnexion();
+                history = -1;
                 swipeContainer.setRefreshing(false);
             }
         });
@@ -177,7 +178,6 @@ public class JpeuxAiderActivity extends Activity  {
                         adapter.getItem(position),
                         intent.getStringExtra("user_mail"),
                         intent.getStringExtra("user_mot_de_passe"));
-                //alertContact(position);
                 return true;
             }
         });
@@ -186,8 +186,9 @@ public class JpeuxAiderActivity extends Activity  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 
-                    LinearLayout test = (LinearLayout) mListView.getChildAt(position - mListView.getFirstVisiblePosition());
-                    View report = test.findViewById(R.id.imgReport);
+                LinearLayout test = (LinearLayout) mListView.getChildAt(position - mListView.getFirstVisiblePosition());
+                View report = test.findViewById(R.id.imgReport);
+                final View category = test.findViewById(R.id.imgIcon);
 
                     report.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -195,6 +196,15 @@ public class JpeuxAiderActivity extends Activity  {
                             alertSignalement(adapter.getItem(position));
                         }
                     });
+
+                category.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "Catégorie : ", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
 
                     // On ne peut dérouler qu'une phrase à la fois
                     if (history == -1) {
@@ -269,12 +279,8 @@ public class JpeuxAiderActivity extends Activity  {
         final String prenom = intent.getStringExtra("user_prenom");
         final int id_user = intent.getIntExtra("id",0);
 
-        // On récupère l'utilisateur ayant posté la phrase
-        //User poster = getUser(id_user,login,mdp);
-
         // set title
         alertDialogBuilder.setTitle("Contact : " + bonjour.getPrenom() + " " + bonjour.getNom());
-        //alertDialogBuilder.setTitle("Contact : " + adapter.getItem(position).getIdUser());
 
         // set dialog message
         alertDialogBuilder
@@ -340,6 +346,7 @@ public class JpeuxAiderActivity extends Activity  {
                         // ----------------------------------------------------------------------------------------------------------------
 
                     }
+
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -400,6 +407,7 @@ public class JpeuxAiderActivity extends Activity  {
 
                         queue.add(stringRequest);
 
+                        Toast.makeText(getApplicationContext(), "Signalement effectué.", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

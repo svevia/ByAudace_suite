@@ -118,7 +118,6 @@ public class HelpActivity extends Activity{
             params.put("besoin", phraseDeux.getEditText().getText().toString());
             params.put("id_user", id);
             params.put("terminee", String.valueOf(false));
-            //params.put("categorie", categorie.getSelectedItem().toString());
             params.put("categorie",categorie.getSelectedItemPosition());
             params.put("signalement",0);
 

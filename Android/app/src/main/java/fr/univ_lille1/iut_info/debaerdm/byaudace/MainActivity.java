@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -385,6 +386,8 @@ public class MainActivity extends Activity {
 
                         });
                         queue.add(request);
+
+                        Toast.makeText(getApplicationContext(), "Un mail contenant votre nouveau mot de passe vous a été envoyé.", Toast.LENGTH_LONG).show();
 
                     }
                 })
