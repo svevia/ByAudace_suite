@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:scrollbars="none"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:background="#E8E9EA">
+
+    <LinearLayout
+        android:id="@+id/page_buttons"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:background="#a8a9aa">
+
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="90dp"
+            android:src="@drawable/logo2"
+            android:id="@+id/imageView2"
+            android:contentDescription="@drawable/logo2"
+            android:background="#a8a9aa"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/button2"
+
+            android:layout_marginRight="0dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Paramètres de \nl'application"
+            android:id="@+id/textView4"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:textColor="#ffffff"
+            />
+
+    </LinearLayout>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notifications"
+        android:id="@+id/switchNotifications"
+        android:layout_below="@+id/page_buttons"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignRight="@+id/page_buttons"
+        android:layout_alignEnd="@+id/page_buttons"
+        android:checked="false"
+        android:textStyle="bold"
+        android:onClick="setNotifications" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/notifs"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/switchNotifications"
+        android:layout_alignLeft="@+id/switchNotifications"
+        android:layout_alignStart="@+id/switchNotifications"
+        android:layout_alignRight="@+id/switchNotifications"
+        android:layout_alignEnd="@+id/switchNotifications"
+        android:textSize="17sp" />
+
+    <!--
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#98999A"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentStart="true"
+        android:id="@+id/view" />
+    -->
+</RelativeLayout>

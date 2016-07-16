@@ -1,9 +1,7 @@
-package fr.univ_lille1.iut_info.debaerdm.byaudace;
+package com.audace.byaudace;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
@@ -20,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 /**
  * ChoiceActivity est l'activité de choix, où l'utilisateur est redirigé après s'être authentifié avec succès.
@@ -126,6 +125,8 @@ public class ChoiceActivity extends Activity {
     public void aider(View v) {
         intentClass(JpeuxAiderActivity.class);
     }
+
+    public void settings(View v) { intentClass(SettingsActivity.class); }
 
     public void intentClass(Class changeClass){
         intent.setClass(this, changeClass);

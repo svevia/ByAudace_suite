@@ -1,4 +1,4 @@
-package fr.univ_lille1.iut_info.debaerdm.byaudace;
+package com.audace.byaudace;
 
 /**
  * Created by Rémy on 06/07/2016.

@@ -1,4 +1,4 @@
-package fr.univ_lille1.iut_info.debaerdm.byaudace;
+package com.audace.byaudace;
 
 /**
  * La classe User représente un utilisateur.

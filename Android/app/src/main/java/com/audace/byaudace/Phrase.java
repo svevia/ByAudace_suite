@@ -1,6 +1,4 @@
-package fr.univ_lille1.iut_info.debaerdm.byaudace;
-
-import java.util.Enumeration;
+package com.audace.byaudace;
 
 /**
  * La classe Phrase est utilisée pour représenter un couple phrae métier / besoin.

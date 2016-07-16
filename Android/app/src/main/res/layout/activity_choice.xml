@@ -30,7 +30,6 @@
         android:layout_alignParentBottom="false"
         android:layout_alignParentRight="false" />
 
-
     <ImageView
         android:layout_width="155dp"
         android:layout_height="115dp"
@@ -59,6 +58,15 @@
         android:layout_centerHorizontal="true"
         android:allowUndo="false" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/parameters"
+        android:onClick="settings" />
 
 
 </RelativeLayout>
