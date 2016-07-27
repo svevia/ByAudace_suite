@@ -12,12 +12,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.api.User;
 /**
  * Requêtes REST liés à la table utilisateurs de la base de données
  *
@@ -93,6 +96,30 @@ public class UserDBResource {
     		return null;
     	}
     }
+    
+    
+    @POST
+    @RolesAllowed({"admin","user"})
+    @Path("/editme")
+    public User editMe(@Context SecurityContext context,User user) {
+    	if(((User) context.getUserPrincipal()).getId() == user.getId()){
+	    	if((dao.findByMail(user.getMail()) == null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
+	    		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
+	    			user.setSalt(dao.findById(user.getId()).getSalt());
+	    			user.resetPasswordHash();
+	    		}
+		        dao.update(user);
+		        return user;
+	    	}
+	    	else{
+	    		return null;
+	    	}
+    	}
+    	else{
+    		return null;
+    	}
+    }
+
 
     
     @POST

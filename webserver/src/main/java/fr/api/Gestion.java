@@ -11,13 +11,13 @@ import java.util.Properties;
 public class Gestion {
 	
 	private int dureeVie;
-	private int nbrPhrases;
+	private int nbrPhrase;
 	
 	public Gestion() {}
 	
 	public Gestion(int dureeVie, int nbrPhrases){
 		this.dureeVie = dureeVie;
-		this.nbrPhrases = nbrPhrases;
+		this.nbrPhrase = nbrPhrases;
 	}
 
 	public int getDureeVie() {
@@ -29,11 +29,11 @@ public class Gestion {
 	}
 
 	public int getNbrPhrases() {
-		return nbrPhrases;
+		return nbrPhrase;
 	}
 
 	public void setNbrPhrases(int nbrPhrases) {
-		this.nbrPhrases = nbrPhrases;
+		this.nbrPhrase = nbrPhrases;
 	}
 	
 	public void save(){
