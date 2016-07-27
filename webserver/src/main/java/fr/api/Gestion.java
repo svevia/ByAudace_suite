@@ -28,11 +28,11 @@ public class Gestion {
 		this.dureeVie = dureeVie;
 	}
 
-	public int getNbrPhrases() {
+	public int getNbrPhrase() {
 		return nbrPhrase;
 	}
 
-	public void setNbrPhrases(int nbrPhrases) {
+	public void setNbrPhrase(int nbrPhrases) {
 		this.nbrPhrase = nbrPhrases;
 	}
 	
@@ -43,7 +43,7 @@ public class Gestion {
     	try {
     		output = new FileOutputStream("src/main/resources/config.properties");
     		// set the properties value
-    		prop.setProperty("nbrPhrase", getNbrPhrases()+"");
+    		prop.setProperty("nbrPhrase", getNbrPhrase()+"");
     		prop.setProperty("dureeVie", getDureeVie()+"");
     		// save properties to project root folder
     		prop.store(output, null);
@@ -77,7 +77,7 @@ public class Gestion {
 
 			// get the property value and print it out
 			setDureeVie(Integer.parseInt(prop.getProperty("dureeVie")));
-			setNbrPhrases(Integer.parseInt(prop.getProperty("nbrPhrase")));
+			setNbrPhrase(Integer.parseInt(prop.getProperty("nbrPhrase")));
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
