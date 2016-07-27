@@ -97,7 +97,6 @@ public class Gestion {
     	Properties prop = new Properties();
     	OutputStream output = null;
 		File f = new File("src/main/resources/config.properties");
-		System.out.println(f.getAbsolutePath());
     	try {
 			f.createNewFile();
 		} catch (IOException e1) {
