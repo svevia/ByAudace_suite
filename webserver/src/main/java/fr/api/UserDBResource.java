@@ -104,7 +104,8 @@ public class UserDBResource {
     @Path("/editme")
     public User editMe(@BindBean User user,@Context SecurityContext context) {
     	User log = (User) context.getUserPrincipal();
-    	logger.trace("edit personnel du user + " + user.getId() + "context user : " + log.getId());
+    	logger.trace("edit personnel du user + " + user.getId());
+    	logger.trace("context user : " + log.getId());
     	if(((User) context.getUserPrincipal()).getId() == user.getId()){
 	    	if((dao.findByMail(user.getMail()) == null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
 	    		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
