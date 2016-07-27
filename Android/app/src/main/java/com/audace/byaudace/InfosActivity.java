@@ -85,18 +85,6 @@ public class InfosActivity extends Activity {
         }else{
 
             // On envoie le nouvel utilisateur
-            // -------------------------------------------------------
-            // ATTENTION MOT DE PASSE NON CRYPTE
-            // -------------------------------------------------------
-
-            /*User user = new User(intent.getIntExtra("id",0),
-                    intent.getStringExtra("user_digit"),
-                    mail.getText().toString(),
-                    mdp2.getText().toString(),
-                    nom.getText().toString(),
-                    prenom.getText().toString(),
-                    numero.getText().toString());*/
-
             RequestQueue queue = Volley.newRequestQueue(this);
 
             Map<String, Object> bonjour = new HashMap<>();
@@ -138,7 +126,8 @@ public class InfosActivity extends Activity {
             };
             queue.add(request);
 
+            startActivity(new Intent(InfosActivity.this,MainActivity.class));
+            Toast.makeText(getApplicationContext(), "Vos informations ont bien été modifiées.\nVeuillez vous reconnecter afin qu'elles soient prises en compte.", Toast.LENGTH_LONG).show();
         }
-
     }
 }

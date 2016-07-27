@@ -154,10 +154,12 @@ public class ChoiceActivity extends Activity {
         intent.putExtra("user_mot_de_passe", user.getMdp());
         System.out.println("CANARY : " + user.getDigit());
 
-        if(changeClass == InfosActivity.class)
-            intent.putExtra("first_use",true);
+        if(changeClass == InfosActivity.class) {
+            intent.putExtra("first_use", true);
+        }
 
         startActivity(intent);
+        //finish();
     }
 
 }

@@ -208,7 +208,7 @@ public class MainActivity extends Activity {
                         activity.putExtra("user_mail", login);
                         activity.putExtra("mdp", hashSalt);
                         startActivity(activity);
-                        finish();
+                        //finish();
                     }
                 }, new Response.ErrorListener() {
 

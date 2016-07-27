@@ -80,7 +80,7 @@ public class SettingsActivity extends Activity {
         coucou.putExtra("user_numero", intent.getStringExtra("user_numero"));
         coucou.putExtra("user_mail", intent.getStringExtra("user_mail"));
         coucou.putExtra("user_mot_de_passe", intent.getStringExtra("user_mot_de_passe"));
-        //System.out.println("LOLOL : " + coucou.getStringExtra("user_digit"));
         startActivity(coucou);
+        //this.finish();
     }
 }
