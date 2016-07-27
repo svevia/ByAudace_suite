@@ -13,17 +13,13 @@
   <body>
      <jsp:include page="/layout/logo.jsp"/>
     <jsp:include page="/layout/navbar.jsp">
-    <jsp:param name="name" value = "${it.name}"/>
+    <jsp:param name="name" value = "${it.user.name}"/>
+            <jsp:param name="role" value="${it.user.role}"/>
 	</jsp:include>
 
 
     <div class="container">
-    
 
-    
-    
-    
-    
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
              <h1>Utilisateurs</h1>
@@ -44,7 +40,7 @@
             
                     <table id="table" class="table">
                     <% int cpt =0; %>
-                    <c:forEach items="${it.user}" var="item">
+                    <c:forEach items="${it.list}" var="item">
                         <tr id = "user_<%=cpt%>">
                         <td id = "mail_<%=cpt%>"><a id="linkMail_<%=cpt%>" href="/html/userdb/${item.id}">${item.mail}</a></td>
                         <td><button id="b_<%=cpt%>" name="${item.id}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>

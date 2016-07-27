@@ -13,7 +13,8 @@ son besoin, le nombre de consultation, si elle est terminée-->
   <body>
     <jsp:include page="/layout/logo.jsp"/>
     <jsp:include page="/layout/navbar.jsp">
-    <jsp:param name="name" value = "${it.connect}"/>
+    <jsp:param name="name" value = "${it.user.name}"/>
+            <jsp:param name="role" value="${it.user.role}"/>
 	</jsp:include>
 
     <div class="container">
@@ -31,7 +32,7 @@ son besoin, le nombre de consultation, si elle est terminée-->
                 ${it.phrases.phrase}<br/>
 				${it.phrases.besoin}<br/>  
 				categorie : ${it.phrases.categorie}<br/>          
-                user : ${it.mail}<br/>
+                user : ${it.user.mail}<br/>
                 date : ${it.phrases.date}<br/>
                 signalement : ${it.phrases.signalement}<br/>
                 <%--vérifie l'attribut terminee de la phrase et fait un affichage différent en fonction--%>

@@ -36,6 +36,9 @@ public class AppSecurityContext implements SecurityContext {
         if ("admin".equals(s) || "root".equals(s)) {//donne les droits d'admin au root aussi
             return user.isInAdminGroup();
         }
+        if("animateur".equals(s)){
+        	return user.isInAnimateurGroup();
+        }
         else if("user".equals(s)) {
             return user.isInUserGroup();
         }

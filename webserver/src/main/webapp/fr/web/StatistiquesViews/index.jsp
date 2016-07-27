@@ -24,7 +24,8 @@
 
 		<jsp:include page="/layout/logo.jsp"/>
 	    <jsp:include page="/layout/navbar.jsp">
-    	<jsp:param name="name" value = "${it}"/>
+    	<jsp:param name="name" value = "${it.name}"/>
+    	        <jsp:param name="role" value="${it.role}"/>
 		</jsp:include>
 
 

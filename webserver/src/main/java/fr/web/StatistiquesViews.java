@@ -11,6 +11,8 @@ import javax.ws.rs.core.SecurityContext;
 
 import org.glassfish.jersey.server.mvc.Template;
 
+import fr.api.User;
+
 @Path("/statistiques")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @Produces(MediaType.TEXT_HTML)
@@ -18,9 +20,9 @@ import org.glassfish.jersey.server.mvc.Template;
 public class StatistiquesViews {
     @GET
     @Template
-    public String getAll(@Context SecurityContext context) {
-        String name = context.getUserPrincipal().getName();
-        return name;
+    public User getAll(@Context SecurityContext context) {
+        User user = (User) context.getUserPrincipal();
+        return user;
     }
     
 }

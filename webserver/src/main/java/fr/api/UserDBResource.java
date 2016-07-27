@@ -38,15 +38,15 @@ public class UserDBResource {
      * @return user - Utilisateur créé
      */
     @POST
-    @RolesAllowed("admin")
+    @RolesAllowed({"admin", "animateur"})
     public User createUser(User user) {
     	if(dao.findByMail(user.getMail())== null){
     		String pass = user.generatePass();
     		user.setMot_de_passe(pass);
-    		Mailer.sendMail(user.getMail(), Mailer.pass(pass)); 
+    		Mailer.sendMail(user.getMail(), Mailer.pass(pass), "cotre mot de passe Audace"); 
 	        user.resetPasswordHash();
 	        dao.insert(user);
-	        logger.trace("creation user " + user.getMail() + " -- id = " + user.getId());
+	        logger.trace("creation user " + user.getMail() + " -- id = " + dao.findByMail(user.getMail()).getId());
 	        return user;
     	}
     	else{
@@ -120,7 +120,18 @@ public class UserDBResource {
     public void sendMail(String m) {
     	List<String> mails = dao.getAllMail();
     	for(String mail : mails){
-    		Mailer.sendMail(mail, m);
+    		Mailer.sendMail(mail, m, "Audace a besoin de vous !");
+    	}
+    }
+    
+    
+    @POST
+    @RolesAllowed({"admin","user"})
+    @Path("/send")
+    public void sendHelp(Mail m) {
+    	List<String> mails = dao.getAllMail();
+    	for(String mail : mails){
+    		Mailer.sendMail(m);
     	}
     }
     
@@ -194,7 +205,7 @@ public class UserDBResource {
     	logger.trace("mot de passe perdu pour : " + mail);
 		String pass = user.generatePass();
 		user.setMot_de_passe(pass);
-		Mailer.sendMail(user.getMail(), Mailer.pass(pass)); 
+		Mailer.sendMail(user.getMail(), Mailer.pass(pass), "Votre mot de passe Audace"); 
         user.resetPasswordHash();
         
         dao.update(user);

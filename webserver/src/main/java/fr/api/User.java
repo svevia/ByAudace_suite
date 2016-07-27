@@ -155,10 +155,14 @@ public class User implements Principal {
     }
 
     public boolean isInUserGroup(){
-        return this.role.equals("user");
+        return (this.role.equals("user"))||(this.role.equals("animateur"));
     }
 
-
+	public boolean isInAnimateurGroup() {
+		return this.role.equals("animateur");
+	}
+    
+    
     private String generateSalt() {
         SecureRandom random = new SecureRandom();
         Hasher hasher = Hashing.md5().newHasher();
@@ -190,6 +194,8 @@ public class User implements Principal {
             setMot_de_passe(buildHash(mot_de_passe, getSalt()));
         }
     }
+
+
 
 
 }

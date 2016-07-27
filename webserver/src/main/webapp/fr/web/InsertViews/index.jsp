@@ -11,9 +11,13 @@
     </head>
     <body>
       <jsp:include page="/layout/logo.jsp"/>
+      
+     <c:if test="${it.role eq 'admin' || param.role eq 'root'}">
     <jsp:include page="/layout/navbar.jsp">
-    <jsp:param name="name" value = "${it}"/>
-	</jsp:include>
+    <jsp:param name="name" value = "${it.name}"/>
+    	</jsp:include>
+    </c:if>
+
 
 <div class="container">
 
@@ -49,6 +53,10 @@ user</label>
 <label class="radio-inline">
 <input type = "radio" name = "role" id = "admin" value = "admin" />
 admin</label>
+
+<label class="radio-inline">
+<input type = "radio" name = "role" id = "animateur" value = "animateur" />
+animateur</label>
   </div>
   <button id="submit" class="btn btn-default">Creer</button>
   </div>

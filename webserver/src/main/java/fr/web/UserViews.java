@@ -26,24 +26,25 @@ public class UserViews {
      * Class interne contenant une liste de user et le nom de l'user actuellement connecté pour la navbar
      */
     public class Returner{
-    	List<User> user;
-    	String name;
-    	public Returner(List<User> user, String name){
+    	List<User> list;
+    	User user;
+    	public Returner(List<User> list, User user){
     		this.user = user;
-    		this.name = name;
+    		this.list = list;
     	}
-		public List<User> getUser() {
+		public List<User> getList() {
+			return list;
+		}
+		public void setList(List<User> list) {
+			this.list = list;
+		}
+		public User getUser() {
 			return user;
 		}
-		public void setUser(List<User> user) {
+		public void setUser(User user) {
 			this.user = user;
 		}
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
-		}
+
     }
     
     /**
@@ -55,7 +56,7 @@ public class UserViews {
     @Template
     @RolesAllowed("admin")
     public Returner getAll(@Context SecurityContext context) {
-        String name = context.getUserPrincipal().getName();
+        User name = (User) context.getUserPrincipal();
         return new Returner(dao.all(), name);
     }
 
@@ -64,11 +65,11 @@ public class UserViews {
      * @author svevia
      */
     public class ReturnerUser{
+    	User userDetail;
     	User user;
-    	String name;
-    	public ReturnerUser(User user, String name){
+    	public ReturnerUser(User userDetail, User user){
     		this.user = user;
-    		this.name = name;
+    		this.userDetail = userDetail;
     	}
 		public User getUser() {
 			return user;
@@ -76,12 +77,13 @@ public class UserViews {
 		public void setUser(User user) {
 			this.user = user;
 		}
-		public String getName() {
-			return name;
+		public User getUserDetail() {
+			return userDetail;
 		}
-		public void setName(String name) {
-			this.name = name;
+		public void setUserDetail(User userDetail) {
+			this.userDetail = userDetail;
 		}
+
     }
     
     /**
@@ -95,7 +97,7 @@ public class UserViews {
     @Path("/{id}")
     @RolesAllowed("admin")
     public ReturnerUser getDetail(@PathParam("id") int id,@Context SecurityContext context) {
-    	String name = context.getUserPrincipal().getName();
+    	User name = (User) context.getUserPrincipal();
         User user = dao.findById(id);
         if (user == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);

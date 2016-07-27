@@ -1,6 +1,11 @@
 package fr.api;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
+import java.util.Properties;
+
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -43,6 +48,22 @@ public class PhraseResource {
         dao.insert(phrase);
         logger.trace("nouvelle phrase -- id = " + phrase.getId());
         return phrase;
+    }
+    
+    @POST
+    @Path("/config")
+    @RolesAllowed("admin")
+    public void setConfig(Gestion g){
+    	g.save();
+    }
+    
+    @GET
+    @Path("/config")
+    @RolesAllowed("admin")
+    public Gestion getConfig(){
+    	Gestion g = new Gestion();
+    	g.init();
+    	return g;
     }
 
     @POST
@@ -123,7 +144,7 @@ public class PhraseResource {
     @Path("/search")
     public List<Phrase> search(@QueryParam("search") String search) {
     	if(search == ""){
-    		return dao.all();
+    		return dao.orderDate();
     	}
     	else{
     		return dao.search("%" + search + "%");
@@ -227,6 +248,8 @@ public class PhraseResource {
     @GET
     @RolesAllowed({"admin","user"})
     public List<Phrase> getAllPhrase() {
-        return dao.all();
+    	Gestion g = new Gestion();
+    	g.init();
+        return dao.allAppli(g);
     }
 }

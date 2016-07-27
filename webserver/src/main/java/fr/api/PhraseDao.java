@@ -40,7 +40,13 @@ public interface PhraseDao {
     //selection de toutes les phrases (utilisee dans PhraseViews/index.jsp methode get)
     @SqlQuery("select * from phrase order by date desc")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    List<Phrase> all();
+    List<Phrase> all(Gestion g);
+    
+    //selection de toutes les phrases (utilisee dans PhraseViews/index.jsp methode get)
+    @SqlQuery("select * from phrase order by date desc LIMIT :g.nbrPhrases date >= datetime('now', ':g.dureeVie- days') ")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    List<Phrase> allAppli(Gestion g);
+    
     //retourne le nombre total de phrases (utilisee dans StatistiqueViews/index.jsp methode get)
     @SqlQuery("select count(*) from phrase")
     int getAllCount();

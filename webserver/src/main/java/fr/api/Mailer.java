@@ -8,7 +8,7 @@ import javax.mail.internet.*;
 public class Mailer {
 
 
-	public static void sendMail(String Adresse, String msg){
+	public static void sendMail(String Adresse, String msg, String sujet){
 		if(Adresse.contains("@")){
 		      // Recipient's email ID needs to be mentioned.
 		      String to = Adresse;
@@ -50,7 +50,7 @@ public class Mailer {
 		         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 	
 		         // Set Subject: header field
-		         message.setSubject("Audace a besoin de vous !");
+		         message.setSubject(sujet);
 	
 		         // Now set the actual message
 		         message.setText(msg,"utf-8", "html");
@@ -64,6 +64,10 @@ public class Mailer {
 		
 		}
 		
+	}
+	
+	public static void sendMail(Mail m){
+		sendMail(m.getAdresse(), m.getMessage(), m.getSujet());
 	}
 	
 	public static String pass(String pass){

@@ -13,19 +13,14 @@ import org.glassfish.jersey.server.mvc.Template;
 
 import fr.api.User;
 
-/**
- * Vue pour la page d'insertion d'un nouvel utilisateur
- *
- */
-
-@Path("/insert")
+@Path("/manage")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @Produces(MediaType.TEXT_HTML)
-@RolesAllowed({"admin","animateur"})
-public class InsertViews {
+@RolesAllowed("admin")
+public class ManageView {
     @GET
     @Template
-    public User getAll(@Context SecurityContext context) {
+    public User display(@Context SecurityContext context) {
         User user = (User) context.getUserPrincipal();
         return user;
     }

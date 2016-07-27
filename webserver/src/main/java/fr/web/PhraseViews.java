@@ -27,10 +27,10 @@ public class PhraseViews {
     public class Returner{
     						
     	List<Phrase> phrases;
-    	String name;
-    	public Returner(List<Phrase> phrases, String name){
+    	User user;
+    	public Returner(List<Phrase> phrases, User name){
     		this.phrases = phrases;
-    		this.name = name;
+    		this.user = name;
     	}
 		public List<Phrase> getPhrases() {
 			return phrases;
@@ -38,12 +38,13 @@ public class PhraseViews {
 		public void setPhrases(List<Phrase> phrases) {
 			this.phrases = phrases;
 		}
-		public String getName() {
-			return name;
+		public User getUser() {
+			return user;
 		}
-		public void setName(String name) {
-			this.name = name;
+		public void setUser(User user) {
+			this.user = user;
 		}
+
     }
     
     /**
@@ -54,8 +55,8 @@ public class PhraseViews {
     @GET
     @Template
     public Returner getAllPhrase(@Context SecurityContext context) {
-        String name = context.getUserPrincipal().getName();
-        return new Returner(dao.all(), name);
+        User name = (User) context.getUserPrincipal();
+        return new Returner(dao.orderDate(), name);
     }
 
     /**
@@ -64,15 +65,13 @@ public class PhraseViews {
      */
     public class ReturnerPhrase{
     	Phrase phrases;
-    	String connect;
-    	String mail;
+    	User user;
     	
-    	public ReturnerPhrase(Phrase phrases, String connect){
+    	public ReturnerPhrase(Phrase phrases, User user){
     		
     		UserDao userDao = BDDFactory.getDbi().open(UserDao.class);
     		this.phrases = phrases;
-    		this.connect = connect;
-    		this.mail = userDao.findById(phrases.getId_user()).getMail();
+    		this.user = user;
     	}
 		public Phrase getPhrases() {
 			return phrases;
@@ -80,20 +79,13 @@ public class PhraseViews {
 		public void setPhrases(Phrase phrases) {
 			this.phrases = phrases;
 		}
-		public String getConnect() {
-			return connect;
+		public User getUser() {
+			return user;
 		}
-		public void setConnect(String connect) {
-			this.connect = connect;
+		public void setUser(User user) {
+			this.user = user;
 		}
-		public String getMail() {
-			return mail;
-		}
-		public void setMail(String mail) {
-			this.mail = mail;
-		}
-		
-		
+
     }
     
     
@@ -107,13 +99,13 @@ public class PhraseViews {
     @Template(name = "detail")
     @Path("/{id}")
     public ReturnerPhrase getPhrase(@PathParam("id") int id,@Context SecurityContext context) {
-        String connect = context.getUserPrincipal().getName();
+        User user = (User) context.getUserPrincipal();
         Phrase phrases = dao.findById(id);
         if (phrases == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
         else{
-        	return new ReturnerPhrase(phrases, connect);
+        	return new ReturnerPhrase(phrases, user);
         }
     }
 }

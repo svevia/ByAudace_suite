@@ -117,9 +117,7 @@ function listUsersGeneric(url) {
 }
 
 function afficheUser(data) {
-	console.log(data);
-	$("#reponse").html(data.id + " : <b>" + data.alias + "</b> (" + data.name + ")");
-	window.location.replace("/html/userdb");
+	window.location.replace("/html/insert");
 }
 
 function afficheListUsers(data) {

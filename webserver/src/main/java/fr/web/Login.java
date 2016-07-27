@@ -59,7 +59,13 @@ public class Login{
 
     private void setCookieAndRedirectToUserDetail(User currentUser) throws URISyntaxException {
     	logger.trace("connexion accepté en tant que : " + currentUser.getMail());
-        URI location = new URI("/html/userdb");//redirige vers la liste des utilisateurs après login
+    	URI location;
+    	if(currentUser.isInAnimateurGroup()){
+    		location = new URI("/html/insert");//redirige vers la liste des utilisateurs après login
+    	}
+    	else{
+    		location = new URI("/html/userdb");
+    	}
         throw new WebApplicationException(Response
                 .temporaryRedirect(location)
                 .cookie(new NewCookie("user", currentUser.getMail()+":"+currentUser.getMot_de_passe()))

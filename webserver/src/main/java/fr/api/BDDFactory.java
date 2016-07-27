@@ -53,7 +53,10 @@ public class BDDFactory {
 		new PhraseResource().createPhrase(new Phrase("phrase 3","besoin 2", 1, 1));
 		new PhraseResource().createPhrase(new Phrase("phrase 4","besoin 2", 1, 2));
 		new PhraseResource().createPhrase(new Phrase("phrase 5","besoin 2", 3, 1));
-
+		Gestion g = new Gestion();
+		g.setDureeVie(15);
+		g.setNbrPhrases(200);
+		g.save();
 	}
 
 }
