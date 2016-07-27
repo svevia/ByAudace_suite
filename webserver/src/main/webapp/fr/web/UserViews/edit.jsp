@@ -31,8 +31,8 @@
     <input type="password" class="form-control" id="password"  value="${it.userDetail.mot_de_passe}">
   </div>
   <div class="form-group">
-    <label for="nom">Nom</label>
-    <input type="text" class="form-control" id="nom"  value="${it.userDetail.name}">
+    <label for="name">name</label>
+    <input type="text" class="form-control" id="name"  value="${it.userDetail.name}">
   </div>
   <div class="form-group">
     <label for="prenom">Prenom</label>
@@ -57,13 +57,13 @@
             $("#submit").click(function () {
                 mail = $('#mail').val();
                 pass = $('#password').val();
-                nom = $('#nom').val();
+                name = $('#name').val();
                 prenom = $('#prenom').val();
                 tel = $('#tel').val();
                 digit = $('#digit').val();
                 role = $("#role").val();
                 id = $('#id').val();
-                editUser(mail,nom,prenom,digit,pass,tel,role,id)});
+                editUser(mail,name,prenom,digit,pass,tel,role,id)});
         });
   </script>
 
