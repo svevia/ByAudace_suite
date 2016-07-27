@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	data = getValue(function(nb){
         vie = $('#dureeDeVie').val(nb.dureeVie);
-        nbr = $('#nbrPhrases').val(nb.nbrPhrases);
+        nbr = $('#nbrPhrases').val(nb.nbrPhrase);
 	})
 	
 	 $("#submit").click(function () {

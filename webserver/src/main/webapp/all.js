@@ -42,7 +42,7 @@ function getByAnnotation() {
      }
  }
 
-function postUser(mail,nom,prenom,digit,role,tel) {
+function postUser(mail,name,prenom,digit,role,tel) {
 	url = "/v1/userdb/";
 	if(role == "admin"){
 		url += "admin/";
@@ -54,7 +54,7 @@ function postUser(mail,nom,prenom,digit,role,tel) {
 		dataType : "json",
 		data : JSON.stringify({
 			"mail" : mail,
-			"nom" : nom,
+			"name" : name,
 			"prenom" : prenom,
 			"digit" : digit,
 			"role" : role,
@@ -75,7 +75,7 @@ function postUser(mail,nom,prenom,digit,role,tel) {
 	});
 }
 
-function editUser(mail,nom,prenom,digit,pass,tel,role) {
+function editUser(mail,name,prenom,digit,pass,tel,role) {
 	url = "/v1/userdb/edit/";
 	if(role == "admin"){
 		url += "admin/";
@@ -87,7 +87,7 @@ function editUser(mail,nom,prenom,digit,pass,tel,role) {
 		dataType : "json",
 		data : JSON.stringify({
 			"mail" : mail,
-			"nom" : nom,
+			"name" : name,
 			"prenom" : prenom,
 			"digit" : digit,
 			"mot_de_passe" : pass,

@@ -32,7 +32,7 @@
   </div>
   <div class="form-group">
     <label for="nom">Nom</label>
-    <input type="text" class="form-control" id="nom"  value="${it.userDetail.nom}">
+    <input type="text" class="form-control" id="nom"  value="${it.userDetail.name}">
   </div>
   <div class="form-group">
     <label for="prenom">Prenom</label>
