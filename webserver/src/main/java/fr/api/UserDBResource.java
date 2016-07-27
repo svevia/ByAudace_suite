@@ -102,7 +102,7 @@ public class UserDBResource {
     @POST
     @RolesAllowed({"admin","user"})
     @Path("/editme")
-    public User editMe(@BindBean User user,@Context SecurityContext context) {
+    public User editMe(User user,@Context SecurityContext context) {
     	User log = (User) context.getUserPrincipal();
     	logger.trace("edit personnel du user + " + user.getId());
     	logger.trace("context user : " + log.getId());
