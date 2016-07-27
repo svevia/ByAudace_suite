@@ -54,10 +54,10 @@
         android:lines="4"
         android:maxLines="4"
         android:layout_below="@+id/nbChar2"
-        android:layout_alignLeft="@+id/pm"
-        android:layout_alignStart="@+id/pm"
-        android:layout_alignRight="@+id/pm"
-        android:layout_alignEnd="@+id/pm" />
+        android:layout_alignLeft="@+id/spinner"
+        android:layout_alignStart="@+id/spinner"
+        android:layout_alignRight="@+id/spinner"
+        android:layout_alignEnd="@+id/spinner" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -81,8 +81,11 @@
         android:maxLines="4"
         android:lines="4" />
 
+    <!-- Le skin perso fait planter l'adapter du spinner
+     android:background="@drawable/edit_text"
+     -->
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
         android:spinnerMode="dropdown"
@@ -92,18 +95,19 @@
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_alignBaseline="@+id/button"
-        android:layout_alignBottom="@+id/button"
-        android:layout_toLeftOf="@+id/button"
+        android:layout_marginTop="20dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/pm"
+        android:layout_alignRight="@+id/pm"
+        android:layout_alignEnd="@+id/pm" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Envoyer"
         android:id="@+id/button"
+        android:layout_marginTop="30dp"
         android:onClick="postPhrase"
         android:background="@drawable/button"
         android:textColor="#ffffff"
@@ -112,9 +116,7 @@
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:layout_below="@+id/phrase"
-        android:layout_alignRight="@+id/phrase"
-        android:layout_alignEnd="@+id/phrase"
-        android:layout_marginTop="51dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -140,9 +142,9 @@
         android:textStyle="bold"
         android:id="@+id/nbChar2"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/pm"
+        android:textColor="#339900"
         android:layout_alignLeft="@+id/nbChar"
         android:layout_alignStart="@+id/nbChar"
-        android:textColor="#339900" />
+        android:layout_below="@+id/spinner" />
 
 </RelativeLayout>

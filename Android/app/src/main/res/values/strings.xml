@@ -16,6 +16,7 @@
     <string name="audacelink">campus-audace.com</string>
     <string name="mdpoublie">Mot de passe oublié ?</string>
     <string name="notifs">Cette option vous permet de recevoir des notifications dès que de nouveaux besoins sont postés sur l\'application.</string>
+    <string name="infos">Vous pouvez modifier ici vos informations personnelles : numéro de téléphone, mot de passe...</string>
 
     <string-array name="spinner">
         <item>Juridique</item>

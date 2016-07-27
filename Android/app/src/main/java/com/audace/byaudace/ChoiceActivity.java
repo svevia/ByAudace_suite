@@ -7,6 +7,7 @@ import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -30,6 +31,7 @@ public class ChoiceActivity extends Activity {
 
     private Intent intent;
     private User user;
+    private String salt;
 
     /**
      * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
@@ -50,8 +52,6 @@ public class ChoiceActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-        setContentView(R.layout.activity_choice);
-
         intent = this.getIntent();
         RequestQueue queue = Volley.newRequestQueue(this);
 
@@ -61,7 +61,7 @@ public class ChoiceActivity extends Activity {
 
                     @Override
                     public void onResponse(String json) {
-                        System.out.println("Json : " + json);
+                        System.out.println("Champion : " + json);
                         String[] tok = json.split(",");
 
                         // A corriger : Les champs peuvent être nuls dans le User
@@ -72,6 +72,14 @@ public class ChoiceActivity extends Activity {
                                 tok[4].split(":")[1], //nom
                                 tok[5].split(":")[1], //numero
                                 tok[6].split(":")[1]); //prenom
+
+
+                        System.out.println("USER : " + user.toString());
+                        // Ici, on attrape l'utilisateur qui démarre l'appli pour la première fois
+                        if(user.getNom().isEmpty() && user.getPrenom().isEmpty()){
+                            //Toast.makeText(getApplicationContext(), "BONJOUR", Toast.LENGTH_SHORT).show();
+                            intentClass(InfosActivity.class);
+                        }
                     }
 
                 }, new Response.ErrorListener() {
@@ -90,6 +98,7 @@ public class ChoiceActivity extends Activity {
             }
         };
         queue.add(request);
+        setContentView(R.layout.activity_choice);
     }
 
     /**
@@ -130,12 +139,19 @@ public class ChoiceActivity extends Activity {
 
     public void intentClass(Class changeClass){
         intent.setClass(this, changeClass);
+        intent.putExtra("salt",salt);
         intent.putExtra("id", user.getId());
+        intent.putExtra("user_digit",user.getDigit());
         intent.putExtra("user_nom", user.getNom());
         intent.putExtra("user_prenom", user.getPrenom());
         intent.putExtra("user_numero", user.getNumero());
         intent.putExtra("user_mail", user.getMail());
         intent.putExtra("user_mot_de_passe", user.getMdp());
+        System.out.println("CANARY : " + user.getDigit());
+
+        if(changeClass == InfosActivity.class)
+            intent.putExtra("first_use",true);
+
         startActivity(intent);
     }
 

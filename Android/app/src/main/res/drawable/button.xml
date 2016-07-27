@@ -4,9 +4,6 @@
         <shape>
             <solid
                 android:color="#88898A"/>
-                <!--
-                    -4 sur chaque couleur
-                -->
         </shape>
     </item>
     <item>

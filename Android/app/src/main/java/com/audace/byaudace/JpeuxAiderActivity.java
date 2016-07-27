@@ -30,6 +30,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -107,7 +108,7 @@ public class JpeuxAiderActivity extends Activity  {
         phrases = new ArrayList<>();
         intent = this.getIntent();
 
-        queue =  Volley.newRequestQueue(getApplication().getApplicationContext());
+        queue = Volley.newRequestQueue(getApplication().getApplicationContext());
 
         getConnexion();
     }
@@ -127,6 +128,23 @@ public class JpeuxAiderActivity extends Activity  {
                         try {
                             byte[] u = json.getBytes("ISO-8859-1");
                             json = new String(u, "UTF-8");
+                            JSONArray mArray = null;
+                            try{
+                                mArray = new JSONArray(json);
+                            }catch(Exception e){}
+
+                            int id_count = 0;
+                            int tmp = 0;
+
+                            for (int i = 0; i<json.length(); i++) {
+                                try {
+                                    tmp = mArray.getJSONObject(i).getInt("id");
+                                    id_count = id_count + 1;
+                                } catch (JSONException e) {}
+                            }
+
+                            System.out.println("SPIDERMAN : " + id_count);
+
                         } catch (UnsupportedEncodingException e ){
                             e.printStackTrace();
                         }
@@ -298,6 +316,9 @@ public class JpeuxAiderActivity extends Activity  {
                         } catch (android.content.ActivityNotFoundException ex) {
                             Toast.makeText(JpeuxAiderActivity.this, "Aucune application mail n'est installée.", Toast.LENGTH_SHORT).show();
                         }
+
+                        // nouveau mail
+                        // POST sur /v1/userdb/send
 
                         // ----------------------------------------------------------------------------------------------------------------
                         // communication avec le serveur REST pour les stats

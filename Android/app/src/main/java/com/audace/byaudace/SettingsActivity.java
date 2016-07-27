@@ -20,6 +20,7 @@ public class SettingsActivity extends Activity {
     public Switch notifs;
     private SharedPreferences pref;
     private Intent notificationIntent;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +32,7 @@ public class SettingsActivity extends Activity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_settings);
-
+        intent = this.getIntent();
         notificationIntent = new Intent(this,NotificationService.class);
         notifs = (Switch)findViewById(R.id.switchNotifications);
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -59,36 +60,6 @@ public class SettingsActivity extends Activity {
 
     }
 
-    public void sendNotifications(View view){
-        NotificationCompat.Builder mBuilder =
-                new NotificationCompat.Builder(this)
-                        .setSmallIcon(R.drawable.ic_launcher)
-                        .setContentTitle("ByAudace")
-                        .setContentText("5 nouveaux besoins ont été postés !");
-    // Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, JpeuxAiderActivity.class);
-
-    // The stack builder object will contain an artificial back stack for the
-    // started Activity.
-    // This ensures that navigating backward from the Activity leads out of
-    // your application to the Home screen.
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-    // Adds the back stack for the Intent (but not the Intent itself)
-        stackBuilder.addParentStack(JpeuxAiderActivity.class);
-    // Adds the Intent that starts the Activity to the top of the stack
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
-        mBuilder.setContentIntent(resultPendingIntent);
-        NotificationManager mNotificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-    // mId allows you to update the notification later on.
-        mNotificationManager.notify(42, mBuilder.build());
-    }
-
     public void start(){
         //startService(new Intent(getBaseContext(),NotificationService.class));
         this.startService(notificationIntent);
@@ -97,5 +68,19 @@ public class SettingsActivity extends Activity {
     public void stop(){
         //stopService(new Intent(getBaseContext(),NotificationService.class));
         stopService(notificationIntent);
+    }
+
+    public void changeInfos(View view){
+        Intent coucou = new Intent(SettingsActivity.this, InfosActivity.class);
+        coucou.putExtra("id", intent.getIntExtra("id",0));
+        coucou.putExtra("salt",intent.getStringExtra("salt"));
+        coucou.putExtra("user_digit",intent.getStringExtra("user_digit"));
+        coucou.putExtra("user_nom", intent.getStringExtra("user_nom"));
+        coucou.putExtra("user_prenom", intent.getStringExtra("user_prenom"));
+        coucou.putExtra("user_numero", intent.getStringExtra("user_numero"));
+        coucou.putExtra("user_mail", intent.getStringExtra("user_mail"));
+        coucou.putExtra("user_mot_de_passe", intent.getStringExtra("user_mot_de_passe"));
+        //System.out.println("LOLOL : " + coucou.getStringExtra("user_digit"));
+        startActivity(coucou);
     }
 }

@@ -68,6 +68,38 @@
         android:layout_alignEnd="@+id/switchNotifications"
         android:textSize="17sp" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@+id/switchNotifications"
+        android:layout_alignStart="@+id/switchNotifications"
+        android:layout_alignRight="@+id/switchNotifications"
+        android:layout_alignEnd="@+id/switchNotifications"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/textView2"
+        android:onClick="changeInfos">
+
+        <TextView
+            android:id="@+id/infos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Informations personnelles"
+            android:layout_gravity="left|top"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textinfos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/infos"
+            android:layout_marginTop="22dp"
+            android:textSize="17sp"
+            android:layout_gravity="left|top" />
+
+
+    </FrameLayout>
+
     <!--
     <View
         android:layout_width="fill_parent"

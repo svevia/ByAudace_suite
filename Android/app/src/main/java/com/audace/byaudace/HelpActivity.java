@@ -10,10 +10,12 @@ import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
@@ -27,8 +29,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -68,14 +72,29 @@ public class HelpActivity extends Activity{
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_help);
-
-
         categorie = (Spinner) findViewById(R.id.spinner);
-        //ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.spinner, R.layout.spinner_item);
-        ArrayAdapter adapter = ArrayAdapter. createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_item) ;
+
+
+        /*ArrayAdapter adapter = ArrayAdapter. createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_item) ;
+        categorie.setAdapter(adapter);*/
+
+        SpinnerAdapter adapter = new SpinnerAdapter(HelpActivity.this, android.R.layout.simple_list_item_1);
+        List<String> Lines = Arrays.asList(getResources().getStringArray(R.array.spinner));
+        adapter.addAll(Lines);
+        adapter.add("Catégorie de besoin");
         categorie.setAdapter(adapter);
+        categorie.setSelection(adapter.getCount()-1);
+
 
         phraseMetier = (EditText) findViewById(R.id.pm);
+        phraseMetier.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                phraseMetier.setBackgroundResource(R.drawable.edit_text);
+                phraseBesoin.setBackgroundResource(R.drawable.edit_text);
+            }
+        });
+
         phraseBesoin = (EditText) findViewById(R.id.phrase);
         nbCharTxt = (TextView) findViewById(R.id.nbChar);
         nbCharTxt2 = (TextView) findViewById(R.id.nbChar2);
@@ -107,10 +126,7 @@ public class HelpActivity extends Activity{
         final String mail = intent.getStringExtra("user_mail");
         final String mdp = intent.getStringExtra("user_mot_de_passe");
 
-        phraseMetier.setBackgroundColor(Color.WHITE);
-        phraseBesoin.setBackgroundColor(Color.WHITE);
-
-        if(!phraseUne.getEditText().getText().toString().equals("") && !phraseDeux.getEditText().getText().toString().equals("")) {
+        if(!phraseUne.getEditText().getText().toString().equals("")) {
 
             Map<String, Object> params = new HashMap<>();
             // .replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", "")
@@ -157,10 +173,6 @@ public class HelpActivity extends Activity{
         }else{
             if(phraseUne.getEditText().getText().toString().equals(""))
                 phraseMetier.setBackgroundColor(Color.RED);
-
-            if(phraseDeux.getEditText().getText().toString().equals(""))
-                phraseBesoin.setBackgroundColor(Color.RED);
-
 
         }
 
