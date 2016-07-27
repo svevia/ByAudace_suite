@@ -43,7 +43,7 @@ public interface PhraseDao {
     List<Phrase> all(Gestion g);
     
     //selection de toutes les phrases (utilisee dans PhraseViews/index.jsp methode get)
-    @SqlQuery("select * from phrase order by date desc LIMIT :g.nbrPhrases date >= datetime('now', ':g.dureeVie- days') ")
+    @SqlQuery("select * from phrase order by date desc where date >= datetime('now', ':g.dureeVie- days') LIMIT :g.nbrPhrases  ")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Phrase> allAppli(Gestion g);
     
