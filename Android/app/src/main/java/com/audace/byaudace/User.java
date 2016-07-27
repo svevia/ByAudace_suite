@@ -9,30 +9,43 @@ package com.audace.byaudace;
 public class User {
 
     private String digit;
-    private String nom;
+    private String name;
     private String prenom;
     private String numero;
-    private String mdp;
+    private String mot_de_passe;
     private int id;
     private String mail;
 
 
-    public User(String digit, int id, String mail, String mdp, String nom, String numero, String prenom) {
+    public User(String digit, int id, String mail, String mot_de_passe, String name, String numero, String prenom) {
         this.digit = digit;
         this.id = id;
         this.mail = mail.substring(1,mail.length()-1);
-        this.mdp = mdp.substring(1,mdp.length()-1);
-        this.nom = nom.substring(1,nom.length()-1);
+        this.mot_de_passe = mot_de_passe.substring(1,mot_de_passe.length()-1);
+        this.name = name.substring(1,name.length()-1);
         this.prenom = prenom.substring(1,prenom.length()-1);
-        this.numero = numero;
+        this.numero = numero.substring(1,numero.length()-1);;
 
+    }
+
+    public User(int id, String digit, String mail, String mdp, String nom, String prenom, String numero){
+        this.digit = digit;
+        this.id = id;
+        this.mail = mail;
+        this.mot_de_passe = mdp;
+        this.name = nom;
+        this.prenom = prenom;
+        this.numero = numero;
     }
 
     public int getId() {
         return id;
     }
+    public String getDigit() {
+        return digit;
+    }
     public String getNom() {
-        return nom;
+        return name;
     }
     public String getPrenom() {
         return prenom;
@@ -41,11 +54,11 @@ public class User {
         return numero;
     }
     public String getMail(){ return this.mail; }
-    public String getMdp(){ return this.mdp; }
+    public String getMdp(){ return this.mot_de_passe; }
 
     @Override
     public String toString() {
-        return "Nom : "+nom + ", Prenom : " + prenom+ ", Numero : "+ numero;
+        return "Id : " + id + ", digit : " + digit + ", mail : " + mail.toString() + ", nom : "+name.toString() + ", prénom : " + prenom.toString()+ ", numéro : "+ numero.toString() + ", mot de passe : " + mot_de_passe.toString();
     }
 
 }
