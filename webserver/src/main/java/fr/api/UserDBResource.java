@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
+import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,8 +102,8 @@ public class UserDBResource {
     @POST
     @RolesAllowed({"admin","user"})
     @Path("/editme")
-    public User editMe(@Context SecurityContext context,User user) {
-    	logger.trace("edit personnel du user + " + user.getMail() + "contect user : " + context.getUserPrincipal().getName());
+    public User editMe(@BindBean User user,@Context SecurityContext context) {
+    	logger.trace("edit personnel du user + " + user.getMail() + "context user : " + context.getUserPrincipal().getName());
     	if(((User) context.getUserPrincipal()).getId() == user.getId()){
 	    	if((dao.findByMail(user.getMail()) == null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
 	    		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
