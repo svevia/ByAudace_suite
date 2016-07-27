@@ -61,6 +61,11 @@ public class ChoiceActivity extends Activity {
 
                     @Override
                     public void onResponse(String json) {
+                        try {
+                            byte[] u = json.getBytes("ISO-8859-1");
+                            json = new String(u, "UTF-8");
+                        }catch(Exception e){}
+
                         System.out.println("Champion : " + json);
                         String[] tok = json.split(",");
 

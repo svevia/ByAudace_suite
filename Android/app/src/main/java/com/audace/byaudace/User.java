@@ -18,7 +18,7 @@ public class User {
 
 
     public User(String digit, int id, String mail, String mot_de_passe, String name, String numero, String prenom) {
-        this.digit = digit;
+        this.digit = digit.substring(1,digit.length()-1);
         this.id = id;
         this.mail = mail.substring(1,mail.length()-1);
         this.mot_de_passe = mot_de_passe.substring(1,mot_de_passe.length()-1);

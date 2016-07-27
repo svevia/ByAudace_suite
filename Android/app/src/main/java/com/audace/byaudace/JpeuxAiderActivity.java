@@ -128,22 +128,6 @@ public class JpeuxAiderActivity extends Activity  {
                         try {
                             byte[] u = json.getBytes("ISO-8859-1");
                             json = new String(u, "UTF-8");
-                            JSONArray mArray = null;
-                            try{
-                                mArray = new JSONArray(json);
-                            }catch(Exception e){}
-
-                            int id_count = 0;
-                            int tmp = 0;
-
-                            for (int i = 0; i<json.length(); i++) {
-                                try {
-                                    tmp = mArray.getJSONObject(i).getInt("id");
-                                    id_count = id_count + 1;
-                                } catch (JSONException e) {}
-                            }
-
-                            System.out.println("SPIDERMAN : " + id_count);
 
                         } catch (UnsupportedEncodingException e ){
                             e.printStackTrace();
