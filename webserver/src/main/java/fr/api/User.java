@@ -25,8 +25,8 @@ public class User implements Principal {
     private String salt;
 
 
-    public User(String mail, String nom, String prenom, String digit, String mot_de_passe, String role, String numero) {
-        this.name = nom;
+    public User(String mail, String name, String prenom, String digit, String mot_de_passe, String role, String numero) {
+        this.name = name;
         this.prenom = prenom;
         this.mail = mail;
         this.mot_de_passe = mot_de_passe;
@@ -55,14 +55,6 @@ public class User implements Principal {
 
 	public void setMail(String mail) {
         this.mail = mail;
-    }
-
-    public String getNom() {
-        return name;
-    }
-
-    public void setNom(String nom) {
-        this.name = nom;
     }
 
     public String getPrenom() {
@@ -99,10 +91,16 @@ public class User implements Principal {
 
     @Override
     public String getName() {
-        return getNom();
+        return name;
     }
+    
+    
 
-    public String getNumero() {
+    public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getNumero() {
         return numero;
     }
 

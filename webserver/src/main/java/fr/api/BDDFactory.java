@@ -42,9 +42,16 @@ public class BDDFactory {
 	private static void init() {
 		UserDao user = BDDFactory.getDbi().open(UserDao.class);
 		user.createUserTable();
-		new UserDBResource().createUser(new User("admin", "admin", "admin", "admin", "admin", "admin","0000"));
-		new UserDBResource().createUser(new User("test", "test", "test", "test", "test", "user","0000"));
-		new UserDBResource().createUser(new User("root","root","root","root","root","root","0000"));
+	    UserDao dao = BDDFactory.getDbi().open(UserDao.class);
+		User admin = new User("admin", "admin", "admin", "admin", "admin", "admin","0000");
+		admin.resetPasswordHash();
+		User test = new User("test", "test", "test", "test", "test", "user","0000");
+		test.resetPasswordHash();
+		User root = new User("root","root","root","root","root","root","0000");
+		root.resetPasswordHash();
+		dao.insert(admin);
+		dao.insert(test);
+		dao.insert(root);
 		PhraseDao phrase = BDDFactory.getDbi().open(PhraseDao.class);
 		phrase.createPhraseTable();
 		phrase.createAideTable();
