@@ -9,7 +9,6 @@ data.db
 
 # Java class files
 *.class
-Configuration.java
 # Generated files
 bin/
 gen/
