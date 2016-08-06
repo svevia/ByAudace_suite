@@ -27,8 +27,8 @@
     <input type="email" class="form-control" id="mail" placeholder="mail">
   </div>
   <div class="form-group">
-    <label for="nom">Nom</label>
-    <input type="text" class="form-control" id="nom" placeholder="nom">
+    <label for="name">name</label>
+    <input type="text" class="form-control" id="name" placeholder="name">
   </div>
   <div class="form-group">
     <label for="prenom">Prenom</label>
@@ -65,12 +65,12 @@ animateur</label>
         $(document).ready(function() {
             $("#submit").click(function () {
                 mail = $('#mail').val();
-                nom = $('#nom').val();
+                name = $('#name').val();
                 prenom = $('#prenom').val();
                 tel = $('#tel').val();
                 digit = $('#digit').val();
                 role = $("input:radio[name ='role']:checked").val();
-                postUser(mail,nom,prenom,digit,role,tel)});
+                postUser(mail,name,prenom,digit,role,tel)});
         });
   </script>
 

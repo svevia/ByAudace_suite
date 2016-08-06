@@ -250,6 +250,7 @@ public class PhraseResource {
     public List<Phrase> getAllPhrase() {
     	Gestion g = new Gestion();
     	g.init();
+    	g.setDureeVie(-g.getDureeVie());
         return dao.allAppli(g);
     }
 }
