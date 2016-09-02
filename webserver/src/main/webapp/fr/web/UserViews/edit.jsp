@@ -42,10 +42,23 @@
     <label for="tel">Telephone</label>
     <input type="tel" class="form-control" id="tel" value="${it.userDetail.numero}">
   </div>
+  <!--
   <div class="form-group">
     <label for="mail">Categorie</label>
     <input type="text" class="form-control" id="digit" value="${it.userDetail.categorie}">
   </div>
+  -->
+  <div class="form-group">
+	  <label for="number">Catégorie de l'utilisateur</label><br/>
+	  <select id="catego" name="Catégorie de l'utilisateur" style="width:100%;height:30px">
+	  
+		<c:forEach items="${it.list}" var="item">
+			<option value="${item}">${item}</option>
+		</c:forEach>
+
+	  </select>
+  </div>
+  
 
 <input type="hidden" class="form-control" id="role" value="${it.userDetail.role}">
 <input type="hidden" class="form-control" id="id" value="${it.userDetail.id}">

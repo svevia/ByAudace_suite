@@ -51,6 +51,7 @@
 	  </select>
   </div>
   
+  <!--
   <div class="form-group">
     <label for="number">Année de formation</label>
     <input type="number" class="form-control" id="annee" placeholder="Année de formation">
@@ -70,6 +71,7 @@
 		<option value="4">4</option>
 	  </select>
   </div>
+  -->
   
   <!--
   <div class="form-group">
