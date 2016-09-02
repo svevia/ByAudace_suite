@@ -59,30 +59,6 @@ function getByAnnotation() {
        }
      });	 
  }
- 
- function addCategorie(){
-	categorie = $('#categoUsers').val();
-	$.ajax({
-		type : 'POST',
-		contentType : 'application/json',
-		url : "/v1/userdb/newcat",
-		dataType : "json",
-		data : JSON.stringify({
-			"categorie" : categorie
-		}),
-    beforeSend : function(req) {
-    	req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
-    	},
-	success : function(data, textStatus, jqXHR) {
-			alert('La catégorie ' + categorie + ' a bien été créée.');
-			$('#categoUsers').val('');
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			alert('error: ' + textStatus);
-		}
-	});
-	
- }
 
 function postUser(mail,name,prenom,digit,role,tel) {
 	url = "/v1/userdb/";
