@@ -14,7 +14,7 @@
       
      <c:if test="${it.role eq 'admin' || param.role eq 'root'}">
     <jsp:include page="/layout/navbar.jsp">
-    <jsp:param name="name" value = "${it.name}"/>
+    <jsp:param name="name" value = "${it.user}"/>
     	</jsp:include>
     </c:if>
 
