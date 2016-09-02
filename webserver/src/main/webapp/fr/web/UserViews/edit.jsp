@@ -53,7 +53,14 @@
 	  <select id="catego" name="Catégorie de l'utilisateur" style="width:100%;height:30px">
 	  
 		<c:forEach items="${it.list}" var="item">
-			<option value="${item}">${item}</option>
+			
+				<option value="${item}" 
+				<c:if test="${it.userDetail.categorie} eq ${item}"> selected 
+				</c:if>
+				>${item}</option>
+			
+			
+				
 		</c:forEach>
 
 	  </select>
@@ -76,7 +83,7 @@
                 categorie = $('#categorie').val();
                 role = $("#role").val();
                 id = $('#id').val();
-                editUser(mail,name,prenom,digit,pass,tel,role,id)});
+                editUser(mail,name,prenom,categorie,pass,tel,role,id)});
         });
   </script>
 
