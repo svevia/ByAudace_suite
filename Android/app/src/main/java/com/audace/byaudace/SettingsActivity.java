@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class SettingsActivity extends Activity {
 
@@ -35,7 +37,16 @@ public class SettingsActivity extends Activity {
         intent = this.getIntent();
         notificationIntent = new Intent(this,NotificationService.class);
         notifs = (Switch)findViewById(R.id.switchNotifications);
+        notifs.setClickable(false);
         pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        TextView bonjour = (TextView)findViewById(R.id.textView2);
+        bonjour.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Cette option est actuellement en cours de développement.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         if(pref != null) {
 

@@ -24,8 +24,8 @@
 
 		<jsp:include page="/layout/logo.jsp"/>
 	    <jsp:include page="/layout/navbar.jsp">
-    	<jsp:param name="name" value = "${it.name}"/>
-    	        <jsp:param name="role" value="${it.role}"/>
+    	<jsp:param name="name" value = "${it.user.name}"/>
+    	        <jsp:param name="role" value="${it.user.role}"/>
 		</jsp:include>
 
 
@@ -107,9 +107,14 @@
 					<input type="text" id="titre" class="form-control" placeholder="Sujet du message"><br>
 					<textarea class="form-control" id="message" placeholder="Texte du message" rows="10"></textarea><br>
 					
+					<c:forEach items="${it.list}" var="item">
+						<input type="checkbox" checked="true" id="${item}">${item}&emsp;
+					</c:forEach>
+					<!--
 					<input type="checkbox" checked="true" id="cbox">Militaire&emsp;
 					<input type="checkbox" checked="true" id="cbox2">Chômeur&emsp;
 					<input type="checkbox" checked="true" id="cbox3">Etudiant
+					-->
 					
 					<hr/>
 					<div class="form-group">

@@ -457,13 +457,13 @@ public class JpeuxAiderActivity extends Activity  {
                         String[] tok = json.split(",");
 
                         // A corriger : Les champs peuvent être nuls dans le User
-                        User coucou = new User(tok[0].split(":")[1], //digit
-                                Integer.valueOf(tok[1].split(":")[1]), //id
-                                tok[2].split(":")[1], //mail
-                                tok[3].split(":")[1], //mdp
-                                tok[4].split(":")[1], //nom
-                                tok[5].split(":")[1], //numero
-                                tok[6].split(":")[1]); //prenom
+                        User coucou = new User(tok[1].split(":")[1], //digit
+                                Integer.valueOf(tok[2].split(":")[1]), //id
+                                tok[3].split(":")[1], //mail
+                                tok[4].split(":")[1], //mdp
+                                tok[5].split(":")[1], //nom
+                                tok[7].split(":")[1], //numero
+                                tok[8].split(":")[1]); //prenom
 
                         // Ici, l'utilisateur est bien print
                         System.out.println("///////////////// GetUser : " + user);
