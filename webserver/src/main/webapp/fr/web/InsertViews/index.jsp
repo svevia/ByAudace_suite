@@ -18,6 +18,7 @@
     	</jsp:include>
     </c:if>
 
+	<script>getCategories();</script>
 
 <div class="container">
 
@@ -38,10 +39,48 @@
     <label for="tel">Telephone</label>
     <input type="tel" class="form-control" id="tel" placeholder="tel">
   </div>
+  
+  <hr>
+  
+  <div class="form-group">
+	  <label for="number">Catégorie de l'utilisateur</label><br/>
+	  <select id="catego" name="Catégorie de l'utilisateur" style="width:100%;height:30px">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+	  </select>
+  </div>
+  
+  <div class="form-group">
+    <label for="number">Année de formation</label>
+    <input type="number" class="form-control" id="annee" placeholder="Année de formation">
+  </div>  
+  
+  <div class="form-group">
+    <label for="number">Numéro de formation</label>
+    <input type="number" class="form-control" id="numform" placeholder="Numéro de formation">
+  </div>  
+  
+  <div class="form-group">
+	  <label id="type" for="number">Type de formation</label><br/>
+	  <select name="Type de formation" style="width:100%;height:30px">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+	  </select>
+  </div>
+  
+  <!--
   <div class="form-group">
     <label for="mail">Digit</label>
-    <input type="text" class="form-control" id="digit" placeholder="digit">
+    <input type="text" class="form-control" id="digit" placeholder="digit" readonly>
   </div>
+  -->
+  
+  <hr>
+  
 
   <div class="form-group">
           <label for="roleLabel">Role</label>
@@ -60,6 +99,8 @@ animateur</label>
   </div>
   <button id="submit" class="btn btn-default">Creer</button>
   </div>
+  
+  <hr>
 
   <script type="text/javascript">
         $(document).ready(function() {
