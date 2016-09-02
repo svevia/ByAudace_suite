@@ -115,3 +115,26 @@ function getNombrePhrase(success) {
        	}
      });
 }
+
+function checks(){
+	if($('#checksButton').text() == 'Décocher toutes les catégories'){
+		$('.optionmail').prop('checked', false);
+		$('#checksButton').text('Cocher toutes les catégories');
+	}else{
+		$('.optionmail').prop('checked', true);
+		$('#checksButton').text('Décocher toutes les catégories');
+	}
+}
+
+function getCatsChecked(){
+	var ret = [];
+	$('.optionmail').each(function(){
+		if($(this).is(':checked')){
+			console.log($(this).attr('name'));
+			ret.push($(this).attr('name'));
+		}	
+	});
+	console.log(ret);
+	var jsonString = JSON.stringify(ret);
+	console.log(jsonString);
+}

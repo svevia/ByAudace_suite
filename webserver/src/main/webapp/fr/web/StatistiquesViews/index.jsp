@@ -111,16 +111,19 @@
 				<script>
 					CKEDITOR.replace( 'editor1' );
 				</script>
-						
+				<br>
+					<button id="checksButton" type="button" onClick="checks()" class="btn btn-outline-primary">Décocher toutes les catégories</button><br><br>
 					<c:forEach items="${it.list}" var="item">
-						<input type="checkbox" checked="true" id="${item}">${item}&emsp;
+						<input type="checkbox" checked="true" name="${item}" class="optionmail">&nbsp;${item}&emsp;
 					</c:forEach>
 					
 						
 					<hr/>
 					<div class="form-group">
 			   		<div class="col-sm-offset-2 col-sm-10">
-			      <button id="sendMail" type="submit" class="btn btn-default">Envoyer</button>
+					
+					<button type="button" onClick="getCatsChecked()" class="btn btn-default">Envoyer</button>
+					<hr>
 			    </div>
 			  </div>
 				
