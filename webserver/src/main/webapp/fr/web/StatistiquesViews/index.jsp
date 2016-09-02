@@ -104,8 +104,15 @@
 				<h1>Contacter la communauté :</h1>
 				<div id="formMail">
 				<div class="col-lg-8 col-md-6">
-					<textarea class="form-control" id="message" placeholder="mail" rows="10"></textarea>
-					<br/>
+					<input type="text" id="titre" class="form-control" placeholder="Sujet du message"><br>
+					<textarea class="form-control" id="message" placeholder="Texte du message" rows="10"></textarea><br>
+					<script>getCategories()</script>
+					
+					<input type="checkbox" checked="true" id="cbox">Militaire&emsp;
+					<input type="checkbox" checked="true" id="cbox2">Chômeur&emsp;
+					<input type="checkbox" checked="true" id="cbox3">Etudiant
+					
+					<hr/>
 					<div class="form-group">
 			   		<div class="col-sm-offset-2 col-sm-10">
 			      <button id="sendMail" type="submit" class="btn btn-default">Envoyer</button>

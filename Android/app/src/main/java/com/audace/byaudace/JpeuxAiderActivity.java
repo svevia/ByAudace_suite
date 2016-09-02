@@ -197,7 +197,7 @@ public class JpeuxAiderActivity extends Activity  {
                 category.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "Catégorie : ", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Catégorie : ", Toast.LENGTH_SHORT).show();
                     }
                 });
 
