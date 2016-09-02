@@ -27,6 +27,7 @@
     <label for="dureeVie">Durée de vie d'une phrase</label>
     <input type="number" class="form-control" id="dureeVie" min="1" step="1" >
   </div>
+  <br>
   <div class="form-group">
     <label for="nbrPhrases">Nombre de phrases maximum</label>
     <input type="number" class="form-control" id="nbrPhrases" min="1" step="1" >
@@ -36,13 +37,11 @@
  
  <hr>
   
-<form class="form-inline">
   <div class="form-group">
     <label for="categoUsers">Ajouter une catégorie d'utilisateur</label>
     <input type="text" class="form-control" id="categoUsers">
   </div>
-  <button id ="submit" type="submit" class="btn btn-primary">Ajouter</button>
-</form>
+  <button onClick="addCategorie()" class="btn btn-primary">Ajouter</button>
   
 
 

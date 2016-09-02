@@ -126,7 +126,7 @@ public class HelpActivity extends Activity{
         final String mail = intent.getStringExtra("user_mail");
         final String mdp = intent.getStringExtra("user_mot_de_passe");
 
-        if(!phraseUne.getEditText().getText().toString().equals("")) {
+        if(!phraseUne.getEditText().getText().toString().equals("") && !(categorie.getSelectedItemPosition()==categorie.getCount()-1)) {
 
             Map<String, Object> params = new HashMap<>();
             // .replaceAll("[`~!@#$%^&*()_|+\\-=?;:\'\"/<>]", "")
@@ -173,6 +173,8 @@ public class HelpActivity extends Activity{
         }else{
             if(phraseUne.getEditText().getText().toString().equals(""))
                 phraseMetier.setBackgroundColor(Color.RED);
+            else
+                Toast.makeText(getApplicationContext(), "Vous devez sélectionner une catégorie.", Toast.LENGTH_SHORT).show();
 
         }
 

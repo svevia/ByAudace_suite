@@ -25,6 +25,7 @@
         <item>Ressources humaines</item>
         <item>Technique</item>
         <item>Autre</item>
+        <item>Sélectionnez une catégorie</item>
     </string-array>
     <string name="title_activity_settings">Settings</string>
 
