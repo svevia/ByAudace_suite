@@ -1,11 +1,11 @@
 $(document).ready(function(){
 	data = getValue(function(nb){
-        vie = $('#dureeDeVie').val(nb.dureeVie);
-        nbr = $('#nbrPhrases').val(nb.nbrPhrase);
+        vie = $('#dureeVie').val(nb.dureeVie);
+        nbr = $('#nbrPhrases').val(nb.nbrPhrases);
 	})
 	
 	 $("#submit").click(function () {
-         vie = $('#dureeDeVie').val();
+         vie = $('#dureeVie').val();
          nbr = $('#nbrPhrases').val();
 		 postValue(vie, nbr);
 		 location.reload();

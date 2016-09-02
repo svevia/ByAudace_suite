@@ -11,13 +11,13 @@ import java.util.Properties;
 public class Gestion {
 	
 	private int dureeVie;
-	private int nbrPhrase;
+	private int nbrPhrases;
 	
 	public Gestion() {}
 	
 	public Gestion(int dureeVie, int nbrPhrases){
 		this.dureeVie = dureeVie;
-		this.nbrPhrase = nbrPhrases;
+		this.nbrPhrases = nbrPhrases;
 	}
 
 	public int getDureeVie() {
@@ -28,12 +28,12 @@ public class Gestion {
 		this.dureeVie = dureeVie;
 	}
 
-	public int getNbrPhrase() {
-		return nbrPhrase;
+	public int getNbrPhrases() {
+		return nbrPhrases;
 	}
 
-	public void setNbrPhrase(int nbrPhrases) {
-		this.nbrPhrase = nbrPhrases;
+	public void setNbrPhrases(int nbrPhrases) {
+		this.nbrPhrases = nbrPhrases;
 	}
 	
 	public void save(){
@@ -43,7 +43,7 @@ public class Gestion {
     	try {
     		output = new FileOutputStream("src/main/resources/config.properties");
     		// set the properties value
-    		prop.setProperty("nbrPhrase", getNbrPhrase()+"");
+    		prop.setProperty("nbrPhrases", getNbrPhrases()+"");
     		prop.setProperty("dureeVie", getDureeVie()+"");
     		// save properties to project root folder
     		prop.store(output, null);
@@ -77,7 +77,7 @@ public class Gestion {
 
 			// get the property value and print it out
 			setDureeVie(Integer.parseInt(prop.getProperty("dureeVie")));
-			setNbrPhrase(Integer.parseInt(prop.getProperty("nbrPhrase")));
+			setNbrPhrases(Integer.parseInt(prop.getProperty("nbrPhrases")));
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -107,7 +107,7 @@ public class Gestion {
     		output = new FileOutputStream("src/main/resources/config.properties");
     		
     		// set the properties value
-    		prop.setProperty("nbrPhrase", 15+"");
+    		prop.setProperty("nbrPhrases", 15+"");
     		prop.setProperty("dureeVie", 200+"");
     		// save properties to project root folder
     		prop.store(output, null);

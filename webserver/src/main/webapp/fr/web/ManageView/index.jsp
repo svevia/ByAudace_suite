@@ -24,8 +24,8 @@
 
 <form class="form-inline">
   <div class="form-group">
-    <label for="dureeDeVie">Durée de vie d'une phrase</label>
-    <input type="number" class="form-control" id="dureeDeVie" min="1" step="1" >
+    <label for="dureeVie">Durée de vie d'une phrase</label>
+    <input type="number" class="form-control" id="dureeVie" min="1" step="1" >
   </div>
   <div class="form-group">
     <label for="nbrPhrases">Nombre de phrases maximum</label>

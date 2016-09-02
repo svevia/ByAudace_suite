@@ -63,7 +63,7 @@ public class BDDFactory {
 		new PhraseResource().createPhrase(new Phrase("phrase 5","besoin 2", 3, 1));
 		Gestion g = new Gestion();
 		g.setDureeVie(15);
-		g.setNbrPhrase(200);
+		g.setNbrPhrases(200);
 		g.save();
 	}
 
