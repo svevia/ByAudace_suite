@@ -12,7 +12,7 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 public interface UserDao {
 
 	//ajoute un utilisateur à la BDD
-	@SqlUpdate("INSERT INTO utilisateur (mail, numero,name , prenom, digit, mot_de_passe, role, salt) values (:mail, :numero, :name, :prenom, :digit, :mot_de_passe, :role, :salt)")
+	@SqlUpdate("INSERT INTO utilisateur (mail, numero,name , prenom, categorie, mot_de_passe, role, salt) values (:mail, :numero, :name, :prenom, :categorie, :mot_de_passe, :role, :salt)")
 	@GetGeneratedKeys
 	int insert(@BindBean() User user);
 	
@@ -70,12 +70,12 @@ public interface UserDao {
 	void dropUserTable(); 
 	
 	//update un user
-	@SqlUpdate("UPDATE utilisateur SET mail = :mail, numero = :numero, name = :name, prenom = :prenom, digit = :digit, mot_de_passe = :mot_de_passe WHERE id = :id")
+	@SqlUpdate("UPDATE utilisateur SET mail = :mail, numero = :numero, name = :name, prenom = :prenom, categorie = :categorie, mot_de_passe = :mot_de_passe WHERE id = :id")
 	void update(@BindBean() User user);
 
 	
 	//creee la table user
-	@SqlUpdate("CREATE TABLE utilisateur(id INTEGER PRIMARY KEY AUTOINCREMENT, mail CHAR(200) UNIQUE NOT NULL,numero CHAR(20),name CHAR(200),prenom CHAR(200),digit CHAR(20),mot_de_passe CHAR(50) NOT NULL,role CHAR(50),salt TEXT)")
+	@SqlUpdate("CREATE TABLE utilisateur(id INTEGER PRIMARY KEY AUTOINCREMENT, mail CHAR(200) UNIQUE NOT NULL,numero CHAR(20),name CHAR(200),prenom CHAR(200),categorie CHAR(20),mot_de_passe CHAR(50) NOT NULL,role CHAR(50),salt TEXT)")
 	void createUserTable();
 	
 	//creee la table categorie user

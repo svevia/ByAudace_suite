@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
@@ -166,10 +167,10 @@ public class UserDBResource {
     	}
     }
     
-    @POST
-    @RolesAllowed({"admin", "animateur"})
-    @Path("/newCat")
-    public void newCat(String cat) {
+    @GET
+    @RolesAllowed({"admin"})
+    @Path("/newCat/{cat}")
+    public void newCat(@PathParam("cat")String cat) {
     	dao.insertCat(cat);
     }
     
@@ -263,11 +264,11 @@ public class UserDBResource {
     public Response deleteUser(@PathParam("id") int id) {
         User user = dao.findById(id);
         if (user == null) {
-            return Response.accepted().status(404).build();
+            return Response.ok().status(404).build();
         }
         dao.delete(id);
         logger.trace("suppression user " + user.getMail() + " -- id = " + user.getId());
-        return Response.accepted().status(202).entity(user).build();
+        return Response.ok().status(202).entity(user).build();
     }
     
     /**
@@ -282,9 +283,9 @@ public class UserDBResource {
     public Response getSalt(@QueryParam("mail") String mail) {
         String salt = dao.getSalt(mail);
         if (salt == null) {
-            return Response.accepted().status(Response.Status.NOT_FOUND).build();
+            return Response.ok().status(Response.Status.NOT_FOUND).build();
         } else {
-            return Response.accepted().status(Response.Status.OK).entity(salt).build();
+            return Response.ok().status(Response.Status.OK).entity(salt).build();
         }
     }
     
@@ -324,7 +325,8 @@ public class UserDBResource {
     @GET
     @Path("/cat")
     @RolesAllowed({"admin"})
-    public List<String> getAllCat() {
-        return dao.allCat();
+    public Response getAllCat() {
+    	GenericEntity<List<String>> genericEntity = new GenericEntity<List<String>>(dao.allCat()) {};
+    	    return Response.ok(genericEntity).build();
     }
 }
