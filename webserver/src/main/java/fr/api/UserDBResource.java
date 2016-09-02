@@ -175,9 +175,9 @@ public class UserDBResource {
     }
     
     
-    @DELETE
+    @GET
     @RolesAllowed({"admin"})
-    @Path("/cat/{cat}")
+    @Path("/delCat/{cat}")
     public void delCat(@PathParam("cat")String cat) {
     	dao.removeCat(cat);
     }
