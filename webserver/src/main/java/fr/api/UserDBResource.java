@@ -47,7 +47,7 @@ public class UserDBResource {
     	if(dao.findByMail(user.getMail())== null){
     		String pass = user.generatePass();
     		user.setMot_de_passe(pass);
-    		Mailer.sendMail(user.getMail(), Mailer.pass(pass), "cotre mot de passe Audace"); 
+    		Mailer.sendMail(user.getMail(), Mailer.pass(pass), "Votre mot de passe Audace"); 
 	        user.resetPasswordHash();
 	        dao.insert(user);
 	        logger.trace("creation user " + user.getMail() + " -- id = " + dao.findByMail(user.getMail()).getId());
@@ -148,10 +148,11 @@ public class UserDBResource {
     @POST
     @RolesAllowed("admin")
     @Path("/mail")
-    public void sendMail(String m) {
+    public void sendMail(Mail m) {
     	List<String> mails = dao.getAllMail();
     	for(String mail : mails){
-    		Mailer.sendMail(mail, m, "Audace a besoin de vous !");
+    		m.setAdresse(mail);
+    		Mailer.sendMail(m);
     	}
     }
     

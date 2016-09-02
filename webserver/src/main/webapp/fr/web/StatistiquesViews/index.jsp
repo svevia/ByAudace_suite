@@ -17,6 +17,7 @@
 	    <jsp:include page="/layout/head.jsp"/>
 	     <script src="/all.js"></script>
 	    <script src="/stats.js"></script>
+	    <script src="//cdn.ckeditor.com/4.5.10/full/ckeditor.js"></script>
 	    <meta charset="UTF-8">
 	    <title>Stats</title>
 	</head>
@@ -104,13 +105,12 @@
 				<h1>Contacter la communauté :</h1>
 				<div id="formMail">
 				<div class="col-lg-8 col-md-6">
-					<input type="text" id="titre" class="form-control" placeholder="Sujet du message"><br>
-					<textarea class="form-control" id="message" placeholder="Texte du message" rows="10"></textarea><br>
+					<input type="text" id="sujet" class="form-control" placeholder="Sujet du message"><br>
 					
-					<input type="checkbox" checked="true" id="cbox">Militaire&emsp;
-					<input type="checkbox" checked="true" id="cbox2">Chômeur&emsp;
-					<input type="checkbox" checked="true" id="cbox3">Etudiant
-					
+						<textarea name="editor1"></textarea>
+				        <script>
+				            CKEDITOR.replace( 'editor1' );
+				        </script>
 					<hr/>
 					<div class="form-group">
 			   		<div class="col-sm-offset-2 col-sm-10">
