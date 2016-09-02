@@ -161,10 +161,7 @@ public class UserDBResource {
     @RolesAllowed({"admin","user"})
     @Path("/send")
     public void sendHelp(Mail m) {
-    	List<String> mails = dao.getAllMail();
-    	for(String mail : mails){
     		Mailer.sendMail(m);
-    	}
     }
     
     @GET
