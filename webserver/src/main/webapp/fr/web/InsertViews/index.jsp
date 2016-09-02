@@ -103,15 +103,9 @@ animateur</label>
   
   <hr>
 
-  <script type="text/javascript">
-  
-	
-        $(document).ready(function() {
-						
-            $("#submit").click(function () {
-				
-				alert($('#catego').find(":selected").text());
-				
+  <script type="text/javascript">	
+        $(document).ready(function() {						
+            $("#submit").click(function () {				
                 mail = $('#mail').val();
                 name = $('#name').val();
                 prenom = $('#prenom').val();

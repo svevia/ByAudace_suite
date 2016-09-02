@@ -42,6 +42,7 @@
     <label for="tel">Telephone</label>
     <input type="tel" class="form-control" id="tel" value="${it.userDetail.numero}">
   </div>
+  
   <!--
   <div class="form-group">
     <label for="mail">Categorie</label>
@@ -52,14 +53,16 @@
 	  <label for="number">Catégorie de l'utilisateur</label><br/>
 	  <select id="catego" name="Catégorie de l'utilisateur" style="width:100%;height:30px">
 	  
+		<% int cpt =0; %>
 		<c:forEach items="${it.list}" var="item">
 			
-			<option value="${item}">${item}</option>
+			<option id="cat_${item}" value="${item}">${item}</option>
 			<script>
-				if(${item} == ${it.userDetail.categorie})
-					alert('bonjour !');
+				if('${item}' == '${it.userDetail.categorie}')
+					$('#cat_${item}').attr('selected','selected');
 			</script>
-				
+			
+			<%cpt++; %>
 		</c:forEach>
 
 	  </select>
@@ -79,7 +82,7 @@
                 name = $('#name').val();
                 prenom = $('#prenom').val();
                 tel = $('#tel').val();
-                categorie = $('#categorie').val();
+                categorie = $('#catego').val();
                 role = $("#role").val();
                 id = $('#id').val();
                 editUser(mail,name,prenom,categorie,pass,tel,role,id)});
