@@ -287,6 +287,9 @@ public class JpeuxAiderActivity extends Activity  {
                     public void onClick(DialogInterface dialog, int id) {
 
                         // redirection vers l'activité d'envoi du mail
+                        // ----------------------------------------------------------------------------------------------------------------
+                        // ----------------------------------------------------------------------------------------------------------------
+                        /*
                         Intent i = new Intent(Intent.ACTION_SEND);
                         i.setType("message/rfc822");
                         i.putExtra(Intent.EXTRA_EMAIL  , new String[]{bonjour.getMail()});
@@ -300,9 +303,98 @@ public class JpeuxAiderActivity extends Activity  {
                         } catch (android.content.ActivityNotFoundException ex) {
                             Toast.makeText(JpeuxAiderActivity.this, "Aucune application mail n'est installée.", Toast.LENGTH_SHORT).show();
                         }
+                        */
+                        // ----------------------------------------------------------------------------------------------------------------
+                        // ----------------------------------------------------------------------------------------------------------------
+
 
                         // nouveau mail
                         // POST sur /v1/userdb/send
+
+                        String message = "Bonjour " + bonjour.getPrenom() +",<br><br><br>" +
+                                "Mon nom est " + prenom + " " + nom + ", j'ai pris connaissance de votre besoin : <br><br>" + popeye.getBesoin() + "<br><br>et vous propose mon aide afin de le résoudre.<br>" +
+                                "Merci de me contacter en retour de ce mail (mon adresse est la suivante : " +  login + ").<br><br><br>" +
+                                "Bonne journée !";
+
+                        String htmlwow = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
+                                "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
+                                "\t<head>\n" +
+                                "\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; />\n" +
+                                "\t\t<title>Demande de contact !</title>\n" +
+                                "\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n" +
+                                "\t</head>\n" +
+                                "\t\n" +
+                                "\t\n" +
+                                "\t<body style=\"margin: 0; padding: 20px 0 20px 0;\">\n" +
+                                "\n" +
+                                "\t\t<table align=\"center\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse; border: #a8a9ab;\">\n" +
+                                "\t\t\t<tr>\n" +
+                                "\t\t\t\t<td align=\"center\" style=\"padding: 20px 0 20px 0;\">\n" +
+                                "\t\t\t\t\t<img src=\"http://www.campus-audace.com/images/logo.gif\" alt=\"Audace logo\" style=\"display: block;\" />\n" +
+                                "\t\t\t\t</td>\n" +
+                                "\t\t\t</tr>\n" +
+                                "\n" +
+                                "\t\t\t<tr>\n" +
+                                "\t\t\t\t<td style=\"padding: 5px 0 5px 30px;\">Mise en relation ByAudace !</td>\n" +
+                                "\t\t\t</tr>\n" +
+                                "\t\t\t<tr>\n" +
+                                "\t\t\t\t<td style=\"padding: 20px 30px 30px 30px;\">\n" +
+                                "\t\t\t\t\tBonjour <i>" + bonjour.getPrenom() + "</i>,<br /><br />\n" +
+                                "\t\t\t\t\tJe m'appelle <i>" + prenom + " " + nom + "</i>, et j'ai pris connaissance de votre besoin : <br />\n" +
+                                "\t\t\t\t\t<b>" + popeye.getBesoin() + "</b>,<br />\n" +
+                                "\t\t\t\t\tet vous propose mon aide, afin de le résoudre.<br /><br />\n\n" +
+                                "\t\t\t\t\tMerci de me contacter à l'adresse suivante : <a href=\"mailto:" + login + "\">" + login + "</a>.<br /><br />\n" +
+                                "\t\t\t\t\tBonne journée !<br />\n" +
+                                "\t\t\t\t</td>\n" +
+                                "\t\t\t</tr>\n" +
+                                "\t\t\t<tr>\n" +
+                                "\t\t\t\t<td bgcolor=\"#a8a9ab\" style=\"padding: 5px 0 5px 30px; color: #FFFFFF; font-family: Arial, sans-serif; font-size: 14px;\">\n" +
+                                "\t\t\t\t\t&reg; Audace, 2016<br/>\n" +
+                                "\t\t\t\t\t<a href=\"#\" style=\"color: #FFFFFF;\"><font color=\"#FFFFFF\">Signaler cet utilisateur</font></a>\n" +
+                                "\t\t\t\t</td>\n" +
+                                "\t\t\t</tr>\n" +
+                                "\t\t</table>\n" +
+                                "\t\t\n" +
+                                "\t</body>\n" +
+                                "\n" +
+                                "\n" +
+                                "</html>";
+
+                        Map<String, Object> mail = new HashMap<>();
+                        mail.put("sujet","Mise en relation ByAudace");
+                        mail.put("message",htmlwow);
+                        mail.put("adresse", bonjour.getMail());
+                        System.out.println(mail.toString());
+
+                        String url = Configuration.SERVER + "/v1/userdb/send";
+                        final com.android.volley.toolbox.JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(mail),
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            VolleyLog.v("Response:%n %s", response.toString(4));
+                                            Toast.makeText(getApplicationContext(), "Demande de contact envoyée.", Toast.LENGTH_SHORT).show();
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.e("Error: ", error.getMessage());
+                            }
+                        }){
+
+                            @Override
+                            public Map<String, String> getHeaders() throws AuthFailureError {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
+                                //System.out.println(params.toString());
+                                return params;
+                            }
+                        };
+                        queue.add(request);
+
 
                         // ----------------------------------------------------------------------------------------------------------------
                         // communication avec le serveur REST pour les stats
@@ -315,8 +407,8 @@ public class JpeuxAiderActivity extends Activity  {
                         params.put("date",(new Timestamp(date.getTime())).toString());
 
 
-                        String url = URL + "/help";
-                        final com.android.volley.toolbox.JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(params),
+                        url = URL + "/help";
+                        final com.android.volley.toolbox.JsonObjectRequest request2 = new JsonObjectRequest(url, new JSONObject(params),
                                 new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
@@ -341,7 +433,7 @@ public class JpeuxAiderActivity extends Activity  {
                                 return params;
                             }
                         };
-                        queue.add(request);
+                        queue.add(request2);
                         // ----------------------------------------------------------------------------------------------------------------
                         // ----------------------------------------------------------------------------------------------------------------
 
