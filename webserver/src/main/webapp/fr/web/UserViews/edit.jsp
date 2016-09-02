@@ -31,7 +31,7 @@
     <input type="password" class="form-control" id="password"  value="${it.userDetail.mot_de_passe}">
   </div>
   <div class="form-group">
-    <label for="name">name</label>
+    <label for="name">Nom</label>
     <input type="text" class="form-control" id="name"  value="${it.userDetail.name}">
   </div>
   <div class="form-group">
@@ -54,12 +54,11 @@
 	  
 		<c:forEach items="${it.list}" var="item">
 			
-				<option value="${item}" 
-				<c:if test="${it.userDetail.categorie} eq ${item}"> selected 
-				</c:if>
-				>${item}</option>
-			
-			
+			<option value="${item}">${item}</option>
+			<script>
+				if(${item} == ${it.userDetail.categorie})
+					alert('bonjour !');
+			</script>
 				
 		</c:forEach>
 
