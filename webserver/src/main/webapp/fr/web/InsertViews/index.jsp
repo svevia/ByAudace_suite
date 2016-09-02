@@ -12,7 +12,7 @@
     <body>
       <jsp:include page="/layout/logo.jsp"/>
       
-     <c:if test="${it.role eq 'admin' || param.role eq 'root'}">
+     <c:if test="${it.user.role eq 'admin' || it.user.role eq 'root'}">
     <jsp:include page="/layout/navbar.jsp">
     <jsp:param name="name" value = "${it.user.name}"/>
     	</jsp:include>
@@ -47,10 +47,7 @@
 		<c:forEach items="${it.list}" var="item">
 			<option value="${item}">${item}</option>
 		</c:forEach>
-					
-		<option value="Militaire">Militaire</option>
-		<option value="Chômeur">Chômeur</option>
-		<option value="Etudiant">Etudiant</option>
+
 	  </select>
   </div>
   
