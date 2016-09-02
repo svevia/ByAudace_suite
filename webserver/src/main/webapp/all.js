@@ -41,24 +41,6 @@ function getByAnnotation() {
         });
      }
  }
- 
- function getCategories(){
-	$.ajax
-     ({
-       type: "GET",
-       url: "/v1/userdb/cat",
-       dataType: 'json',
-       beforeSend : function(req) {
-        req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
-       },
-       success: function (data){
-        alert(data)
-       },
-       error : function(jqXHR, textStatus, errorThrown) {
-       	alert('error: ' + textStatus);
-       }
-     });	 
- }
 
 function postUser(mail,name,prenom,digit,role,tel) {
 	url = "/v1/userdb/";
