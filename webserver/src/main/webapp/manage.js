@@ -13,8 +13,6 @@ $(document).ready(function(){
 })
 
 
-
-
 function getValue(success) {
     return $.ajax({
        type: "GET",
@@ -59,24 +57,21 @@ function postValue(vie,nbr) {
 }
 
 
-
 function addCategorie(){
-	categorie = $('#categoUsers').val();
+	address = '/v1/userdb/newCat/' + $('#categoUsers').val();
 	$.ajax({
-		type : 'POST',
-		contentType : 'application/json',
-		url : "/v1/userdb/newcat",
-		data : categorie,
-   beforeSend : function(req) {
-   	req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
-   	},
-	success : function(data, textStatus, jqXHR) {
-			alert('La catégorie ' + categorie + ' a bien été créée.');
+       type: "GET",
+       url: address,
+       beforeSend : function(req) {
+           req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
+       },
+       success: function (data){
+			alert('La catégorie "' + $('#categoUsers').val() + '" a bien été créée.');
 			$('#categoUsers').val('');
-		},
-		error : function(jqXHR, textStatus, errorThrown) {
-			alert('error: ' + textStatus);
-		}
-	});
+       },
+       error : function(jqXHR, textStatus, errorThrown) {
+       		console.log('error: ' + textStatus);
+       	}
+     });
 	
 }
