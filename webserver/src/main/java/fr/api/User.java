@@ -22,6 +22,10 @@ public class User implements Principal {
     private String numero; // Telephone
     private String mot_de_passe;//serait crypter juste après
     private String role;
+    private String categorie;
+    private int anneeFormation;
+    private String typeFormation;
+    private int numFormation;
     private String salt;
 
 
@@ -39,8 +43,7 @@ public class User implements Principal {
 
     /* Getters Setters */
 
-    
-    
+
     public String getMail() {
         return mail;
     }
@@ -144,7 +147,39 @@ public class User implements Principal {
         this.salt = salt;
     }
 
-    public boolean isInRootGroup(){
+    public String getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(String categorie) {
+		this.categorie = categorie;
+	}
+
+	public int getAnneeFormation() {
+		return anneeFormation;
+	}
+
+	public void setAnneeFormation(int anneeFormation) {
+		this.anneeFormation = anneeFormation;
+	}
+
+	public String getTypeFormation() {
+		return typeFormation;
+	}
+
+	public void setTypeFormation(String typeFormation) {
+		this.typeFormation = typeFormation;
+	}
+
+	public int getNumFormation() {
+		return numFormation;
+	}
+
+	public void setNumFormation(int numFormation) {
+		this.numFormation = numFormation;
+	}
+
+	public boolean isInRootGroup(){
         return this.role.equals("root");
     }
     
