@@ -16,7 +16,6 @@ import org.glassfish.jersey.server.mvc.Template;
 import fr.api.BDDFactory;
 import fr.api.User;
 import fr.api.UserDao;
-import fr.web.UserViews.Returner;
 
 /**
  * Vue pour la page d'insertion d'un nouvel utilisateur
@@ -26,9 +25,6 @@ import fr.web.UserViews.Returner;
 @Path("/insert")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @Produces(MediaType.TEXT_HTML)
-@RolesAllowed({"admin","animateur"})
-
-
 public class InsertViews {
 	private static UserDao dao = BDDFactory.getDbi().open(UserDao.class);
 
@@ -51,13 +47,15 @@ public class InsertViews {
 		public void setUser(User user) {
 			this.user = user;
 		}
+    }
    
     
     @GET
     @Template
+    @RolesAllowed({"admin","animateur"})
     public Returner getAll(@Context SecurityContext context) {
         User user = (User) context.getUserPrincipal();
         return new Returner(dao.allCat(), user);
     }
-    }
+    
 }
