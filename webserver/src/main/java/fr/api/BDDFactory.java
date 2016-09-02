@@ -42,6 +42,7 @@ public class BDDFactory {
 	private static void init() {
 		UserDao user = BDDFactory.getDbi().open(UserDao.class);
 		user.createUserTable();
+		user.createCategorieUserTable();
 	    UserDao dao = BDDFactory.getDbi().open(UserDao.class);
 		User admin = new User("admin", "admin", "admin", "admin", "admin", "admin","0000");
 		admin.resetPasswordHash();

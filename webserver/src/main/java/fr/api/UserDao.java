@@ -15,6 +15,11 @@ public interface UserDao {
 	@SqlUpdate("INSERT INTO utilisateur (mail, numero,name , prenom, digit, mot_de_passe, role, salt) values (:mail, :numero, :name, :prenom, :digit, :mot_de_passe, :role, :salt)")
 	@GetGeneratedKeys
 	int insert(@BindBean() User user);
+	
+	//ajoute un utilisateur à la BDD
+	@SqlUpdate("INSERT INTO userCategorie (name) values (:name)")
+	@GetGeneratedKeys
+	int insertCat(@Bind("name") String name);
 
 	//cherche un utilisateur spécifique depuis son id
 	@SqlQuery("SELECT * FROM utilisateur where id = :id")
@@ -49,6 +54,12 @@ public interface UserDao {
         @SqlQuery("SELECT * FROM utilisateur order by mail asc")
 	@RegisterMapperFactory(BeanMapperFactory.class)
 	List<User> all();
+        
+        //renvoi la liste des utilisateurs
+        @SqlQuery("SELECT name FROM userCategorie")
+	@RegisterMapperFactory(BeanMapperFactory.class)
+	List<String> allCat();
+
 
         //supprime un utilisateur
 	@SqlUpdate("DELETE from utilisateur WHERE id = :id")
@@ -66,6 +77,10 @@ public interface UserDao {
 	//creee la table user
 	@SqlUpdate("CREATE TABLE utilisateur(id INTEGER PRIMARY KEY AUTOINCREMENT, mail CHAR(200) UNIQUE NOT NULL,numero CHAR(20),name CHAR(200),prenom CHAR(200),digit CHAR(20),mot_de_passe CHAR(50) NOT NULL,role CHAR(50),salt TEXT)")
 	void createUserTable();
+	
+	//creee la table categorie user
+	@SqlUpdate("CREATE TABLE userCategorie(id INTEGER PRIMARY KEY AUTOINCREMENT, name CHAR(200) UNIQUE NOT NULL")
+	void createCategorieUserTable();
 
 	@SqlQuery("Select count(*) FROM utilisateur")
 	int getNbrUser();

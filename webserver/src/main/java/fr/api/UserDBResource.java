@@ -166,6 +166,13 @@ public class UserDBResource {
     	}
     }
     
+    @POST
+    @RolesAllowed({"admin", "animateur"})
+    @Path("/send")
+    public void newCat(String cat) {
+    	dao.insertCat(cat);
+    }
+    
 
     /**
      * Recherche un utilisateur par son mail Exemple : curl
@@ -312,5 +319,12 @@ public class UserDBResource {
     @RolesAllowed({"admin"})
     public List<User> getAllUsers() {
         return dao.all();
+    }
+    
+    @GET
+    @Path("/cat")
+    @RolesAllowed({"admin"})
+    public List<String> getAllCat() {
+        return dao.allCat();
     }
 }
