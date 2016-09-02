@@ -106,7 +106,6 @@
 				<div class="col-lg-8 col-md-6">
 					<input type="text" id="titre" class="form-control" placeholder="Sujet du message"><br>
 					<textarea class="form-control" id="message" placeholder="Texte du message" rows="10"></textarea><br>
-					<script>getCategories()</script>
 					
 					<input type="checkbox" checked="true" id="cbox">Militaire&emsp;
 					<input type="checkbox" checked="true" id="cbox2">Chômeur&emsp;
