@@ -93,10 +93,11 @@ public interface UserDao {
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<User> search(@Bind("search") String search);
 	
+    @SqlUpdate("DELETE from userCategorie WHERE name = :cat")
+	void removeCat(@Bind("cat")String cat);
+
+
 	void close();
-
-
-
 
 
 }

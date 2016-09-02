@@ -174,6 +174,14 @@ public class UserDBResource {
     	dao.insertCat(cat);
     }
     
+    
+    @DELETE
+    @RolesAllowed({"admin"})
+    @Path("/cat/{cat}")
+    public void delCat(@PathParam("cat")String cat) {
+    	dao.removeCat(cat);
+    }
+    
 
     /**
      * Recherche un utilisateur par son mail Exemple : curl
