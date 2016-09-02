@@ -170,16 +170,18 @@ public class UserDBResource {
     @GET
     @RolesAllowed({"admin"})
     @Path("/newCat/{cat}")
-    public void newCat(@PathParam("cat")String cat) {
+    public Response newCat(@PathParam("cat")String cat) {
     	dao.insertCat(cat);
+    	return Response.ok().build();
     }
     
     
     @GET
     @RolesAllowed({"admin"})
     @Path("/delCat/{cat}")
-    public void delCat(@PathParam("cat")String cat) {
+    public Response delCat(@PathParam("cat")String cat) {
     	dao.removeCat(cat);
+    	return Response.ok().build();
     }
     
 
