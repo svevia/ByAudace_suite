@@ -75,7 +75,7 @@ public interface UserDao {
 
 	
 	//creee la table user
-	@SqlUpdate("CREATE TABLE utilisateur(id INTEGER PRIMARY KEY AUTOINCREMENT, mail CHAR(200) UNIQUE NOT NULL,numero CHAR(20),name CHAR(200),prenom CHAR(200),categorie CHAR(20),mot_de_passe CHAR(50) NOT NULL,role CHAR(50),salt TEXT)")
+	@SqlUpdate("CREATE TABLE utilisateur(id INTEGER PRIMARY KEY AUTOINCREMENT, mail CHAR(200) UNIQUE NOT NULL,numero CHAR(20),name CHAR(200),prenom CHAR(200),categorie CHAR(200),mot_de_passe CHAR(50) NOT NULL,role CHAR(50),salt TEXT)")
 	void createUserTable();
 	
 	//creee la table categorie user

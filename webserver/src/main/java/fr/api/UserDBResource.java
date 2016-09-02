@@ -18,7 +18,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
-import org.skife.jdbi.v2.sqlobject.BindBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -178,8 +177,9 @@ public class UserDBResource {
     @GET
     @RolesAllowed({"admin"})
     @Path("/delCat/{cat}")
-    public void delCat(@PathParam("cat")String cat) {
+    public Response delCat(@PathParam("cat")String cat) {
     	dao.removeCat(cat);
+    	return Response.ok().status(202).entity(cat).build();
     }
     
 
