@@ -108,9 +108,9 @@ animateur</label>
                 name = $('#name').val();
                 prenom = $('#prenom').val();
                 tel = $('#tel').val();
-                digit = $('#digit').val();
+                categorie =  $('#catego').find(":selected").text();
                 role = $("input:radio[name ='role']:checked").val();
-                postUser(mail,name,prenom,digit,role,tel)});
+                postUser(mail,name,prenom,categorie,role,tel)});
         });
   </script>
 

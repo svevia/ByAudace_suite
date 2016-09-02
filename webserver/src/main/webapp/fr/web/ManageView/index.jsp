@@ -50,7 +50,7 @@
 		<c:forEach items="${it.list}" var="item">
 			<tr id = "cat_<%=cpt%>">
 			<td id = "name_<%=cpt%>">${item}</td>
-			<td><button href="/v1/userdb/delCat/${item}" id="del_<%=cpt%>" name="${item}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
+			<td><button onClick="remCategorie('${item}')" id="del_<%=cpt%>" name="${item}" type="button" class="btn btn-danger">Supprimer</button></td>
 			</tr>
 			<%cpt++; %>
 		</c:forEach>

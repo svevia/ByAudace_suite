@@ -67,7 +67,27 @@ function addCategorie(){
        },
        success: function (data){
 			alert('La catégorie "' + $('#categoUsers').val() + '" a bien été créée.');
-			$('#categoUsers').val('');
+			location.reload();
+       },
+       error : function(jqXHR, textStatus, errorThrown) {
+       		console.log('error: ' + textStatus);
+       	}
+     });
+	
+}
+
+
+function remCategorie(cat){
+	address = '/v1/userdb/delCat/' + cat;
+	$.ajax({
+       type: "GET",
+       url: address,
+       beforeSend : function(req) {
+           req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
+       },
+       success: function (data){
+			alert('La catégorie "' + cat + '" a bien été supprimée.');
+			location.reload();
        },
        error : function(jqXHR, textStatus, errorThrown) {
        		console.log('error: ' + textStatus);
