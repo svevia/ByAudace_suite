@@ -13,10 +13,10 @@
     <body>
       <jsp:include page="/layout/logo.jsp"/>
       
-     <c:if test="${it.role eq 'admin' || param.role eq 'root'}">
+    <c:if test="${it.role eq 'admin' || param.role eq 'root'}">
     <jsp:include page="/layout/navbar.jsp">
     <jsp:param name="name" value = "${it.name}"/>
-    	</jsp:include>
+    </jsp:include>
     </c:if>
 
 
@@ -32,7 +32,18 @@
     <input type="number" class="form-control" id="nbrPhrases" min="1" step="1" >
   </div>
   <button id ="submit" type="submit" class="btn btn-primary">Modifier</button>
+ </form> 
+ 
+ <hr>
+  
+<form class="form-inline">
+  <div class="form-group">
+    <label for="categoUsers">Ajouter une catégorie d'utilisateur</label>
+    <input type="text" class="form-control" id="categoUsers">
+  </div>
+  <button id ="submit" type="submit" class="btn btn-primary">Ajouter</button>
 </form>
+  
 
 
 

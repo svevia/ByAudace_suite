@@ -18,7 +18,7 @@
     	</jsp:include>
     </c:if>
 
-	<script>getCategories();</script>
+	<script>getCategories()</script>
 
 <div class="container">
 
@@ -45,10 +45,9 @@
   <div class="form-group">
 	  <label for="number">Catégorie de l'utilisateur</label><br/>
 	  <select id="catego" name="Catégorie de l'utilisateur" style="width:100%;height:30px">
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
+		<option value="Militaire">Militaire</option>
+		<option value="Chômeur">Chômeur</option>
+		<option value="Etudiant">Etudiant</option>
 	  </select>
   </div>
   

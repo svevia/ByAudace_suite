@@ -32,7 +32,7 @@ function getByAnnotation() {
         afficheUser(data)
        },
        error : function(jqXHR, textStatus, errorThrown) {
-       			alert('error: ' + textStatus);
+       			alert('error: ' + textStatus + '\n' + errorThrown);
        		}
      });
      } else {
@@ -46,7 +46,7 @@ function getByAnnotation() {
 	$.ajax
      ({
        type: "GET",
-       url: "v1/userdb/cat",
+       url: "/v1/userdb/cat",
        dataType: 'json',
        beforeSend : function(req) {
         req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
