@@ -79,7 +79,7 @@ public interface UserDao {
 	void createUserTable();
 	
 	//creee la table categorie user
-	@SqlUpdate("CREATE TABLE userCategorie(id INTEGER PRIMARY KEY AUTOINCREMENT, name CHAR(200) UNIQUE NOT NULL")
+	@SqlUpdate("CREATE TABLE userCategorie(id INTEGER PRIMARY KEY AUTOINCREMENT, name CHAR(200) UNIQUE NOT NULL)")
 	void createCategorieUserTable();
 
 	@SqlQuery("Select count(*) FROM utilisateur")

@@ -168,7 +168,7 @@ public class UserDBResource {
     
     @POST
     @RolesAllowed({"admin", "animateur"})
-    @Path("/send")
+    @Path("/newCat")
     public void newCat(String cat) {
     	dao.insertCat(cat);
     }
