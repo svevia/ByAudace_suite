@@ -23,19 +23,19 @@
 <h1>Ajout utilisateur</h1>
   <div class="form-group">
     <label for="mail">Adresse mail</label>
-    <input type="email" class="form-control" id="mail" placeholder="mail">
+    <input type="email" class="form-control" id="mail" placeholder="Adresse mail">
   </div>
   <div class="form-group">
-    <label for="name">name</label>
-    <input type="text" class="form-control" id="name" placeholder="name">
+    <label for="name">Nom</label>
+    <input type="text" class="form-control" id="name" placeholder="Nom">
   </div>
   <div class="form-group">
-    <label for="prenom">Prenom</label>
-    <input type="text" class="form-control" id="prenom" placeholder="prenom">
+    <label for="prenom">Prénom</label>
+    <input type="text" class="form-control" id="prenom" placeholder="Prénom">
   </div>
   <div class="form-group">
-    <label for="tel">Telephone</label>
-    <input type="tel" class="form-control" id="tel" placeholder="tel">
+    <label for="tel">Téléphone</label>
+    <input type="tel" class="form-control" id="tel" placeholder="Téléphone">
   </div>
   
   <hr>
@@ -104,8 +104,14 @@ animateur</label>
   <hr>
 
   <script type="text/javascript">
+  
+	
         $(document).ready(function() {
+						
             $("#submit").click(function () {
+				
+				alert($('#catego').find(":selected").text());
+				
                 mail = $('#mail').val();
                 name = $('#name').val();
                 prenom = $('#prenom').val();
