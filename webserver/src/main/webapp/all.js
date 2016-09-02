@@ -75,7 +75,7 @@ function postUser(mail,name,prenom,digit,role,tel) {
 	});
 }
 
-function editUser(mail,name,prenom,digit,pass,tel,role) {
+function editUser(mail,name,prenom,categorie,pass,tel,role) {
 	url = "/v1/userdb/edit/";
 	if(role == "admin"){
 		url += "admin/";
@@ -89,7 +89,7 @@ function editUser(mail,name,prenom,digit,pass,tel,role) {
 			"mail" : mail,
 			"name" : name,
 			"prenom" : prenom,
-			"digit" : digit,
+			"categorie" : categorie,
 			"mot_de_passe" : pass,
 			"numero" : tel,
 			"role" : role,

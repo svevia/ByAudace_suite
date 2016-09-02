@@ -67,9 +67,11 @@ public class UserViews {
     public class ReturnerUser{
     	User userDetail;
     	User user;
-    	public ReturnerUser(User userDetail, User user){
+    	List<String> list;
+    	public ReturnerUser(User userDetail, User user, List<String> list){
     		this.user = user;
     		this.userDetail = userDetail;
+    		this.list = list;
     	}
 		public User getUser() {
 			return user;
@@ -82,6 +84,12 @@ public class UserViews {
 		}
 		public void setUserDetail(User userDetail) {
 			this.userDetail = userDetail;
+		}
+		public List<String> getList() {
+			return list;
+		}
+		public void setList(List<String> list) {
+			this.list = list;
 		}
 
     }
@@ -102,7 +110,7 @@ public class UserViews {
         if (user == null) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
-        return new ReturnerUser(user, name);
+        return new ReturnerUser(user, name,dao.allCat());
     }
 
 }

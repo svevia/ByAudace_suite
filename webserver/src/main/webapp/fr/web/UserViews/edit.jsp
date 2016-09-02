@@ -43,8 +43,8 @@
     <input type="tel" class="form-control" id="tel" value="${it.userDetail.numero}">
   </div>
   <div class="form-group">
-    <label for="mail">Digit</label>
-    <input type="text" class="form-control" id="digit" value="${it.userDetail.digit}">
+    <label for="mail">Categorie</label>
+    <input type="text" class="form-control" id="digit" value="${it.userDetail.categorie}">
   </div>
 
 <input type="hidden" class="form-control" id="role" value="${it.userDetail.role}">
@@ -60,7 +60,7 @@
                 name = $('#name').val();
                 prenom = $('#prenom').val();
                 tel = $('#tel').val();
-                digit = $('#digit').val();
+                categorie = $('#categorie').val();
                 role = $("#role").val();
                 id = $('#id').val();
                 editUser(mail,name,prenom,digit,pass,tel,role,id)});

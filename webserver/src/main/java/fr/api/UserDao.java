@@ -7,7 +7,6 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
 /**
  * Requêtes SQL sur la table utilisateur utilisés dans UserDBResource
- * @author seysn
  */
 public interface UserDao {
 
