@@ -15,7 +15,7 @@ $(document).ready(function(){
 	});
 	
 	 $("#sendMail").click(function () {
-		 sendMail($('#message').val());
+		 sendMail(CKEDITOR.instances.editor1.getData(), $('#sujet').val());
  });	
 	
 	
@@ -39,12 +39,15 @@ function getNombreUser(success) {
      });
 }
 
-function sendMail(data) {
+function sendMail(msg, sujet) {
     return $.ajax({
        type: "POST",
        url: "/v1/userdb/mail",
-       contentType : 'application/json',
-		data : data,
+	   	contentType : 'application/json',
+		data : JSON.stringify({
+			"message" : msg,
+			"sujet" : sujet
+		}),
        beforeSend : function(req) {
            req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
        },
