@@ -13,9 +13,9 @@
     <body>
       <jsp:include page="/layout/logo.jsp"/>
       
-    <c:if test="${it.role eq 'admin' || param.role eq 'root'}">
+    <c:if test="${it.user.role eq 'admin' || it.user.role eq 'root'}">
     <jsp:include page="/layout/navbar.jsp">
-    <jsp:param name="name" value = "${it.name}"/>
+    <jsp:param name="name" value = "${it.user.name}"/>
     </jsp:include>
     </c:if>
 
@@ -42,6 +42,19 @@
     <input type="text" class="form-control" id="categoUsers">
   </div>
   <button onClick="addCategorie()" class="btn btn-primary">Ajouter</button>
+  
+  <hr>
+  
+    <table id="table" class="table">
+		<% int cpt =0; %>
+		<c:forEach items="${it.list}" var="item">
+			<tr id = "cat_<%=cpt%>">
+			<td id = "name_<%=cpt%>">${item}</td>
+			<td><button href="/v1/userdb/delCat/${item}" id="del_<%=cpt%>" name="${item}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
+			</tr>
+			<%cpt++; %>
+		</c:forEach>
+	</table>
   
 
 
