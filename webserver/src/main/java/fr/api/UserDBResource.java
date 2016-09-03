@@ -160,8 +160,9 @@ public class UserDBResource {
     @POST
     @RolesAllowed({"admin","user"})
     @Path("/send")
-    public void sendHelp(Mail m) {
+    public Response sendHelp(Mail m) {
     		Mailer.sendMail(m);
+    		return Response.ok(200).build();
     }
     
     @GET
