@@ -148,12 +148,13 @@ public class UserDBResource {
     @POST
     @RolesAllowed("admin")
     @Path("/mail")
-    public void sendMail(Mail m) {
+    public Response sendMail(Mail m) {
     	List<String> mails = dao.getAllMail();
     	for(String mail : mails){
     		m.setAdresse(mail);
     		Mailer.sendMail(m);
     	}
+    	return Response.ok(200).build();
     }
     
     

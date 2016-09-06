@@ -60,7 +60,7 @@ public class Mailer {
 		      }catch (MessagingException mex) {
 		         mex.printStackTrace();
 		      }
-			
+			return;
 		
 		}
 		
