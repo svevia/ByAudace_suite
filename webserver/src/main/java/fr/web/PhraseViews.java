@@ -66,12 +66,14 @@ public class PhraseViews {
     public class ReturnerPhrase{
     	Phrase phrases;
     	User user;
+		User createur;
     	
     	public ReturnerPhrase(Phrase phrases, User user){
     		
     		UserDao userDao = BDDFactory.getDbi().open(UserDao.class);
     		this.phrases = phrases;
     		this.user = user;
+    		this.createur = userDao.findById(phrases.getId_user());
     	}
 		public Phrase getPhrases() {
 			return phrases;
@@ -85,7 +87,13 @@ public class PhraseViews {
 		public void setUser(User user) {
 			this.user = user;
 		}
-
+		public User getCreateur() {
+			return createur;
+		}
+		public void setCreateur(User createur) {
+			this.createur = createur;
+		}
+		
     }
     
     
