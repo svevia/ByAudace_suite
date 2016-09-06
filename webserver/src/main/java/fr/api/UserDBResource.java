@@ -162,7 +162,7 @@ public class UserDBResource {
     @RolesAllowed({"admin","user"})
     @Path("/send")
     public Response sendHelp(Mail m) {
-    		Mailer.sendMail(m);
+    		Mailer.sendMail(m.getAdresse(), m.getMessage(), m.getSujet());
     		return Response.ok(200).build();
     }
     
