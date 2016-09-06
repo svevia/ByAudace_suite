@@ -60,15 +60,12 @@ public class Mailer {
 		      }catch (MessagingException mex) {
 		         mex.printStackTrace();
 		      }
-			return;
-		
 		}
 		
 	}
 	
 	public static void sendMail(Mail m){
 		sendMail(m.getAdresse(), m.getMessage(), m.getSujet());
-		return;
 	}
 	
 	public static String pass(String pass){
