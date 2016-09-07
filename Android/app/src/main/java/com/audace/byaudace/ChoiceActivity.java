@@ -66,7 +66,7 @@ public class ChoiceActivity extends Activity {
                             json = new String(u, "UTF-8");
                         }catch(Exception e){}
 
-                        System.out.println("Champion : " + json);
+                        System.out.println("BONSOUAR : " + json);
                         String[] tok = json.split(",");
 
                         // A corriger : Les champs peuvent être nuls dans le User

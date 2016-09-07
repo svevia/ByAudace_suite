@@ -545,8 +545,16 @@ public class JpeuxAiderActivity extends Activity  {
 
                     @Override
                     public void onResponse(String json) {
-                        System.out.println("/////// Création Utilisateur Json : " + json);
+
+                        // ---------------------------------
+                        try {
+                            byte[] u = json.getBytes("ISO-8859-1");
+                            json = new String(u, "UTF-8");
+                        }catch(Exception e){}
+
+                        System.out.println("Champion : " + json);
                         String[] tok = json.split(",");
+                        // ---------------------------------
 
                         // A corriger : Les champs peuvent être nuls dans le User
                         User coucou = new User(tok[1].split(":")[1], //digit
