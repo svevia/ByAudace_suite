@@ -69,6 +69,43 @@ public class Mailer {
 	}
 	
 	public static String pass(String pass){
-		return "Votre mot de passe pour Audace est :" + pass;
+		return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n" +
+                "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n" +
+                "\t<head>\n" +
+                "\t\t<meta http-equiv=\"Content-Type\" content=\"text/html; />\n" +
+                "\t\t<title>Demande de contact !</title>\n" +
+                "\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n" +
+                "\t</head>\n" +
+                "\t\n" +
+                "\t\n" +
+                "\t<body style=\"margin: 0; padding: 20px 0 20px 0;\">\n" +
+                "\n" +
+                "\t\t<table align=\"center\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\" style=\"border-collapse: collapse; border: #a8a9ab;\">\n" +
+                "\t\t\t<tr>\n" +
+                "\t\t\t\t<td align=\"center\" style=\"padding: 20px 0 20px 0;\">\n" +
+                "\t\t\t\t\t<img src=\"http://www.campus-audace.com/images/logo.gif\" alt=\"Audace logo\" style=\"display: block;\" />\n" +
+                "\t\t\t\t</td>\n" +
+                "\t\t\t</tr>\n" +
+                "\n" +
+                "\t\t\t<tr>\n" +
+                "\t\t\t\t<td style=\"padding: 5px 0 5px 30px;\">Mot de passe Audace !</td>\n" +
+                "\t\t\t</tr>\n" +
+                "\t\t\t<tr>\n" +
+                "\t\t\t\t<td style=\"padding: 20px 30px 30px 30px;\">\n" +
+                "\t\t\t\t Vous pouvez vous connecter à l'application byAudace avec votre adresse mail et le mot de passe :<br /><br />\n" +
+                "\t\t\t\t <b>"+pass+"</b></td>\n" +
+                "\t\t\t</tr>\n" +
+                "\t\t\t<tr>\n" +
+                "\t\t\t\t<td bgcolor=\"#a8a9ab\" style=\"padding: 5px 0 5px 30px; color: #FFFFFF; font-family: Arial, sans-serif; font-size: 14px;\">\n" +
+                "\t\t\t\t\t&reg; Audace, 2016<br/>\n" +
+                "\t\t\t\t\t<font color=\"#FFFFFF\"><i>Ceci est un mail automatique, merci de ne pas y repondre</i></font>\n" +
+                "\t\t\t\t</td>\n" +
+                "\t\t\t</tr>\n" +
+                "\t\t</table>\n" +
+                "\t\t\n" +
+                "\t</body>\n" +
+                "\n" +
+                "\n" +
+                "</html>";
 	}
 }

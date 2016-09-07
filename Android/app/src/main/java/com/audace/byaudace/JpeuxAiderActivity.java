@@ -350,7 +350,8 @@ public class JpeuxAiderActivity extends Activity  {
                                 "\t\t\t<tr>\n" +
                                 "\t\t\t\t<td bgcolor=\"#a8a9ab\" style=\"padding: 5px 0 5px 30px; color: #FFFFFF; font-family: Arial, sans-serif; font-size: 14px;\">\n" +
                                 "\t\t\t\t\t&reg; Audace, 2016<br/>\n" +
-                                "\t\t\t\t\t<a href=\"#\" style=\"color: #FFFFFF;\"><font color=\"#FFFFFF\">Signaler cet utilisateur</font></a>\n" +
+                                "\t\t\t\t\t<font color=\"#FFFFFF\"><a href=\"#\" style=\"color: #FFFFFF;\">Signaler cet utilisateur</a>\n" +
+                                "\t\t\t\t\t<i>Ceci est un mail automatique, merci de ne pas y repondre</i></font>\n" +
                                 "\t\t\t\t</td>\n" +
                                 "\t\t\t</tr>\n" +
                                 "\t\t</table>\n" +
