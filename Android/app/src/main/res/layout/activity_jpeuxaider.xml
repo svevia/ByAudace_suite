@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Les demandes de \nmises en relation :"
+        android:text="@string/demandes"
         android:id="@+id/textView4"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"

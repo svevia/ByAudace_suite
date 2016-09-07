@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Paramètres de \nl'application"
+            android:text="@string/settings"
             android:id="@+id/textView4"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
@@ -41,7 +41,7 @@
     <Switch
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Notifications"
+        android:text="@string/titre_notifs"
         android:id="@+id/switchNotifications"
         android:layout_below="@+id/page_buttons"
         android:layout_alignParentLeft="true"
@@ -81,12 +81,13 @@
 
         <TextView
             android:id="@+id/infos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Informations personnelles"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:text="@string/titre_infos"
             android:layout_gravity="left|top"
             android:textSize="17sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:singleLine="true" />
 
         <TextView
             android:id="@+id/textinfos"
