@@ -435,7 +435,7 @@ public class JpeuxAiderActivity extends Activity  {
                         queue.add(request2);
                         // ----------------------------------------------------------------------------------------------------------------
                         // ----------------------------------------------------------------------------------------------------------------
-
+                        
                         Toast.makeText(getApplicationContext(), "Demande de contact envoyée.", Toast.LENGTH_SHORT).show();
                     }
 
