@@ -365,7 +365,6 @@ public class JpeuxAiderActivity extends Activity  {
                         mail.put("sujet","Mise en relation ByAudace");
                         mail.put("message",htmlwow);
                         mail.put("adresse", bonjour.getMail());
-                        System.out.println(mail.toString());
 
                         String url = Configuration.SERVER + "/v1/userdb/send";
                         final com.android.volley.toolbox.JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(mail),
@@ -374,7 +373,6 @@ public class JpeuxAiderActivity extends Activity  {
                                     public void onResponse(JSONObject response) {
                                         try {
                                             VolleyLog.v("Response:%n %s", response.toString(4));
-                                            Toast.makeText(getApplicationContext(), "Demande de contact envoyée.", Toast.LENGTH_SHORT).show();
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -437,7 +435,8 @@ public class JpeuxAiderActivity extends Activity  {
                         queue.add(request2);
                         // ----------------------------------------------------------------------------------------------------------------
                         // ----------------------------------------------------------------------------------------------------------------
-
+                        
+                        Toast.makeText(getApplicationContext(), "Demande de contact envoyée.", Toast.LENGTH_SHORT).show();
                     }
 
                 })

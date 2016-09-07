@@ -1,12 +1,16 @@
 package com.audace.byaudace;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -14,10 +18,18 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -152,7 +164,6 @@ public class ChoiceActivity extends Activity {
         intent.putExtra("user_numero", user.getNumero());
         intent.putExtra("user_mail", user.getMail());
         intent.putExtra("user_mot_de_passe", user.getMdp());
-        System.out.println("CANARY : " + user.getDigit());
 
         if(changeClass == InfosActivity.class) {
             intent.putExtra("first_use", true);
@@ -160,6 +171,84 @@ public class ChoiceActivity extends Activity {
 
         startActivity(intent);
         //finish();
+    }
+
+
+
+    public void alertBeta(View view){
+        final RequestQueue queue = Volley.newRequestQueue(this);
+
+        AlertDialog.Builder alertDialogBuilder;
+        alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set title
+        alertDialogBuilder.setTitle("Que pensez-vous de l'application ?");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE);
+        input.setHint("Entrez votre message de retour ici");
+        alertDialogBuilder.setView(input);
+
+        // set dialog message
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        List<String> mails = new ArrayList<String>();
+                        mails.add("raes.remy@gmail.com");
+                        mails.add("sveviaurelien@gmail.com");
+                        String message = input.getText().toString();
+
+                        for (String s : mails){
+
+                            Map<String, Object> mail = new HashMap<>();
+                            mail.put("sujet", "[BETA] Retour de " + user.getMail());
+                            mail.put("message", message);
+                            mail.put("adresse", s);
+
+                            String url = Configuration.SERVER + "/v1/userdb/send";
+                            final com.android.volley.toolbox.JsonObjectRequest request = new JsonObjectRequest(url, new JSONObject(mail),
+                                    new Response.Listener<JSONObject>() {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            try {
+                                                VolleyLog.v("Response:%n %s", response.toString(4));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }, new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    VolleyLog.e("Error: ", error.getMessage());
+                                }
+                            }) {
+
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String> params = new HashMap<>();
+                                    params.put("Authorization", "basic " + Base64.encodeToString((user.getMail() + ":" + user.getMdp()).getBytes(), Base64.NO_WRAP));
+                                    return params;
+                                }
+                            };
+                            queue.add(request);
+                        }
+
+                        Toast.makeText(getApplicationContext(), "Merci pour votre retour !", Toast.LENGTH_LONG).show();
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {}
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
     }
 
 }
