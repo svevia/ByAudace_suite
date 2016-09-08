@@ -54,7 +54,6 @@ function sendMail(msg, sujet,json) {
        },
        success: function (data){
         alert("mail envoyé");
-        
        },
        error : function(jqXHR, textStatus, errorThrown) {
        			console.log('error: ' + textStatus);
@@ -136,5 +135,4 @@ function getCatsChecked(msg, sujet){
 	});
 	var json = JSON.stringify(ret);
 	sendMail(msg, sujet, json);
-	console.log(jsonString);
 }

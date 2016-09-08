@@ -47,6 +47,7 @@ public class UserDBResource {
     @RolesAllowed({"admin", "animateur"})
     public User createUser(User user) {
     	if(dao.findByMail(user.getMail())== null && (user.getRole().equals("user")|| user.getRole().equals("animateur"))){
+    		user.setSignalement(0);
     		String pass = user.generatePass();
     		user.setMot_de_passe(pass);
     		Mailer.sendMail(user.getMail(), Mailer.pass(pass), "Votre mot de passe Audace"); 
@@ -71,6 +72,7 @@ public class UserDBResource {
     @Path("/admin")
     public User createAdmin(User user) {
     	if(dao.findByMail(user.getMail())== null && user.getRole().equals("admin")){
+    		user.setSignalement(0);
     		String pass = user.generatePass();
     		user.setMot_de_passe(pass);
     		Mailer.sendMail(user.getMail(), Mailer.pass(pass), "Votre mot de passe Audace"); 
@@ -94,7 +96,7 @@ public class UserDBResource {
     @RolesAllowed("admin")
     @Path("/edit")
     public User editUser(User user) {
-    	if(user.getRole()=="user" || user.getRole() == "animateur"){
+    	if(user.getRole().equals("user") || user.getRole().equals("animateur")){
 	    	if((dao.findByMail(user.getMail()) == null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
 	    		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
 	    			user.setSalt(dao.findById(user.getId()).getSalt());
@@ -308,7 +310,7 @@ public class UserDBResource {
     public Response deleteUser(@PathParam("id") int id) {
         User user = dao.findById(id);
         
-        if (user == null || user.getRole()=="admin" || user.getRole()=="root") {
+        if (user == null || user.getRole().equals("admin") || user.getRole().equals("root")) {
             return Response.ok().status(404).build();
         }
         dao.delete(id);

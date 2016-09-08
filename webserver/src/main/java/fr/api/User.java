@@ -27,6 +27,7 @@ public class User implements Principal {
     private String typeFormation;
     private int numFormation;
     private String salt;
+    private int signalement;
 
 
     public User(String mail, String name, String prenom, String digit, String mot_de_passe, String role, String numero) {
@@ -177,6 +178,14 @@ public class User implements Principal {
 
 	public void setNumFormation(int numFormation) {
 		this.numFormation = numFormation;
+	}
+	
+	public int getSignalement() {
+		return signalement;
+	}
+
+	public void setSignalement(int signalement) {
+		this.signalement = signalement;
 	}
 
 	public boolean isInRootGroup(){

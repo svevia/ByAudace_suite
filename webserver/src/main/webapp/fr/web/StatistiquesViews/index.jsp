@@ -143,7 +143,10 @@
             $("#submit").click(function () {				
                 msg = CKEDITOR.instances.editor1.getData();
                 sujet = $('#sujet').val();
+                $("#submit").prop("disabled", true);
                 getCatsChecked(msg,sujet);
+                $("#submit").prop("disabled", false);
+
         })
         });
 
