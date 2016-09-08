@@ -73,25 +73,28 @@ public class ChoiceActivity extends Activity {
 
                     @Override
                     public void onResponse(String json) {
+
+                        JSONObject obj = null;
+                        user = null;
+
                         try {
                             byte[] u = json.getBytes("ISO-8859-1");
                             json = new String(u, "UTF-8");
-                        }catch(Exception e){}
 
-                        System.out.println("BONSOUAR : " + json);
-                        String[] tok = json.split(",");
+                            obj = new JSONObject(json);
+                            System.out.println("JSONOBJ : " + obj.toString());
+                            user = new User(obj.getInt("id"),
+                                    obj.getString("mail"),
+                                    obj.getString("mot_de_passe"),
+                                    obj.getString("name"),
+                                    obj.getString("prenom"),
+                                    obj.getString("numero"));
+                            System.out.println("USER : " + user.toString());
 
-                        // A corriger : Les champs peuvent être nuls dans le User
-                        user = new User(tok[1].split(":")[1], //digit
-                                Integer.valueOf(tok[2].split(":")[1]), //id
-                                tok[3].split(":")[1], //mail
-                                tok[4].split(":")[1], //mdp
-                                tok[5].split(":")[1], //nom
-                                tok[7].split(":")[1], //numero
-                                tok[8].split(":")[1]); //prenom
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
-
-                        System.out.println("USER : " + user.toString());
                         // Ici, on attrape l'utilisateur qui démarre l'appli pour la première fois
                         if(user.getNom().isEmpty() && user.getPrenom().isEmpty()){
                             //Toast.makeText(getApplicationContext(), "BONJOUR", Toast.LENGTH_SHORT).show();
@@ -199,6 +202,9 @@ public class ChoiceActivity extends Activity {
                         List<String> mails = new ArrayList<String>();
                         mails.add("raes.remy@gmail.com");
                         mails.add("sveviaurelien@gmail.com");
+                        mails.add("byaudace@gmail.com");
+                        mails.add("dgesp@campus-audace.com");
+                        mails.add("balbanese@campus-audace.com");
                         String message = input.getText().toString();
 
                         for (String s : mails){

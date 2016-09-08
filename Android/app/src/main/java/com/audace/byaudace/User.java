@@ -28,8 +28,8 @@ public class User {
 
     }
 
-    public User(int id, String digit, String mail, String mdp, String nom, String prenom, String numero){
-        this.digit = digit;
+    public User(int id, String mail, String mdp, String nom, String prenom, String numero){
+        this.digit = null;
         this.id = id;
         this.mail = mail;
         this.mot_de_passe = mdp;

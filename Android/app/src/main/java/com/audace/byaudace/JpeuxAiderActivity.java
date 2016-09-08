@@ -61,7 +61,7 @@ public class JpeuxAiderActivity extends Activity  {
     private Intent intent;
     private SwipeRefreshLayout swipeContainer;
     private RequestQueue queue;
-    private int history = -1;
+    private int history = -4242;
     private User user;
     private User poster;
     private LinearLayout test;
@@ -93,7 +93,7 @@ public class JpeuxAiderActivity extends Activity  {
             @Override
             public void onRefresh() {
                 getConnexion();
-                history = -1;
+                history = -4242;
                 swipeContainer.setRefreshing(false);
             }
         });
@@ -202,18 +202,35 @@ public class JpeuxAiderActivity extends Activity  {
                 });
 
 
+                // On ne peut dérouler qu'une phrase à la fois
+                /*
+                if (history == -1) {
+                    ouvrirPhrase(position);
+                    history = position;
 
-                    // On ne peut dérouler qu'une phrase à la fois
-                    if (history == -1) {
+                } else {
+                    if (history == position) {
+                        fermerPhrase(position);
+                        history = -1;
+                    }
+                }*/
+
+                // On déroule la phrase voulue, si une autre était ouverte, elle est fermée.
+                if(history == -4242){
+                    ouvrirPhrase(position);
+                    history = position;
+                }else{
+                    if(history == position){
+                        fermerPhrase(history);
+                        history = -4242;
+                    }else {
+                        fermerPhrase(history);
                         ouvrirPhrase(position);
                         history = position;
-
-                    } else {
-                        if (history == position) {
-                            fermerPhrase(position);
-                            history = -1;
-                        }
                     }
+                }
+
+
             }
         });
     }
@@ -233,7 +250,6 @@ public class JpeuxAiderActivity extends Activity  {
                 getResources().getDisplayMetrics());
         test.setLayoutParams(lp);
         adapter.getItem(position).setDeroulee(true);
-
     }
 
     public void fermerPhrase(int position){
@@ -351,7 +367,7 @@ public class JpeuxAiderActivity extends Activity  {
                                 "\t\t\t\t<td bgcolor=\"#a8a9ab\" style=\"padding: 5px 0 5px 30px; color: #FFFFFF; font-family: Arial, sans-serif; font-size: 14px;\">\n" +
                                 "\t\t\t\t\t&reg; Audace, 2016<br/>\n" +
                                 "\t\t\t\t\t<font color=\"#FFFFFF\"><a href=\"#\" style=\"color: #FFFFFF;\">Signaler cet utilisateur</a>\n" +
-                                "\t\t\t\t\t<i>Ceci est un mail automatique, merci de ne pas y repondre</i></font>\n" +
+                                "\t\t\t\t\t<i>Ceci est un mail automatique, merci de ne pas y répondre.</i></font>\n" +
                                 "\t\t\t\t</td>\n" +
                                 "\t\t\t</tr>\n" +
                                 "\t\t</table>\n" +
@@ -536,8 +552,6 @@ public class JpeuxAiderActivity extends Activity  {
 
     private User getUser(int id, final Phrase popeye, final String login, final String mdp){
 
-        System.out.println("//////// Création de l'utilisateur : " + id + " " + login + " ");
-
         queue = Volley.newRequestQueue(this);
 
         final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/" + id,
@@ -546,27 +560,26 @@ public class JpeuxAiderActivity extends Activity  {
                     @Override
                     public void onResponse(String json) {
 
-                        // ---------------------------------
+                        JSONObject obj = null;
+                        User coucou = null;
+
                         try {
                             byte[] u = json.getBytes("ISO-8859-1");
                             json = new String(u, "UTF-8");
-                        }catch(Exception e){}
 
-                        System.out.println("Champion : " + json);
-                        String[] tok = json.split(",");
-                        // ---------------------------------
+                            obj = new JSONObject(json);
+                            System.out.println("JSONOBJ : " + obj.toString());
+                            coucou = new User(obj.getInt("id"),
+                                    obj.getString("mail"),
+                                    obj.getString("mot_de_passe"),
+                                    obj.getString("name"),
+                                    obj.getString("prenom"),
+                                    obj.getString("numero"));
 
-                        // A corriger : Les champs peuvent être nuls dans le User
-                        User coucou = new User(tok[1].split(":")[1], //digit
-                                Integer.valueOf(tok[2].split(":")[1]), //id
-                                tok[3].split(":")[1], //mail
-                                tok[4].split(":")[1], //mdp
-                                tok[5].split(":")[1], //nom
-                                tok[7].split(":")[1], //numero
-                                tok[8].split(":")[1]); //prenom
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
-                        // Ici, l'utilisateur est bien print
-                        System.out.println("///////////////// GetUser : " + user);
                         alertContact(popeye,coucou);
                     }
 
@@ -586,9 +599,6 @@ public class JpeuxAiderActivity extends Activity  {
             }
         };
         queue.add(request);
-
-        //// Ici, l'utilisateur est null = NullPointerException
-        //System.out.println("///////////////////////////////" + user.getPrenom());
 
         return user;
     }
