@@ -43,7 +43,7 @@
                     <c:forEach items="${it.list}" var="item">
                         <tr id = "user_<%=cpt%>">
                         <td id = "mail_<%=cpt%>"><a id="linkMail_<%=cpt%>" href="/html/userdb/${item.id}">${item.mail}</a></td>
-                        <td><button id="b_<%=cpt%>" name="${item.id}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
+                        <td><button id="b_<%=cpt%>" role="${item.role}" name="${item.id}" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">supprimer</button></td>
                         </tr>
                         <%cpt++; %>
                     </c:forEach>
@@ -76,21 +76,9 @@
 	$(document).ready(function() {
 		$("button").click(function () {
 		var id = $(this).attr("name");
+		var role = $(this).attr("role");
 		$("#oui").click(function () {
-		 	$.ajax({
-	          type: "DELETE",
-	          url: "/v1/userdb/" + id,
-	          beforeSend : function(req) {
-	        	  req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
-       		  },
-	          success: function(msg){
-	            location.reload();
-	          },
-	          error: function(xhr, status, errorThrown){
-	            console.log("Error: " + errorThrown);
-	            console.log("Status: " + status);
-	          },
-	          });
+			deleteUser(id,role)
 			});
 		});
 		

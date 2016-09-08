@@ -70,7 +70,7 @@ function postUser(mail,name,prenom,categorie,role,tel) {
 			afficheUser(data);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-				alert('error: ' + textStatus);
+				alert('error: ' + errorThrown);
 		}
 	});
 }
@@ -105,9 +105,31 @@ function editUser(mail,name,prenom,categorie,pass,tel,role) {
 			afficheUser(data);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
-				alert('error: ' + textStatus + "errorThrown :" + errorThrown);
+				alert('error: ' + errorThrown);
 		}
 	});
+}
+
+function deleteUser(id,role){
+	url = "/v1/userdb/";
+	if(role == "admin"){
+		url += "admin/";
+	}
+ 	$.ajax({
+        type: "DELETE",
+        url: url + id,
+        beforeSend : function(req) {
+      	  req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
+ 		  },
+        success: function(msg){
+          location.reload();
+        },
+        error: function(xhr, status, errorThrown){
+          console.log("Error: " + errorThrown);
+          console.log("Status: " + status);
+          alert('error: ' + errorThrown);
+        },
+        });
 }
 
 function listUsersGeneric(url) {

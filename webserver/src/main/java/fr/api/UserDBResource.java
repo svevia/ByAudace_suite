@@ -69,6 +69,9 @@ public class UserDBResource {
     @Path("/admin")
     public User createAdmin(User user) {
     	if(dao.findByMail(user.getMail())== null){
+    		String pass = user.generatePass();
+    		user.setMot_de_passe(pass);
+    		Mailer.sendMail(user.getMail(), Mailer.pass(pass), "Votre mot de passe Audace"); 
 	        user.resetPasswordHash();
 	        dao.insert(user);
 	        logger.trace("creation admin " + user.getMail() + " -- id = " + user.getId());
@@ -201,6 +204,19 @@ public class UserDBResource {
         return user;
     }
     
+
+    @GET
+    @RolesAllowed({"admin"})
+    @Path("/role/{id}")
+    public String getRole(@PathParam("id") int id) {
+        User user = dao.findById(id);
+
+        if (user == null) {
+        	throw new WebApplicationException(403);
+        }
+        return user.getRole();
+    }
+    
     /**
      * Recherche un utilisateur par son mail Exemple : curl
      * "localhost:8080/v1/userdb/toto@gmail.com" -X GET
@@ -270,6 +286,19 @@ public class UserDBResource {
     @Path("/{id}")
     @RolesAllowed({"admin"})
     public Response deleteUser(@PathParam("id") int id) {
+        User user = dao.findById(id);
+        if (user == null) {
+            return Response.ok().status(404).build();
+        }
+        dao.delete(id);
+        logger.trace("suppression user " + user.getMail() + " -- id = " + user.getId());
+        return Response.ok().status(202).entity(user).build();
+    }
+    
+    @DELETE
+    @Path("/admin/{id}")
+    @RolesAllowed({"root"})
+    public Response deleteAdmin(@PathParam("id") int id) {
         User user = dao.findById(id);
         if (user == null) {
             return Response.ok().status(404).build();
