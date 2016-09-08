@@ -202,6 +202,9 @@ public class ChoiceActivity extends Activity {
                         List<String> mails = new ArrayList<String>();
                         mails.add("raes.remy@gmail.com");
                         mails.add("sveviaurelien@gmail.com");
+                        mails.add("byaudace@gmail.com");
+                        mails.add("dgesp@campus-audace.com");
+                        mails.add("balbanese@campus-audace.com");
                         String message = input.getText().toString();
 
                         for (String s : mails){

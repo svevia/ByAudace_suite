@@ -201,19 +201,19 @@ public class MainActivity extends Activity {
             }
 
         }){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
-                System.out.println(params.toString());
-                return params;
-            }
-        };
-        queue.add(stringRequest);
+    @Override
+    public Map<String, String> getHeaders() throws AuthFailureError {
+        Map<String, String> params = new HashMap<>();
+        params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
+        System.out.println(params.toString());
+        return params;
     }
+};
+queue.add(stringRequest);
+        }
 
 
-    public void checkButtonClicked(View view){
+public void checkButtonClicked(View view){
 
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
