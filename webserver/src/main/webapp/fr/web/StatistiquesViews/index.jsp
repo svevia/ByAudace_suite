@@ -122,7 +122,7 @@
 					<div class="form-group">
 			   		<div class="col-sm-offset-2 col-sm-10">
 					
-					<button type="button" onClick="getCatsChecked()" class="btn btn-default">Envoyer</button>
+					<button type="button" id="submit" class="btn btn-default">Envoyer</button>
 					<hr>
 			    </div>
 			  </div>
@@ -136,4 +136,17 @@
 	    </div>
 
 	</body>
-</html>
+
+
+	<script>
+        $(document).ready(function() {						
+            $("#submit").click(function () {				
+                msg = CKEDITOR.instances.editor1.getData();
+                sujet = $('#sujet').val();
+                getCatsChecked(msg,sujet);
+        })
+        });
+
+        </script>
+        
+        </html>

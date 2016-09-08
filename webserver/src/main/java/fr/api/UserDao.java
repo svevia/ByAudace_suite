@@ -84,8 +84,8 @@ public interface UserDao {
 	@SqlQuery("Select count(*) FROM utilisateur")
 	int getNbrUser();
 	
-	@SqlQuery("Select mail FROM utilisateur")
-	List<String> getAllMail();
+	@SqlQuery("Select mail FROM utilisateur where categorie = :cat")
+	List<String> getAllMail(@Bind("cat") String cat);
 	
     //selectionne les users correspondant a la recherche (utilisee dans UserView/index.jsp methode get)
     @SqlQuery("select * from utilisateur where mail like :search ")

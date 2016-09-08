@@ -102,7 +102,7 @@ function editUser(mail,name,prenom,categorie,pass,tel,role) {
 			if(data == null){
 				alert("email dejà utilisé");
 			}
-			afficheUser(data);
+			afficheList(data);
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 				alert('error: ' + errorThrown);
@@ -140,6 +140,10 @@ function listUsersGeneric(url) {
 
 function afficheUser(data) {
 	window.location.replace("/html/insert");
+}
+
+function afficheList(data) {
+	window.location.replace("/html/userdb");
 }
 
 function afficheListUsers(data) {

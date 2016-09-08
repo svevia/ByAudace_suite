@@ -1,11 +1,13 @@
 package fr.api;
 
+
+
 public class Mail {
 	
 	private String message;
 	private String sujet;
 	private String adresse;
-	
+	private String categories;//un json contenant la liste des categories selectionnés
 	
 	
 	public Mail() {
@@ -14,10 +16,24 @@ public class Mail {
 
 
 
-	public Mail(String message, String sujet, String adresse) {
+	public Mail(String message, String sujet, String adresse, String categories) {
 		this.message = message;
 		this.sujet = sujet;
 		this.adresse = adresse;
+		this.categories = categories;
+	}
+
+
+	
+
+	public String getCategories() {
+		return categories;
+	}
+
+
+
+	public void setCategories(String categories) {
+		this.categories = categories;
 	}
 
 
@@ -56,6 +72,6 @@ public class Mail {
 		this.adresse = adresse;
 	}
 	
-	
+
 
 }

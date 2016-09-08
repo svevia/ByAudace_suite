@@ -39,14 +39,15 @@ function getNombreUser(success) {
      });
 }
 
-function sendMail(msg, sujet) {
+function sendMail(msg, sujet,json) {
     return $.ajax({
        type: "POST",
        url: "/v1/userdb/mail",
 	   	contentType : 'application/json',
 		data : JSON.stringify({
 			"message" : msg,
-			"sujet" : sujet
+			"sujet" : sujet,
+			"categories" : json
 		}),
        beforeSend : function(req) {
            req.setRequestHeader("Authorization", "Basic " + btoa(getCookie("user")));
@@ -126,15 +127,14 @@ function checks(){
 	}
 }
 
-function getCatsChecked(){
+function getCatsChecked(msg, sujet){
 	var ret = [];
 	$('.optionmail').each(function(){
 		if($(this).is(':checked')){
-			console.log($(this).attr('name'));
 			ret.push($(this).attr('name'));
 		}	
 	});
-	console.log(ret);
-	var jsonString = JSON.stringify(ret);
+	var json = JSON.stringify(ret);
+	sendMail(msg, sujet, json);
 	console.log(jsonString);
 }

@@ -21,6 +21,8 @@ import javax.ws.rs.core.SecurityContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.Gson;
+
 import fr.api.User;
 /**
  * Requêtes REST liés à la table utilisateurs de la base de données
@@ -36,7 +38,7 @@ public class UserDBResource {
     final static Logger logger = LoggerFactory.getLogger(UserDBResource.class);
 
     /**
-     * Créé un utilsateur et l'ajoute dans la base de données Exemple : curl
+     * Créé un utilsateur et l'ajoute dans la base de données
      *
      * @param user - Les parametres de l'utilisateur
      * @return user - Utilisateur créé
@@ -44,7 +46,7 @@ public class UserDBResource {
     @POST
     @RolesAllowed({"admin", "animateur"})
     public User createUser(User user) {
-    	if(dao.findByMail(user.getMail())== null){
+    	if(dao.findByMail(user.getMail())== null && (user.getRole().equals("user")|| user.getRole().equals("animateur"))){
     		String pass = user.generatePass();
     		user.setMot_de_passe(pass);
     		Mailer.sendMail(user.getMail(), Mailer.pass(pass), "Votre mot de passe Audace"); 
@@ -59,7 +61,7 @@ public class UserDBResource {
     }
     
     /**
-     * Créé un utilsateur et l'ajoute dans la base de données Exemple : curl
+     * Créé un admin et l'ajoute dans la base de données : reservé à l'utilisateur root
      *
      * @param user - Les parametres de l'utilisateur
      * @return user - Utilisateur créé
@@ -68,7 +70,7 @@ public class UserDBResource {
     @RolesAllowed("root")
     @Path("/admin")
     public User createAdmin(User user) {
-    	if(dao.findByMail(user.getMail())== null){
+    	if(dao.findByMail(user.getMail())== null && user.getRole().equals("admin")){
     		String pass = user.generatePass();
     		user.setMot_de_passe(pass);
     		Mailer.sendMail(user.getMail(), Mailer.pass(pass), "Votre mot de passe Audace"); 
@@ -83,25 +85,34 @@ public class UserDBResource {
     }
 
     
-    
+    /**
+     * Fonction permettant l'edition d'un utilisateur par un admin
+     * @param user
+     * @return
+     */
     @POST
     @RolesAllowed("admin")
     @Path("/edit")
     public User editUser(User user) {
-    	if((dao.findByMail(user.getMail()) == null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
-    		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
-    			user.setSalt(dao.findById(user.getId()).getSalt());
-    			user.resetPasswordHash();
-    		}
-	        dao.update(user);
-	        return user;
+    	if(user.getRole()=="user" || user.getRole() == "animateur"){
+	    	if((dao.findByMail(user.getMail()) == null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
+	    		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
+	    			user.setSalt(dao.findById(user.getId()).getSalt());
+	    			user.resetPasswordHash();
+	    		}
+		        dao.update(user);
+		        return user;
+	    	}
     	}
-    	else{
-    		return null;
-    	}
+    return null;
     }
     
-    
+    /**
+     * Fonction permettant d'éditer son propre utilisateur
+     * @param user
+     * @param context
+     * @return
+     */
     @POST
     @RolesAllowed({"admin","user"})
     @Path("/editme")
@@ -128,6 +139,11 @@ public class UserDBResource {
     }
 
 
+    /**
+     * Cette fonction sert à éditer uniquement les admins, elle est reservé à l'utilisateur root
+     * @param user
+     * @return
+     */
     
     @POST
     @RolesAllowed("root")
@@ -152,10 +168,14 @@ public class UserDBResource {
     @RolesAllowed("admin")
     @Path("/mail")
     public void sendMail(Mail m) {
-    	List<String> mails = dao.getAllMail();
-    	for(String mail : mails){
-    		m.setAdresse(mail);
-    		Mailer.sendMail(m);
+    	List<String> categories = new Gson().fromJson(m.getCategories(), List.class);//décompose le json en ArrayList
+    	for(String cat :categories){
+    		System.out.println(cat);
+	    	List<String> mails = dao.getAllMail(cat);
+	    	for(String mail : mails){
+	    		m.setAdresse(mail);
+	    		Mailer.sendMail(m);
+	    	}
     	}
     }
     
@@ -287,7 +307,8 @@ public class UserDBResource {
     @RolesAllowed({"admin"})
     public Response deleteUser(@PathParam("id") int id) {
         User user = dao.findById(id);
-        if (user == null) {
+        
+        if (user == null || user.getRole()=="admin" || user.getRole()=="root") {
             return Response.ok().status(404).build();
         }
         dao.delete(id);
@@ -349,8 +370,6 @@ public class UserDBResource {
 
     /**
      * Retourne la liste de tout les utilisateurs dans la base de données
-     * Exemple : curl "localhost:8080/v1/userdb" -X GET
-     *
      * @return users - Liste de tout les utilisateurs dans la base
      */
     @GET
@@ -359,6 +378,10 @@ public class UserDBResource {
         return dao.all();
     }
     
+    /**
+     * Retourne la liste de toutes les categories d'utilisateurs
+     * @return
+     */
     @GET
     @Path("/cat")
     @RolesAllowed({"admin"})

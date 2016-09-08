@@ -44,6 +44,7 @@
 	  <label for="number">Catégorie de l'utilisateur</label><br/>
 	  <select id="catego" name="Catégorie de l'utilisateur" style="width:100%;height:30px">
 	  
+	  
 		<c:forEach items="${it.list}" var="item">
 			<option value="${item}">${item}</option>
 		</c:forEach>
@@ -82,7 +83,7 @@
   
   <hr>
   
-
+   <c:if test="${it.user.role eq 'admin' || it.user.role eq 'root'}">
   <div class="form-group">
           <label for="roleLabel">Role</label>
           <br/>
@@ -98,9 +99,10 @@ admin</label>
 <input type = "radio" name = "role" id = "animateur" value = "animateur" />
 animateur</label>
   </div>
+  </c:if>
   <button id="submit" class="btn btn-default">Creer</button>
   </div>
-  
+
   <hr>
 
   <script type="text/javascript">	
@@ -112,6 +114,7 @@ animateur</label>
                 tel = $('#tel').val();
                 categorie =  $('#catego').find(":selected").text();
                 role = $("input:radio[name ='role']:checked").val();
+                if(role==null){role = "user"}
                 postUser(mail,name,prenom,categorie,role,tel)});
         });
   </script>
