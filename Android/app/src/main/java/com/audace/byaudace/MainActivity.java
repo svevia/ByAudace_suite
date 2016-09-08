@@ -122,43 +122,12 @@ public class MainActivity extends Activity {
 
         queue = Volley.newRequestQueue(this);
 
-        /*
-        final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/mail="+login.toLowerCase(),
-                new Response.Listener<String>() {
-
-                    @Override
-                    public void onResponse(String json) {
-                        System.out.println("Json : " + json);
-                        String[] tok = json.split(",");
-
-                        // A corriger : Les champs peuvent être nuls dans le User
-                        user = new User(Integer.valueOf(tok[0].split(":")[1]), tok[1].split(":")[1], tok[2].split(":")[1], tok[3].split(":")[1]);
-                        System.out.println("User : " + user.toString());
-                        load(login, password);
-                    }
-
-                }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println("ERROR : " + error.getMessage());
-            }
-
-        });
-        queue.add(request);
-        */
-
         final StringRequest request = new StringRequest(Request.Method.GET, Configuration.SERVER+"/v1/userdb/salt?mail="+login.toLowerCase(),
                 new Response.Listener<String>() {
 
                     @Override
                     public void onResponse(String json) {
                         System.out.println("Json : " + json);
-                        //String[] tok = json.split(",");
-
-                        // A corriger : Les champs peuvent être nuls dans le User
-                        //user = new User(Integer.valueOf(tok[0].split(":")[1]), tok[1].split(":")[1], tok[2].split(":")[1], tok[3].split(":")[1]);
-                        //System.out.println("User : " + user.toString());
                         load(json, login, password);
                     }
 
