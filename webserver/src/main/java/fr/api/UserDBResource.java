@@ -97,7 +97,7 @@ public class UserDBResource {
     @Path("/edit")
     public User editUser(User user) {
     	if(user.getRole().equals("user") || user.getRole().equals("animateur")){
-	    	if((dao.findByMail(user.getMail()) == null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
+	    	if(dao.findByMail(user.getMail()).getId() == user.getId()){
 	    		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
 	    			user.setSalt(dao.findById(user.getId()).getSalt());
 	    			user.resetPasswordHash();
@@ -123,7 +123,7 @@ public class UserDBResource {
     	logger.trace("edit personnel du user + " + user.getId());
     	logger.trace("context user : " + log.getId());
     	if(((User) context.getUserPrincipal()).getId() == user.getId()){
-	    	if((dao.findByMail(user.getMail()) == null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
+	    	if((dao.findByMail(user.getMail()).getId() == user.getId())){
 	    		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
 	    			user.setSalt(dao.findById(user.getId()).getSalt());
 	    			user.resetPasswordHash();
