@@ -356,9 +356,12 @@ public class JpeuxAiderActivity extends Activity  {
                                 "\t\t\t<tr>\n" +
                                 "\t\t\t\t<td style=\"padding: 20px 30px 30px 30px;\">\n" +
                                 "\t\t\t\t\tBonjour <i>" + bonjour.getPrenom() + "</i>,<br /><br />\n" +
-                                "\t\t\t\t\tJe m'appelle <i>" + prenom + " " + nom + "</i>, et j'ai pris connaissance de votre besoin : <br />\n" +
-                                "\t\t\t\t\t<b>" + popeye.getBesoin() + "</b>,<br />\n" +
-                                "\t\t\t\t\tet vous propose mon aide, afin de le résoudre.<br /><br />\n\n" +
+                                "\t\t\t\t\tJe m'appelle <i>" + prenom + " " + nom + "</i>, j'ai pris connaissance de votre besoin  <br />\n";
+
+                        if(!popeye.getBesoin().equals(""))
+                                htmlwow += "\t\t\t\t\t<b>" + popeye.getBesoin() + "</b><br />\n";
+
+                        htmlwow += "\t\t\t\t\tet vous propose mon aide afin de le résoudre.<br /><br />\n\n" +
                                 "\t\t\t\t\tMerci de me contacter à l'adresse suivante : <a href=\"mailto:" + login + "\">" + login + "</a>.<br /><br />\n" +
                                 "\t\t\t\t\tBonne journée !<br />\n" +
                                 "\t\t\t\t</td>\n" +
