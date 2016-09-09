@@ -2,6 +2,7 @@ package com.audace.byaudace;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,8 +52,8 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
         }
 
         final Phrase pm = data.get(position);
-        holder.txtPhrase.setText(pm.getPhrase());
-        holder.txtBesoin.setText(pm.getBesoin());
+        holder.txtPhrase.setText(Html.fromHtml(pm.getPhrase()).toString());
+        holder.txtBesoin.setText(Html.fromHtml(pm.getBesoin()).toString());
 
         System.out.println(pm.getCategorie());
 
