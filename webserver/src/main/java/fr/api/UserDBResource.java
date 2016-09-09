@@ -97,7 +97,7 @@ public class UserDBResource {
     @Path("/edit")
     public User editUser(User user) {
     	if(user.getRole().equals("user") || user.getRole().equals("animateur")){
-	    	if(dao.findByMail(user.getMail()).getId() == user.getId()){
+    		if((dao.findByMail(user.getMail()) == null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
 	    		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
 	    			user.setSalt(dao.findById(user.getId()).getSalt());
 	    			user.resetPasswordHash();
@@ -105,8 +105,13 @@ public class UserDBResource {
 		        dao.update(user);
 		        return user;
 	    	}
+    		else{
+    			return null;
+    		}
     	}
-    return null;
+    		else{
+    		    return null;
+    		}
     }
     
     /**
@@ -151,19 +156,18 @@ public class UserDBResource {
     @RolesAllowed("root")
     @Path("/edit/admin")
     public User editAdmin(User user) {
-    	if((dao.findByMail(user.getMail())== null) ||(dao.findByMail(user.getMail()).getId() == user.getId()) ){
+		if((dao.findByMail(user.getMail()) == null) ||(dao.findByMail(user.getMail()).getId() == user.getId())){
     		if(!(user.getMot_de_passe().equals(dao.findById(user.getId()).getMot_de_passe()))){//mot de passe changé, donc on le hash
     			user.setSalt(dao.findById(user.getId()).getSalt());
     			user.resetPasswordHash();
     		}
-        dao.update(user);
-        return user;
+	        dao.update(user);
+	        return user;
+    	}
+		else{
+			return null;
+		}
 	}
-	else{
-		return null;
-	}
-}
-
    
     
     @POST
