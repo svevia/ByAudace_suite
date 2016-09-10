@@ -77,7 +77,7 @@ function postUser(mail,name,prenom,categorie,role,tel) {
 
 function editUser(mail,name,prenom,categorie,pass,tel,role) {
 	url = "/v1/userdb/edit/";
-	if(role == "admin"){
+	if(role == "admin" || role == "root"){
 		url += "admin/";
 	}
 	$.ajax({
