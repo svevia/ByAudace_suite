@@ -33,8 +33,11 @@
         $(document).ready(function() {						
             $("#submit").click(function () {				
                 mail = $('#mail').val();
+                name = null;
+                prenom = null;
+                tel = null;
                 role = "user";
-                categorie = "beta"
+                categorie = "beta";
                 postUserBeta(mail,role,categorie)});
             $('#mail').val('')
         });

@@ -76,7 +76,7 @@ function postUser(mail,name,prenom,categorie,role,tel) {
 }
 
 
-function postUserBeta(mail,role,categorie) {
+function postUserBeta(mail,name,prenom,categorie,role,tel) {
 	url = "/v1/userdb/beta/";
 	$.ajax({
 		type : 'POST',
@@ -85,8 +85,11 @@ function postUserBeta(mail,role,categorie) {
 		dataType : "json",
 		data : JSON.stringify({
 			"mail" : mail,
+			"name" : name,
+			"prenom" : prenom,
 			"categorie" : categorie,
-			"role" : role
+			"role" : role,
+			"numero" : tel
 		}),
 	success : function(data, textStatus, jqXHR) {
 			if(data == null){
