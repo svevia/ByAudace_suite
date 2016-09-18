@@ -56,6 +56,30 @@ public class UserDBResource {
 	        logger.trace("creation user " + user.getMail() + " -- id = " + dao.findByMail(user.getMail()).getId());
 	        return user;
     	}
+    	else{	
+    		return null;
+    	}
+    }
+    
+    /**
+     * Créé un utilsateur et l'ajoute dans la base de données
+     *
+     * @param user - Les parametres de l'utilisateur
+     * @return user - Utilisateur créé
+     */
+    @POST
+    @Path("/beta")
+    public User createUserBeta(User user) {
+    	if(dao.findByMail(user.getMail())== null && (user.getRole().equals("user")|| user.getRole().equals("animateur"))){
+    		user.setSignalement(0);
+    		String pass = user.generatePass();
+    		user.setMot_de_passe(pass);
+    		Mailer.sendMail(user.getMail(), Mailer.pass(pass), "Votre mot de passe Audace"); 
+	        user.resetPasswordHash();
+	        dao.insert(user);
+	        logger.trace("creation user " + user.getMail() + " -- id = " + dao.findByMail(user.getMail()).getId());
+	        return user;
+    	}
     	else{
     		return null;
     	}
@@ -169,7 +193,10 @@ public class UserDBResource {
 		}
 	}
    
-    
+    /**
+     * Envoi un mail à n'importe quelle adresse depuis l'adresse no-reply@campus-audace.fr
+     * @param m
+     */
     @POST
     @RolesAllowed("admin")
     @Path("/mail")
@@ -185,7 +212,10 @@ public class UserDBResource {
     	}
     }
     
-    
+    /**
+     * Envoi un mail automatique quand une personne se propose d'aider un besoin
+     * @param m
+     */
     @POST
     @RolesAllowed({"admin","user"})
     @Path("/send")
@@ -193,6 +223,11 @@ public class UserDBResource {
     		Mailer.sendMail(m);
     }
     
+    /**
+     * Crée une nouvelle catégorie d'utilisateurs
+     * @param cat
+     * @return
+     */
     @GET
     @RolesAllowed({"admin"})
     @Path("/newCat/{cat}")
@@ -201,7 +236,11 @@ public class UserDBResource {
     	return Response.ok().build();
     }
     
-    
+    /**
+     * Supprime une catégorie d'utilisateur
+     * @param cat
+     * @return
+     */
     @GET
     @RolesAllowed({"admin"})
     @Path("/delCat/{cat}")
@@ -212,8 +251,7 @@ public class UserDBResource {
     
 
     /**
-     * Recherche un utilisateur par son mail Exemple : curl
-     * "localhost:8080/v1/userdb/toto@gmail.com" -X GET
+     * Recherche un utilisateur par son id
      *
      * @param mail - Mail de l'utilisateur
      * @return user - Utilisateur trouvé
@@ -230,7 +268,11 @@ public class UserDBResource {
         return user;
     }
     
-
+    /**
+     * retourne le rôle d'un utilisateur
+     * @param id
+     * @return
+     */
     @GET
     @RolesAllowed({"admin"})
     @Path("/role/{id}")
@@ -244,8 +286,7 @@ public class UserDBResource {
     }
     
     /**
-     * Recherche un utilisateur par son mail Exemple : curl
-     * "localhost:8080/v1/userdb/toto@gmail.com" -X GET
+     * Recherche un utilisateur par son mail
      *
      * @param mail - Mail de l'utilisateur
      * @return user - Utilisateur trouvé
@@ -302,9 +343,7 @@ public class UserDBResource {
     }
 
     /**
-     * Supprime un utilisateur en passant son mail Exemple : curl
-     * "localhost:8080/v1/userdb/toto@gmail.com" -X DELETE
-     *
+     * Supprime un utilisateur en passant son id
      * @param mail - Mail de l'utilisateur
      * @return user - Utilisateur supprimé
      */
@@ -322,6 +361,11 @@ public class UserDBResource {
         return Response.ok().status(202).entity(user).build();
     }
     
+    /**
+     * Permet de supprimer un admin, fonction reservé à l'utilisateur root
+     * @param id
+     * @return
+     */
     @DELETE
     @Path("/admin/{id}")
     @RolesAllowed({"root"})
@@ -336,8 +380,7 @@ public class UserDBResource {
     }
     
     /**
-     * Recupere le salt lié à l'addresse mail Exemple : curl
-     * "localhost:8080/v1/userdb/salt?toto@gmail.com" -X GET
+     * Recupere le salt lié à l'addresse mail
      *
      * @param mail
      * @return salt
@@ -354,6 +397,10 @@ public class UserDBResource {
     }
     
     
+    /**
+     * Retorune le nombre d'utilisateur
+     * @return
+     */
     @GET
     @Path("/nbr")
     @Produces(MediaType.TEXT_PLAIN)
@@ -362,8 +409,7 @@ public class UserDBResource {
     }
 
     /**
-     * Retourne le nom et le prenom lié au mail
-     * Exemple : curl "localhost:8080/v1/userdb/user?mail=toto@gmail.com" -X GET
+     * Retourne le nom et le prenom lié à l'id
      * 
      * @param mail
      * @return nom et prenom

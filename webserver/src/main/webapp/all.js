@@ -75,6 +75,33 @@ function postUser(mail,name,prenom,categorie,role,tel) {
 	});
 }
 
+
+function postUserBeta(mail,role,categorie) {
+	url = "/v1/userdb/beta/";
+	$.ajax({
+		type : 'POST',
+		contentType : 'application/json',
+		url : url,
+		dataType : "json",
+		data : JSON.stringify({
+			"mail" : mail,
+			"categorie" : categorie,
+			"role" : role
+		}),
+	success : function(data, textStatus, jqXHR) {
+			if(data == null){
+				alert("email dejà utilisé");
+			}
+			window.alert("Un mail avec votre mot de passe vous a été envoyé\n Merci de participer à la beta ByAudace !");
+		},
+		error : function(jqXHR, textStatus, errorThrown) {
+				alert('error: ' + errorThrown);
+		}
+	});
+}
+
+
+
 function editUser(mail,name,prenom,categorie,pass,tel,role) {
 	url = "/v1/userdb/edit/";
 	if(role == "admin" || role == "root"){
