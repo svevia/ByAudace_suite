@@ -171,10 +171,13 @@ public class JpeuxAiderActivity extends Activity  {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                /*
                 poster = getUser(adapter.getItem(position).getIdUser(),
                         adapter.getItem(position),
                         intent.getStringExtra("user_mail"),
                         intent.getStringExtra("user_mot_de_passe"));
+                        */
+                alertSignalement(adapter.getItem(position));
                 return true;
             }
         });
@@ -190,7 +193,11 @@ public class JpeuxAiderActivity extends Activity  {
                     report.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            alertSignalement(adapter.getItem(position));
+                            //alertSignalement(adapter.getItem(position));
+                            getUser(adapter.getItem(position).getIdUser(),
+                                    adapter.getItem(position),
+                                    intent.getStringExtra("user_mail"),
+                                    intent.getStringExtra("user_mot_de_passe"));
                         }
                     });
 
