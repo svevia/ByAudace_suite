@@ -36,6 +36,13 @@
         android:textColor="#ffffff"
         />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/imageView3"
+            android:background="#a8a9aa"
+            android:src="@drawable/help" />
+
     </LinearLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

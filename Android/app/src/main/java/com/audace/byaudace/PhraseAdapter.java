@@ -72,7 +72,7 @@ public class PhraseAdapter extends ArrayAdapter<Phrase> {
         }
 
         // Image pour la fonction de signalement
-        holder.imgReport.setImageResource(R.drawable.report);
+        holder.imgReport.setImageResource(R.drawable.contact);
         holder.imgReport.setVisibility(View.GONE);
 
         return row;
