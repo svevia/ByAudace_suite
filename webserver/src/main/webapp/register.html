@@ -59,15 +59,20 @@
 
 	<script type="text/javascript">	
 		$(document).ready(function() {						
-			$("#submit").click(function () {				
+			$("#submit").click(function () {
 				mail = $('#mail').val();
 				name = "";
 				prenom = "";
 				tel = "";
 				role = "user";
 				categorie = "beta";
-				postUserBeta(mail,name,prenom,categorie,role,tel)});
-			$('#mail').val('')
+				$("#submit").prop("disabled", true);
+			    $('#mail').val('');
+				postUserBeta(mail,name,prenom,categorie,role,tel);
+				$("#submit").prop("disabled", false);
+			
+			});
+				
 		});
 	</script>	
 </body>

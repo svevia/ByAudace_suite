@@ -77,6 +77,10 @@ function postUser(mail,name,prenom,categorie,role,tel) {
 
 
 function postUserBeta(mail,name,prenom,categorie,role,tel) {
+	if(mail.indexOf('@') == -1){
+		alert("email incorrect !");
+		return;
+	}
 	url = "/v1/userdb/beta/";
 	$.ajax({
 		type : 'POST',
@@ -95,7 +99,9 @@ function postUserBeta(mail,name,prenom,categorie,role,tel) {
 			if(data == null){
 				alert("email dejà utilisé");
 			}
-			window.alert("Un mail avec votre mot de passe vous a été envoyé\n Merci de participer à la beta ByAudace !");
+			else{
+				window.alert("Un mail avec votre mot de passe vous a été envoyé\n Merci de participer à la beta ByAudace !");
+			}
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 				alert('error: ' + errorThrown);
