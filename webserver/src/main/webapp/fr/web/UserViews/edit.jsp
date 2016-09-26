@@ -22,6 +22,9 @@
   <div class="form-group">
     <label for="mail">ID : ${it.userDetail.id}</label>
   </div>
+    <div class="form-group">
+<label for="mail">Role : ${it.userDetail.role}</label>
+  </div>
   <div class="form-group">
     <label for="mail">Adresse mail</label>
     <input type="email" class="form-control" id="mail" value="${it.userDetail.mail}">
