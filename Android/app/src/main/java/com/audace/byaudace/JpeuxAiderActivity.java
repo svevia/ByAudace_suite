@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
@@ -66,6 +67,7 @@ public class JpeuxAiderActivity extends Activity  {
     private User poster;
     private LinearLayout test;
     private View report;
+    private LinearLayout page_buttons;
 
     /**
      * La méthode onCreate surcharge la méthode du même nom dans la classe mère Activity.
@@ -109,6 +111,14 @@ public class JpeuxAiderActivity extends Activity  {
         intent = this.getIntent();
 
         queue = Volley.newRequestQueue(getApplication().getApplicationContext());
+
+        page_buttons = (LinearLayout)findViewById(R.id.page_buttons);
+        page_buttons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         getConnexion();
     }
