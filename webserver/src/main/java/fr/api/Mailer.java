@@ -93,8 +93,9 @@ public class Mailer {
                 "\t\t\t<tr>\n" +
                 "\t\t\t\t<td style=\"padding: 20px 30px 30px 30px;\">\n" +
                 "\t\t\t\t Vous pouvez vous connecter à l'application byAudace avec votre adresse mail et le mot de passe :<br /><br />\n" +
-                "\t\t\t\t <b>"+pass+"</b></td>\n" +
-                "\t\t\t</tr>\n" +
+                "\t\t\t\t <b>"+pass+"</b><br /><br /><br />\n" +
+                "\t\t\t\t L'application est disponible sur le Google Play Store, <a href=\"https://play.google.com/store/apps/details?id=com.audace.byaudace&hl=fr\">Cliquez ici !</a>\n"+
+                "\t\t\t</td></tr>\n" +
                 "\t\t\t<tr>\n" +
                 "\t\t\t\t<td bgcolor=\"#a8a9ab\" style=\"padding: 5px 0 5px 30px; color: #FFFFFF; font-family: Arial, sans-serif; font-size: 14px;\">\n" +
                 "\t\t\t\t\t&reg; Audace, 2016<br/>\n" +
