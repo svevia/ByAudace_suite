@@ -2,6 +2,7 @@ package com.audace.byaudace;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -117,7 +118,7 @@ public class MainActivity extends Activity {
      * serveur via une requête GET et vérifie si les identifiants entrés sont valides.
      */
     public void login(final View view){
-        final String login = ""+loginText.getText();
+        final String login = ""+loginText.getText().toString().replace(" ","");
         final String password = "" + passwordText.getText();
 
         queue = Volley.newRequestQueue(this);
@@ -193,9 +194,9 @@ public class MainActivity extends Activity {
                     alertNotification(android.R.drawable.ic_delete,"Erreur","Identifiant mail ou mot de passe incorrect.");
 
                 } else if (error instanceof ServerError) {
-                    alertNotification(android.R.drawable.ic_popup_sync,"Maintenance en cours","Le serveur est actuellement indisponible, veuillez réessayer plus tard.");
+                    alertNotification(android.R.drawable.ic_popup_sync, "Maintenance en cours", "Le serveur est actuellement indisponible, veuillez réessayer plus tard.");
 
-                } else {
+                }else {
                     alertNotification(android.R.drawable.ic_delete,"ParseError",error.getMessage());
                 }
             }
