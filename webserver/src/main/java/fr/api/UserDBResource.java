@@ -390,7 +390,7 @@ public class UserDBResource {
     public Response getSalt(@QueryParam("mail") String mail) {
         String salt = dao.getSalt(mail);
         if (salt == null) {
-            return Response.ok().status(Response.Status.NOT_FOUND).build();
+            return Response.ok().status(401).build();
         } else {
             return Response.ok().status(Response.Status.OK).entity(salt).build();
         }
