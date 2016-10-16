@@ -17,6 +17,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
+import javax.ws.rs.core.Response.Status;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -390,7 +391,7 @@ public class UserDBResource {
     public Response getSalt(@QueryParam("mail") String mail) {
         String salt = dao.getSalt(mail);
         if (salt == null) {
-            return Response.ok().status(Response.Status.NOT_FOUND).build();
+        	throw new WebApplicationException(Status.UNAUTHORIZED);
         } else {
             return Response.ok().status(Response.Status.OK).entity(salt).build();
         }
