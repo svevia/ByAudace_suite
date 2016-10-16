@@ -36,7 +36,7 @@ public class UserAuthResource {
     public Response connect(@PathParam("mail") String mail, String mot_de_passe) {
         User user = dao.findByMail(mail);
         if (user == null) {
-            return Response.ok().status(404).build();
+            return Response.ok().status(401).build();
         } else if (user.getMot_de_passe().equals(mot_de_passe)) {
             return Response.ok().status(202).entity(mail).build();
         } else {
@@ -58,7 +58,7 @@ public class UserAuthResource {
     public Response connectGet(@PathParam("mail") String mail, @QueryParam("mot_de_passe") String mot_de_passe) {
         User user = dao.findByMail(mail);
         if (user == null) {
-            return Response.ok().status(404).build();
+            return Response.ok().status(401).build();
         } else if (user.getMot_de_passe().equals(mot_de_passe)) {
             return Response.ok().status(202).entity(mail).build();
         } else {
