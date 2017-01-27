@@ -8,10 +8,23 @@ import java.io.IOException;
 
 import javax.inject.Singleton;
 
+/**
+ * gestion de la BDD : propose une fonction
+ * et dans la cas ou la base n'existe pas encore elle sera crée
+ * la base de donnée est en SQLite
+ * @author asvevi
+ *
+ */
+
 @Singleton
 public class BDDFactory {
     private static DBI dbi = null;
 
+    /**
+     * getDBI() qui retourne la connection à la base de donnée
+     * si la base n'existe pas elle sera crée
+     * @return
+     */
     public static DBI getDbi() {
     	if(!new File("data.db").exists()){//si la BDD n'existe pas
     		try {

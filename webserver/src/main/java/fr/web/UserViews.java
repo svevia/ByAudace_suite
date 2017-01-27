@@ -16,6 +16,11 @@ import javax.ws.rs.core.SecurityContext;
 
 import java.util.List;
 
+/**
+ * page listant les utilisateurs
+ * @author asvevi
+ *
+ */
 @Path("/userdb")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @Produces(MediaType.TEXT_HTML)

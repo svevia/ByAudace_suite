@@ -16,6 +16,12 @@ import fr.api.BDDFactory;
 import fr.api.User;
 import fr.api.UserDao;
 
+/**
+ * Page affichant les statistiques de l'application sur le panel admin
+ * @author asvevi
+ *
+ */
+
 @Path("/statistiques")
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @Produces(MediaType.TEXT_HTML)

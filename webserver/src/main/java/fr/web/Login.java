@@ -23,6 +23,12 @@ import fr.api.BDDFactory;
 import fr.api.User;
 import fr.api.UserDao;
 
+/**
+ * Page de login faisait appel à BasiAuth
+ * @author asvevi
+ *
+ */
+
 @Path("/login")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)

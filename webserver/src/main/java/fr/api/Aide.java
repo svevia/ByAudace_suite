@@ -1,5 +1,9 @@
 package fr.api;
-
+/**
+ * Un utilisateur propose son aide pour la phrase d'un autre utilisateur
+ * L'objet stock donc l'utilisateur proposant son aide, la phrase aidé et la date de l'event
+ *
+ */
 public class Aide {
 
 	private int phrase;

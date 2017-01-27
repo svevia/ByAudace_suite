@@ -8,6 +8,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+/**
+ * Cette class offre la gestion de 2 variables :
+ * -dureeVie qui est la duree de vie d'une phrase avant qu'elle disparaisse de l'appication
+ * -nbrPhrases qui est le nombre de phrases au total accepté dans l'application
+ * Ces variables sont ensuite stockés dans un fichier de config
+ * @author asvevi
+ *
+ */
 public class Gestion {
 	
 	private int dureeVie;

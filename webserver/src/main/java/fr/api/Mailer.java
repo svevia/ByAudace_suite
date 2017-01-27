@@ -4,7 +4,11 @@ import java.security.Security;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
-
+/**
+ * Envoi un ou plusieurs mails mail
+ * @author asvevi
+ *
+ */
 public class Mailer {
 
 

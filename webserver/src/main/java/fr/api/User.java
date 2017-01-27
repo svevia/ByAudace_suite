@@ -11,6 +11,11 @@ import com.google.common.base.Charsets;
 import com.google.common.hash.Hasher;
 import com.google.common.hash.Hashing;
 
+/**
+ * Un utilisateur avec toutes les infos s'y rattachant
+ * @author asvevi
+ *
+ */
 public class User implements Principal {
     final static Logger logger = LoggerFactory.getLogger(User.class);
 

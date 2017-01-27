@@ -1,7 +1,10 @@
 package fr.api;
 
-
-
+/**
+ * Objet mail qui sera envoyé à une ou plusieurs catégorie d'utilisateur
+ * @author asvevi
+ *
+ */
 public class Mail {
 	
 	private String message;

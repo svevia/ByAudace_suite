@@ -2,6 +2,11 @@ package fr.api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * La phrase crée par un utilisateur qui a besoin d'aide
+ * @author asvevi
+ *
+ */
 public class Phrase  {
     final static Logger logger = LoggerFactory.getLogger(Phrase.class);
 

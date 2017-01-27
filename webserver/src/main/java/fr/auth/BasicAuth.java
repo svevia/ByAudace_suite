@@ -1,7 +1,14 @@
 package fr.auth;
 
 import javax.xml.bind.DatatypeConverter;
-
+/**
+ * Decode la base 64 et recupère les données
+ * authent a refaire:
+ * -mot de passe hacher en MD5
+ * -le cookie stock Base64(login:pass(hacher))
+ * @author asvevi
+ *
+ */
 public class BasicAuth {
     public static String[] decode(String auth) {
 
