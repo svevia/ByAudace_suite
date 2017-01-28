@@ -182,39 +182,39 @@ public class MainActivity extends Activity {
                     }
                 }, new Response.ErrorListener() {
 
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        // gestion approfondie des erreurs
+
+                        if (error instanceof TimeoutError || error instanceof NoConnectionError || error instanceof NetworkError) {
+                            alertNotification(android.R.drawable.ic_delete, "Erreur réseau","Vérifiez votre connection Internet.");
+
+                        } else if (error instanceof AuthFailureError) {
+                            alertNotification(android.R.drawable.ic_delete,"Erreur","Identifiant mail ou mot de passe incorrect.");
+
+                        } else if (error instanceof ServerError) {
+                            alertNotification(android.R.drawable.ic_popup_sync, "Maintenance en cours", "Le serveur est actuellement indisponible, veuillez réessayer plus tard.");
+
+                        }else {
+                            alertNotification(android.R.drawable.ic_delete,"ParseError",error.getMessage());
+                        }
+                    }
+
+                }){
             @Override
-            public void onErrorResponse(VolleyError error) {
-
-                // gestion approfondie des erreurs
-
-                if (error instanceof TimeoutError || error instanceof NoConnectionError || error instanceof NetworkError) {
-                    alertNotification(android.R.drawable.ic_delete, "Erreur réseau","Vérifiez votre connection Internet.");
-
-                } else if (error instanceof AuthFailureError) {
-                    alertNotification(android.R.drawable.ic_delete,"Erreur","Identifiant mail ou mot de passe incorrect.");
-
-                } else if (error instanceof ServerError) {
-                    alertNotification(android.R.drawable.ic_popup_sync, "Maintenance en cours", "Le serveur est actuellement indisponible, veuillez réessayer plus tard.");
-
-                }else {
-                    alertNotification(android.R.drawable.ic_delete,"ParseError",error.getMessage());
-                }
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
+                System.out.println(params.toString());
+                return params;
             }
-
-        }){
-    @Override
-    public Map<String, String> getHeaders() throws AuthFailureError {
-        Map<String, String> params = new HashMap<>();
-        params.put("Authorization", "basic " + Base64.encodeToString((login + ":" + mdp).getBytes(), Base64.NO_WRAP));
-        System.out.println(params.toString());
-        return params;
+        };
+        queue.add(stringRequest);
     }
-};
-queue.add(stringRequest);
-        }
 
 
-public void checkButtonClicked(View view){
+    public void checkButtonClicked(View view){
 
         String login = ""+loginText.getText();
         String password = ""+passwordText.getText();
@@ -317,6 +317,10 @@ public void checkButtonClicked(View view){
     }
 
 
+    /**
+     * La méthode mdpOublie permet à l'utilisateur de réinitialiser son mot de passe en cas de perte, vol...
+     * Le serveur lui enverra un mail contenant son nouveau mot de passe.
+     */
     public void mdpOublie(){
         queue = Volley.newRequestQueue(this);
 

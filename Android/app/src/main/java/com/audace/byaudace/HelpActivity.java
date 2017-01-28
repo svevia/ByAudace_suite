@@ -74,10 +74,6 @@ public class HelpActivity extends Activity{
         setContentView(R.layout.activity_help);
         categorie = (Spinner) findViewById(R.id.spinner);
 
-
-        /*ArrayAdapter adapter = ArrayAdapter. createFromResource(this, R.array.spinner, android.R.layout.simple_spinner_item) ;
-        categorie.setAdapter(adapter);*/
-
         SpinnerAdapter adapter = new SpinnerAdapter(HelpActivity.this, android.R.layout.simple_list_item_1);
         List<String> Lines = Arrays.asList(getResources().getStringArray(R.array.spinner));
         adapter.addAll(Lines);

@@ -177,7 +177,10 @@ public class ChoiceActivity extends Activity {
     }
 
 
-
+    /**
+     * La méthode alertBeta permet d'envoyer un mail à plusieurs adresses mail d'un coup.
+     * Elle est utilisée afin de recueillir les retours des utilisateurs sur la beta de l'application.
+     */
     public void alertBeta(View view){
         final RequestQueue queue = Volley.newRequestQueue(this);
 

@@ -218,20 +218,6 @@ public class JpeuxAiderActivity extends Activity  {
                     }
                 });
 
-
-                // On ne peut dérouler qu'une phrase à la fois
-                /*
-                if (history == -1) {
-                    ouvrirPhrase(position);
-                    history = position;
-
-                } else {
-                    if (history == position) {
-                        fermerPhrase(position);
-                        history = -1;
-                    }
-                }*/
-
                 // On déroule la phrase voulue, si une autre était ouverte, elle est fermée.
                 if(history == -4242){
                     ouvrirPhrase(position);
@@ -318,31 +304,6 @@ public class JpeuxAiderActivity extends Activity  {
                 .setCancelable(false)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
-                        // redirection vers l'activité d'envoi du mail
-                        // ----------------------------------------------------------------------------------------------------------------
-                        // ----------------------------------------------------------------------------------------------------------------
-                        /*
-                        Intent i = new Intent(Intent.ACTION_SEND);
-                        i.setType("message/rfc822");
-                        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{bonjour.getMail()});
-                        i.putExtra(Intent.EXTRA_SUBJECT, "Mise en relation ByAudace");
-                        i.putExtra(Intent.EXTRA_TEXT, "Bonjour " + bonjour.getPrenom() +",\n\n\n" +
-                                "Mon nom est " + prenom + " " + nom + ", j'ai pris connaissance de votre besoin : \n\n" + popeye.getBesoin() + "\n\net vous propose mon aide afin de le résoudre.\n" +
-                                "Merci de me contacter en retour de ce mail (mon adresse est la suivante : " +  login + ").\n\n\n" +
-                                "Bonne journée !");
-                        try {
-                            startActivity(Intent.createChooser(i, "Envoi du mail..."));
-                        } catch (android.content.ActivityNotFoundException ex) {
-                            Toast.makeText(JpeuxAiderActivity.this, "Aucune application mail n'est installée.", Toast.LENGTH_SHORT).show();
-                        }
-                        */
-                        // ----------------------------------------------------------------------------------------------------------------
-                        // ----------------------------------------------------------------------------------------------------------------
-
-
-                        // nouveau mail
-                        // POST sur /v1/userdb/send
 
                         String message = "Bonjour " + bonjour.getPrenom() +",<br><br><br>" +
                                 "Mon nom est " + prenom + " " + nom + ", j'ai pris connaissance de votre besoin : <br><br>" + popeye.getBesoin() + "<br><br>et vous propose mon aide afin de le résoudre.<br>" +
@@ -490,7 +451,11 @@ public class JpeuxAiderActivity extends Activity  {
 
     }
 
-
+    /**
+     * La méthode alertSignalement permet aux utilisateurs de signaler une phrase qui ne serait pas
+     * en accord avec les règles de publication de contenu (racisme, incitation à la haine...).
+     * Le signalement de la phrase est visible depuis le panel d'administration.
+     */
     public void alertSignalement(final Phrase phrase){
 
         final String login = intent.getStringExtra("user_mail");

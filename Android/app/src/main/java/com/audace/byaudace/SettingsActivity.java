@@ -17,6 +17,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * L'activité SettingsActivity contient tous les paramètres sur lesquels l'utilisateur peut influer.
+ * Elle contient actuellement l'accès à l'activité des informations personnelles et l'activation
+ * du système de notifications.
+ */
 public class SettingsActivity extends Activity {
 
     public Switch notifs;

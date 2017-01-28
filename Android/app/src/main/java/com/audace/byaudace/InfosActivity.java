@@ -24,6 +24,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * InfosActivity est l'activité d'informations, où l'utilisateur peut accéder à toutes les informations
+ * qu'il a fournies à l'application (nom, prénom, adresse mail, numéro de téléphone et mot de passe) ; il
+ * peut également les modifier depuis cette activité.
+ */
 public class InfosActivity extends Activity {
 
     private static final String URL = Configuration.SERVER + "/v1/userdb/editme";
